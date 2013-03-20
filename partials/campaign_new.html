@@ -1,0 +1,67 @@
+<header>
+  <a href="#/dashboard" class="btn left">cancel</a>
+  <a ng-click='advanceStep()' ng-hide='currentStep >= (steps.length-1)' class="btn right">Next Step</a>
+  <a href="#/dashboard" ng-show='currentStep >= (steps.length-1)' class="btn right">Save Changes</a>
+  <h2 ng-click="toggleHeaderDropdown()">Edit Campaign #1: Step {{steps[currentStep]+1}}</h2>
+  <nav class="header_dropdown closed">
+    <ol>
+      <li ng-repeat='n in steps' ng-click='changeStep(n)'>Step {{n+1}}</li>
+      <li><a href="#/dashboard">Save Changes</a></li>
+    </ol>
+  </nav>
+</header>
+
+<div class="scroller">
+  <h2>{{openedCampaign.name}}</h2>
+  <section ng-switch on='currentStep'>
+    <div ng-switch-when='0'>
+      <ol>
+        <li ng-repeat="question in openedCampaign.questionsList">
+          {{question}}
+        </li>
+      </ol>
+    </div>
+    <div ng-switch-when='1'>
+      <form method="post" action="">
+        <input type="text" name="title" value="" placeholder="Gift Title" />
+        <input type="text" name="description" value="" placeholder="Description"/>
+        <input type="text" name="terms" value="" placeholder="Terms and Conditions"/>
+      </form>
+    </div>
+    <div ng-switch-when='2'>
+      <ul>
+        <li>Facebook Account<small class="status">connected</small></li>
+        <li>Twitter Account<small class="status">connected</small></li>
+      </ul>
+      <button class="dotted">Add new social account</button>
+    </div>
+    
+    <div ng-switch-when='3'>
+      <label for="emails">Send email invitations to others to help manage this campaign.</label>
+      <input type="text" name="name" value="" placeholder="name"/>
+      <input type="email" name="email" value="" placeholder="email"/>
+      <fieldset>
+        <input type="radio" name="permission" id="read"/>
+        <label for="read">View Analytics</label>
+        <input type="radio" name="permission" id="readwrite"/>
+        <label for="readwrite">View and edit details</label>
+      </fieldset>
+      <button class="new_invite">Send</button>
+      <hr>
+      <h2>Invites sent:</h2>
+      <ul>
+        <li><button>resend</button>John Doe<small class="status">pending...</small></li>
+        <li>Jane Roberts<small class="status">accepted</small></li>
+      </ul>
+    </div>
+    
+    <div ng-switch-when='4'>
+      <label for="url">Choose a URL for your access point</label>
+      <input type="text" name="url" id="url" value="fdbk.com/business_name"/>
+      <label for="access_points">or choose a previous access point.</label>
+      <select>
+        <option>407 9th St, Brooklyn, NY</option>
+      </select>
+    </div>
+  </section>
+</div>
