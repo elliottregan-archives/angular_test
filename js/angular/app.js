@@ -13,5 +13,9 @@ var appmodule = angular.module('appmodule', ['ui']).
         templateUrl: 'new.html',
         controller: dashCtr
       }).
+      when('/inbox', {
+        templateUrl: 'partials/inbox.html',
+        controller: inboxCtr
+      }).
       otherwise({redirectTo: '/dashboard'});
 }]);

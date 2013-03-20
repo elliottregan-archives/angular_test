@@ -23,14 +23,11 @@ appmodule.directive('deepnav', function ($http, $templateCache, $route, $anchorS
               $compile(partial.element.contents())(partial.scope);
               parentElm.append(partial.element);
               partial.scope.$emit('$viewContentLoaded');
-              console.log(partial.element[0].id);
               currentPage = partial.element[0].id
-              console.log(currentPage);
             }
             
             //Create just an element for a partial
             function createPartial(template) {
-              console.log(currentPage);
               if (currentPage != "two") {
                 return {
                   element: angular.element('<div id="two" class="page level_two">').html(template)
