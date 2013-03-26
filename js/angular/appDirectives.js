@@ -13,7 +13,12 @@ appmodule.directive('deepnav', function ($http, $templateCache, $route, $anchorS
             update();
             
             var currentLayer = '';
-            var lastLayer = 'none';
+            if (currentLayer != "main") {
+              var lastLayer = 'main';
+            }
+            else {
+              lastLayer = '';
+            }
             var layerSwitch = '';
             
             //'Angularize' a partial: Create scope/controller, $compile element, insert into dom
