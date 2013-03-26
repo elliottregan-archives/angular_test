@@ -2,20 +2,24 @@ var appmodule = angular.module('appmodule', ['ui']).
   config(['$routeProvider', function($routeProvider) {
     $routeProvider.
       when('/dashboard', {
-        templateUrl: 'view1.html', 
-        controller: dashCtr
+        templateUrl: 'dashboard.html', 
+        controller: dashCtr,
+        layer: 'main'
       }).
       when('/edit/:campaignId', {
-        templateUrl: 'view2.html',
-        controller: campaignCtr
+        templateUrl: 'edit.html',
+        controller: campaignCtr,
+        layer: 'layer1'
       }).
       when('/new', {
         templateUrl: 'new.html',
-        controller: dashCtr
+        controller: dashCtr,
+        layer: 'layer1'
       }).
       when('/inbox', {
-        templateUrl: 'partials/inbox.html',
-        controller: inboxCtr
+        templateUrl: 'inbox.html',
+        controller: inboxCtr,
+        layer: 'main'
       }).
       otherwise({redirectTo: '/dashboard'});
 }]);

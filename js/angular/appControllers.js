@@ -26,7 +26,6 @@ function appCtr($scope, $routeParams, $location, $route) {
   
   $scope.toggleHeaderDropdown = function() {
     $('header nav').toggleClass('closed');
-    console.log('clicky');
   }
   
   $scope.steps = [0,1,2,3,4];
@@ -70,7 +69,6 @@ function appCtr($scope, $routeParams, $location, $route) {
     $('#page_01').addClass('slide_left');
     $('#page_02').addClass('focus');
     $('#page_02').removeClass('next');
-    console.log('click');
   };
   
   goLevelOne = function() {
@@ -78,7 +76,6 @@ function appCtr($scope, $routeParams, $location, $route) {
     $('#page_01').addClass('focus');
     $('#page_02').removeClass('focus');
     $('#page_02').addClass('slide_right');
-    console.log('click');
   };
   
 };

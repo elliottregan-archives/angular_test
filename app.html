@@ -33,10 +33,10 @@
 </head>
 <body>
   <main>
-    <div deepnav in-class="in" out-class="out"></div>
+    <div deepnav></div>
     <section id="page_00" class="page last"></section>
     
-    <script type=text/ng-template id=view1.html>
+    <script type=text/ng-template id=dashboard.html>
       <header>
         <button ui-event="{click : 'toggleSidebar()'}" class="btn right">menu</button>
         <h1>{{title}}</h1>
@@ -64,7 +64,52 @@
        page three!
     </script>
     
-    <script type=text/ng-template id=view2.html>
+    <script type=text/ng-template id=inbox.html>
+       <header>
+         <button ui-event="{click : 'toggleSidebar()'}" class="btn right">menu</button>
+         <h1>{{title}}</h1>
+       </header>
+       <div class="scroller">
+         <ul>
+           <li ng-repeat="instance in instances" class="instance">
+             <aside class="btn_set vert">
+               <button class="btn">add note</button>
+               <button class="btn">important</button>
+             </aside>
+             <article>
+               <h3>{{instance.author}}</h3>
+               <time datetime="2013-02-13T01:15-05:00">{{instance.time}}</time>
+               <p>
+                 <button ng-click="hearIt(instance)" class="btn heard heard_{{instance.heard}}">heard!</button>
+                 <button class="btn heard" ui-if="comment.author != 'You'">share</button>
+                 {{instance.text}}
+               </p>
+               <ul class="replies">
+                 <li class="reply" ng-repeat="comment in instance.comments">
+                   <article>
+                     <h4>{{comment.author}}</h4>
+                     <time datetime="2013-02-13T01:15-05:00">{{comment.time}}</time>
+                     <p>
+                       <button ng-click="hearIt(comment)" class="btn heard heard_{{comment.heard}}" ui-if="comment.author != 'You'">heard!</button>
+                       <button class="btn heard" ui-if="comment.author != 'You'">share</button>
+                       {{comment.text}}
+                     </p>
+                   </article>
+                 </li>
+                 <li>
+                   <form ng-submit="addReply(newCommentText, instance.comments)">
+                     <input type="text" name="new_comment" ng-model="newCommentText" />
+                     <button class="btn"type="submit">reply</button>
+                   </form>
+                 </li>
+               </ul>
+             </article>
+           </li>  
+         </ul>
+       </div>
+    </script>
+    
+    <script type=text/ng-template id=edit.html>
       <section id="page_02">
       
         <header>
