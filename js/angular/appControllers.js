@@ -24,25 +24,127 @@ function appCtr($scope, $routeParams, $location, $route) {
     $scope.panel=panelName;
   };
   
+  $scope.chooseQType = function() {
+    $scope.buildCampaign = "yeah!";
+    $scope.togglePanel();
+  };
+  
+  
+  
+  $scope.buildCampaign = {
+    id: 'camp0',
+    name: 'Campaign #1',
+    description: 'This is the description of the campaign.',
+    questionsList: [
+      {
+        id: 'q01',
+        type: 'text',
+        text: 'How likely are you to recommend this establishment to your friends?',
+        answers: [
+        {
+          id: 'a01',
+          text: "Answer 1"
+        },
+        {
+          id: 'a02',
+          text: "Answer 2"
+        },
+        {
+          id: 'a03',
+          text: "Answer 3"
+        }
+      ]},
+      {
+        id: 'q01',
+        type: 'text',
+        text: 'How likely are you to recommend this establishment to your friends?',
+        answers: []
+      },
+      {
+        id: 'q01',
+        type: 'text',
+        text: 'How likely are you to recommend this establishment to your friends?',
+        answers: []
+      }
+    ],
+    permissions: 
+      {
+        accepted: [
+          {
+            first: 'John',
+            last: 'Doe',
+            email: 'jdoe@mail.com',
+            date_sent: '10/2/2013',
+            level: 'view'
+          }
+        ],
+        pending: [
+          {
+            first: 'Jane',
+            last: 'Roberts',
+            email: 'jroberts@mail.com',
+            date_sent: '10/4/2013',
+            level: 'view edit'
+          },
+          {
+            first: 'Arnold',
+            last: 'Candy',
+            email: 'acandy@mail.com',
+            date_sent: '10/4/2013',
+            level: 'view edit'
+          }
+        ]
+      }
+    
+  };
+  
+  $scope.sendInvite = function(first_input, last_input, email_input, level_input, contact_list) {
+    contact_list.push({
+      first: first_input,
+      last: last_input,
+      email: email_input,
+      date_sent: getDate(),
+      level: level_input
+    });
+  };  
+  
+  $scope.addAnswer = function(input_text, answers) {
+    answers.push({
+      id: 'a01',
+      text: input_text
+    });
+    console.log($scope.newAnswerText);
+    this.newAnswerText = '';
+  };
+  
+  $scope.addQuestion = function(input_text, questions) {
+    questions.push({
+      id: 'q01',
+      type: 'text',
+      text: 'How likely are you to recommend this establishment to your friends?',
+      answers: []
+    });
+    console.log($scope.newAnswerText);
+    this.newAnswerText = '';
+  };
+  
   $scope.toggleHeaderDropdown = function() {
     $('header nav').toggleClass('closed');
   }
   
   $scope.steps = [0,1,2,3,4];
   
-  $scope.currentStep = 0;
+  $scope.currentStep = 3;
   
   $scope.changeStep = function(step) {
     $scope.currentStep = step;
     $scope.toggleHeaderDropdown();
-    console.log($scope.currentStep);
   }
   
   $scope.advanceStep = function() {
     if ($scope.currentStep < $scope.steps.length-1) {
       $scope.currentStep = $scope.currentStep+1;
     };
-    console.log($scope.currentStep >= ($scope.steps.length-1))
   }
   
   $scope.panel = 'default';
@@ -116,7 +218,8 @@ function campaignCtr($scope, $routeParams) {
       q03: 'Private Comments'
     }
   };
-}
+  
+};
 
 function inboxCtr($scope, $routeParams) {
     

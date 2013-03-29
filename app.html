@@ -61,7 +61,97 @@
     </script>
     
     <script type=text/ng-template id=new.html>
-       page three!
+       <section id="new">
+         <header>
+           <a href="#/dashboard" onclick="goLevelOne()" class="btn left">cancel</a>
+           <a ng-click='advanceStep()' ng-hide='currentStep >= (steps.length-1)' class="btn right">Next Step</a>
+           <a href="#/dashboard" ng-show='currentStep >= (steps.length-1)' class="btn right">Save Changes</a>
+           <h2 ng-click="toggleHeaderDropdown()">Create New Campaign: Step {{steps[currentStep]+1}}</h2>
+           <nav class="header_dropdown closed">
+             <ol>
+               <li ng-repeat='n in steps' ng-click='changeStep(n)'>Step {{n+1}}</li>
+               <li><a href="#/dashboard">Save Changes</a></li>
+             </ol>
+           </nav>
+         </header>
+         
+         <div class="scroller">
+           <h2>{{buildCampaign.name}}</h2>
+           <section ng-switch on='currentStep'>
+             <div ng-switch-when='0'>
+               <button ng-click="togglePanel('new_question')" class="btn">+ New Question</button>
+               <ol>
+                 <li ng-repeat="question in buildCampaign.questionsList">
+                   <div data-qtype='mcSingleSelect'>
+                     
+                     <h3>{{question.text}}</h3>
+                     <ul class='answers'>
+                       <li ng-repeat="answer in question.answers">{{answer.text}}</li>
+                     </ul>
+                     
+                     <form ng-submit="addAnswer(newAnswerText, question.answers)">
+                       <input type='text' name='{{question.id}}_question' placeholder='add your question here.' ng-model="newAnswerText"/>
+                       <button id='{{question.id}}_add_answer' type="submit" class='btn'>+ add new answer</button>
+                     </form>
+                     
+                   </div>
+                 </li>
+               </ol>
+             </div>
+             <div ng-switch-when='1'>
+               <form method="post" action="">
+                 <input type="text" name="title" value="" placeholder="Gift Title" />
+                 <input type="text" name="description" value="" placeholder="Description"/>
+                 <input type="text" name="terms" value="" placeholder="Terms and Conditions"/>
+               </form>
+             </div>
+             <div ng-switch-when='2'>
+               <ul>
+               </ul>
+               <button class="btn" ng-click="togglePanel(social_accounts)">Add new media account</button>
+             </div>
+             
+             <div ng-switch-when='3'>
+               <form ng-submit="sendInvite(first, last, invite_email, level, buildCampaign.permissions.pending)">
+                 <label for="emails">Send email invitations to others to help manage this campaign.</label>
+                 <input ng-model="first" type="text" name="name" placeholder="first name"/>
+                 <input ng-model="last" type="text" name="name" placeholder="last name"/>
+                 <input ng-model="invite_email" type="email" name="email" placeholder="email"/>
+                 <fieldset>
+                   <input ng-model="level" type="radio" name="level" value="read" id="read"/>
+                   <label for="read">View Analytics</label>
+                   <input ng-model="level" type="radio" name="level" value="read,write" id="readwrite"/>
+                   <label for="readwrite">View and edit details</label>
+                 </fieldset>
+                 <button class="new_invite btn">Send</button>
+               </form>
+               <hr>
+               <h2>Permissions set:</h2>
+               <ul>
+                 <li ng-repeat="person in buildCampaign.permissions.accepted">
+                   <button class="btn">resend</button>{{person.first}} {{person.last}} <small class="status">permission level: {{person.level}}</small>
+                 </li>
+               </ul>
+               <h2>Pending Invites:</h2>
+               <ul>
+                 <li ng-repeat="person in buildCampaign.permissions.pending">
+                   {{person.first}} {{person.last}} ({{person.email}}, {{person.level}}) <small class="status">pending...</small><button class="btn right clear">resend</button>
+                 </li>
+               </ul>
+             </div>
+             
+             <div ng-switch-when='4'>
+               <label for="url">Choose a URL for your access point</label>
+               <input type="text" name="url" id="url" value="fdbk.com/business_name"/>
+               <label for="access_points">or choose a previous access point.</label>
+               <select>
+                 <option>407 9th St, Brooklyn, NY</option>
+               </select>
+             </div>
+           </section>
+         </div>
+       
+       </section>
     </script>
     
     <script type=text/ng-template id=inbox.html>
@@ -195,12 +285,52 @@
   
   <aside id="palette" ng-controller="panelCtr" view="panel">
     <header>
-      <button ui-event="{click : 'togglePanel()'}" class="right">close</button>
+      <button ui-event="{click : 'chooseQType()'}" class="btn right">select</button>
+      <button ui-event="{click : 'togglePanel()'}" class="btn left">cancel</button>
       <h2>panel</h2>
     </header>
     <div class="content">
-      <div ng-show="panel=='panel1'">This is panel 1.</div>
+      <div ng-show="panel=='new_question'">
+        <ul class="qtype_list">
+          <li data-qtype='mcMultiSelect' class="qtype">
+            <input type="radio" name="qtype" id="qtype_mcMultiSelect" />
+            <label for="qtype_mcMultiSelect">
+              <h2>Multiple Choice: Multi-select</h2>
+              <p>A question followed by a series of possible answers. Any number can be chosen.</p>
+              <legend>Choose several options below:</legend>
+                <input type="checkbox" name="a_01" value="a_01" id="a_01" /><label for="a_01">Answer 1</label><br />
+                <input type="checkbox" name="a_01" value="a_01" id="a_02" /><label for="a_02">Answer 2</label><br />
+                <input type="checkbox" name="a_01" value="a_01" id="a_03" /><label for="a_03">Answer3</label><br />
+            </label>
+          </li>
+          <li data-qtype='mcSingleSelect' class="qtype">
+            <input type="radio" name="qtype" id="qtype_mcSingleSelect" />
+            <label for="qtype_mcSingleSelect">
+              <h2>Multiple Choice: Single-select</h2>
+              <p>A question followed by a series of possible answers. Only one may be chosen.</p>
+              <legend>Choose one options below:</legend>
+                <input type="radio" name="a_01" value="a_01" id="a_21" /><label for="a_21">Answer 1</label><br />
+                <input type="radio" name="a_01" value="a_01" id="a_22" /><label for="a_22">Answer 2</label><br />
+                <input type="radio" name="a_01" value="a_01" id="a_23" /><label for="a_23">Answer3</label><br />
+            </label>
+          </li>
+          <li data-qtype='dropdown' class="qtype">
+            <input type="radio" name="qtype" value="dropdown" id="qtype_dropdown" />
+            <label for="qtype_dropdown">
+              <h2>Dropdown</h2>
+              <p>Choose an answer from a dropdown menu.</p>
+              <label for="select">Choose an option form the dropdown:</label><br>
+              <select id="select">
+                <option>!</option>
+                <option>!!</option>
+                <option>!!!</option>
+              </select>
+            </label>
+          </li>
+        </ul>
+      </div>
       <div ng-show="panel=='panel2'">This is panel 2.</div>
+      <div ng-show="panel=='social_accounts'">This is where you would select a social account to connect.</div>
     </div>
   </aside>
   

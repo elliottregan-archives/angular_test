@@ -153,12 +153,16 @@ header h1, header h2 {
   text-align: center;
 }
 
-header .btn.left {
+.btn.left {
   float: left;
 }
 
-header .btn.right {
+.btn.right {
   float: right;
+}
+
+.clear {
+  clear: both;
 }
 
 .header_dropdown {
@@ -247,7 +251,7 @@ nav a {
 
 #palette .content {
   position: absolute;
-  top: 30px;
+  top: 40px;
   bottom: 0;
   width: 100%;
   background-color: #dfe0df;
@@ -369,6 +373,21 @@ nav a {
 
 .clear {
   clear: both;
+}
+
+/* @end */
+
+/* @group Question Type Selector Styles */
+
+.qtype > input {
+  float: left;
+  margin: 20px;
+  display: block;
+}
+
+.qtype > label {
+  display: block;
+  margin-left: 60px;
 }
 
 /* @end */
