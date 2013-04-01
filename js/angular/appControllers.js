@@ -35,7 +35,18 @@ function appCtr($scope, $routeParams, $location, $route) {
     $scope.togglePanel();
   };
   
-  
+  $scope.campaignList = [
+    {
+      id: 'camp0',
+      name: 'Campaign #1',
+      description: 'This is the description of the campaign.'
+    },
+    {
+      id: 'camp1',
+      name: 'Campaign #2',
+      description: 'This is the description of the campaign.'
+    }
+  ];
   
   $scope.buildCampaign = {
     id: 'camp0',
@@ -46,13 +57,19 @@ function appCtr($scope, $routeParams, $location, $route) {
     location: '',
     discoverable: false,
     questionsList: [
-      {
-        id: 'q01',
-        type: 'text',
-        text: null,
-        answers: []
-      }
+//      {
+//        id: 'q01',
+//        type: 'text',
+//        text: null,
+//        answers: []
+//      }
     ],
+    reward:
+      {
+        title: '',
+        description: '',
+        terms: ''
+      },
     permissions: 
       {
         accepted: [
@@ -124,7 +141,7 @@ function appCtr($scope, $routeParams, $location, $route) {
   
   $scope.toggleHeaderDropdown = function() {
     $('header nav').toggleClass('closed');
-  }
+  };
   
   $scope.steps = [0,1,2,3,4];
   
@@ -133,13 +150,19 @@ function appCtr($scope, $routeParams, $location, $route) {
   $scope.changeStep = function(step) {
     $scope.currentStep = step;
     $scope.toggleHeaderDropdown();
-  }
+  };
   
   $scope.advanceStep = function() {
     if ($scope.currentStep < $scope.steps.length-1) {
       $scope.currentStep = $scope.currentStep+1;
     };
-  }
+    console.log($scope.buildCampaign.reward);
+  };
+  
+  $scope.activateCampaign = function() {
+  console.log($scope.campaignList);
+    $scope.campaignList.push($scope.buildCampaign);
+  };
   
   $scope.panel = 'default';
   
@@ -180,20 +203,7 @@ function dashCtr($scope, $routeParams) {
     
   $scope.text = "This is the dashboard!";
   
-  $scope.title = 'Dashboard';
-  
-  $scope.campaignList = [
-    {
-      id: 'camp0',
-      name: 'Campaign #1',
-      description: 'This is the description of the campaign.'
-    },
-    {
-      id: 'camp1',
-      name: 'Campaign #2',
-      description: 'This is the description of the campaign.'
-    }
-  ];  
+  $scope.title = 'Dashboard';  
   
 };
 
