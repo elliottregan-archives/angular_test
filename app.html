@@ -43,7 +43,28 @@
       </header>
       
       <section class="scroller">
-        <a href="#/new" class="btn">+ New Campaign</a>
+        <button href="#/new" class="btn" ng-click="start_new = true">+ New Campaign</button>
+        <div ng-show="start_new">
+          <form ng-submit="createCampaign(new_campaign_title, is_local, new_campaign_locale, discoverable, buildCampaign)">
+            <input type="text" name="new_campaign_title" placeholder="Title for new campaign" ng-model="new_campaign_title"/>
+            <fieldset>
+              <input id="is_local_true" type="radio" name="is_local" ng-model="is_local" value="true" />
+              <label for="is_local_true">Has a location</label>
+              <input id="is_local_false" type="radio" name="is_local" ng-model="is_local" value="false" />
+              <label for="is_local_false">Does not have a location</label>
+            </fieldset>
+            
+            <fieldset ng-show="is_local">
+              <input type="text" name="new_campaign_local" ng-model="new_campaign_locale" placeholder="Location for campaign" /><br>
+              
+              <input id="discoverable" ng-model="discoverable" type="checkbox" name="discoverable" value="true" checked=checked />
+              <label for="discoverable">This campaign is discoverable by users nearby.</label>
+            </fieldset>
+            
+            <button class="btn" type="submit">Save and edit details</button>
+            <button class="btn" ng-click="start_new = false" type="button">cancel</button>
+          </form>
+        </div>
         <ul id="campaign_list">
           <li ng-repeat="campaign in campaignList">
             <div class="campaign_info btn_set vert">
@@ -76,17 +97,20 @@
          </header>
          
          <div class="scroller">
-           <h2>{{buildCampaign.name}}</h2>
+           <h2>{{buildCampaign.title}}</h2>
            <section ng-switch on='currentStep'>
              <div ng-switch-when='0'>
                <button ng-click="togglePanel('new_question')" class="btn">+ New Question</button>
                <ol>
                  <li ng-repeat="question in buildCampaign.questionsList">
-                   <div data-qtype='mcSingleSelect'>
-                     
-                     <h3>{{question.text}}</h3>
+                   <!--Start 'mcSingleSelect' Template-->
+                   <div ng-show="question.type == 'mcSingleSelect'">
+                     <h3>Multiple-Choice: Single-Select</h3>
+                     <input type="text" name="question_{{question.id}}" ng-model="question.text" placeholder="Enter your question here." />
                      <ul class='answers'>
-                       <li ng-repeat="answer in question.answers">{{answer.text}}</li>
+                       <li ng-repeat="answer in question.answers">
+                         <input type="text" name="answer_{{question.id}}{{answer.id}}" ng-model="answer.text" />
+                       </li>
                      </ul>
                      
                      <form ng-submit="addAnswer(newAnswerText, question.answers)">
@@ -95,6 +119,58 @@
                      </form>
                      
                    </div>
+                   <!--End 'mcSingleSelect' Template-->
+                   
+                   <!--Start 'mcSingleSelect' Template-->
+                   <div ng-show="question.type == 'mcMultiSelect'">
+                     <h3>Multiple-Choice: Multi-Select</h3>
+                     <input type="text" name="question_{{question.id}}" ng-model="question.text" placeholder="Enter your question here." />
+                     <ul class='answers'>
+                       <li ng-repeat="answer in question.answers">
+                         <input type="text" name="answer_{{question.id}}{{answer.id}}" ng-model="answer.text" />
+                       </li>
+                     </ul>
+                     
+                     <form ng-submit="addAnswer(newAnswerText, question.answers)">
+                       <input type='text' name='{{question.id}}_question' placeholder='add your question here.' ng-model="newAnswerText"/>
+                       <button id='{{question.id}}_add_answer' type="submit" class='btn'>+ add new answer</button>
+                     </form>
+                   </div>
+                   <!--End 'mcMultiSelect' Template-->
+                   
+                   <!--Start 'dropdown' Template-->
+                   <div ng-show="question.type == 'dropdown'">
+                     <h3>Dropdown</h3>
+                     <input type="text" name="question_{{question.id}}" ng-model="question.text" placeholder="Enter your question here." />
+                     <ul class='answers'>
+                       <li ng-repeat="answer in question.answers">
+                         <input type="text" name="answer_{{question.id}}{{answer.id}}" ng-model="answer.text" />
+                       </li>
+                     </ul>
+                     
+                     <form ng-submit="addAnswer(newAnswerText, question.answers)">
+                       <input type='text' name='{{question.id}}_question' placeholder='add your question here.' ng-model="newAnswerText"/>
+                       <button id='{{question.id}}_add_answer' type="submit" class='btn'>+ add new answer</button>
+                     </form>
+                   </div>
+                   <!--End 'dropdown' Template-->
+                   
+                   <!--Start 'text' Template-->
+                   <div ng-show="question.type == 'text'">
+                     <input type="text" name="question_{{question.id}}" ng-model="question.text" placeholder="Enter your question here." />
+                     <ul class='answers'>
+                       <li ng-repeat="answer in question.answers">
+                         <input type="text" name="answer_{{question.id}}{{answer.id}}" ng-model="answer.text" />
+                       </li>
+                     </ul>
+                     
+                     <form ng-submit="addAnswer(newAnswerText, question.answers)">
+                       <input type='text' name='{{question.id}}_question' placeholder='add your question here.' ng-model="newAnswerText"/>
+                       <button id='{{question.id}}_add_answer' type="submit" class='btn'>+ add new answer</button>
+                     </form>
+                   </div>
+                   <!--End 'mcMultiSelect' Template-->
+                   
                  </li>
                </ol>
              </div>
@@ -285,15 +361,15 @@
   
   <aside id="palette" ng-controller="panelCtr" view="panel">
     <header>
-      <button ui-event="{click : 'chooseQType()'}" class="btn right">select</button>
+      <button ui-event="{click : 'chooseQType(qtype, buildCampaign)'}" class="btn right">select</button>
       <button ui-event="{click : 'togglePanel()'}" class="btn left">cancel</button>
       <h2>panel</h2>
     </header>
-    <div class="content">
+    <div class="content scroller">
       <div ng-show="panel=='new_question'">
         <ul class="qtype_list">
           <li data-qtype='mcMultiSelect' class="qtype">
-            <input type="radio" name="qtype" id="qtype_mcMultiSelect" />
+            <input type="radio" name="qtype" id="qtype_mcMultiSelect" ng-model="qtype" value="mcMultiSelect" />
             <label for="qtype_mcMultiSelect">
               <h2>Multiple Choice: Multi-select</h2>
               <p>A question followed by a series of possible answers. Any number can be chosen.</p>
@@ -304,7 +380,7 @@
             </label>
           </li>
           <li data-qtype='mcSingleSelect' class="qtype">
-            <input type="radio" name="qtype" id="qtype_mcSingleSelect" />
+            <input type="radio" name="qtype" id="qtype_mcSingleSelect" ng-model="qtype" value="mcSingleSelect" />
             <label for="qtype_mcSingleSelect">
               <h2>Multiple Choice: Single-select</h2>
               <p>A question followed by a series of possible answers. Only one may be chosen.</p>
@@ -315,7 +391,7 @@
             </label>
           </li>
           <li data-qtype='dropdown' class="qtype">
-            <input type="radio" name="qtype" value="dropdown" id="qtype_dropdown" />
+            <input type="radio" name="qtype" value="dropdown" id="qtype_dropdown"  ng-model="qtype" value="dropdown" />
             <label for="qtype_dropdown">
               <h2>Dropdown</h2>
               <p>Choose an answer from a dropdown menu.</p>

@@ -120,6 +120,8 @@ main {
 
 .slide_left {
   -webkit-transform: translateX(-80%);
+  -moz-transform: translateX(-80%);
+  transform: translateX(-80%);
   opacity: .8;
 }
 
@@ -395,21 +397,52 @@ nav a {
 /* Put your css in here */
   
 @-webkit-keyframes in {
-  from { -webkit-transform: translateX(-100%); }
-  to { -webkit-transform: translateX(0%); }
+  from { 
+    -webkit-transform: translateX(-100%);
+    -moz-transform: translateX(-100%);
+    transform: translateX(-100%);
+  }
+  to { 
+    -webkit-transform: translateX(0%);
+    -moz-transform: translateX(0%);
+    transform: translateX(0%);
+  }
 }
 @-webkit-keyframes out {
-  from { -webkit-transform: translateX(0%); }
-  to { -webkit-transform: translateX(-100%); }
+  from {
+    -webkit-transform: translateX(0%);
+    -moz-transform: translateX(0%);
+    transform: translateX(0%);
+  }
+  to {
+    -webkit-transform: translateX(-100%);
+    -moz-transform: translateX(-100%);
+    transform: translateX(-100%);
+  }
 }
 
 @-webkit-keyframes in_two {
-  from { -webkit-transform: translateX(100%); }
-  to { -webkit-transform: translateX(0%); }
+  from { 
+    -webkit-transform: translateX(100%);
+    -moz-transform: translateX(100%);
+    transform: translateX(100%);
+  }
+  to { 
+    -webkit-transform: translateX(0%);
+    -moz-transform: translateX(0%);
+    transform: translateX(0%);}
 }
 @-webkit-keyframes out_two {
-  from { -webkit-transform: translateX(0%); }
-  to { -webkit-transform: translateX(100%); }
+  from { 
+    -webkit-transform: translateX(0%);
+    -moz-transform: translateX(0%);
+    transform: translateX(0%);
+  }
+  to { 
+    -webkit-transform: translateX(100%);
+    -moz-transform: translateX(100%);
+    transform: translateX(100%);
+  }
 }
     
 .in {

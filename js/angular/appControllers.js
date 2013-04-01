@@ -24,8 +24,14 @@ function appCtr($scope, $routeParams, $location, $route) {
     $scope.panel=panelName;
   };
   
-  $scope.chooseQType = function() {
-    $scope.buildCampaign = "yeah!";
+  $scope.chooseQType = function(question_type, campaign) {
+    console.log(campaign);
+    campaign.questionsList.push({
+        id: 'test',
+        type: question_type,
+        text: null,
+        answers: []
+    });
     $scope.togglePanel();
   };
   
@@ -35,35 +41,15 @@ function appCtr($scope, $routeParams, $location, $route) {
     id: 'camp0',
     name: 'Campaign #1',
     description: 'This is the description of the campaign.',
+    title: '',
+    local: false,
+    location: '',
+    discoverable: false,
     questionsList: [
       {
         id: 'q01',
         type: 'text',
-        text: 'How likely are you to recommend this establishment to your friends?',
-        answers: [
-        {
-          id: 'a01',
-          text: "Answer 1"
-        },
-        {
-          id: 'a02',
-          text: "Answer 2"
-        },
-        {
-          id: 'a03',
-          text: "Answer 3"
-        }
-      ]},
-      {
-        id: 'q01',
-        type: 'text',
-        text: 'How likely are you to recommend this establishment to your friends?',
-        answers: []
-      },
-      {
-        id: 'q01',
-        type: 'text',
-        text: 'How likely are you to recommend this establishment to your friends?',
+        text: null,
         answers: []
       }
     ],
@@ -97,6 +83,14 @@ function appCtr($scope, $routeParams, $location, $route) {
       }
     
   };
+  
+  $scope.createCampaign = function(new_campaign_title, is_local, new_campaign_locale, discoverable, campaign) {
+    campaign['title'] = new_campaign_title;
+    campaign['local'] =  is_local
+    campaign['location'] = new_campaign_locale
+    campaign['discoverable'] = discoverable
+    $location.path( '/new' );
+  };  
   
   $scope.sendInvite = function(first_input, last_input, email_input, level_input, contact_list) {
     contact_list.push({
@@ -134,7 +128,7 @@ function appCtr($scope, $routeParams, $location, $route) {
   
   $scope.steps = [0,1,2,3,4];
   
-  $scope.currentStep = 3;
+  $scope.currentStep = 0;
   
   $scope.changeStep = function(step) {
     $scope.currentStep = step;
