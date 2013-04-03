@@ -68,7 +68,7 @@
         <ul id="campaign_list">
           <li ng-repeat="campaign in campaignList">
             <div class="campaign_info btn_set vert">
-              <a class="btn">share!</a>
+              <button class="btn"  ng-click="togglePanel('social_accounts')">share!</button>
               <a href="#/edit/{{campaign.id}}" class="btn" onclick="goLevelTwo()">edit</a>
             </div>
             <h2>{{campaign.name}}</h2>
@@ -300,9 +300,9 @@
             </div>
             <div ng-switch-when='1'>
               <form method="post" action="">
-                <input type="text" name="title" value="" placeholder="Gift Title" />
-                <input type="text" name="description" value="" placeholder="Description"/>
-                <input type="text" name="terms" value="" placeholder="Terms and Conditions"/>
+                <input type="text" name="title" ng-model="buildCampaign.reward.title" placeholder="Gift Title" />
+                <input type="text" name="description" ng-model="buildCampaign.reward.description" placeholder="Description"/>
+                <input type="text" name="terms" ng-model="buildCampaign.reward.terms" placeholder="Terms and Conditions"/>
               </form>
             </div>
             <div ng-switch-when='2'>
@@ -412,7 +412,7 @@
         </ul>
       </div>
       <div ng-show="panel=='panel2'">This is panel 2.</div>
-      <div ng-show="panel=='social_accounts'">This is where you would select a social account to connect.</div>
+      <div ng-show="panel=='social_accounts'">This is where you would be a list of your connected social accounts.</div>
     </div>
   </aside>
   

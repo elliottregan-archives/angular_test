@@ -12,7 +12,6 @@ function sidebarCtr($scope) {
 function appCtr($scope, $routeParams, $location, $route) {
   
   $scope.title = "default title";
-  $scope.openedCampaign = [];
   
   $scope.toggleSidebar = function() {
     $('.main_nav').toggleClass('visible');
@@ -35,22 +34,22 @@ function appCtr($scope, $routeParams, $location, $route) {
     $scope.togglePanel();
   };
   
-  $scope.campaignList = [
-    {
+  $scope.campaignList = {
+    camp0: {
       id: 'camp0',
       name: 'Campaign #1',
       description: 'This is the description of the campaign.'
     },
-    {
+    camp1: {
       id: 'camp1',
       name: 'Campaign #2',
       description: 'This is the description of the campaign.'
     }
-  ];
+  };
   
   $scope.buildCampaign = {
     id: 'camp0',
-    name: 'Campaign #1',
+    name: 'Campaign in progress',
     description: 'This is the description of the campaign.',
     title: '',
     local: false,
@@ -72,40 +71,27 @@ function appCtr($scope, $routeParams, $location, $route) {
       },
     permissions: 
       {
-        accepted: [
-          {
-            first: 'John',
-            last: 'Doe',
-            email: 'jdoe@mail.com',
-            date_sent: '10/2/2013',
-            level: 'view'
-          }
-        ],
+        accepted: [],
         pending: [
-          {
-            first: 'Jane',
-            last: 'Roberts',
-            email: 'jroberts@mail.com',
-            date_sent: '10/4/2013',
-            level: 'view edit'
-          },
-          {
-            first: 'Arnold',
-            last: 'Candy',
-            email: 'acandy@mail.com',
-            date_sent: '10/4/2013',
-            level: 'view edit'
-          }
+//          {
+//            first: 'Jane',
+//            last: 'Roberts',
+//            email: 'jroberts@mail.com',
+//            date_sent: '10/4/2013',
+//            level: 'view edit'
+//          }
         ]
       }
     
   };
   
   $scope.createCampaign = function(new_campaign_title, is_local, new_campaign_locale, discoverable, campaign) {
+    var datetime = Date.now();
+    campaign['id'] = 'camp'+datetime;
     campaign['title'] = new_campaign_title;
-    campaign['local'] =  is_local
-    campaign['location'] = new_campaign_locale
-    campaign['discoverable'] = discoverable
+    campaign['local'] =  is_local;
+    campaign['location'] = new_campaign_locale;
+    campaign['discoverable'] = discoverable;
     $location.path( '/new' );
   };  
   
@@ -160,8 +146,7 @@ function appCtr($scope, $routeParams, $location, $route) {
   };
   
   $scope.activateCampaign = function() {
-  console.log($scope.campaignList);
-    $scope.campaignList.push($scope.buildCampaign);
+    $scope.campaignList[$scope.buildCampaign['id']] = $scope.buildCampaign;
   };
   
   $scope.panel = 'default';
@@ -203,26 +188,29 @@ function dashCtr($scope, $routeParams) {
     
   $scope.text = "This is the dashboard!";
   
-  $scope.title = 'Dashboard';  
+  $scope.title = 'Dashboard';
+  
+  console.log($scope.buildCampaign);
+  $scope.buildCampaign = undefined;
+  console.log($scope.buildCampaign);
+  
   
 };
 
-function campaignCtr($scope, $routeParams) {
+function campaignCtr($scope, $routeParams, $location) {
   $scope.params = $routeParams;
   
-  $scope.campaign = $routeParams.campaign;
+  var campaign = $routeParams.campaignId; //get current campaign id from route
+  if ($scope.campaignList[campaign] != undefined) {
+    $scope.buildCampaign = $scope.campaignList[campaign]; //find campaign with id in the list of campaigns
+  }
+  else {
+    $location.path( '/dashboard' ); //redirect back to dashboard if campaign isn't found
+  }
   
-  $scope.openedCampaign = {
-    id: 'camp0',
-    name: 'Campaign #1',
-    description: 'This is the description of the campaign.',
-    questionsList: {
-      q01: 'How likely are you to recommend this establishment to your friends?',
-      q02: 'Public Tips',
-      q03: 'Private Comments'
-    }
+  $scope.saveChanges = function() {
+    $scope.campaignList[$scope.buildCampaign[campaign]] = $scope.buildCampaign;
   };
-  
 };
 
 function inboxCtr($scope, $routeParams) {
