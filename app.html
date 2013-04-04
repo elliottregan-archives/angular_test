@@ -45,7 +45,7 @@
       <section class="scroller">
         <button href="#/new" class="btn" ng-click="start_new = true">+ New Campaign</button>
         <div ng-show="start_new">
-          <form ng-submit="createCampaign(new_campaign_title, is_local, new_campaign_locale, discoverable, buildCampaign)">
+          <form ng-submit="createCampaign(new_campaign_title, is_local, new_campaign_locale, discoverable)">
             <input type="text" name="new_campaign_title" placeholder="Title for new campaign" ng-model="new_campaign_title"/>
             <fieldset>
               <input id="is_local_true" type="radio" name="is_local" ng-model="is_local" value="true" />
@@ -71,7 +71,7 @@
               <button class="btn"  ng-click="togglePanel('social_accounts')">share!</button>
               <a href="#/edit/{{campaign.id}}" class="btn" onclick="goLevelTwo()">edit</a>
             </div>
-            <h2>{{campaign.name}}</h2>
+            <h2>{{campaign.title}}</h2>
             <div>
               <p>{{campaign.description}}</p>
             </div>
@@ -132,7 +132,7 @@
                      </ul>
                      
                      <form ng-submit="addAnswer(newAnswerText, question.answers)">
-                       <input type='text' name='{{question.id}}_question' placeholder='add a question here.' ng-model="newAnswerText"/>
+                       <input type='text' name='{{question.id}}_question' placeholder='add an answer here.' ng-model="newAnswerText"/>
                        <button id='{{question.id}}_add_answer' type="submit" class='btn'>+ add new answer</button>
                      </form>
                    </div>
@@ -293,8 +293,8 @@
           <section ng-switch on='currentStep'>
             <div ng-switch-when='0'>
               <ol>
-                <li ng-repeat="question in openedCampaign.questionsList">
-                  {{question}}
+                <li ng-repeat="question in buildCampaign.questionsList">
+                  {{question.text}}
                 </li>
               </ol>
             </div>
@@ -358,7 +358,7 @@
   
   <aside id="palette" ng-controller="panelCtr" view="panel">
     <header>
-      <button ui-event="{click : 'chooseQType(qtype, buildCampaign)'}" class="btn right">select</button>
+      <button ui-event="{click : 'chooseQType(qtype)'}" class="btn right">select</button>
       <button ui-event="{click : 'togglePanel()'}" class="btn left">cancel</button>
       <h2>panel</h2>
     </header>

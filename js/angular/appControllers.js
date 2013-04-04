@@ -23,77 +23,176 @@ function appCtr($scope, $routeParams, $location, $route) {
     $scope.panel=panelName;
   };
   
-  $scope.chooseQType = function(question_type, campaign) {
-    console.log(campaign);
-    campaign.questionsList.push({
-        id: 'test',
+  function Campaign(id, title, local, location, discoverable) {
+    
+    this.id = id,
+    this.title = title,
+    this.description = 'This is the default description.',
+    this.local = local,
+    this.location = location,
+    this.discoverable = discoverable,
+    this.questionsList = [
+      {
+        id: 'asdf',
+        type: 'text',
+        text: "What do you think of me?",
+        answers: []
+      }
+    ],
+    this.reward =
+      {
+        title: '',
+        description: '',
+        terms: ''
+      },
+    this.permissions = 
+      {
+        accepted: [],
+        pending: [
+          {
+            first: '',
+            last: '',
+            email: '',
+            date_sent: '',
+            level: ''
+          }
+        ]
+      }
+  }
+  
+  $scope.chooseQType = function(question_type) {
+    $scope.buildCampaign.questionsList.push({
+        id: "q_"+datetime,
         type: question_type,
-        text: null,
+        text: '',
         answers: []
     });
+    var datetime = new Date();
+    console.log($scope.buildCampaign.questionsList);
+    
     $scope.togglePanel();
   };
   
   $scope.campaignList = {
     camp0: {
       id: 'camp0',
-      name: 'Campaign #1',
-      description: 'This is the description of the campaign.'
+      description: 'This is the description of the campaign.',
+      title: 'Campaign #1',
+      local: false,
+      location: '',
+      discoverable: false,
+      questionsList: [
+        {
+          id: 'asdf',
+          type: 'text',
+          text: "What do you think of me?",
+          answers: []
+        }
+      ],
+      reward:
+        {
+          title: '',
+          description: '',
+          terms: ''
+        },
+      permissions: 
+        {
+          accepted: [],
+          pending: [
+            {
+              first: '',
+              last: '',
+              email: '',
+              date_sent: '',
+              level: ''
+            }
+          ]
+        }
     },
     camp1: {
       id: 'camp1',
-      name: 'Campaign #2',
-      description: 'This is the description of the campaign.'
+      title: 'Campaign #2',
+      description: 'This is the description of the campaign.',
+      local: false,
+      location: '',
+      discoverable: false,
+      questionsList: [
+        {
+          id: 'fdsa',
+          type: 'text',
+          text: "This is the only question for Campaign number 2.",
+          answers: []
+        }
+      ],
+      reward:
+        {
+          title: '',
+          description: '',
+          terms: ''
+        },
+      permissions: 
+        {
+          accepted: [],
+          pending: [
+            {
+              first: '',
+              last: '',
+              email: '',
+              date_sent: '',
+              level: ''
+            }
+          ]
+        }
     }
   };
   
-  $scope.buildCampaign = {
-    id: 'camp0',
-    name: 'Campaign in progress',
-    description: 'This is the description of the campaign.',
-    title: '',
-    local: false,
-    location: '',
-    discoverable: false,
-    questionsList: [
+// example framework of a campaign
+//  $scope.buildCampaign = { 
+//    id: '',
+//    name: '',
+//    description: '',
+//    title: '',
+//    local: false,
+//    location: '',
+//    discoverable: false,
+//    questionsList: [
 //      {
-//        id: 'q01',
-//        type: 'text',
+//        id: '',
+//        type: '',
 //        text: null,
 //        answers: []
 //      }
-    ],
-    reward:
-      {
-        title: '',
-        description: '',
-        terms: ''
-      },
-    permissions: 
-      {
-        accepted: [],
-        pending: [
+//    ],
+//    reward:
+//      {
+//        title: '',
+//        description: '',
+//        terms: ''
+//      },
+//    permissions: 
+//      {
+//        accepted: [],
+//        pending: [
 //          {
-//            first: 'Jane',
-//            last: 'Roberts',
-//            email: 'jroberts@mail.com',
-//            date_sent: '10/4/2013',
-//            level: 'view edit'
+//            first: '',
+//            last: '',
+//            email: '',
+//            date_sent: '',
+//            level: ''
 //          }
-        ]
-      }
-    
-  };
+//        ]
+//      } 
+//  };
   
-  $scope.createCampaign = function(new_campaign_title, is_local, new_campaign_locale, discoverable, campaign) {
+  $scope.createCampaign = function(new_campaign_title, is_local, new_campaign_locale, discoverable) {
     var datetime = Date.now();
-    campaign['id'] = 'camp'+datetime;
-    campaign['title'] = new_campaign_title;
-    campaign['local'] =  is_local;
-    campaign['location'] = new_campaign_locale;
-    campaign['discoverable'] = discoverable;
+    console.log($scope.buildCampaign);
+    $scope.buildCampaign = new Campaign(datetime, new_campaign_title, is_local, new_campaign_locale, discoverable);
+    
+    console.log($scope.buildCampaign);
     $location.path( '/new' );
-  };  
+    console.log($scope.buildCampaign);
+  };
   
   $scope.sendInvite = function(first_input, last_input, email_input, level_input, contact_list) {
     contact_list.push({
@@ -103,7 +202,7 @@ function appCtr($scope, $routeParams, $location, $route) {
       date_sent: getDate(),
       level: level_input
     });
-  };  
+  };
   
   $scope.addAnswer = function(input_text, answers) {
     answers.push({
@@ -184,32 +283,35 @@ function appCtr($scope, $routeParams, $location, $route) {
   
 };
 
-function dashCtr($scope, $routeParams) {
+function dashCtr($scope, $routeParams, $location) {
     
   $scope.text = "This is the dashboard!";
   
   $scope.title = 'Dashboard';
   
-  console.log($scope.buildCampaign);
-  $scope.buildCampaign = undefined;
-  console.log($scope.buildCampaign);
-  
-  
+  if (($location.$$path == "/new") && (!$scope.buildCampaign)) {
+     $location.path( '/dashboard' ); //redirect back to dashboard if a new camapaign has not been initiated
+  }
 };
 
 function campaignCtr($scope, $routeParams, $location) {
-  $scope.params = $routeParams;
   
   var campaign = $routeParams.campaignId; //get current campaign id from route
-  if ($scope.campaignList[campaign] != undefined) {
+  
+  if ($scope.campaignList[campaign] != null) {
     $scope.buildCampaign = $scope.campaignList[campaign]; //find campaign with id in the list of campaigns
   }
   else {
     $location.path( '/dashboard' ); //redirect back to dashboard if campaign isn't found
   }
-  
+    
   $scope.saveChanges = function() {
+    
+    console.log($scope.buildCampagin);
+    console.log($scope.campaignList);
     $scope.campaignList[$scope.buildCampaign[campaign]] = $scope.buildCampaign;
+    console.log($scope.buildCampagin);
+    console.log($scope.campaignList);
   };
 };
 
