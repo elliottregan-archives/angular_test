@@ -268,25 +268,11 @@ function appCtr($scope, $routeParams, $location, $route) {
     
   };
   
-  goLevelTwo = function() {
-    $('#page_01').addClass('slide_left');
-    $('#page_02').addClass('focus');
-    $('#page_02').removeClass('next');
-  };
-  
-  goLevelOne = function() {
-    $('#page_01').removeClass('slide_left');
-    $('#page_01').addClass('focus');
-    $('#page_02').removeClass('focus');
-    $('#page_02').addClass('slide_right');
-  };
-  
 };
 
 function dashCtr($scope, $routeParams, $location) {
     
   $scope.text = "This is the dashboard!";
-  
   $scope.title = 'Dashboard';
   
   if (($location.$$path == "/new") && (!$scope.buildCampaign)) {
