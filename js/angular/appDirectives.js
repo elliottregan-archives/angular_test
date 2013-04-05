@@ -1,3 +1,5 @@
+//Adapted from vanilla ngViewDirective 
+
 appmodule.directive('deepnav', function ($http, $templateCache, $route, $anchorScroll, $compile, $controller) {
     return {
         restrict:'ECA',
