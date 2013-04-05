@@ -23,7 +23,7 @@
           <label for="discoverable">This campaign is discoverable by users nearby.</label>
         </fieldset>
         
-        <button class="btn" type="submit">Save and edit details</button>
+        <button class="btn" type="submit" ng-click="resetStep()">Save and edit details</button>
         <button class="btn" ng-click="start_new = false" type="button">cancel</button>
       </form>
     </div>
@@ -31,7 +31,7 @@
       <li ng-repeat="campaign in campaignList">
         <div class="campaign_info btn_set vert">
           <button class="btn"  ng-click="togglePanel('social_accounts')">share!</button>
-          <a href="#/edit/{{campaign.id}}" class="btn" onclick="goLevelTwo()">edit</a>
+          <a href="#/edit/{{campaign.id}}" class="btn" ng-click="resetStep()">edit</a>
         </div>
         <h2>{{campaign.title}}</h2>
         <div>

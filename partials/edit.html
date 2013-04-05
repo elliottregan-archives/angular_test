@@ -4,7 +4,7 @@
     <a href="#/dashboard" class="btn left">cancel</a>
     <a ng-click='advanceStep()' ng-hide='currentStep >= (steps.length-1)' class="btn right">Next Step</a>
     <a href="#/dashboard" ng-show='currentStep >= (steps.length-1)' class="btn right">Save Changes</a>
-    <h2 ng-click="toggleHeaderDropdown()">Edit Campaign #1: Step {{steps[currentStep]+1}}</h2>
+    <h2 ng-click="toggleHeaderDropdown()">Edit {{buildCampaign.title}}: Step {{steps[currentStep]+1}}</h2>
     <nav class="header_dropdown closed">
       <ol>
         <li ng-repeat='n in steps' ng-click='changeStep(n)'>Step {{n+1}}</li>
@@ -15,7 +15,7 @@
   
 <div class="scroller_wrapper">
   <div class="scroller">
-      <h2>{{openedCampaign.name}}</h2>
+      <h2>{{buildCampaign.title}}</h2>
       <section ng-switch on='currentStep'>
         <div ng-switch-when='0'>
           <ol>
@@ -36,25 +36,35 @@
             <li>Facebook Account<small class="status">connected</small></li>
             <li>Twitter Account<small class="status">connected</small></li>
           </ul>
-          <button class="dotted">Add new social account</button>
+          <button class="btn" ng-click="togglePanel('social_accounts')">Add new media account</button>
         </div>
         
         <div ng-switch-when='3'>
-          <label for="emails">Send email invitations to others to help manage this campaign.</label>
-          <input type="text" name="name" value="" placeholder="name"/>
-          <input type="email" name="email" value="" placeholder="email"/>
-          <fieldset>
-            <input type="radio" name="permission" id="read"/>
-            <label for="read">View Analytics</label>
-            <input type="radio" name="permission" id="readwrite"/>
-            <label for="readwrite">View and edit details</label>
-          </fieldset>
-          <button class="new_invite">Send</button>
+          <form ng-submit="sendInvite(first, last, invite_email, level, buildCampaign.permissions.pending)">
+            <label for="emails">Send email invitations to others to help manage this campaign.</label>
+            <input ng-model="first" type="text" name="name" placeholder="first name"/>
+            <input ng-model="last" type="text" name="name" placeholder="last name"/>
+            <input ng-model="invite_email" type="email" name="email" placeholder="email"/>
+            <fieldset>
+              <input ng-model="level" type="radio" name="level" value="read" id="read"/>
+              <label for="read">View Analytics</label>
+              <input ng-model="level" type="radio" name="level" value="read,write" id="readwrite"/>
+              <label for="readwrite">View and edit details</label>
+            </fieldset>
+            <button class="new_invite btn">Send</button>
+          </form>
           <hr>
-          <h2>Invites sent:</h2>
+          <h2>Permissions set:</h2>
           <ul>
-            <li><button>resend</button>John Doe<small class="status">pending...</small></li>
-            <li>Jane Roberts<small class="status">accepted</small></li>
+            <li ng-repeat="person in buildCampaign.permissions.accepted">
+              {{person.first}} {{person.last}} <small class="status">permission level: {{person.level}}</small>
+            </li>
+          </ul>
+          <h2>Pending Invites:</h2>
+          <ul>
+            <li ng-repeat="person in buildCampaign.permissions.pending">
+              {{person.first}} {{person.last}} ({{person.email}}, {{person.level}}) <small class="status">pending...</small><button class="btn right clear">resend</button>
+            </li>
           </ul>
         </div>
         

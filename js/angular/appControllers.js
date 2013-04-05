@@ -41,15 +41,7 @@ function appCtr($scope, $routeParams, $location, $route) {
     this.permissions = 
       {
         accepted: [],
-        pending: [
-          {
-            first: '',
-            last: '',
-            email: '',
-            date_sent: '',
-            level: ''
-          }
-        ]
+        pending: []
       }
   }
   
@@ -90,16 +82,16 @@ function appCtr($scope, $routeParams, $location, $route) {
         },
       permissions: 
         {
-          accepted: [],
-          pending: [
+          accepted: [
             {
-              first: '',
+              first: 'Bubbles',
               last: '',
-              email: '',
+              email: 'yup@ahdoughno.com',
               date_sent: '',
-              level: ''
+              level: 'master'
             }
-          ]
+          ],
+          pending: []
         }
     },
     camp1: {
@@ -225,6 +217,10 @@ function appCtr($scope, $routeParams, $location, $route) {
   
   $scope.currentStep = 0;
   
+  $scope.resetStep = function() {
+    $scope.currentStep = 0;
+  }
+  
   $scope.changeStep = function(step) {
     $scope.currentStep = step;
     $scope.toggleHeaderDropdown();
@@ -239,6 +235,7 @@ function appCtr($scope, $routeParams, $location, $route) {
   
   $scope.activateCampaign = function() {
     $scope.campaignList[$scope.buildCampaign['id']] = $scope.buildCampaign;
+    $scope.currentStep = 0;
   };
   
   $scope.panel = 'default';
@@ -269,8 +266,8 @@ function dashCtr($scope, $routeParams, $location) {
   $scope.title = 'Dashboard';
   
   if (($location.$$path == "/new") && (!$scope.buildCampaign)) {
-     $location.path( '/dashboard' ); //redirect back to dashboard if a new camapaign has not been initiated
-  }
+     $location.path( '/dashboard' ); //redirect back to dashboard if a new campaign has not been initiated
+  };
 };
 
 function campaignCtr($scope, $routeParams, $location) {
@@ -285,12 +282,7 @@ function campaignCtr($scope, $routeParams, $location) {
   }
     
   $scope.saveChanges = function() {
-    
-    console.log($scope.buildCampagin);
-    console.log($scope.campaignList);
     $scope.campaignList[$scope.buildCampaign[campaign]] = $scope.buildCampaign;
-    console.log($scope.buildCampagin);
-    console.log($scope.campaignList);
   };
 };
 
