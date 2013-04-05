@@ -31,14 +31,7 @@ function appCtr($scope, $routeParams, $location, $route) {
     this.local = local,
     this.location = location,
     this.discoverable = discoverable,
-    this.questionsList = [
-      {
-        id: 'asdf',
-        type: 'text',
-        text: "What do you think of me?",
-        answers: []
-      }
-    ],
+    this.questionsList = [],
     this.reward =
       {
         title: '',
@@ -302,9 +295,7 @@ function campaignCtr($scope, $routeParams, $location) {
 };
 
 function inboxCtr($scope, $routeParams) {
-    
-  $scope.text = "This is the inbox!";
-  $scope.title = 'Dashboard';
+  $scope.title = 'Inbox';
   
   $scope.instances = [
     {

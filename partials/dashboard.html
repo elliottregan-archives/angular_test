@@ -3,40 +3,42 @@
   <h1>{{title}}</h1>
 </header>
 
-<section class="scroller">
-  <button href="#/new" class="btn" ng-click="start_new = true">+ New Campaign</button>
-  <div ng-show="start_new">
-    <form ng-submit="createCampaign(new_campaign_title, is_local, new_campaign_locale, discoverable)">
-      <input type="text" name="new_campaign_title" placeholder="Title for new campaign" ng-model="new_campaign_title"/>
-      <fieldset>
-        <input id="is_local_true" type="radio" name="is_local" ng-model="is_local" value="true" />
-        <label for="is_local_true">Has a location</label>
-        <input id="is_local_false" type="radio" name="is_local" ng-model="is_local" value="false" />
-        <label for="is_local_false">Does not have a location</label>
-      </fieldset>
-      
-      <fieldset ng-show="is_local">
-        <input type="text" name="new_campaign_local" ng-model="new_campaign_locale" placeholder="Location for campaign" /><br>
+<div class="scroller_wrapper">
+  <section class="scroller">
+    <button href="#/new" class="btn full_width" ng-click="start_new = true">+ New Campaign</button>
+    <div ng-show="start_new">
+      <form ng-submit="createCampaign(new_campaign_title, is_local, new_campaign_locale, discoverable)">
+        <input type="text" name="new_campaign_title" placeholder="Title for new campaign" ng-model="new_campaign_title"/>
+        <fieldset>
+          <input id="is_local_true" type="radio" name="is_local" ng-model="is_local" value="true" />
+          <label for="is_local_true">Has a location</label>
+          <input id="is_local_false" type="radio" name="is_local" ng-model="is_local" value="false" />
+          <label for="is_local_false">Does not have a location</label>
+        </fieldset>
         
-        <input id="discoverable" ng-model="discoverable" type="checkbox" name="discoverable" value="true" checked=checked />
-        <label for="discoverable">This campaign is discoverable by users nearby.</label>
-      </fieldset>
-      
-      <button class="btn" type="submit">Save and edit details</button>
-      <button class="btn" ng-click="start_new = false" type="button">cancel</button>
-    </form>
-  </div>
-  <ul id="campaign_list">
-    <li ng-repeat="campaign in campaignList">
-      <div class="campaign_info btn_set vert">
-        <button class="btn"  ng-click="togglePanel('social_accounts')">share!</button>
-        <a href="#/edit/{{campaign.id}}" class="btn" onclick="goLevelTwo()">edit</a>
-      </div>
-      <h2>{{campaign.title}}</h2>
-      <div>
-        <p>{{campaign.description}}</p>
-      </div>
-      <div class="clear"></div>
-    </li>
-  </ul>
-</section>
+        <fieldset ng-show="is_local">
+          <input type="text" name="new_campaign_local" ng-model="new_campaign_locale" placeholder="Location for campaign" /><br>
+          
+          <input id="discoverable" ng-model="discoverable" type="checkbox" name="discoverable" value="true" checked=checked />
+          <label for="discoverable">This campaign is discoverable by users nearby.</label>
+        </fieldset>
+        
+        <button class="btn" type="submit">Save and edit details</button>
+        <button class="btn" ng-click="start_new = false" type="button">cancel</button>
+      </form>
+    </div>
+    <ul id="campaign_list">
+      <li ng-repeat="campaign in campaignList">
+        <div class="campaign_info btn_set vert">
+          <button class="btn"  ng-click="togglePanel('social_accounts')">share!</button>
+          <a href="#/edit/{{campaign.id}}" class="btn" onclick="goLevelTwo()">edit</a>
+        </div>
+        <h2>{{campaign.title}}</h2>
+        <div>
+          <p>{{campaign.description}}</p>
+        </div>
+        <div class="clear"></div>
+      </li>
+    </ul>
+  </section>
+</div>

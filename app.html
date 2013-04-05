@@ -29,7 +29,8 @@
     }, false);
   </script>
   
-  <link rel="stylesheet" href="app.css" type="text/css" />
+  <link rel="stylesheet" href="css/app.css" type="text/css" />
+  <link rel="stylesheet" href="css/normalize.css" type="text/css" />
 </head>
 <body>
   <main>
@@ -48,7 +49,7 @@
     <header>
       <button ui-event="{click : 'chooseQType(qtype)'}" class="btn right">select</button>
       <button ui-event="{click : 'togglePanel()'}" class="btn left">cancel</button>
-      <h2>panel</h2>
+      <h1>panel</h1>
     </header>
     <div class="content scroller">
       <div ng-show="panel=='new_question'">
