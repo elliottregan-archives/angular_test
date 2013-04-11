@@ -134,12 +134,16 @@ p {
   margin: 10px 0;
 }
 
-.btn.left {
+.left {
   float: left;
 }
 
-.btn.right {
+.right {
   float: right;
+}
+
+.inline {
+  display: inline-block;
 }
 
 .btn.full_width {
@@ -150,34 +154,34 @@ p {
   clear: both;
 }
 
-.header_dropdown {
-  text-align: center;
+.breadcrumbs {
+  margin: 0;
   overflow: hidden;
-  opacity: 1;
-  -webkit-transition: all 500ms ease-in-out;
-  -moz-transition: all 500ms ease-in-out;
-  -ms-transition: all 500ms ease-in-out;
-  -o-transition: all 500ms ease-in-out;
-  transition: all 500ms ease-in-out;
-  -webkit-transform: translate3d(0, 0, 0);
   background-color: #d4d5d4;
-  -webkit-transform: translateY(0%);
-  -moz-transform: translateY(0%);
-  transform: translateY(0%);
-  }
-
-.header_dropdown.opened {
-  
-  -webkit-transform: translateY(0%);
-  -moz-transform: translateY(0%);
-  transform: translateY(0%);
+  width: 100%;
 }
 
-.header_dropdown.closed {
-  opacity: 0;
-  -webkit-transform: translateY(-200%);
-  -moz-transform: translateY(-200%);
-  transform: translateY(-200%);
+.crumb {
+  display: inline-block;
+  text-align: center;
+}
+
+.crumb.selected {
+  background-color: #ffffff;
+}
+
+.five_crumbs .crumb {
+  width: 20%;
+  padding: 10px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  border: 1px solid #606060;
+  border-left: none;
+}
+
+.crumb:last-of-type {
+  border-right: none;
 }
 
 .main_nav {
@@ -318,11 +322,18 @@ nav a {
 .btn {
   background-color: #555555;
   color: #d9d9d9;
-  border-style: none;
   cursor: pointer;
   text-decoration: none;
-  padding: 4px;
+  padding: 8px 14px;
   text-align: center;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+  font-size: .8em;
+  border: 1px solid #343534;
+  -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.37);
+  -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.37);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.37);
 }
 
 .btn_set.vert .btn {
@@ -386,6 +397,29 @@ nav a {
 
 /* @end */
 
+fieldset {
+  border: none;
+  margin: 0;
+}
+
+input[type=text], input[type=email] {
+  display: block;
+  width: 100%;
+  padding: 8px;
+  margin: 4px 0;
+  font-size: .8em;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #b2b2b2;
+  -moz-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.39), inset 0 1px 2px rgba(0, 0, 0, 0.18);
+  -webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.39), inset 0 1px 2px rgba(0, 0, 0, 0.18);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.39), inset 0 1px 2px rgba(0, 0, 0, 0.18);
+}
+
 /* Put your css in here */
   
 @-webkit-keyframes in {
@@ -439,18 +473,26 @@ nav a {
     
 .in {
   -webkit-animation: "in" 1s;
+  -moz-animation: "in" 1s;
+  animation: "in" 1s;
   position: absolute;
 }     
 .out {
   -webkit-animation: "out" 1s;
+  -moz-animation: "out" 1s;
+  animation: "out" 1s;
   position: absolute;
 }
 
 .level_two.in {
   -webkit-animation: "in_two" 1s;
+  -moz-animation: "in_two" 1s;
+  animation: "in_two" 1s;
   position: absolute;
 }     
 .level_two.out {
   -webkit-animation: "out_two" 1s;
+  -moz-animation: "out_two" 1s;
+  animation: "out_two" 1s;
   position: absolute;
 }

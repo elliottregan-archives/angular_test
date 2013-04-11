@@ -3,17 +3,20 @@
     <a href="#/dashboard" class="btn left">cancel</a>
     <a ng-click='advanceStep()' ng-hide='currentStep >= (steps.length-1)' class="btn right">Next Step</a>
     <a href="#/dashboard" ng-show='currentStep >= (steps.length-1)' ng-click="activateCampaign()" class="btn right">Activate Campaign</a>
-    <h2 ng-click="toggleHeaderDropdown()">Create New Campaign: Step {{steps[currentStep]+1}}</h2>
-    <nav class="header_dropdown closed">
-      <ol>
-        <li ng-repeat='n in steps' ng-click='changeStep(n)'>Step {{n+1}}</li>
-      </ol>
-    </nav>
+    <h2>Create New Campaign: Step {{steps[currentStep]+1}}</h2>
   </header>
   
   <div class="scroller_wrapper">
+    <nav>
+      <ol class="breadcrumbs five_crumbs">
+        <li ng-class="{selected: currentStep==n}" class="crumb" ng-repeat='n in steps' ng-click='changeStep(n)'>{{n+1}}</li>
+      </ol>
+      
+      <a href="#/dashboard">Save Changes</a>
+    </nav>
     <div class="scroller">
       <h2>{{buildCampaign.title}}</h2>
+      <h3>fdbk.com/{{buildCampaign.handle}}</h3>
       <section ng-switch on='currentStep'>
         <div ng-switch-when='0'>
           <button ng-click="togglePanel('new_question')" class="btn">+ New Question</button>
@@ -65,7 +68,7 @@
                 </ul>
                 
                 <form ng-submit="addAnswer(newAnswerText, question.answers)">
-                  <input type='text' name='{{question.id}}_question' placeholder='add your question here.' ng-model="newAnswerText"/>
+                  <input type='text' name='{{question.id}}_question' placeholder='add an answer here.' ng-model="newAnswerText"/>
                   <button id='{{question.id}}_add_answer' type="submit" class='btn'>+ add new answer</button>
                 </form>
               </div>

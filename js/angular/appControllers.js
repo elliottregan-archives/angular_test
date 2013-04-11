@@ -23,9 +23,10 @@ function appCtr($scope, $routeParams, $location, $route) {
     $scope.panel=panelName;
   };
   
-  function Campaign(id, title, local, location, discoverable) {
+  function Campaign(id, handle, title, local, location, discoverable) {
     
     this.id = id,
+    this.handle = handle,
     this.title = title,
     this.description = 'This is the default description.',
     this.local = local,
@@ -58,27 +59,47 @@ function appCtr($scope, $routeParams, $location, $route) {
     $scope.togglePanel();
   };
   
+  $scope.handleList = ["crepesandthings", "crepesandthings_tea"];
+  
   $scope.campaignList = {
     camp0: {
       id: 'camp0',
-      description: 'This is the description of the campaign.',
-      title: 'Campaign #1',
+      handle: $scope.handleList[0],
+      description: 'Our main feedback portal.',
+      title: 'Crepes & Things',
       local: false,
       location: '',
       discoverable: false,
       questionsList: [
         {
           id: 'asdf',
-          type: 'text',
-          text: "What do you think of me?",
-          answers: []
+          type: 'mcSingleSelect',
+          text: "How was your service today?",
+          answers: [
+            {
+              id: 0,
+              text: "poor"
+            },
+            {
+              id: 2,
+              text: "fair"
+            },
+            {
+              id: 3,
+              text: "good"
+            },
+            {
+              id: 4,
+              text: "great"
+            },
+          ]
         }
       ],
       reward:
         {
-          title: '',
-          description: '',
-          terms: ''
+          title: 'Free espresso!',
+          description: 'Come back for a free espresso any time you want.',
+          terms: "Just show us your code, and we'll hand you a free espresso drink."
         },
       permissions: 
         {
@@ -96,16 +117,17 @@ function appCtr($scope, $routeParams, $location, $route) {
     },
     camp1: {
       id: 'camp1',
-      title: 'Campaign #2',
-      description: 'This is the description of the campaign.',
-      local: false,
+      handle: $scope.handleList[1],
+      title: 'Which tea?',
+      description: "Asking our customers if they like our green tea or white tea better.",
+      local: true,
       location: '',
       discoverable: false,
       questionsList: [
         {
           id: 'fdsa',
           type: 'text',
-          text: "This is the only question for Campaign number 2.",
+          text: "Which kind of tea did you like best?",
           answers: []
         }
       ],
@@ -120,11 +142,11 @@ function appCtr($scope, $routeParams, $location, $route) {
           accepted: [],
           pending: [
             {
-              first: '',
-              last: '',
-              email: '',
-              date_sent: '',
-              level: ''
+              first: 'Elliott',
+              last: 'Regan',
+              email: 'regan.elliott@gmail.com',
+              date_sent: '10/2/2013',
+              level: 'view'
             }
           ]
         }
@@ -169,14 +191,11 @@ function appCtr($scope, $routeParams, $location, $route) {
 //      } 
 //  };
   
-  $scope.createCampaign = function(new_campaign_title, is_local, new_campaign_locale, discoverable) {
+  $scope.createCampaign = function(new_campaign_title, handle, is_local, new_campaign_locale, discoverable) {
     var datetime = Date.now();
-    console.log($scope.buildCampaign);
-    $scope.buildCampaign = new Campaign(datetime, new_campaign_title, is_local, new_campaign_locale, discoverable);
-    
-    console.log($scope.buildCampaign);
+    $scope.buildCampaign = new Campaign(datetime, handle, new_campaign_title, is_local, new_campaign_locale, discoverable);
+    $scope.handleList.push(handle)
     $location.path( '/new' );
-    console.log($scope.buildCampaign);
   };
   
   $scope.sendInvite = function(first_input, last_input, email_input, level_input, contact_list) {
@@ -207,10 +226,6 @@ function appCtr($scope, $routeParams, $location, $route) {
     });
     console.log($scope.newAnswerText);
     this.newAnswerText = '';
-  };
-  
-  $scope.toggleHeaderDropdown = function() {
-    $('header nav').toggleClass('closed');
   };
   
   $scope.steps = [0,1,2,3,4];

@@ -5,11 +5,28 @@
 
 <div class="scroller_wrapper">
   <section class="scroller">
-    <button href="#/new" class="btn full_width" ng-click="start_new = true">+ New Campaign</button>
+    <button href="#/new" class="btn full_width" ng-click="start_new = true" ng-show="!start_new">+ New Campaign</button>
     <div ng-show="start_new">
-      <form ng-submit="createCampaign(new_campaign_title, is_local, new_campaign_locale, discoverable)">
+      <form ng-submit="createCampaign(new_campaign_title, handle, is_local, new_campaign_locale, discoverable)">
         <input type="text" name="new_campaign_title" placeholder="Title for new campaign" ng-model="new_campaign_title"/>
         <fieldset>
+          <input id="has_handle_true" type="radio" name="has_handle" ng-model="has_handle" value="new" />
+          <label for="has_handle_true">New handle</label>
+          <input id="has_handle_false" type="radio" name="has_handle" ng-model="has_handle" value="old" />
+          <label for="has_handle_false">Previous handle</label>
+        </fieldset>
+        <fieldset ng-show="has_handle == 'new'">
+          fdbk.com/
+          <input class="inline" type="text" name="new_handle" placeholder="Enter new handle" ng-model="handle" />
+        </fieldset>
+        <fieldset ng-show="has_handle == 'old'">
+          fdbk.com/
+          <select ng-model="handle">
+            <option ng-repeat="handle in handleList">{{handle}}</option>
+            <option disabled="true">no more available handles</option>
+          </select>
+        </fieldset>
+        <!--<fieldset>
           <input id="is_local_true" type="radio" name="is_local" ng-model="is_local" value="true" />
           <label for="is_local_true">Has a location</label>
           <input id="is_local_false" type="radio" name="is_local" ng-model="is_local" value="false" />
@@ -21,7 +38,7 @@
           
           <input id="discoverable" ng-model="discoverable" type="checkbox" name="discoverable" value="true" checked=checked />
           <label for="discoverable">This campaign is discoverable by users nearby.</label>
-        </fieldset>
+        </fieldset>-->
         
         <button class="btn" type="submit" ng-click="resetStep()">Save and edit details</button>
         <button class="btn" ng-click="start_new = false" type="button">cancel</button>
@@ -33,7 +50,7 @@
           <button class="btn"  ng-click="togglePanel('social_accounts')">share!</button>
           <a href="#/edit/{{campaign.id}}" class="btn" ng-click="resetStep()">edit</a>
         </div>
-        <h2>{{campaign.title}}</h2>
+        <h2>{{campaign.title}} <small>- @{{campaign.handle}}</small></h2>
         <div>
           <p>{{campaign.description}}</p>
         </div>

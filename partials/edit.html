@@ -2,18 +2,19 @@
 
   <header>
     <a href="#/dashboard" class="btn left">cancel</a>
-    <a ng-click='advanceStep()' ng-hide='currentStep >= (steps.length-1)' class="btn right">Next Step</a>
+    <a ng-click='advanceStep()' ng-hide='currentStep >= (steps.length-1)' class="btn right">Next Page</a>
     <a href="#/dashboard" ng-show='currentStep >= (steps.length-1)' class="btn right">Save Changes</a>
-    <h2 ng-click="toggleHeaderDropdown()">Edit {{buildCampaign.title}}: Step {{steps[currentStep]+1}}</h2>
-    <nav class="header_dropdown closed">
-      <ol>
-        <li ng-repeat='n in steps' ng-click='changeStep(n)'>Step {{n+1}}</li>
-        <li><a href="#/dashboard">Save Changes</a></li>
-      </ol>
-    </nav>
+    <h2>Edit {{buildCampaign.title}}: Step {{steps[currentStep]+1}}</h2>
   </header>
   
 <div class="scroller_wrapper">
+  <nav>
+    <ol class="breadcrumbs five_crumbs">
+      <li ng-class="{selected: currentStep==n}" class="crumb" ng-repeat='n in steps' ng-click='changeStep(n)'>{{n+1}}</li>
+    </ol>
+    
+    <a href="#/dashboard">Save Changes</a>
+  </nav>
   <div class="scroller">
       <h2>{{buildCampaign.title}}</h2>
       <section ng-switch on='currentStep'>
@@ -21,6 +22,11 @@
           <ol>
             <li ng-repeat="question in buildCampaign.questionsList">
               {{question.text}}
+              <ol class="answers">
+                <li ng-repeat="answer in question.answers" class="inline">
+                  {{answer.text}}
+                </li>
+              </ol>
             </li>
           </ol>
         </div>
