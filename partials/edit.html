@@ -1,10 +1,9 @@
 <section id="page_02">
-
   <header>
     <a href="#/dashboard" class="btn left">cancel</a>
     <a ng-click='advanceStep()' ng-hide='currentStep >= (steps.length-1)' class="btn right">Next Page</a>
-    <a href="#/dashboard" ng-show='currentStep >= (steps.length-1)' class="btn right">Save Changes</a>
-    <h2>Edit {{buildCampaign.title}}: Step {{steps[currentStep]+1}}</h2>
+    <a href="#/dashboard" ng-show='currentStep >= (steps.length-1)' class="btn right" ng-click="saveChanges()">Save Changes</a>
+    <h2>Edit {{editCampaign.title}}: Step {{steps[currentStep]+1}}</h2>
   </header>
   
 <div class="scroller_wrapper">
@@ -13,14 +12,14 @@
       <li ng-class="{selected: currentStep==n}" class="crumb" ng-repeat='n in steps' ng-click='changeStep(n)'>{{n+1}}</li>
     </ol>
     
-    <a href="#/dashboard">Save Changes</a>
+    <a href="#/dashboard" ng-click="saveChanges()">Save Changes</a>
   </nav>
   <div class="scroller">
-      <h2>{{buildCampaign.title}}</h2>
+      <h2>{{editCampaign.title}}</h2>
       <section ng-switch on='currentStep'>
         <div ng-switch-when='0'>
           <ol>
-            <li ng-repeat="question in buildCampaign.questionsList">
+            <li ng-repeat="question in editCampaign.questionsList">
               {{question.text}}
               <ol class="answers">
                 <li ng-repeat="answer in question.answers" class="inline">
@@ -32,9 +31,9 @@
         </div>
         <div ng-switch-when='1'>
           <form method="post" action="">
-            <input type="text" name="title" ng-model="buildCampaign.reward.title" placeholder="Gift Title" />
-            <input type="text" name="description" ng-model="buildCampaign.reward.description" placeholder="Description"/>
-            <input type="text" name="terms" ng-model="buildCampaign.reward.terms" placeholder="Terms and Conditions"/>
+            <input type="text" name="title" ng-model="editCampaign.reward.title" placeholder="Gift Title" />
+            <input type="text" name="description" ng-model="editCampaign.reward.description" placeholder="Description"/>
+            <input type="text" name="terms" ng-model="editCampaign.reward.terms" placeholder="Terms and Conditions"/>
           </form>
         </div>
         <div ng-switch-when='2'>
@@ -46,7 +45,7 @@
         </div>
         
         <div ng-switch-when='3'>
-          <form ng-submit="sendInvite(first, last, invite_email, level, buildCampaign.permissions.pending)">
+          <form ng-submit="sendInvite(first, last, invite_email, level, editCampaign.permissions.pending)">
             <label for="emails">Send email invitations to others to help manage this campaign.</label>
             <input ng-model="first" type="text" name="name" placeholder="first name"/>
             <input ng-model="last" type="text" name="name" placeholder="last name"/>
@@ -62,13 +61,13 @@
           <hr>
           <h2>Permissions set:</h2>
           <ul>
-            <li ng-repeat="person in buildCampaign.permissions.accepted">
+            <li ng-repeat="person in editCampaign.permissions.accepted">
               {{person.first}} {{person.last}} <small class="status">permission level: {{person.level}}</small>
             </li>
           </ul>
           <h2>Pending Invites:</h2>
           <ul>
-            <li ng-repeat="person in buildCampaign.permissions.pending">
+            <li ng-repeat="person in editCampaign.permissions.pending">
               {{person.first}} {{person.last}} ({{person.email}}, {{person.level}}) <small class="status">pending...</small><button class="btn right clear">resend</button>
             </li>
           </ul>

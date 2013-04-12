@@ -38,7 +38,6 @@ appmodule.directive('deepnav', function ($http, $templateCache, $route, $anchorS
             
             //Create just an element for a partial
             function createPartial(template) {
-              console.log("create! "+layerSwitch);
               if (layerSwitch && (currentLayer != "main")) {
                 return {
                   element: angular.element('<div id="two" class="page level_two">').html(template)
@@ -80,9 +79,7 @@ appmodule.directive('deepnav', function ($http, $templateCache, $route, $anchorS
               if (outPartial && layerSwitch) {
                 
               }
-              
-              console.log("layerswitch: "+layerSwitch);
-              
+                            
               setTimeout(function() {
                 inPartial.element.removeClass(inClass);
                 if (outPartial) destroyPartial(outPartial);
@@ -104,10 +101,7 @@ appmodule.directive('deepnav', function ($http, $templateCache, $route, $anchorS
                 if ($route.current && $route.current.locals.$template) {
                   currentLayer = $route.current.layer;
                   
-                  console.log("currentLayer: "+currentLayer);
-                  console.log("lastLayer: "+lastLayer);
                   //checks to see if view changes layer.
-                  console.log((currentLayer == lastLayer));
                   
                   if ( (lastLayer == 'none') || (currentLayer == lastLayer) ) {
                     layerSwitch = false;

@@ -44,7 +44,7 @@ function appCtr($scope, $routeParams, $location, $route) {
         accepted: [],
         pending: []
       }
-  }
+  };
   
   $scope.chooseQType = function(question_type) {
     $scope.buildCampaign.questionsList.push({
@@ -238,7 +238,6 @@ function appCtr($scope, $routeParams, $location, $route) {
   
   $scope.changeStep = function(step) {
     $scope.currentStep = step;
-    $scope.toggleHeaderDropdown();
   };
   
   $scope.advanceStep = function() {
@@ -277,7 +276,6 @@ function appCtr($scope, $routeParams, $location, $route) {
 
 function dashCtr($scope, $routeParams, $location) {
     
-  $scope.text = "This is the dashboard!";
   $scope.title = 'Dashboard';
   
   if (($location.$$path == "/new") && (!$scope.buildCampaign)) {
@@ -287,17 +285,38 @@ function dashCtr($scope, $routeParams, $location) {
 
 function campaignCtr($scope, $routeParams, $location) {
   
-  var campaign = $routeParams.campaignId; //get current campaign id from route
-  
-  if ($scope.campaignList[campaign] != null) {
-    $scope.buildCampaign = $scope.campaignList[campaign]; //find campaign with id in the list of campaigns
+  function Campaign(id, handle, title, local, location, discoverable) {
+    
+    this.id = id,
+    this.handle = handle,
+    this.title = title,
+    this.description = 'This is the default description.',
+    this.local = local,
+    this.location = location,
+    this.discoverable = discoverable,
+    this.questionsList = [],
+    this.reward =
+      {
+        title: '',
+        description: '',
+        terms: ''
+      },
+    this.permissions = 
+      {
+        accepted: [],
+        pending: []
+      }
+  };
+    
+  if ($scope.campaignList[$routeParams.campaignId] != null) { //first make sure the campaignId from route exists
+    $scope.editCampaign = angular.copy($scope.campaignList[$routeParams.campaignId]); //find campaign with id in the list of campaigns
   }
   else {
     $location.path( '/dashboard' ); //redirect back to dashboard if campaign isn't found
   }
     
   $scope.saveChanges = function() {
-    $scope.campaignList[$scope.buildCampaign[campaign]] = $scope.buildCampaign;
+    $scope.campaignList[$scope.editCampaign.id] = $scope.editCampaign;
   };
 };
 
