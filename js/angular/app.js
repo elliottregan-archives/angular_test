@@ -11,9 +11,9 @@ var appmodule = angular.module('appmodule', ['ui']).
         controller: inboxCtr,
         layer: 'main'
       }).
-      when('/message/:msgId', {
-        templateUrl: 'partials/message.html',
-        controller: messageCtr,
+      when('/campaign/:campaignId/instance/:instanceId', {
+        templateUrl: 'partials/instance.html',
+        controller: instanceCtr,
         layer: 'layer1'
       }).
       when('/campaign/:campaignId', {
@@ -39,6 +39,6 @@ appmodule.run(function($templateCache,$http) {
   $http.get('partials/new.html', {cache:$templateCache});
   $http.get('partials/edit.html', {cache:$templateCache});
   $http.get('partials/inbox.html', {cache:$templateCache});
-  $http.get('partials/message.html', {cache:$templateCache});
+  $http.get('partials/instance.html', {cache:$templateCache});
   $http.get('partials/campaign_info.html', {cache:$templateCache});
 });

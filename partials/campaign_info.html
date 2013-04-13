@@ -1,21 +1,21 @@
 <header>
   <a href="#/dashboard" class="btn left">back</a>
-  <h2>{{editCampaign.title}}</h2>
+  <h2 ng-bind="editCampaign.title"></h2>
 </header>
 
 <div class="scroller_wrapper">
-  <div class=" ">
+  <div>
     <button class="btn"  ng-click="togglePanel('social_accounts')">share!</button>
     <a href="#/campaign/{{campaign.id}}/edit" class="btn" ng-click="resetStep()">edit</a>
   </div>
   <div class="scroller">
-    <h2>{{editCampaign.title}}</h2>
+    <h2 ng-bind="editCampaign.title"></h2>
     <ul class="instances">
-      <li ng-repeat="instance in instances" class="instance">
-        <a href="#/message/{{instance.instanceId}}">
+      <li ng-repeat="instance in editCampaign.instances" class="instance">
+        <a href="#/campaign/{{editCampaign.id}}/instance/{{instance.id}}">
           <article>
             <h3 ng-bind="instance.author"></h3>
-            <time datetime="2013-02-13T01:15-05:00">{{instance.time}}</time>
+            <time datetime="2013-02-13T01:15-05:00" ng-bind="instance.time"></time>
             <p ng-bind="instance.text"></p>
           </article></a>
       </li>
