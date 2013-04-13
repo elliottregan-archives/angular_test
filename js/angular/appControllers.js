@@ -61,6 +61,57 @@ function appCtr($scope, $routeParams, $location, $route) {
   
   $scope.handleList = ["crepesandthings", "crepesandthings_tea"];
   
+  $scope.instances = {
+    msg0: {
+      instanceId: 'msg0',
+      author: "Franz Ferdinand",
+      time: "2013-02-13T01:15-05:00",
+      text: "This is the main text of the feedback instance",
+      heard: "false",
+      comments: [
+        {
+          commentId: 'fdsahy',
+          author: "Elliott Regan", 
+          time: "2013-02-13T01:15-05:00",
+          text: "This might be a response to the feedback.",
+          heard: "false"
+        },
+        {
+          commentId: 'asdfgtr',
+          author: "You", 
+          time: "2013-02-13T01:15-05:00",
+          text: "This might be you reply",
+          heard: "false"
+        }
+      ]
+    },
+    msg1: {
+      instanceId: 'msg0',
+      author: "Elliott Regan",
+      time: "2013-02-13T01:15-05:00",
+      text: "This is the main text of the feedback instance",
+      heard: "false",
+      comments: [
+        {
+          commentId: 'asdf',
+          author: "Elliott Regan", 
+          time: "2013-02-13T01:15-05:00",
+          text: "This might be a response to the feedback.",
+          heard: "false"
+        },
+        {
+          commentId: 'fdsaf',
+          author: "You", 
+          time: "2013-02-13T01:15-05:00",
+          text: "This might be you reply",
+          heard: "false"
+        }
+      ]
+    
+    }
+  };
+  
+  
   $scope.campaignList = {
     camp0: {
       id: 'camp0',
@@ -283,6 +334,17 @@ function dashCtr($scope, $routeParams, $location) {
   };
 };
 
+function messageCtr($scope, $routeParams, $location) {
+  
+  console.log($routeParams.msgId);
+  if ($scope.instances[$routeParams.msgId] != null) { //first make sure the messageId from route exists
+    $scope.viewInstance = $scope.instances[$routeParams.msgId]; //find message with id in the list of campaigns
+  }
+  else {
+    $location.path( '/dashboard' ); //redirect back to dashboard if campaign isn't found
+  }
+};
+
 function campaignCtr($scope, $routeParams, $location) {
   
   function Campaign(id, handle, title, local, location, discoverable) {
@@ -322,56 +384,6 @@ function campaignCtr($scope, $routeParams, $location) {
 
 function inboxCtr($scope, $routeParams) {
   $scope.title = 'Inbox';
-  
-  $scope.instances = [
-    {
-      instanceId: 'htrsh',
-      author: "Franz Ferdinand",
-      time: "2013-02-13T01:15-05:00",
-      text: "This is the main text of the feedback instance",
-      heard: "false",
-      comments: [
-        {
-          commentId: 'fdsahy',
-          author: "Elliott Regan", 
-          time: "2013-02-13T01:15-05:00",
-          text: "This might be a response to the feedback.",
-          heard: "false"
-        },
-        {
-          commentId: 'asdfgtr',
-          author: "You", 
-          time: "2013-02-13T01:15-05:00",
-          text: "This might be you reply",
-          heard: "false"
-        }
-      ]
-    },
-    {
-      commentId: 'grjteiog',
-      author: "Elliott Regan",
-      time: "2013-02-13T01:15-05:00",
-      text: "This is the main text of the feedback instance",
-      heard: "false",
-      comments: [
-        {
-          commentId: 'asdf',
-          author: "Elliott Regan", 
-          time: "2013-02-13T01:15-05:00",
-          text: "This might be a response to the feedback.",
-          heard: "false"
-        },
-        {
-          commentId: 'fdsaf',
-          author: "You", 
-          time: "2013-02-13T01:15-05:00",
-          text: "This might be you reply",
-          heard: "false"
-        }
-      ]
-    
-    }
-  ];
   
   $scope.hearIt = function(el) {
     el.heard = "true";
