@@ -1,24 +1,38 @@
 <header>
   <a href="#/dashboard" class="btn left">back</a>
+  <a href="#/campaign/{{campaign.id}}/edit" class="btn right" ng-click="resetStep()">edit</a>
   <h2 ng-bind="editCampaign.title"></h2>
 </header>
 
 <div class="scroller_wrapper">
   <div>
     <button class="btn"  ng-click="togglePanel('social_accounts')">share!</button>
-    <a href="#/campaign/{{campaign.id}}/edit" class="btn" ng-click="resetStep()">edit</a>
+    
   </div>
   <div class="scroller">
-    <h2 ng-bind="editCampaign.title"></h2>
+    <h2>RECENT MESSAGES</h2>
     <ul class="instances">
-      <li ng-repeat="instance in editCampaign.instances" class="instance">
-        <a href="#/campaign/{{editCampaign.id}}/instance/{{instance.id}}">
-          <article>
+      <li ng-repeat="instance in editCampaign.instances">
+<!--        <a href="#/campaign/{{editCampaign.id}}/instance/{{instance.id}}">-->
+          <article ng-click="expandReplies($index)">
             <h3 ng-bind="instance.author"></h3>
-            <time datetime="2013-02-13T01:15-05:00" ng-bind="instance.time"></time>
+            <time ng-bind="instance.time"></time>
             <p ng-bind="instance.text"></p>
-          </article></a>
+            <ul class="replies" ng-show="isExpanded($index)">
+              <li class="reply" ng-show="instance.comments[(instance.comments.length-2)]">
+                <h4 ng-bind="instance.comments[(instance.comments.length-2)].author"></h4>
+                <p ng-bind="instance.comments[(instance.comments.length-2)].text"></p>
+              </li>
+              <li class="reply" ng-show="instance.comments[(instance.comments.length-1)]">
+                <h4 ng-bind="instance.comments[(instance.comments.length-1)].author"></h4>
+                <p ng-bind="instance.comments[(instance.comments.length-1)].text"></p>
+              </li>
+            </ul>
+          </article>
+<!--        </a>-->
       </li>
     </ul>
+    <h2>AT A GLANCE</h2>
+    <p><span ng-bind="editCampaign.instances.length"></span> total instances of fdbk.</p>
   </div>
 </div>

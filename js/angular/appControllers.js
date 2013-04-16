@@ -23,6 +23,23 @@ function appCtr($scope, $routeParams, $location, $route) {
     $scope.panel=panelName;
   };
   
+  var expandedReply = -1;
+  
+  $scope.expandReplies = function(instance_id) {
+    if (expandedReply != instance_id) {
+      expandedReply = instance_id;
+    }
+    else {
+      expandedReply = -1;
+    }
+    
+  };
+  
+  $scope.isExpanded = function(instance_id) {
+    return expandedReply == instance_id;
+    console.log('check');
+  };
+  
   function Campaign(id, handle, title, local, location, discoverable) {
     
     this.id = id,
@@ -153,10 +170,8 @@ function appCtr($scope, $routeParams, $location, $route) {
           terms: "Just show us your code, and we'll hand you a free espresso drink."
         },
       permissions: 
-        {
-          accepted: [
-            {
-              first: 'Bubbles',
+        { accepted: [
+            { first: 'Bubbles',
               last: '',
               email: 'yup@ahdoughno.com',
               date_sent: '',
@@ -165,23 +180,20 @@ function appCtr($scope, $routeParams, $location, $route) {
           ],
           pending: []
         },
-      instances : {
-        msg0: {
-          id: 'msg0',
+      instances : [
+        { id: 'msg0',
           author: "Franz Ferdinand",
           time: "2013-02-13T01:15-05:00",
           text: "This is the main text of the feedback instance",
           heard: "false",
           comments: [
-            {
-              commentId: 'fdsahy',
+            { commentId: 'fdsahy',
               author: "Elliott Regan", 
               time: "2013-02-13T01:15-05:00",
               text: "This might be a response to the feedback.",
               heard: "false"
             },
-            {
-              commentId: 'asdfgtr',
+            { commentId: 'asdfgtr',
               author: "You", 
               time: "2013-02-13T01:15-05:00",
               text: "This might be you reply",
@@ -189,31 +201,27 @@ function appCtr($scope, $routeParams, $location, $route) {
             }
           ]
         },
-        msg1: {
-          id: 'msg0',
+        { id: 'msg0',
           author: "Elliott Regan",
           time: "2013-02-13T01:15-05:00",
           text: "This is the main text of the feedback instance",
           heard: "false",
           comments: [
-            {
-              commentId: 'asdf',
+            { commentId: 'asdf',
               author: "Elliott Regan", 
               time: "2013-02-13T01:15-05:00",
               text: "This might be a response to the feedback.",
               heard: "false"
             },
-            {
-              commentId: 'fdsaf',
+            { commentId: 'fdsaf',
               author: "You", 
               time: "2013-02-13T01:15-05:00",
               text: "This might be you reply",
               heard: "false"
             }
           ]
-        
         }
-      }
+      ]
     },
     camp1: {
       id: 'camp1',

@@ -14,7 +14,7 @@ var appmodule = angular.module('appmodule', ['ui']).
       when('/campaign/:campaignId/instance/:instanceId', {
         templateUrl: 'partials/instance.html',
         controller: instanceCtr,
-        layer: 'layer1'
+        layer: 'layer2'
       }).
       when('/campaign/:campaignId', {
         templateUrl: 'partials/campaign_info.html',

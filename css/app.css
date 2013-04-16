@@ -306,12 +306,13 @@ nav a {
 }
 
 .replies {
-  padding: 10px 20px;
+  padding: 10px;
+  margin-left: 20px;
   font-size: .9em;
+  border-left: 3px solid #545554;
 }
 
 .reply {
-  background-color: #d6d6d6;
   margin-bottom: 10px;
 }
 
