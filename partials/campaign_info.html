@@ -1,38 +1,57 @@
 <header>
-  <a href="#/dashboard" class="btn left">back</a>
-  <a href="#/campaign/{{campaign.id}}/edit" class="btn right" ng-click="resetStep()">edit</a>
+  <button ng-click='toggleSidebar()' class="btn right">menu</button>
+  <button ng-click="toggleHeaderDropdown()" class="btn left">gear</button>
   <h2 ng-bind="editCampaign.title"></h2>
+  <div class="dropdown closed">
+    <button class="btn left"  ng-click="togglePanel('social_accounts')">share!</button>
+    <a href="#/campaign/{{campaign.id}}/edit" class="btn left" ng-click="resetStep()">edit</a>
+  </div>
 </header>
 
 <div class="scroller_wrapper">
-  <div>
-    <button class="btn"  ng-click="togglePanel('social_accounts')">share!</button>
-    
-  </div>
   <div class="scroller">
-    <h2>RECENT MESSAGES</h2>
+    <h3>RECENT MESSAGES</h3>
     <ul class="instances">
-      <li ng-repeat="instance in editCampaign.instances">
-<!--        <a href="#/campaign/{{editCampaign.id}}/instance/{{instance.id}}">-->
-          <article ng-click="expandReplies($index)">
-            <h3 ng-bind="instance.author"></h3>
-            <time ng-bind="instance.time"></time>
-            <p ng-bind="instance.text"></p>
-            <ul class="replies" ng-show="isExpanded($index)">
-              <li class="reply" ng-show="instance.comments[(instance.comments.length-2)]">
-                <h4 ng-bind="instance.comments[(instance.comments.length-2)].author"></h4>
-                <p ng-bind="instance.comments[(instance.comments.length-2)].text"></p>
-              </li>
-              <li class="reply" ng-show="instance.comments[(instance.comments.length-1)]">
-                <h4 ng-bind="instance.comments[(instance.comments.length-1)].author"></h4>
-                <p ng-bind="instance.comments[(instance.comments.length-1)].text"></p>
-              </li>
-            </ul>
-          </article>
+      <li ng-repeat="instance in editCampaign.instances" class="instance">
+        <aside class="btn_set vert">
+          <button class="btn">add note</button>
+          <button class="btn">important</button>
+        </aside>
+<!--    <a href="#/campaign/{{editCampaign.id}}/instance/{{instance.id}}">-->
+        <article>
+          <button ng-click="hearIt(instance)" class="btn heard heard_{{instance.heard}}" ui-if="instance.author != 'You'">heard!</button>
+          <h4 ng-bind="instance.author"></h4>
+          <time ng-bind="instance.time"></time>
+          <p ng-bind="instance.text" ng-click="expandReplies($index)"></p>
+          <ul class="replies" ng-show="isExpanded($index)">
+            <li ng-repeat="comment in instance.comments | limitTo:(instance.comments.length-2)" class="reply">
+              <button ng-click="hearIt(comment)" class="btn heard heard_{{comment.heard}}" ui-if="comment.author != 'You'">heard!</button>
+              <h5 ng-bind="comment.author"></h5>
+              <p ng-bind="comment.text"></p>
+            </li>
+          </ul>
+          <ul class="replies">
+            <li class="reply" ng-show="instance.comments[(instance.comments.length-2)]">
+              <button ng-click="hearIt(instance.comments[(instance.comments.length-2)])" class="btn heard heard_{{instance.comments[(instance.comments.length-2)].heard}}" ui-if="instance.comments[(instance.comments.length-2)].author != 'You'">heard!</button>
+              <h5 ng-bind="instance.comments[(instance.comments.length-2)].author"></h5>
+              <p ng-bind="instance.comments[(instance.comments.length-2)].text"></p>
+            </li>
+            <li class="reply" ng-show="instance.comments[(instance.comments.length-1)]">
+              <button ng-click="hearIt(instance.comments[(instance.comments.length-1)])" class="btn heard heard_{{instance.comments[(instance.comments.length-1)].heard}}" ui-if="instance.comments[(instance.comments.length-1)].author != 'You'">heard!</button>
+              <h5 ng-bind="instance.comments[(instance.comments.length-1)].author"></h5>
+              <p ng-bind="instance.comments[(instance.comments.length-1)].text"></p>
+            </li>
+          </ul>
+          <form ng-submit="addReply(newCommentText, instance.comments)">
+            <input type="text" name="new_comment" ng-model="newCommentText" />
+            <button class="btn"type="submit">reply</button>
+          </form>
+        </article>
 <!--        </a>-->
       </li>
     </ul>
-    <h2>AT A GLANCE</h2>
-    <p><span ng-bind="editCampaign.instances.length"></span> total instances of fdbk.</p>
+    <h3>AT A GLANCE</h3>
+    <figure class="big_number" ng-bind="editCampaign.instances.length"></figure>
+    <figcaption>total instances of fdbk.</figcaption>
   </div>
 </div>

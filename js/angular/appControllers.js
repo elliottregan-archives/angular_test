@@ -3,7 +3,7 @@ function sidebarCtr($scope) {
   
   $scope.appPages = [
     "dashboard", 
-    "inbox",
+    "feed",
     "settings"
   ];
   
@@ -12,6 +12,10 @@ function sidebarCtr($scope) {
 function appCtr($scope, $routeParams, $location, $route) {
   
   $scope.title = "default title";
+  
+  $scope.toggleHeaderDropdown = function() {
+    $('header .dropdown').toggleClass('closed');
+  };
   
   $scope.toggleSidebar = function() {
     $('.main_nav').toggleClass('visible');
@@ -32,7 +36,25 @@ function appCtr($scope, $routeParams, $location, $route) {
     else {
       expandedReply = -1;
     }
+    console.log(instance_id);
     
+  };
+  
+  $scope.hearIt = function(el) {
+    el.heard = "true";
+    console.log("heard!")
+  };
+  
+  $scope.addReply = function(post, comments) {
+    comments.push({
+      commentId: 1,
+      author: "You",
+      time: getDate(),
+      text: post,
+      heard: false
+    });
+    console.log($scope.newCommentText);
+    this.newCommentText = '';
   };
   
   $scope.isExpanded = function(instance_id) {
@@ -188,13 +210,13 @@ function appCtr($scope, $routeParams, $location, $route) {
           heard: "false",
           comments: [
             { commentId: 'fdsahy',
-              author: "Elliott Regan", 
+              author: "You", 
               time: "2013-02-13T01:15-05:00",
               text: "This might be a response to the feedback.",
               heard: "false"
             },
             { commentId: 'asdfgtr',
-              author: "You", 
+              author: "Franz Ferdinand", 
               time: "2013-02-13T01:15-05:00",
               text: "This might be you reply",
               heard: "false"
@@ -202,21 +224,33 @@ function appCtr($scope, $routeParams, $location, $route) {
           ]
         },
         { id: 'msg0',
-          author: "Elliott Regan",
+          author: "Chad Grecko",
           time: "2013-02-13T01:15-05:00",
           text: "This is the main text of the feedback instance",
           heard: "false",
           comments: [
             { commentId: 'asdf',
-              author: "Elliott Regan", 
+              author: "You", 
               time: "2013-02-13T01:15-05:00",
-              text: "This might be a response to the feedback.",
+              text: "Glad to hear from you. Anything else we can do for you?",
+              heard: "false"
+            },
+            { commentId: 'fdsaf',
+              author: "Chad Grecko", 
+              time: "2013-02-13T01:15-05:00",
+              text: "The text on the menus is too small. Can you make it bigger?",
               heard: "false"
             },
             { commentId: 'fdsaf',
               author: "You", 
               time: "2013-02-13T01:15-05:00",
-              text: "This might be you reply",
+              text: "Sure. Not a problem. I'll let you know when we reprint our menus, some time next month.",
+              heard: "false"
+            },
+            { commentId: 'fdsaf',
+              author: "Chad Grecko", 
+              time: "2013-02-13T01:15-05:00",
+              text: "Ok, thanks! You guys are the best.",
               heard: "false"
             }
           ]
@@ -444,11 +478,6 @@ function campaignCtr($scope, $routeParams, $location) {
 
 function inboxCtr($scope, $routeParams) {
   $scope.title = 'Inbox';
-  
-  $scope.hearIt = function(el) {
-    el.heard = "true";
-    console.log("heard!")
-  };
   
   $scope.addReply = function(post, comments) {
     comments.push({

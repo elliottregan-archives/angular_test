@@ -126,6 +126,36 @@ header .btn {
   line-height: 20px;
 }
 
+.dropdown {
+  text-align: center;
+  overflow: hidden;
+  opacity: 1;
+  -webkit-transition: all 500ms ease-in-out;
+  -moz-transition: all 500ms ease-in-out;
+  -ms-transition: all 500ms ease-in-out;
+  -o-transition: all 500ms ease-in-out;
+  transition: all 500ms ease-in-out;
+  -webkit-transform: translate3d(0, 0, 0);
+  background-color: #d4d5d4;
+  -webkit-transform: translateY(0%);
+  -moz-transform: translateY(0%);
+  transform: translateY(0%);
+  width: 100%;
+}
+
+.dropdown.opened {
+  -webkit-transform: translateY(0%);
+  -moz-transform: translateY(0%);
+  transform: translateY(0%);
+}
+
+.dropdown.closed {
+  opacity: 0;
+  -webkit-transform: translateY(-200%);
+  -moz-transform: translateY(-200%);
+  transform: translateY(-200%);
+}
+
 h2, h3, h4 {
   margin: 0;
 }
@@ -355,6 +385,11 @@ nav a {
 
 .instance_action:last-of-type {
   border-right: none;
+}
+
+.big_number {
+  text-align: left;
+  font-size: 4em;
 }
 
 /* @group Dashboard Styles */

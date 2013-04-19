@@ -43,6 +43,13 @@
         <a href="#/{{page}}" ng-click="toggleSidebar()">{{page}}</a>
       </li>
     </ul>
+    <h3>Campaigns</h3>
+    <ul>
+      <li><a href="#dashboard" ng-click="toggleSidebar()">View All</a></li>
+      <li ng-repeat="campaign in campaignList">
+        <a href="#/campaign/{{campaign.id}}" ng-bind="campaign.title" ng-click="toggleSidebar()"></a>
+      </li>
+    </ul>
   </nav>
   
   <aside id="palette" ng-controller="panelCtr" view="panel">
