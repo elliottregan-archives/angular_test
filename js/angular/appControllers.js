@@ -202,8 +202,9 @@ function appCtr($scope, $routeParams, $location, $route) {
           ],
           pending: []
         },
-      instances : [
-        { id: 'msg0',
+      instances : {
+        msg0: {
+          id: 'msg0',
           author: "Franz Ferdinand",
           time: "2013-02-13T01:15-05:00",
           text: "This is the main text of the feedback instance",
@@ -223,7 +224,8 @@ function appCtr($scope, $routeParams, $location, $route) {
             }
           ]
         },
-        { id: 'msg0',
+        msg1: {
+          id: 'msg1',
           author: "Chad Grecko",
           time: "2013-02-13T01:15-05:00",
           text: "This is the main text of the feedback instance",
@@ -255,7 +257,7 @@ function appCtr($scope, $routeParams, $location, $route) {
             }
           ]
         }
-      ]
+      }
     },
     camp1: {
       id: 'camp1',
@@ -291,10 +293,66 @@ function appCtr($scope, $routeParams, $location, $route) {
               level: 'view'
             }
           ]
+        },
+      instances : {
+        msg0 : {
+          id: 'msg0',
+          author: "Hans Lipman",
+          time: "2013-02-13T01:15-05:00",
+          text: "This is the main text of the feedback instance",
+          heard: "false",
+          comments: [
+            { commentId: 'fdsahy',
+              author: "You", 
+              time: "2013-02-13T01:15-05:00",
+              text: "This might be a response to the feedback.",
+              heard: "false"
+            },
+            { commentId: 'asdfgtr',
+              author: "Hans Lipman", 
+              time: "2013-02-13T01:15-05:00",
+              text: "This might be you reply",
+              heard: "false"
+            }
+          ]
+        },
+        msg1 : {
+          id: 'msg0',
+          author: "Becky Johnson",
+          time: "2013-02-13T01:15-05:00",
+          text: "This is the main text of the feedback instance",
+          heard: "false",
+          comments: [
+            { commentId: 'asdf',
+              author: "You", 
+              time: "2013-02-13T01:15-05:00",
+              text: "Glad to hear from you. Anything else we can do for you?",
+              heard: "false"
+            },
+            { commentId: 'fdsaf',
+              author: "Becky Johnson", 
+              time: "2013-02-13T01:15-05:00",
+              text: "The text on the menus is too small. Can you make it bigger?",
+              heard: "false"
+            },
+            { commentId: 'fdsaf',
+              author: "You", 
+              time: "2013-02-13T01:15-05:00",
+              text: "Sure. Not a problem. I'll let you know when we reprint our menus, some time next month.",
+              heard: "false"
+            },
+            { commentId: 'fdsaf',
+              author: "Becky Johnson", 
+              time: "2013-02-13T01:15-05:00",
+              text: "Ok, thanks! You guys are the best.",
+              heard: "false"
+            }
+          ]
         }
+      }
     }
   };
-  
+    
 // example framework of a campaign
 //  $scope.buildCampaign = { 
 //    id: '',
@@ -429,13 +487,13 @@ function instanceCtr($scope, $routeParams, $location) {
   
   $scope.campaign = $routeParams.campaignId;
   $scope.instance = $routeParams.instanceId;
-  
-  console.log($scope.campaignList[$routeParams.campaignId].instances[$routeParams.instanceId].id);
-  if ($scope.campaignList[$routeParams.campaignId].instances[$routeParams.instanceId].id != null) { //first make sure the messageId from route exists
+  if ($scope.campaignList[$routeParams.campaignId].instances[$routeParams.instanceId] != null) { //first make sure the messageId from route exists.
     $scope.viewInstance = $scope.campaignList[$routeParams.campaignId].instances[$routeParams.instanceId]; //find message with id in the list of campaigns
+      console.log("success")
   }
   else {
-    $location.path( '/dashboard' ); //redirect back to dashboard if campaign isn't found
+    console.log("redirect")
+    $location.path( "/campaign/"+$scope.campaign ); //redirect back to dashboard if campaign isn't found
   }
 };
 
@@ -468,6 +526,7 @@ function campaignCtr($scope, $routeParams, $location) {
     $scope.editCampaign = angular.copy($scope.campaignList[$routeParams.campaignId]); //find campaign with id in the list of campaigns
   }
   else {
+    console.log($routeParams.campaignId)
     $location.path( '/dashboard' ); //redirect back to dashboard if campaign isn't found
   }
     

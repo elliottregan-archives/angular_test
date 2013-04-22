@@ -11,6 +11,7 @@ body {
 
 a {
   color: inherit;
+  text-decoration: none;
 }
 
 ul, ol {
@@ -156,12 +157,16 @@ header .btn {
   transform: translateY(-200%);
 }
 
-h2, h3, h4 {
+h2, h3, h4, h5 {
   margin: 0;
 }
 
 p {
   margin: 10px 0;
+}
+
+.centered {
+  text-align: center;
 }
 
 .left {
@@ -329,10 +334,11 @@ nav a {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   padding: 4px;
+  border: 1px solid #989998;
 }
 
 .instance > article {
-  margin-right: 80px;
+  margin-right: 50px;
 }
 
 .replies {
@@ -348,6 +354,10 @@ nav a {
 
 .reply:last-of-type {
   margin-bottom: 0;
+}
+
+form.reply {
+  padding-left: 20px;
 }
 
 .btn {
@@ -387,15 +397,62 @@ nav a {
   border-right: none;
 }
 
-.big_number {
-  text-align: left;
-  font-size: 4em;
+.data_section {
+  background-color: #eff0ef;
+  border: 1px solid #989997;
+  padding: 4px;
 }
+
+.data {
+  display: inline-block;
+  vertical-align: text-top;
+}
+
+.data.text {
+  margin: 0;
+  padding: 20px 0;
+}
+
+.big_number {
+  font-size: 4em;
+  text-align: center;
+}
+
+/* @group Scaffolding */
+
+[class*='col-'] {
+  float: left;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+
+.col-1-3 {
+  width: 33.33%;
+}
+
+.col-2-3 {
+  width: 66.66%;
+}
+
+.row::after {
+  content: '\a';
+  display: block;
+  clear: both;
+}
+
+/* @end */
 
 /* @group Dashboard Styles */
 
 .campaign_info {
   float: right;
+}
+
+.notifications {
+  background-color: #eff0ef;
+  border: 1px solid #989997;
+  padding: 4px;
 }
 
 #campaign_list li {

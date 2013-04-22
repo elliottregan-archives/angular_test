@@ -6,7 +6,7 @@ var appmodule = angular.module('appmodule', ['ui']).
         controller: dashCtr,
         layer: 'main'
       }).
-      when('/inbox', {
+      when('/feed', {
         templateUrl: 'partials/inbox.html',
         controller: inboxCtr,
         layer: 'main'

@@ -1,8 +1,8 @@
 <section id="page_02">
   <header>
-    <a href="#/dashboard" class="btn left">cancel</a>
+    <a href="#/campaign/{{editCampaign.id}}" class="btn left">cancel</a>
     <a ng-click='advanceStep()' ng-hide='currentStep >= (steps.length-1)' class="btn right">Next Page</a>
-    <a href="#/dashboard" ng-show='currentStep >= (steps.length-1)' class="btn right" ng-click="saveChanges()">Save Changes</a>
+    <a href="#/campaign/{{editCampaign.id}}" ng-show='currentStep >= (steps.length-1)' class="btn right" ng-click="saveChanges()">Save Changes</a>
     <h2>Edit {{editCampaign.title}}: Step {{steps[currentStep]+1}}</h2>
   </header>
   
@@ -12,7 +12,7 @@
       <li ng-class="{selected: currentStep==n}" class="crumb" ng-repeat='n in steps' ng-click='changeStep(n)'>{{n+1}}</li>
     </ol>
     
-    <a href="#/dashboard" ng-click="saveChanges()">Save Changes</a>
+    <a href="#/campaign/{{editCampaign.id}}" ng-click="saveChanges()">Save Changes</a>
   </nav>
   <div class="scroller">
       <h2>{{editCampaign.title}}</h2>
