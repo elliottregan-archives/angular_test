@@ -1,11 +1,11 @@
 function sidebarCtr($scope) {
   $scope.text = "sidebar success!";
   
-  $scope.appPages = [
-    "dashboard", 
-    "feed",
-    "settings"
-  ];
+  $scope.appPages = {
+    "Instance Feed" : "feed",
+    "Your Rewards" : "rewards",
+    "Personal Settings" : "settings"
+  };
   
 }
 
@@ -85,7 +85,58 @@ function appCtr($scope, $routeParams, $location, $route) {
       }
   };
   
-  $scope.chooseQType = function(question_type) {
+  $scope.selectedQType = '';
+  
+  $scope.buildQuestion = {
+    id: 'asdf',
+    type: 'freeText',
+    text: "",
+    answers: []
+  };
+  
+  $scope.addAnswer = function(input_text, answers) {
+    answers.push({
+      id: 'a01',
+      text: input_text
+    });
+    this.newAnswerText = '';
+  };
+  
+  $scope.saveQuestion = function() {
+    if ($scope.buildQuestion.type == 'rating') {
+      $scope.buildQuestion.answers = [
+        {
+          id: 0,
+          text: "poor"
+        },
+        {
+          id: 2,
+          text: "fair"
+        },
+        {
+          id: 3,
+          text: "good"
+        },
+        {
+          id: 4,
+          text: "great"
+        },
+      ];
+    }
+    else if ($scope.buildQuestion.type != 'multipleChoice') {
+      $scope.buildQuestion.answers = [];
+    }
+    
+    $scope.buildCampaign.questionsList.push(angular.copy($scope.buildQuestion));
+    $scope.buildQuestion = {
+        id: "",
+        type: "",
+        text: "",
+        answers: []
+    }
+  };
+  
+  $scope.chooseQType = function(question_type) { //function from the form creator
     $scope.buildCampaign.questionsList.push({
         id: "q_"+datetime,
         type: question_type,
@@ -99,57 +150,6 @@ function appCtr($scope, $routeParams, $location, $route) {
   };
   
   $scope.handleList = ["crepesandthings", "crepesandthings_tea"];
-  
-  $scope.instances = {
-    msg0: {
-      instanceId: 'msg0',
-      author: "Franz Ferdinand",
-      time: "2013-02-13T01:15-05:00",
-      text: "This is the main text of the feedback instance",
-      heard: "false",
-      comments: [
-        {
-          commentId: 'fdsahy',
-          author: "Elliott Regan", 
-          time: "2013-02-13T01:15-05:00",
-          text: "This might be a response to the feedback.",
-          heard: "false"
-        },
-        {
-          commentId: 'asdfgtr',
-          author: "You", 
-          time: "2013-02-13T01:15-05:00",
-          text: "This might be you reply",
-          heard: "false"
-        }
-      ]
-    },
-    msg1: {
-      instanceId: 'msg0',
-      author: "Elliott Regan",
-      time: "2013-02-13T01:15-05:00",
-      text: "This is the main text of the feedback instance",
-      heard: "false",
-      comments: [
-        {
-          commentId: 'asdf',
-          author: "Elliott Regan", 
-          time: "2013-02-13T01:15-05:00",
-          text: "This might be a response to the feedback.",
-          heard: "false"
-        },
-        {
-          commentId: 'fdsaf',
-          author: "You", 
-          time: "2013-02-13T01:15-05:00",
-          text: "This might be you reply",
-          heard: "false"
-        }
-      ]
-    
-    }
-  };
-  
   
   $scope.campaignList = {
     camp0: {
@@ -189,7 +189,8 @@ function appCtr($scope, $routeParams, $location, $route) {
         {
           title: 'Free espresso!',
           description: 'Come back for a free espresso any time you want.',
-          terms: "Just show us your code, and we'll hand you a free espresso drink."
+          terms: "Just show us your code, and we'll hand you a free espresso drink.",
+          exp: "01-02-2014"
         },
       permissions: 
         { accepted: [
@@ -197,7 +198,7 @@ function appCtr($scope, $routeParams, $location, $route) {
               last: '',
               email: 'yup@ahdoughno.com',
               date_sent: '',
-              level: 'master'
+              level: []
             }
           ],
           pending: []
@@ -277,9 +278,10 @@ function appCtr($scope, $routeParams, $location, $route) {
       ],
       reward:
         {
-          title: '',
-          description: '',
-          terms: ''
+          title: 'Free rocket ball',
+          description: 'What is a rocket ball?',
+          terms: 'Guess correctly, and you get it for free!',
+          exp: "01-02-2014"
         },
       permissions: 
         {
@@ -408,26 +410,6 @@ function appCtr($scope, $routeParams, $location, $route) {
     });
   };
   
-  $scope.addAnswer = function(input_text, answers) {
-    answers.push({
-      id: 'a01',
-      text: input_text
-    });
-    console.log($scope.newAnswerText);
-    this.newAnswerText = '';
-  };
-  
-  $scope.addQuestion = function(input_text, questions) {
-    questions.push({
-      id: 'q01',
-      type: 'text',
-      text: 'How likely are you to recommend this establishment to your friends?',
-      answers: []
-    });
-    console.log($scope.newAnswerText);
-    this.newAnswerText = '';
-  };
-  
   $scope.steps = [0,1,2,3,4];
   
   $scope.currentStep = 0;
@@ -536,7 +518,7 @@ function campaignCtr($scope, $routeParams, $location) {
 };
 
 function inboxCtr($scope, $routeParams) {
-  $scope.title = 'Inbox';
+  $scope.title = 'All Instaces';
   
   $scope.addReply = function(post, comments) {
     comments.push({

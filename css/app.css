@@ -189,23 +189,28 @@ p {
   clear: both;
 }
 
-.breadcrumbs {
+.btnset {
   margin: 0;
   overflow: hidden;
   background-color: #d4d5d4;
   width: 100%;
 }
 
-.crumb {
+.btnset .btn {
   display: inline-block;
   text-align: center;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+  background-color: transparent;
+  color: #545554;
 }
 
-.crumb.selected {
+.btnset .btn.selected {
   background-color: #ffffff;
 }
 
-.five_crumbs .crumb {
+.five_btns .btn {
   width: 20%;
   padding: 10px;
   -webkit-box-sizing: border-box;
@@ -495,7 +500,7 @@ fieldset {
   margin: 0;
 }
 
-input[type=text], input[type=email] {
+input[type=text], input[type=email], input[type=number], input[type=date] {
   display: block;
   width: 100%;
   padding: 8px;

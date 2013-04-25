@@ -11,9 +11,9 @@
         <input type="text" name="new_campaign_title" placeholder="Title for new campaign" ng-model="new_campaign_title"/>
         <fieldset>
           <input id="has_handle_true" type="radio" name="has_handle" ng-model="has_handle" value="new" />
-          <label for="has_handle_true">New handle</label>
+          <label for="has_handle_true">New listening point</label>
           <input id="has_handle_false" type="radio" name="has_handle" ng-model="has_handle" value="old" />
-          <label for="has_handle_false">Previous handle</label>
+          <label for="has_handle_false">Previous listening point</label>
         </fieldset>
         <fieldset ng-show="has_handle == 'new'">
           fdbk.com/
@@ -23,7 +23,7 @@
           fdbk.com/
           <select ng-model="handle">
             <option ng-repeat="handle in handleList">{{handle}}</option>
-            <option disabled="true">no more available handles</option>
+            <option disabled="true">no more available listening points</option>
           </select>
         </fieldset>
         <!--<fieldset>

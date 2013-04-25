@@ -8,8 +8,8 @@
   
 <div class="scroller_wrapper">
   <nav>
-    <ol class="breadcrumbs five_crumbs">
-      <li ng-class="{selected: currentStep==n}" class="crumb" ng-repeat='n in steps' ng-click='changeStep(n)'>{{n+1}}</li>
+    <ol class="breadcrumbs five_btns btnset">
+      <li ng-class="{selected: currentStep==n}" class="crumb btn" ng-repeat='n in steps' ng-click='changeStep(n)'>{{n+1}}</li>
     </ol>
     
     <a href="#/campaign/{{editCampaign.id}}" ng-click="saveChanges()">Save Changes</a>
@@ -34,6 +34,7 @@
             <input type="text" name="title" ng-model="editCampaign.reward.title" placeholder="Gift Title" />
             <input type="text" name="description" ng-model="editCampaign.reward.description" placeholder="Description"/>
             <input type="text" name="terms" ng-model="editCampaign.reward.terms" placeholder="Terms and Conditions"/>
+            <input type="date" name="expiration" ng-model="editCampaign.reward.exp" placeholder="Expiration Date" />
           </form>
         </div>
         <div ng-switch-when='2'>
@@ -51,10 +52,12 @@
             <input ng-model="last" type="text" name="name" placeholder="last name"/>
             <input ng-model="invite_email" type="email" name="email" placeholder="email"/>
             <fieldset>
-              <input ng-model="level" type="radio" name="level" value="read" id="read"/>
-              <label for="read">View Analytics</label>
-              <input ng-model="level" type="radio" name="level" value="read,write" id="readwrite"/>
-              <label for="readwrite">View and edit details</label>
+              <input ng-model="perm_respond" type="checkbox" name="perm_respond" ng-true-value="respond" id="perm_respond"/>
+              <label for="perm_respond">respond</label>
+              <input ng-model="perm_export" type="checkbox" name="perm_export" ng-true-value="export" id="perm_export"/>
+              <label for="perm_export">export</label>
+              <input ng-model="perm_admin" type="checkbox" name="perm_admin" ng-true-value="admin" id="perm_admin"/>
+              <label for="perm_admin">admin</label>
             </fieldset>
             <button class="new_invite btn">Send</button>
           </form>
@@ -74,9 +77,9 @@
         </div>
         
         <div ng-switch-when='4'>
-          <label for="url">Choose a URL for your access point</label>
-          <input type="text" name="url" id="url" value="fdbk.com/business_name"/>
-          <label for="access_points">or choose a previous access point.</label>
+          <label for="url">Add a physical location to your access point (optional):</label>
+          <input type="text" name="location" id="location" placeholder="1 Street Address, Whereverville, FL"/>
+          <label for="location">or choose a previous location:</label>
           <select>
             <option>407 9th St, Brooklyn, NY</option>
           </select>

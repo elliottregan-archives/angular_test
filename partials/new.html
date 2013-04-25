@@ -8,73 +8,56 @@
   
   <div class="scroller_wrapper">
     <nav>
-      <ol class="breadcrumbs five_crumbs">
-        <li ng-class="{selected: currentStep==n}" class="crumb" ng-repeat='n in steps' ng-click='changeStep(n)'>{{n+1}}</li>
+      <ol class="breadcrumbs five_btns btnset">
+        <li ng-class="{selected: currentStep==n}" class="crumb btn" ng-repeat='n in steps' ng-click='changeStep(n)'>{{n+1}}</li>
       </ol>
     </nav>
     <div class="scroller">
       <h2>{{buildCampaign.title}}</h2>
-      <h3>fdbk.com/{{buildCampaign.handle}}</h3>
       <section ng-switch on='currentStep'>
         <div ng-switch-when='0'>
-          <button ng-click="togglePanel('new_question')" class="btn">+ New Question</button>
+          <button ng-click="togglePanel('new_question_alt')" class="btn">+ New Question</button>
           <ol>
             <li ng-repeat="question in buildCampaign.questionsList">
-              <!--Start 'mcSingleSelect' Template-->
-              <div ng-show="question.type == 'mcSingleSelect'">
-                <h3>Multiple-Choice: Single-Select</h3>
+              <!--Start 'Multiple Choice' Template-->
+              <div ng-show="question.type == 'multipleChoice'">
+                <h3>Multiple-Choice</h3>
                 <input type="text" name="question_{{question.id}}" ng-model="question.text" placeholder="Enter your question here." />
                 <ul class='answers'>
                   <li ng-repeat="answer in question.answers">
                     <input type="text" name="answer_{{question.id}}{{answer.id}}" ng-model="answer.text" placeholder="add an answer here."/>
                   </li>
                 </ul>
-                
-                <form ng-submit="addAnswer(newAnswerText, question.answers)">
-                  <input type='text' name='{{question.id}}_question' placeholder='add your question here.' ng-model="newAnswerText"/>
-                  <button id='{{question.id}}_add_answer' type="submit" class='btn'>+ add new answer</button>
-                </form>
-                
               </div>
-              <!--End 'mcSingleSelect' Template-->
+              <!--End 'Multiple Choice' Template-->
               
-              <!--Start 'mcSingleSelect' Template-->
-              <div ng-show="question.type == 'mcMultiSelect'">
-                <h3>Multiple-Choice: Multi-Select</h3>
+              <!--Start 'rating' Template-->
+              <div ng-show="question.type == 'rating'">
+                <h3>Rating:</h3>
                 <input type="text" name="question_{{question.id}}" ng-model="question.text" placeholder="Enter your question here." />
                 <ul class='answers'>
                   <li ng-repeat="answer in question.answers">
                     <input type="text" name="answer_{{question.id}}{{answer.id}}" ng-model="answer.text" placeholder="add an answer here."/>
                   </li>
                 </ul>
-                
-                <form ng-submit="addAnswer(newAnswerText, question.answers)">
-                  <input type='text' name='{{question.id}}_question' placeholder='add an answer here.' ng-model="newAnswerText"/>
-                  <button id='{{question.id}}_add_answer' type="submit" class='btn'>+ add new answer</button>
-                </form>
               </div>
-              <!--End 'mcMultiSelect' Template-->
+              <!--End 'rating' Template-->
               
-              <!--Start 'dropdown' Template-->
-              <div ng-show="question.type == 'dropdown'">
-                <h3>Dropdown</h3>
+              <!--Start 'freeText' Template-->
+              <div ng-show="question.type == 'freeText'">
+                <h3>Free Text Response:</h3>
                 <input type="text" name="question_{{question.id}}" ng-model="question.text" placeholder="Enter your question here." />
                 <ul class='answers'>
                   <li ng-repeat="answer in question.answers">
                     <input type="text" name="answer_{{question.id}}{{answer.id}}" ng-model="answer.text" placeholder="add an answer here."/>
                   </li>
                 </ul>
-                
-                <form ng-submit="addAnswer(newAnswerText, question.answers)">
-                  <input type='text' name='{{question.id}}_question' placeholder='add an answer here.' ng-model="newAnswerText"/>
-                  <button id='{{question.id}}_add_answer' type="submit" class='btn'>+ add new answer</button>
-                </form>
               </div>
-              <!--End 'dropdown' Template-->
+              <!--End 'freeText' Template-->
               
-              <!--Start 'text' Template-->
-              <div ng-show="question.type == 'text'">
-                <h3>Free Text Response</h3>
+              <!--Start 'binary' Template-->
+              <div ng-show="question.type == 'binary'">
+                <h3>Yes or No?</h3>
                 <input type="text" name="question_{{question.id}}" ng-model="question.text" placeholder="Enter your question here." />
                 <ul class='answers'>
                   <li ng-repeat="answer in question.answers">
@@ -82,7 +65,19 @@
                   </li>
                 </ul>
               </div>
-              <!--End 'mcMultiSelect' Template-->
+              <!--End 'binary' Template-->
+              
+              <!--Start 'number' Template-->
+              <div ng-show="question.type == 'number'">
+                <h3>Choose a number:</h3>
+                <input type="text" name="question_{{question.id}}" ng-model="question.text" placeholder="Enter your question here." />
+                <ul class='answers'>
+                  <li ng-repeat="answer in question.answers">
+                    <input type="text" name="answer_{{question.id}}{{answer.id}}" ng-model="answer.text" placeholder="add an answer here."/>
+                  </li>
+                </ul>
+              </div>
+              <!--End 'number' Template-->
               
             </li>
           </ol>
@@ -92,6 +87,7 @@
             <input type="text" name="title" ng-model="buildCampaign.reward.title" placeholder="Gift Title" />
             <input type="text" name="description" ng-model="buildCampaign.reward.description" value="" placeholder="Description"/>
             <input type="text" name="terms" ng-model="buildCampaign.reward.terms" value="" placeholder="Terms and Conditions"/>
+            <input type="date" name="expiration" ng-model="buildCampaign.reward.exp" placeholder="Expiration Date" />
           </form>
         </div>
         <div ng-switch-when='2'>
@@ -102,16 +98,18 @@
         </div>
         
         <div ng-switch-when='3'>
-          <form ng-submit="sendInvite(first, last, invite_email, level, buildCampaign.permissions.pending)">
+          <form ng-submit="sendInvite(first, last, [perm_respond,perm_export,perm_admin], level, buildCampaign.permissions.pending)">
             <label for="emails">Send email invitations to others to help manage this campaign.</label>
             <input ng-model="first" type="text" name="name" placeholder="first name"/>
             <input ng-model="last" type="text" name="name" placeholder="last name"/>
             <input ng-model="invite_email" type="email" name="email" placeholder="email"/>
             <fieldset>
-              <input ng-model="level" type="radio" name="level" value="read" id="read"/>
-              <label for="read">View Analytics</label>
-              <input ng-model="level" type="radio" name="level" value="read,write" id="readwrite"/>
-              <label for="readwrite">View and edit details</label>
+              <input ng-model="perm_respond" type="checkbox" name="perm_respond" ng-true-value="respond" id="perm_respond"/>
+              <label for="perm_respond">respond</label>
+              <input ng-model="perm_export" type="checkbox" name="perm_export" ng-true-value="export" id="perm_export"/>
+              <label for="perm_export">export</label>
+              <input ng-model="perm_admin" type="checkbox" name="perm_admin" ng-true-value="admin" id="perm_admin"/>
+              <label for="perm_admin">admin</label>
             </fieldset>
             <button class="new_invite btn">Send</button>
           </form>
@@ -131,9 +129,9 @@
         </div>
         
         <div ng-switch-when='4'>
-          <label for="url">Choose a URL for your access point</label>
-          <input type="text" name="url" id="url" value="fdbk.com/business_name"/>
-          <label for="access_points">or choose a previous access point.</label>
+          <label for="url">Add a physical location to your access point (optional):</label>
+          <input type="text" name="location" id="location" placeholder="1 Street Address, Whereverville, FL"/>
+          <label for="location">or choose a previous location:</label>
           <select>
             <option>407 9th St, Brooklyn, NY</option>
           </select>

@@ -39,8 +39,8 @@
   
   <nav id="sidebar" ng-controller="sidebarCtr" class="main_nav">
     <ul>
-      <li ng-repeat="page in appPages">
-        <a href="#/{{page}}" ng-click="toggleSidebar()">{{page}}</a>
+      <li ng-repeat="(page, url) in appPages">
+        <a href="#/{{url}}" ng-click="toggleSidebar()" ng-bind='page'></a>
       </li>
     </ul>
     <h3>Campaigns</h3>
@@ -54,11 +54,55 @@
   
   <aside id="palette" ng-controller="panelCtr" view="panel">
     <header>
-      <button ui-event="{click : 'chooseQType(qtype)'}" class="btn right">select</button>
       <button ui-event="{click : 'togglePanel()'}" class="btn left">cancel</button>
+      <button class="btn right" ng-click="saveQuestion()"  ui-event="{click : 'togglePanel()'}">add question</button>
       <h1>panel</h1>
     </header>
     <div class="content scroller">
+    
+      <div ng-show="panel=='new_question_alt'">
+        
+        <input type="text" name="question_{{question.id}}" ng-model="buildQuestion.text" placeholder="Enter your question here." />
+        <ul class='answers' ng-show="buildQuestion.type == 'multipleChoice'">
+          <li ng-repeat="answer in buildQuestion.answers">
+            <input type="text" name="answer_{{question.id}}{{answer.id}}" ng-model="answer.text" placeholder="add an answer here."/>
+          </li>
+        </ul>
+        <h2>Choose Question Type:</h2>
+        <div class="options">
+          <div ng-show="buildQuestion.type == 'binary'">
+            No options.
+          </div>
+          <div ng-show="buildQuestion.type == 'rating'">
+            No options.
+          </div>
+          <div ng-show="buildQuestion.type == 'freeText'">
+            No options.
+          </div>
+          <div ng-show="buildQuestion.type == 'multipleChoice'">
+            <button class="btn" ng-click="addAnswer('test',buildQuestion.answers)">+ Answer</button>
+            <input type="number" name="number_of_answers" placeholder="How many answers can be selected?" />
+          </div>
+          <div ng-show="buildQuestion.type == 'number'">
+            <input type="number" name="min" placeholder="min" />
+            <input type="number" name="max" placeholder="max" />
+          </div>
+        </div>
+        <ul class="btnset five_btns">
+          <li ng-click="buildQuestion.type = 'binary'" class="btn">
+            Yes/No
+          </li><li ng-click="buildQuestion.type = 'rating'" class="btn">
+            Rating
+          </li><li ng-click="buildQuestion.type = 'freeText'" class="btn">
+            Text
+          </li><li ng-click="buildQuestion.type = 'multipleChoice'" class="btn">
+            Choice
+          </li><li ng-click="buildQuestion.type = 'number'" class="btn">
+            Number
+          </li>
+        </ul>
+      </div>
+      
       <div ng-show="panel=='new_question'">
         <ul class="qtype_list">
           <li data-qtype='mcMultiSelect' class="qtype">
