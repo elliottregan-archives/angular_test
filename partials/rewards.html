@@ -1,0 +1,16 @@
+<header>
+  <button ng-click=toggleSidebar() class="btn left">menu</button>
+  <h1>{{title}}</h1>
+</header>
+
+<div class="scroller_wrapper">
+  <section class="scroller">
+    <ul class="object_list">
+      <li ng-repeat="reward in rewardsList">
+        <button ng-click="claimReward(reward)" class="btn right {{!reward.claimed || 'claimed'}}">claim</button>
+        <h2 ng-bind="reward.title"></h2>
+        <p>expires <span ng-bind="reward.exp_date"></span></p>
+      </li>
+    </ul>
+  </section>
+</div>

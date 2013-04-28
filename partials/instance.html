@@ -1,0 +1,43 @@
+<header>
+  <a href="#/campaign/{{campaign}}" class="btn left">back</a>
+  <h2>{{editCampaign.title}}</h2>
+</header>
+
+<div class="scroller_wrapper">
+  <div class="scroller">
+    <h2>{{editCampaign.title}}</h2>
+      <div class="instance">
+        <aside class="btn_set vert">
+          <button class="btn">!</button>
+        </aside>
+        <article class="card">
+          <h3>{{viewInstance.author}}</h3>
+          <time datetime="2013-02-13T01:15-05:00">{{viewInstance.time}}</time>
+          <p>
+            <button ng-click="hearIt(viewInstance)" class="btn heard heard_{{viewInstance.heard}}">heard!</button>
+            <button class="btn heard" ui-if="comment.author != 'You'">share</button>
+            {{viewInstance.text}}
+          </p>
+          <ul class="replies">
+            <li class="reply" ng-repeat="comment in viewInstance.comments">
+              <article>
+                <h4>{{comment.author}}</h4>
+                <time datetime="2013-02-13T01:15-05:00">{{comment.time}}</time>
+                <p>
+                  <button ng-click="hearIt(comment)" class="btn heard heard_{{comment.heard}}" ui-if="comment.author != 'You'">heard!</button>
+                  <button class="btn heard" ui-if="comment.author != 'You'">share</button>
+                  {{comment.text}}
+                </p>
+              </article>
+            </li>
+            <li>
+              <form ng-submit="addReply(newCommentText, viewInstance.comments)">
+                <input type="text" name="new_comment" ng-model="newCommentText" />
+                <button class="btn"type="submit">reply</button>
+              </form>
+            </li>
+          </ul>
+        </article>
+      </div>
+  </div>
+</div>
