@@ -5,7 +5,7 @@ appmodule.directive('deepnav', function ($http, $templateCache, $route, $anchorS
         restrict:'ECA',
         terminal:true,
         link:function (scope, parentElm, attr) {
-            var TRANSITION_TIME = 1000,
+            var TRANSITION_TIME = 400,
               partials = [],
               inClass = "in",
               outClass = "out",

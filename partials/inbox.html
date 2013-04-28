@@ -1,5 +1,5 @@
 <header>
-  <button ui-event="{click : 'toggleSidebar()'}" class="btn right">menu</button>
+  <button ui-event="{click : 'toggleSidebar()'}" class="btn left">menu</button>
   <h1>{{title}}</h1>
 </header>
 <div class="scroller_wrapper">
@@ -9,7 +9,7 @@
         <aside class="btn_set vert">
           <button class="btn">!</button>
         </aside>
-        <article>
+        <article class="card">
           <button ng-click="hearIt(instance)" class="btn heard heard_{{instance.heard}}" ui-if="instance.author != 'You'">heard!</button>
           <h4 ng-bind="instance.author"></h4>
           <time ng-bind="instance.time"></time>
