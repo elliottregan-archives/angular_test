@@ -233,10 +233,6 @@ p {
   opacity: 1;
 }
 
-#sidebar nav li {
-  text-align: right;
-}
-
 nav a {
   padding: 10px;
   display: inline-block;
@@ -286,15 +282,6 @@ nav a {
   -webkit-transform: translateY(0);
   -moz-transform: translateY(0);
   transform: translateY(0);
-}
-
-.heard {
-  float: right;
-  margin: 0 10px;
-}
-
-.heard.heard_true {
-  background-color: #496d39;
 }
 
 .instances {
@@ -373,6 +360,20 @@ form.reply {
   margin: 4px;
 }
 
+.heard {
+  float: right;
+  margin: 0 10px;
+}
+
+.heard.heard_true {
+  background-color: #496d39;
+}
+
+.claimed {
+  background-color: #c07800;
+}
+
+
 .instance_action {
   width: 50%;
   display: inline-block;
@@ -446,7 +447,7 @@ form.reply {
   padding: 4px;
 }
 
-#campaign_list li {
+.object_list li {
   background-color: #ffffff;
   padding: 4px;
   margin: 10px 0;

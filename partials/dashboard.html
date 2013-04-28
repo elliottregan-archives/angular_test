@@ -44,13 +44,11 @@
         <button class="btn" ng-click="start_new = false" type="button">cancel</button>
       </form>
     </div>
-    <ul id="campaign_list">
+    <ul id="campaign_list" class="object_list">
       <li ng-repeat="campaign in campaignList">
         <a href="#/campaign/{{campaign.id}}">
           <h2>{{campaign.title}} <small>- @{{campaign.handle}}</small></h2>
-          <div>
-            <p>{{campaign.description}}</p>
-          </div>
+          <p>{{campaign.description}}</p>
           <div class="clear"></div></a>
       </li>
     </ul>
