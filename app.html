@@ -45,7 +45,7 @@
     </ul>
     <h3>Campaigns</h3>
     <ul>
-      <li><a href="#dashboard" ng-click="toggleSidebar()">View All</a></li>
+      <li><a href="#dashboard" ng-click="toggleSidebar()">Dashboard</a></li>
       <li ng-repeat="campaign in campaignList">
         <a href="#/campaign/{{campaign.id}}" ng-bind="campaign.title" ng-click="toggleSidebar()"></a>
       </li>
@@ -68,19 +68,15 @@
             <input type="text" name="answer_{{question.id}}{{answer.id}}" ng-model="answer.text" placeholder="add an answer here."/>
           </li>
         </ul>
-        <h2>Choose Question Type:</h2>
         <div class="options">
           <div ng-show="buildQuestion.type == 'binary'">
-            No options.
           </div>
           <div ng-show="buildQuestion.type == 'rating'">
-            No options.
           </div>
           <div ng-show="buildQuestion.type == 'freeText'">
-            No options.
           </div>
           <div ng-show="buildQuestion.type == 'multipleChoice'">
-            <button class="btn" ng-click="addAnswer('test',buildQuestion.answers)">+ Answer</button>
+            <button class="btn" ng-click="addAnswer('',buildQuestion.answers)">+ Answer</button>
             <input type="number" name="number_of_answers" placeholder="How many answers can be selected?" />
           </div>
           <div ng-show="buildQuestion.type == 'number'">
@@ -88,16 +84,18 @@
             <input type="number" name="max" placeholder="max" />
           </div>
         </div>
+        
+        <h2>Choose Question Type:</h2>
         <ul class="btnset five_btns">
-          <li ng-click="buildQuestion.type = 'binary'" class="btn">
+          <li ng-click="buildQuestion.type = 'binary'" class="btn" ng-class="{selected: buildQuestion.type == 'binary'}">
             Yes/No
-          </li><li ng-click="buildQuestion.type = 'rating'" class="btn">
+          </li><li ng-click="buildQuestion.type = 'rating'" class="btn" ng-class="{selected: buildQuestion.type == 'rating'}">
             Rating
-          </li><li ng-click="buildQuestion.type = 'freeText'" class="btn">
+          </li><li ng-click="buildQuestion.type = 'freeText'" class="btn" ng-class="{selected: buildQuestion.type == 'freeText'}">
             Text
-          </li><li ng-click="buildQuestion.type = 'multipleChoice'" class="btn">
+          </li><li ng-click="buildQuestion.type = 'multipleChoice'" class="btn" ng-class="{selected: buildQuestion.type == 'multipleChoice'}">
             Choice
-          </li><li ng-click="buildQuestion.type = 'number'" class="btn">
+          </li><li ng-click="buildQuestion.type = 'number'" class="btn" ng-class="{selected: buildQuestion.type == 'number'}">
             Number
           </li>
         </ul>

@@ -21,6 +21,11 @@ var appmodule = angular.module('appmodule', ['ui']).
         controller: rewardCtr,
         layer: 'layer1'
       }).
+      when('/campaign/:campaignId/instances/', {
+        templateUrl: 'partials/instances.html',
+        controller: instancesCtr,
+        layer: 'main'
+      }).
       when('/campaign/:campaignId/instance/:instanceId', {
         templateUrl: 'partials/instance.html',
         controller: instanceCtr,

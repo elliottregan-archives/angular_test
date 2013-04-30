@@ -1,11 +1,14 @@
 <header>
   <button ng-click='toggleSidebar()' class="btn left">menu</button>
-  <button ng-click="toggleHeaderDropdown()" class="btn right">gear</button>
+  <button ng-click="toggleHeaderDropdown()" class="btn right"> . . . </button>
   <h2 ng-bind="editCampaign.title"></h2>
   <div class="dropdown closed">
-    <button class="btn left"  ng-click="togglePanel('social_accounts')">share!</button>
-    <a href="#/campaign/{{editCampaign.id}}/edit" class="btn left" ng-click="resetStep()">edit</a>
-    <a href="#">Rewards</a>
+    <ul>
+      <li><a href="#campaign/{{viewCampaign.id}}">Campaign Overview</a></li>
+      <li ng-click="togglePanel('social_accounts')">share!</li>
+      <li><a href="#/campaign/{{viewCampaign.id}}/edit" ng-click="resetStep()">edit</a></li>
+      <li>Rewards</li>
+    </ul>
   </div>
 </header>
 

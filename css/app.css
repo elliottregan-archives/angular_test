@@ -114,7 +114,6 @@ header .btn {
 }
 
 .dropdown {
-  text-align: center;
   overflow: hidden;
   opacity: 1;
   -webkit-transition: all 500ms ease-in-out;
@@ -128,12 +127,11 @@ header .btn {
   -moz-transform: translateY(0%);
   transform: translateY(0%);
   width: 100%;
+  position: absolute;
+  top: 40px;
 }
 
 .dropdown.opened {
-  -webkit-transform: translateY(0%);
-  -moz-transform: translateY(0%);
-  transform: translateY(0%);
 }
 
 .dropdown.closed {
@@ -211,7 +209,6 @@ p {
 }
 
 .main_nav {
-  text-align: left;
   opacity: 0;
   position: absolute;
   width: 100%;
