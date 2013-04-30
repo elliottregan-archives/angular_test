@@ -13,8 +13,13 @@ var appmodule = angular.module('appmodule', ['ui']).
       }).
       when('/rewards', {
         templateUrl: 'partials/rewards.html',
-        controller: rewardsCtr,
+        controller: rewardsListCtr,
         layer: 'main'
+      }).
+      when('/rewards/:rewardId', {
+        templateUrl: 'partials/reward_info.html',
+        controller: rewardCtr,
+        layer: 'layer1'
       }).
       when('/campaign/:campaignId/instance/:instanceId', {
         templateUrl: 'partials/instance.html',
@@ -47,4 +52,5 @@ appmodule.run(function($templateCache,$http) {
   $http.get('partials/instance.html', {cache:$templateCache});
   $http.get('partials/campaign_info.html', {cache:$templateCache});
   $http.get('partials/rewards.html', {cache:$templateCache});
+  $http.get('partials/reward_info.html', {cache:$templateCache});
 });

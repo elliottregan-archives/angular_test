@@ -1,0 +1,17 @@
+<header>
+  <button ng-click=toggleSidebar() class="btn left">menu</button>
+  <h1>{{title}}</h1>
+</header>
+
+<div class="scroller_wrapper">
+  <section class="scroller">
+    <h2 ng-bind="viewReward.title"></h2>
+    <dl>
+      <dt>Description:</dt>
+      <dd ng-bind="viewReward.description"></dd>
+      <dt>Terms:</dt>
+      <dd ng-bind="viewReward.terms"></dd>
+    </dl>
+    <button ng-click="claimReward(viewReward)" class="btn {{!viewReward.claimed || 'claimed'}}">claim</button>
+  </section>
+</div>

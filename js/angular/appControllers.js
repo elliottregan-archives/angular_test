@@ -354,6 +354,27 @@ function appCtr($scope, $routeParams, $location, $route) {
       }
     }
   };
+  
+  $scope.rewardsList = {
+    rwd0 : {
+      id: "rwd0",
+      title: 'Free Coffee!',
+      description: 'This is an offer for a free coffee.',
+      creator: "Crepes & Things",
+      terms: "This would be a long, possibly very long paragraph of terms. It may even have more than one paragraph, although this one does not.",
+      exp_date: "4/1/2014",
+      claimed: false
+    },
+    rwd1 : {
+      id: "rwd1",
+      title: 'Half off a burrito!',
+      description: 'Trade this in for 50% off a burrito.',
+      creator: "Long Live Guac",
+      terms: "May not be used in Missouri. Sorry.",
+      exp_date: "2/28/1993",
+      claimed: false
+    }
+  };
     
 // example framework of a campaign
 //  $scope.buildCampaign = { 
@@ -465,35 +486,29 @@ function dashCtr($scope, $routeParams, $location) {
   };
 };
 
-function rewardsCtr($scope, $routeParams, $location) {
+function rewardsListCtr($scope) {
 
   $scope.title = 'Rewards';
-  
-  $scope.rewardsList = [
-    {
-      title: 'Free Coffee!',
-      description: 'This is an offer for a free coffee.',
-      creator: "Crepes & Things",
-      terms: "This would be a long, possibly very long paragraph of terms. It may even have more than one paragraph, although this one does not.",
-      exp_date: "4/1/2014",
-      claimed: false
-    },
-    {
-      title: 'Half off a burrito!',
-      description: 'Trade this in for 50% off a burrito.',
-      creator: "Long Live Guac",
-      terms: "May not be used in Missouri. Sorry.",
-      exp_date: "2/28/1993",
-      claimed: false
-    }
-  ];
+
+};
+
+function rewardCtr($scope, $routeParams, $location) {
+
+  if ($scope.rewardsList[$routeParams.rewardId] != null) { //first make sure the rewardId from route exists.
+    $scope.viewReward = $scope.rewardsList[$routeParams.rewardId]; //find reward with id in the list of rewards and save to variable.
+    $scope.title = $scope.viewReward.title;
+  }
+  else {
+    $location.path( "/rewards" ); //redirect back to dashboard if campaign isn't found
+    console.log('redirect')
+  }
   
   $scope.claimReward = function (el) {
     el.claimed = new Date();
     console.log("claimed!");
   }
 
-};
+}
 
 function instanceCtr($scope, $routeParams, $location) {
   

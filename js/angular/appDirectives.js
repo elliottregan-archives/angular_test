@@ -89,11 +89,11 @@ appmodule.directive('deepnav', function ($http, $templateCache, $route, $anchorS
             
             function updatePartialQueue() {
               //Bring in a new partial if it exists
-              if (partials.length > 0) {            
+              if (partials.length > 0) {
                 var newPartial = partials.pop();
                 setupPartial(newPartial);
                 transition(newPartial, currentPartial);
-                currentPartial = newPartial; 
+                currentPartial = newPartial;
               }
             } 
             
