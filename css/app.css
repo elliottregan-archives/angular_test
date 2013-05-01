@@ -17,6 +17,7 @@ a {
 ul, ol {
   list-style: none;
   padding: 0;
+  margin: 0;
 }
 
 main {
@@ -84,6 +85,10 @@ main {
   position: relative;
   -webkit-overflow-scrolling: touch;
   overflow-y: scroll;
+}
+
+.card {
+  background-color: #ffffff;
 }
 
 header {

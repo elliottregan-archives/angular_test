@@ -27,6 +27,23 @@ function appCtr($scope, $routeParams, $location, $route) {
     $scope.panel=panelName;
   };
   
+  $scope.duplicateMode = function(state, clicked_campaign) {
+    $scope.duplicating_mode = state;
+    $scope.temporary_duplicate = angular.copy(clicked_campaign);
+  }
+  
+  $scope.duplicateCampaign = function(title, handle) {
+    $scope.duplicating_mode = true;
+    var datetime = getDate()
+    $scope.temporary_duplicate.title = title;
+    $scope.temporary_duplicate.handle = handle;
+    $scope.temporary_duplicate.id = datetime;
+    $scope.temporary_duplicate.instances = [];
+    
+    $scope.campaignList[datetime] = angular.copy($scope.temporary_duplicate);
+    console.log($scope.campaignList)
+  };
+  
   var expandedReply = -1;
   
   $scope.expandReplies = function(instance_id) {
@@ -578,7 +595,7 @@ function appCtr($scope, $routeParams, $location, $route) {
       mm='0'+mm
     } 
     
-    today = yyyy+'-'+mm+'-'+dd;
+    today = yyyy+mm+dd;
     return today;
     
   };

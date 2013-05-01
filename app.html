@@ -56,12 +56,25 @@
     <header>
       <button ui-event="{click : 'togglePanel()'}" class="btn left">cancel</button>
       <button class="btn right" ng-click="saveQuestion()"  ui-event="{click : 'togglePanel()'}">add question</button>
-      <h1>panel</h1>
+      <h1 ng-bind="panel"></h1>
     </header>
     <div class="content scroller">
     
-      <div ng-show="panel=='new_question_alt'">
-        
+      <div ng-show="panel=='Create Question'">
+        <h3>Choose Question Type:</h3>
+        <ul class="btnset five_btns">
+          <li ng-click="buildQuestion.type = 'binary'" class="btn" ng-class="{selected: buildQuestion.type == 'binary'}">
+            Yes/No
+          </li><li ng-click="buildQuestion.type = 'rating'" class="btn" ng-class="{selected: buildQuestion.type == 'rating'}">
+            Rating
+          </li><li ng-click="buildQuestion.type = 'freeText'" class="btn" ng-class="{selected: buildQuestion.type == 'freeText'}">
+            Text
+          </li><li ng-click="buildQuestion.type = 'multipleChoice'" class="btn" ng-class="{selected: buildQuestion.type == 'multipleChoice'}">
+            Choice
+          </li><li ng-click="buildQuestion.type = 'number'" class="btn" ng-class="{selected: buildQuestion.type == 'number'}">
+            Number
+          </li>
+        </ul>
         <input type="text" name="question_{{question.id}}" ng-model="buildQuestion.text" placeholder="Enter your question here." />
         <ul class='answers' ng-show="buildQuestion.type == 'multipleChoice'">
           <li ng-repeat="answer in buildQuestion.answers">
@@ -85,69 +98,6 @@
           </div>
         </div>
         
-        <h2>Choose Question Type:</h2>
-        <ul class="btnset five_btns">
-          <li ng-click="buildQuestion.type = 'binary'" class="btn" ng-class="{selected: buildQuestion.type == 'binary'}">
-            Yes/No
-          </li><li ng-click="buildQuestion.type = 'rating'" class="btn" ng-class="{selected: buildQuestion.type == 'rating'}">
-            Rating
-          </li><li ng-click="buildQuestion.type = 'freeText'" class="btn" ng-class="{selected: buildQuestion.type == 'freeText'}">
-            Text
-          </li><li ng-click="buildQuestion.type = 'multipleChoice'" class="btn" ng-class="{selected: buildQuestion.type == 'multipleChoice'}">
-            Choice
-          </li><li ng-click="buildQuestion.type = 'number'" class="btn" ng-class="{selected: buildQuestion.type == 'number'}">
-            Number
-          </li>
-        </ul>
-      </div>
-      
-      <div ng-show="panel=='new_question'">
-        <ul class="qtype_list">
-          <li data-qtype='mcMultiSelect' class="qtype">
-            <input type="radio" name="qtype" id="qtype_mcMultiSelect" ng-model="qtype" value="mcMultiSelect" />
-            <label for="qtype_mcMultiSelect">
-              <h2>Multiple Choice: Multi-select</h2>
-              <p>A question followed by a series of possible answers. Any number can be chosen.</p>
-              <legend>Choose several options below:</legend>
-                <input type="checkbox" name="a_01" value="a_01" id="a_01" /><label for="a_01">Answer 1</label><br />
-                <input type="checkbox" name="a_01" value="a_01" id="a_02" /><label for="a_02">Answer 2</label><br />
-                <input type="checkbox" name="a_01" value="a_01" id="a_03" /><label for="a_03">Answer3</label><br />
-            </label>
-          </li>
-          <li data-qtype='mcSingleSelect' class="qtype">
-            <input type="radio" name="qtype" id="qtype_mcSingleSelect" ng-model="qtype" value="mcSingleSelect" />
-            <label for="qtype_mcSingleSelect">
-              <h2>Multiple Choice: Single-select</h2>
-              <p>A question followed by a series of possible answers. Only one may be chosen.</p>
-              <legend>Choose one options below:</legend>
-                <input type="radio" name="a_01" value="a_01" id="a_21" /><label for="a_21">Answer 1</label><br />
-                <input type="radio" name="a_01" value="a_01" id="a_22" /><label for="a_22">Answer 2</label><br />
-                <input type="radio" name="a_01" value="a_01" id="a_23" /><label for="a_23">Answer3</label><br />
-            </label>
-          </li>
-          <li data-qtype='dropdown' class="qtype">
-            <input type="radio" name="qtype" value="dropdown" id="qtype_dropdown"  ng-model="qtype" value="dropdown" />
-            <label for="qtype_dropdown">
-              <h2>Dropdown</h2>
-              <p>Choose an answer from a dropdown menu.</p>
-              <label for="select">Choose an option form the dropdown:</label><br>
-              <select id="select">
-                <option>!</option>
-                <option>!!</option>
-                <option>!!!</option>
-              </select>
-            </label>
-          </li>
-          <li data-qtype='dropdown' class="qtype">
-            <input type="radio" name="qtype" value="text" id="qtype_text"  ng-model="qtype" value="text" />
-            <label for="qtype_text">
-              <h2>Text Response</h2>
-              <p>A free response answer to a question.</p>
-              <label for="select">What dod you think of your stay here?</label><br>
-              <input type="text" value="A free text reponse to a question." />
-            </label>
-          </li>
-        </ul>
       </div>
       <div ng-show="panel=='panel2'">This is panel 2.</div>
       <div ng-show="panel=='social_accounts'">This is where you would be a list of your connected social accounts.</div>

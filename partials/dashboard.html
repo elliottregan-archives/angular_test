@@ -15,7 +15,6 @@
           <label for="has_handle_true">New listening point</label>
         </fieldset>
         <fieldset ng-show="has_handle == 'new'">
-          fdbk.com/
           <input class="inline" type="text" name="new_handle" placeholder="Enter new handle" ng-model="handle" />
         </fieldset>
         <fieldset ng-show="has_handle == 'old'">
@@ -32,10 +31,23 @@
     </div>
     <ul id="campaign_list" class="object_list">
       <li ng-repeat="campaign in campaignList">
+        <button class="btn right" ng-click="duplicateMode(true, campaign)">duplicate</button>
         <a href="#/campaign/{{campaign.id}}/instances">
           <small>@{{campaign.handle}}</small>
           <h2>{{campaign.title}}</h2>
-          <div class="clear"></div></a>
+        </a>
+      </li>
+      <li ng-show="duplicating_mode">
+        <form ng-submit="duplicateCampaign(temp_name, temp_handle)">
+          <input type="text" name="temp_name" ng-model="temp_name" placeholder="Type a new name for this duplicated campaign."/>
+          <label>Choose a handle</label>
+          <select ng-model="temp_handle">
+            <option ng-repeat="handle in handleList">{{handle}}</option>
+            <option disabled="true">no more available listening points</option>
+          </select>
+          <button type="submit" class="btn">save</button>
+          <button type="reset" class="btn" ng-click="duplicateMode(false, undefined)">cancel</button>
+        </form>
       </li>
     </ul>
   </section>
