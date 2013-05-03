@@ -1,5 +1,9 @@
 <header>
   <button ng-click=toggleSidebar() class="btn left">menu</button>
+  <button ng-click="toggleEditMode()" class="btn right" ng-switch on="edit_mode">
+    <span ng-switch-when="false">edit</span>
+    <span ng-switch-when="true">done</span>
+  </button>
   <h1>{{title}}</h1>
 </header>
 
@@ -7,6 +11,9 @@
   <section class="scroller">
     <ul class="object_list">
       <li ng-repeat="reward in rewardsList">
+        <div ng-show="edit_mode == true">
+          <button class="btn right" ng-click="deleteListItem(reward, rewardsList)">delete</button>
+        </div>
         <a href="#/rewards/{{reward.id}}">
           <h2 ng-bind="reward.title"></h2>
           <p>expires <span ng-bind="reward.exp_date"></span></p>

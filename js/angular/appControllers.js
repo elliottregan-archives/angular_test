@@ -29,8 +29,14 @@ function appCtr($scope, $routeParams, $location, $route) {
   
   $scope.duplicateMode = function(state, clicked_campaign) {
     $scope.duplicating_mode = state;
-    console.log(clicked_campaign)
     $scope.temporary_duplicate = angular.copy(clicked_campaign);
+    $scope.toggleEditMode();
+  }
+  
+  $scope.edit_mode = false;
+  
+  $scope.toggleEditMode = function() {
+    $scope.edit_mode = !$scope.edit_mode;
   }
   
   $scope.duplicateCampaign = function(title, handle) {
@@ -47,8 +53,9 @@ function appCtr($scope, $routeParams, $location, $route) {
     $scope.duplicating_mode = false;
   };
   
-  $scope.deleteCampaign = function(clicked_campaign) {      
-      delete $scope.campaignList[clicked_campaign.id];     
+  $scope.deleteListItem = function(clicked_list_item, parent_object) { //deletes any item from an ng-repeat list
+      delete parent_object[clicked_list_item.id];
+      $scope.toggleEditMode();
   };
   
   var expandedReply = -1;
@@ -60,8 +67,6 @@ function appCtr($scope, $routeParams, $location, $route) {
     else {
       expandedReply = -1;
     }
-    console.log(instance_id);
-    
   };
   
   $scope.hearIt = function(el) {

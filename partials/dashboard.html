@@ -1,5 +1,11 @@
 <header>
-  <button ng-click=toggleSidebar() class="btn left">menu</button>
+  <button ng-click="toggleSidebar()" class="btn left">menu</button>
+  
+  <button ng-click="toggleEditMode()" class="btn right" ng-switch on="edit_mode">
+    <span ng-switch-when="false">edit</span>
+    <span ng-switch-when="true">done</span>
+  </button>
+  
   <h1>{{title}}</h1>
 </header>
 
@@ -31,8 +37,10 @@
     </div>
     <ul id="campaign_list" class="object_list">
       <li ng-repeat="campaign in campaignList">
-        <button class="btn right" ng-click="deleteCampaign(campaign)">delete</button>
-        <button class="btn right" ng-click="duplicateMode(true, campaign)">duplicate</button>
+        <div ng-show="edit_mode == true">
+          <button class="btn right" ng-click="deleteListItem(campaign, campaignList)">delete</button>
+          <button class="btn right" ng-click="duplicateMode(true, campaign)">duplicate</button>
+        </div>
         <a href="#/campaign/{{campaign.id}}/instances">
           <small>@{{campaign.handle}}</small>
           <h2>{{campaign.title}}</h2>
