@@ -29,19 +29,26 @@ function appCtr($scope, $routeParams, $location, $route) {
   
   $scope.duplicateMode = function(state, clicked_campaign) {
     $scope.duplicating_mode = state;
+    console.log(clicked_campaign)
     $scope.temporary_duplicate = angular.copy(clicked_campaign);
   }
   
   $scope.duplicateCampaign = function(title, handle) {
+    
     $scope.duplicating_mode = true;
-    var datetime = getDate()
-    $scope.temporary_duplicate.title = title;
+    var datetime = new Date().getTime();
+    
     $scope.temporary_duplicate.handle = handle;
     $scope.temporary_duplicate.id = datetime;
     $scope.temporary_duplicate.instances = [];
     
+    
     $scope.campaignList[datetime] = angular.copy($scope.temporary_duplicate);
-    console.log($scope.campaignList)
+    $scope.duplicating_mode = false;
+  };
+  
+  $scope.deleteCampaign = function(clicked_campaign) {      
+      delete $scope.campaignList[clicked_campaign.id];     
   };
   
   var expandedReply = -1;
@@ -369,114 +376,6 @@ function appCtr($scope, $routeParams, $location, $route) {
           ]
         }
       }
-    },
-    camp2: {
-      id: 'camp0',
-      handle: $scope.handleList[0],
-      description: 'Our main feedback portal.',
-      title: 'Crepes & Things',
-      local: false,
-      location: '',
-      discoverable: false,
-      questionsList: [
-        {
-          id: 'asdf',
-          type: 'mcSingleSelect',
-          text: "How was your service today?",
-          answers: [
-            {
-              id: 0,
-              text: "poor"
-            },
-            {
-              id: 2,
-              text: "fair"
-            },
-            {
-              id: 3,
-              text: "good"
-            },
-            {
-              id: 4,
-              text: "great"
-            },
-          ]
-        }
-      ],
-      reward:
-        {
-          title: 'Free espresso!',
-          description: 'Come back for a free espresso any time you want.',
-          terms: "Just show us your code, and we'll hand you a free espresso drink.",
-          exp: "01-02-2014"
-        },
-      permissions: 
-        { accepted: [
-            { first: 'Bubbles',
-              last: '',
-              email: 'yup@ahdoughno.com',
-              date_sent: '',
-              level: []
-            }
-          ],
-          pending: []
-        },
-      instances : {
-        msg0: {
-          id: 'msg0',
-          author: "Franz Ferdinand",
-          time: "2013-02-13T01:15-05:00",
-          text: "This is the main text of the feedback instance",
-          heard: "false",
-          comments: [
-            { commentId: 'fdsahy',
-              author: "You", 
-              time: "2013-02-13T01:15-05:00",
-              text: "This might be a response to the feedback.",
-              heard: "false"
-            },
-            { commentId: 'asdfgtr',
-              author: "Franz Ferdinand", 
-              time: "2013-02-13T01:15-05:00",
-              text: "This might be you reply",
-              heard: "false"
-            }
-          ]
-        },
-        msg1: {
-          id: 'msg1',
-          author: "Chad Grecko",
-          time: "2013-02-13T01:15-05:00",
-          text: "This is the main text of the feedback instance",
-          heard: "false",
-          comments: [
-            { commentId: 'asdf',
-              author: "You", 
-              time: "2013-02-13T01:15-05:00",
-              text: "Glad to hear from you. Anything else we can do for you?",
-              heard: "false"
-            },
-            { commentId: 'fdsaf',
-              author: "Chad Grecko", 
-              time: "2013-02-13T01:15-05:00",
-              text: "The text on the menus is too small. Can you make it bigger?",
-              heard: "false"
-            },
-            { commentId: 'fdsaf',
-              author: "You", 
-              time: "2013-02-13T01:15-05:00",
-              text: "Sure. Not a problem. I'll let you know when we reprint our menus, some time next month.",
-              heard: "false"
-            },
-            { commentId: 'fdsaf',
-              author: "Chad Grecko", 
-              time: "2013-02-13T01:15-05:00",
-              text: "Ok, thanks! You guys are the best.",
-              heard: "false"
-            }
-          ]
-        }
-      }
     }
   };
     
@@ -590,10 +489,10 @@ function appCtr($scope, $routeParams, $location, $route) {
     var yyyy = today.getFullYear();
     if (dd<10) {
       dd='0'+dd
-    } 
+    }
     if (mm<10) {
       mm='0'+mm
-    } 
+    }
     
     today = yyyy+mm+dd;
     return today;
