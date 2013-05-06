@@ -31,13 +31,19 @@ function appCtr($scope, $routeParams, $location, $route) {
     $scope.duplicating_mode = state;
     $scope.temporary_duplicate = angular.copy(clicked_campaign);
     $scope.toggleEditMode();
-  }
+  };
   
   $scope.edit_mode = false;
   
   $scope.toggleEditMode = function() {
     $scope.edit_mode = !$scope.edit_mode;
-  }
+    $scope.start_new = false;
+    $scope.startNewMode();
+  };
+  
+  $scope.startNewMode = function() {
+    $scope.start_new = !scope.start_new;
+  };
   
   $scope.duplicateCampaign = function(title, handle) {
     
@@ -123,9 +129,38 @@ function appCtr($scope, $routeParams, $location, $route) {
     answers: []
   };
   
+  $scope.SelectQuestionType = function(clicked_type, question) {
+    question.type = clicked_type;
+    
+    if (clicked_type == 'binary') {
+      question.answers = [
+        {
+          id: new Date().getTime(),
+          text: "true"
+        },
+        {
+          id: new Date().getTime()+1,
+          text: "false"
+        }
+      ];
+    }
+    else if (clicked_type == 'multipleChoice') {
+      question.answers = [
+        {
+          id: 0,
+          text: ""
+        }
+      ];
+    }
+    else {
+      question.answers = [];
+    }
+    console.log($scope.buildQuestion.answers);
+  };
+  
   $scope.addAnswer = function(input_text, answers) {
     answers.push({
-      id: 'a01',
+      id: new Date().getTime(),
       text: input_text
     });
     this.newAnswerText = '';
@@ -151,10 +186,7 @@ function appCtr($scope, $routeParams, $location, $route) {
           text: "great"
         },
       ];
-    }
-    else if ($scope.buildQuestion.type != 'multipleChoice') {
-      $scope.buildQuestion.answers = [];
-    }
+    };
     
     $scope.buildCampaign.questionsList.push(angular.copy($scope.buildQuestion));
     $scope.buildQuestion = {
@@ -172,9 +204,7 @@ function appCtr($scope, $routeParams, $location, $route) {
         text: '',
         answers: []
     });
-    var datetime = new Date();
-    console.log($scope.buildCampaign.questionsList);
-    
+    var datetime = new Date();    
     $scope.togglePanel();
   };
   
@@ -405,7 +435,7 @@ function appCtr($scope, $routeParams, $location, $route) {
     }
   };
     
-// example framework of a campaign
+// example of a campaign
 //  $scope.buildCampaign = { 
 //    id: '',
 //    name: '',

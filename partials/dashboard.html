@@ -16,22 +16,20 @@
       <form ng-submit="createCampaign(new_campaign_title, handle, is_local, new_campaign_locale, discoverable)">
         <fieldset>
           <input id="has_handle_false" type="radio" name="has_handle" ng-model="has_handle" value="old" />
-          <label for="has_handle_false">Previous listening point</label>
+          <label for="has_handle_false">Previous handle</label>
           <input id="has_handle_true" type="radio" name="has_handle" ng-model="has_handle" value="new" />
-          <label for="has_handle_true">New listening point</label>
+          <label for="has_handle_true">New handle</label>
         </fieldset>
         <fieldset ng-show="has_handle == 'new'">
           <input class="inline" type="text" name="new_handle" placeholder="Enter new handle" ng-model="handle" />
         </fieldset>
         <fieldset ng-show="has_handle == 'old'">
-          fdbk.com/
           <select ng-model="handle">
             <option ng-repeat="handle in handleList">{{handle}}</option>
-            <option disabled="true">no more available listening points</option>
           </select>
         </fieldset>     
         <input type="text" name="new_campaign_title" placeholder="Title for new campaign" ng-model="new_campaign_title"/>   
-        <button class="btn" type="submit" ng-click="resetStep()">Save and edit details</button>
+        <button class="btn" type="submit" ng-click="resetStep()">Continue</button>
         <button class="btn" ng-click="start_new = false" type="button">cancel</button>
       </form>
     </div>

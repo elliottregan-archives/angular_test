@@ -17,16 +17,14 @@
         <h2>{{buildCampaign.title}}</h2>
         <section ng-switch on='currentStep'>
           <div ng-switch-when='0'>
-            <button ng-click="togglePanel('Create Question')" class="btn">+ New Question</button>
             <ol>
               <li ng-repeat="question in buildCampaign.questionsList">
                 <!--Start 'Multiple Choice' Template-->
                 <div ng-show="question.type == 'multipleChoice'">
                   <h3 ng-bind="question.text">Multiple-Choice</h3>
-                  <input type="text" name="question_{{question.id}}" ng-model="question.text" placeholder="Enter your question here." />
                   <ul class='answers'>
                     <li ng-repeat="answer in question.answers">
-                      <input type="radio" name="answer_{{question.id}}{{answer.id}}" id="answer_{{question.id}}{{answer.id}}" placeholder="add an answer here."/>
+                      <input type="radio" name="answer_{{question.id}}" id="answer_{{question.id}}{{answer.id}}" />
                       <label for="answer_{{question.id}}{{answer.id}}" ng-bind="answer.text"></label>
                     </li>
                   </ul>
@@ -36,7 +34,12 @@
                 <!--Start 'rating' Template-->
                 <div ng-show="question.type == 'rating'">
                   <h3 ng-bind="question.text"></h3>
-                  <input type="text" name="answer_{{question.id}}{{answer.id}}" ng-model="answer.text" placeholder="add an answer here."/>
+                  <ul class='answers'>
+                    <li ng-repeat="answer in question.answers">
+                      <input type="radio" name="answer_{{question.id}}" id="answer_{{question.id}}{{answer.id}}" />
+                      <label for="answer_{{question.id}}{{answer.id}}" ng-bind="answer.text"></label>
+                    </li>
+                  </ul>
                 </div>
                 <!--End 'rating' Template-->
                 
@@ -50,7 +53,12 @@
                 <!--Start 'binary' Template-->
                 <div ng-show="question.type == 'binary'">
                   <h3 ng-bind="question.text"></h3>
-                  <input type="text" name="answer_{{question.id}}{{answer.id}}" ng-model="answer.text" placeholder="add an answer here."/>
+                  <ul class='answers'>
+                    <li ng-repeat="answer in question.answers">
+                      <input type="radio" name="answer_{{question.id}}" id="answer_{{question.id}}{{answer.id}}" />
+                      <label for="answer_{{question.id}}{{answer.id}}" ng-bind="answer.text"></label>
+                    </li>
+                  </ul>
                 </div>
                 <!--End 'binary' Template-->
                 
@@ -58,12 +66,13 @@
                 <div ng-show="question.type == 'number'">
                   <h3 ng-bind="question.text"></h3>
                   <label for="answer_{{question.id}}{{answer.id}}">Choose a number:</label>
-                  <input type="text" name="answer_{{question.id}}{{answer.id}}" ng-model="answer.text" placeholder="add an answer here."/>
+                  <input type="text" name="answer_{{question.id}}{{answer.id}}" ng-model="answer.text" placeholder="type your answer here."/>
                 </div>
                 <!--End 'number' Template-->
                 
               </li>
             </ol>
+            <button ng-click="togglePanel('Create Question')" class="btn">+ New Question</button>
           </div>
           <div ng-switch-when='1'>
             <form method="post" action="">

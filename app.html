@@ -38,14 +38,15 @@
   </main>
   
   <nav id="sidebar" ng-controller="sidebarCtr" class="main_nav">
+    <h3>ACCOUNT PAGES</h3>
     <ul>
+      <li><a href="#dashboard" ng-click="toggleSidebar()">Dashboard</a></li>
       <li ng-repeat="(page, url) in appPages">
         <a href="#/{{url}}" ng-click="toggleSidebar()" ng-bind='page'></a>
       </li>
     </ul>
-    <h3>Campaigns</h3>
+    <h3>CAMPAIGN SHORTCUTS</h3>
     <ul>
-      <li><a href="#dashboard" ng-click="toggleSidebar()">Dashboard</a></li>
       <li ng-repeat="campaign in campaignList">
         <a href="#/campaign/{{campaign.id}}" ng-bind="campaign.title" ng-click="toggleSidebar()"></a>
       </li>
@@ -63,34 +64,36 @@
       <div ng-show="panel=='Create Question'">
         <h3>Choose Question Type:</h3>
         <ul class="btnset five_btns">
-          <li ng-click="buildQuestion.type = 'binary'" class="btn" ng-class="{selected: buildQuestion.type == 'binary'}">
+          <li ng-click="SelectQuestionType('binary', buildQuestion)" class="btn" ng-class="{selected: buildQuestion.type == 'binary'}">
             Yes/No
-          </li><li ng-click="buildQuestion.type = 'rating'" class="btn" ng-class="{selected: buildQuestion.type == 'rating'}">
+          </li><li ng-click="SelectQuestionType('rating', buildQuestion)" class="btn" ng-class="{selected: buildQuestion.type == 'rating'}">
             Rating
-          </li><li ng-click="buildQuestion.type = 'freeText'" class="btn" ng-class="{selected: buildQuestion.type == 'freeText'}">
+          </li><li ng-click="SelectQuestionType('freeText', buildQuestion)" class="btn" ng-class="{selected: buildQuestion.type == 'freeText'}">
             Text
-          </li><li ng-click="buildQuestion.type = 'multipleChoice'" class="btn" ng-class="{selected: buildQuestion.type == 'multipleChoice'}">
+          </li><li ng-click="SelectQuestionType('multipleChoice', buildQuestion)" class="btn" ng-class="{selected: buildQuestion.type == 'multipleChoice'}">
             Choice
-          </li><li ng-click="buildQuestion.type = 'number'" class="btn" ng-class="{selected: buildQuestion.type == 'number'}">
+          </li><li ng-click="SelectQuestionType('number', buildQuestion)" class="btn" ng-class="{selected: buildQuestion.type == 'number'}">
             Number
           </li>
         </ul>
         <input type="text" name="question_{{question.id}}" ng-model="buildQuestion.text" placeholder="Enter your question here." />
-        <ul class='answers' ng-show="buildQuestion.type == 'multipleChoice'">
-          <li ng-repeat="answer in buildQuestion.answers">
-            <input type="text" name="answer_{{question.id}}{{answer.id}}" ng-model="answer.text" placeholder="add an answer here."/>
-          </li>
-        </ul>
         <div class="options">
-          <div ng-show="buildQuestion.type == 'binary'">
+          <div ng-show="buildQuestion.type == 'binary'" >
+            <input type="text" ng-model="buildQuestion.answers[0].text" placeholder="add an answer here."/>
+            <input type="text" ng-model="buildQuestion.answers[1].text" placeholder="add an answer here."/>
           </div>
           <div ng-show="buildQuestion.type == 'rating'">
           </div>
           <div ng-show="buildQuestion.type == 'freeText'">
           </div>
           <div ng-show="buildQuestion.type == 'multipleChoice'">
+            <input type="number" name="number_of_answers" placeholder="How many answers can be selected?" min="1" max="{{buildQuestion.answers.length}}"/>
+            <ul class='answers' ng-show="buildQuestion.type == 'multipleChoice'">
+              <li ng-repeat="answer in buildQuestion.answers">
+                <input type="text" ng-model="answer.text" placeholder="add an answer here."/>
+              </li>
+            </ul>
             <button class="btn" ng-click="addAnswer('',buildQuestion.answers)">+ Answer</button>
-            <input type="number" name="number_of_answers" placeholder="How many answers can be selected?" />
           </div>
           <div ng-show="buildQuestion.type == 'number'">
             <input type="number" name="min" placeholder="min" />
