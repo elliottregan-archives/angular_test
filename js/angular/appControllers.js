@@ -42,7 +42,7 @@ function appCtr($scope, $routeParams, $location, $route) {
   };
   
   $scope.startNewMode = function() {
-    $scope.start_new = !scope.start_new;
+    $scope.start_new = !$scope.start_new;
   };
   
   $scope.duplicateCampaign = function(title, handle) {
@@ -54,9 +54,11 @@ function appCtr($scope, $routeParams, $location, $route) {
     $scope.temporary_duplicate.id = datetime;
     $scope.temporary_duplicate.instances = [];
     
-    
     $scope.campaignList[datetime] = angular.copy($scope.temporary_duplicate);
     $scope.duplicating_mode = false;
+    
+    $scope.buildCampaign = angular.copy($scope.temporary_duplicate);
+    $location.path( '/new' );
   };
   
   $scope.deleteListItem = function(clicked_list_item, parent_object) { //deletes any item from an ng-repeat list
@@ -222,7 +224,7 @@ function appCtr($scope, $routeParams, $location, $route) {
       questionsList: [
         {
           id: 'asdf',
-          type: 'mcSingleSelect',
+          type: 'multipleChoice',
           text: "How was your service today?",
           answers: [
             {
@@ -330,7 +332,7 @@ function appCtr($scope, $routeParams, $location, $route) {
       questionsList: [
         {
           id: 'fdsa',
-          type: 'text',
+          type: 'freeText',
           text: "Which kind of tea did you like best?",
           answers: []
         }
@@ -539,7 +541,6 @@ function appCtr($scope, $routeParams, $location, $route) {
 function dashCtr($scope, $routeParams, $location) {
     
   $scope.title = 'Dashboard';
-  
   if (($location.$$path == "/new") && (!$scope.buildCampaign)) {
      $location.path( '/dashboard' ); //redirect back to dashboard if a new campaign has not been initiated
   };

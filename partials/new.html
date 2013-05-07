@@ -14,7 +14,7 @@
     </nav>
     <div class="scroller">
       <div class="card">
-        <h2>{{buildCampaign.title}}</h2>
+        <h2 ng-bind="buildCampaign.title"></h2>
         <section ng-switch on='currentStep'>
           <div ng-switch-when='0'>
             <ol>
