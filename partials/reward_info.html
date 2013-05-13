@@ -1,5 +1,5 @@
 <header>
-  <button ng-click=toggleSidebar() class="btn left">menu</button>
+  <a href="#/rewards" class="btn left">back</a>
   <h1>{{title}}</h1>
 </header>
 
@@ -13,5 +13,6 @@
       <dd ng-bind="viewReward.terms"></dd>
     </dl>
     <button ng-click="claimReward(viewReward)" class="btn {{!viewReward.claimed || 'claimed'}}">claim</button>
+    <button class="btn" ng-click="togglePanel('share')">share</button>
   </section>
 </div>

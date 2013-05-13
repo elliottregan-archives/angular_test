@@ -1,6 +1,16 @@
 var appmodule = angular.module('appmodule', ['ui']).
   config(['$routeProvider', function($routeProvider) {
     $routeProvider.
+      when('/discover', {
+        templateUrl: 'partials/index.html', 
+        controller: discoveryCtr,
+        layer: 'main'
+      }).
+        when('/form', {
+          templateUrl: 'partials/form.html', 
+          controller: formCtr,
+          layer: 'layer1'
+        }).
       when('/dashboard', {
         templateUrl: 'partials/dashboard.html', 
         controller: dashCtr,
@@ -45,6 +55,16 @@ var appmodule = angular.module('appmodule', ['ui']).
         templateUrl: 'partials/new.html',
         controller: dashCtr,
         layer: 'layer1'
+      }).
+      when('/settings', {
+        templateUrl: 'partials/settings.html',
+        controller: accountCtr,
+        layer: 'main'
+      }).
+      when('/history', {
+        templateUrl: 'partials/history.html',
+        controller: accountCtr,
+        layer: 'main'
       }).
       otherwise({redirectTo: '/dashboard'});
 }]);

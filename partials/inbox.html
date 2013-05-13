@@ -14,8 +14,10 @@
           <h4 ng-bind="instance.author"></h4>
           <time ng-bind="instance.time"></time>
           <p ng-bind="instance.text" ng-click="expandReplies($index)"></p>
-          <ul class="replies" ng-show="isExpanded($index)">
+          <ul class="replies" ng-show="isExpanded($index) && instance.comments[2]">
             <li ng-repeat="comment in instance.comments | limitTo:(instance.comments.length-2)" class="reply">
+              length: 
+              {{$last}}
               <button ng-click="hearIt(comment)" class="btn heard heard_{{comment.heard}}" ui-if="comment.author != 'You'">heard!</button>
               <h5 ng-bind="comment.author"></h5>
               <p ng-bind="comment.text"></p>
