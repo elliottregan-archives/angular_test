@@ -1,0 +1,45 @@
+<header>
+  <button ng-click=toggleSidebar() class="btn left">menu</button>
+  <h1>Fdbk History</h1>
+</header>
+<div class="scroller_wrapper">
+  <div class="scroller">
+    <p ng-show="userDetails.instances == []">empty!</p>
+    <ul class="instances">
+      <li ng-repeat="instance in userDetails.instances" class="instance">
+        <article class="card">
+          <button class="btn right" ng-click="toggleConvo()" ng-init="collapsed=true">
+            <span ng-show="collapsed==false">hide</span>
+            <span ng-show="collapsed==true">show</span>
+          </button>
+          <h4><span ng-bind="instance.author"></span> and <spanng-bind="instance.author" ng-bind="instance.to_handle"></span></h4>
+          <time ng-bind="instance.time"></time>
+          <p>Reward: <span ng-bind="instance.reward"></span></p>
+          <p ng-bind="instance.text" ng-click="expandReplies($index)"></p>
+          <div ng-hide="collapsed == true">
+            <ul class="replies" ng-show="isExpanded($index) && instance.comments[2]">
+              <li ng-repeat="comment in instance.comments | limitTo:(instance.comments.length-2)" class="reply">
+                <h5 ng-bind="comment.author"></h5>
+                <p ng-bind="comment.text"></p>
+              </li>
+            </ul>
+            <ul class="replies">
+              <li class="reply" ng-show="instance.comments[(instance.comments.length-2)]">
+                <h5 ng-bind="instance.comments[(instance.comments.length-2)].author"></h5>
+                <p ng-bind="instance.comments[(instance.comments.length-2)].text"></p>
+              </li>
+              <li class="reply" ng-show="instance.comments[(instance.comments.length-1)]">
+                <h5 ng-bind="instance.comments[(instance.comments.length-1)].author"></h5>
+                <p ng-bind="instance.comments[(instance.comments.length-1)].text"></p>
+              </li>
+            </ul>
+            <form class="reply" ng-submit="addReply(newCommentText, instance.comments)">
+              <input type="text" name="new_comment" ng-model="newCommentText" />
+              <button class="btn"type="submit">reply</button>
+            </form>
+          </div>
+        </article>
+      </li>
+    </ul>
+  </div>
+</div>

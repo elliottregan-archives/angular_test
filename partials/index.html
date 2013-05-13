@@ -1,0 +1,16 @@
+<header>
+  <input type="text" name="search" ng-model="search_query" />
+</header>
+<div class="scroller_wrapper">
+  <div class="scroller">
+    <ul class="object_list">
+      <li ng-repeat="campaign in searchListings | filter:search_query">
+        <a href="#/form">
+          <small>@{{campaign.handle}}</small>
+          <h2>{{campaign.title}}</h2>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+</div>
