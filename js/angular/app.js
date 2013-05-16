@@ -6,11 +6,11 @@ var appmodule = angular.module('appmodule', ['ui']).
         controller: discoveryCtr,
         layer: 'main'
       }).
-        when('/form', {
-          templateUrl: 'partials/form.html', 
-          controller: formCtr,
-          layer: 'layer1'
-        }).
+      when('/form', {
+        templateUrl: 'partials/form.html', 
+        controller: formCtr,
+        layer: 'layer1'
+      }).
       when('/dashboard', {
         templateUrl: 'partials/dashboard.html', 
         controller: dashCtr,

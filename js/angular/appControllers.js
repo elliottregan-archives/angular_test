@@ -2,7 +2,6 @@ function sidebarCtr($scope) {
   $scope.text = "sidebar success!";
   
   $scope.appPages = {
-    "Discovery" : "discover",
     "Fdbk Feed" : "feed",
     "Your Fdbk History" : "history",
     "Your Rewards" : "rewards",
@@ -142,9 +141,28 @@ function appCtr($scope, $routeParams, $location, $route) {
     $('header .dropdown').toggleClass('closed');
   };
   
-  $scope.toggleSidebar = function() {
-    $('.main_nav').toggleClass('visible');
-    $('main').toggleClass('slide_left');  
+  $scope.sidebar_visible = false;
+  $scope.toggleSidebar = function(direction) {
+    if ( !$scope.sidebar_visible) {
+      
+      $('.main_nav').toggleClass('visible');
+      $scope.sidebar_visible = true;
+      
+      if (direction == 'left') {
+        $('main').toggleClass('slide_left'); 
+      }
+      else if (direction == 'right') {
+        $('main').toggleClass('slide_left');
+      }
+      
+    }
+    else {
+      $('.main_nav').toggleClass('visible');
+      $scope.sidebar_visible = false;
+      $('main').toggleClass('slide_left');
+    }
+    
+     
   };
   
   $scope.togglePanel = function(panelName) {
@@ -743,9 +761,46 @@ function accountCtr($scope, $routeParams, $location) {
 function dashCtr($scope, $routeParams, $location) {
     
   $scope.title = 'Dashboard';
+  
   if (($location.$$path == "/new") && (!$scope.buildCampaign)) {
      $location.path( '/dashboard' ); //redirect back to dashboard if a new campaign has not been initiated
   };
+  
+  $scope.chooseTemplate = function(template_type) {
+  
+    if (template_type == 'blank') {
+      $scope.buildCampaign.questionsList = [];
+    }
+    else if (template_type == 'business') {
+      $scope.buildCampaign.questionsList = [
+        {
+          id: 'asdf',
+          type: 'multipleChoice',
+          text: "How was your service today?",
+          answers: [
+            {
+              id: 0,
+              text: "poor"
+            },
+            {
+              id: 2,
+              text: "fair"
+            },
+            {
+              id: 3,
+              text: "good"
+            },
+            {
+              id: 4,
+              text: "great"
+            },
+          ]
+        }
+      ];
+    }
+  
+  };
+  
 };
 
 function rewardsListCtr($scope) {

@@ -73,6 +73,16 @@
               </li>
             </ol>
             <button ng-click="togglePanel('Create Question')" class="btn">+ New Question</button>
+            <div class="horizontal_scroller">
+              <ol class="templates">
+                <li>
+                  <button class="btn inline" ng-click="chooseTemplate('blank')">blank</button>
+                </li>
+                <li>
+                  <button class="btn inline" ng-click="chooseTemplate('business')">business</button>
+                </li>
+              </ol>
+            </div>
           </div>
           <div ng-switch-when='1'>
             <form method="post" action="">
