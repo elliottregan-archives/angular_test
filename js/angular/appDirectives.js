@@ -40,11 +40,11 @@ appmodule.directive('deepnav', function ($http, $templateCache, $route, $anchorS
             function createPartial(template) {
               if (layerSwitch && (currentLayer != "main")) {
                 return {
-                  element: angular.element('<div id="two" class="page level_two">').html(template)
+                  element: angular.element('<div id="two" class="page level_two" ng-animate'+'="\'fade\'"'+'">').html(template)
                 };
               }else {
                 return {
-                  element: angular.element('<div id="one" class="page">').html(template)
+                  element: angular.element('<div id="one" class="page" ng-animate'+'="\'fade\'"'+'">').html(template)
                 };
               }
               
