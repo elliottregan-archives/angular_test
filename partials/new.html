@@ -6,7 +6,7 @@
     <h2>Create New Campaign: Step {{steps[currentStep]+1}}</h2>
   </header>
   
-  <div class="scroller_wrapper">
+  <div class="scroller_wrapper  with_header_padding">
     <nav>
       <ol class="breadcrumbs five_btns btnset">
         <li ng-class="{selected: currentStep==n}" class="crumb btn" ng-repeat='n in steps' ng-click='changeStep(n)'>{{n+1}}</li>

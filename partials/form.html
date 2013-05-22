@@ -39,7 +39,7 @@
           <div ng-show="question.type == 'binary'">
             <h3 ng-bind="question.text"></h3>
             <ul class='answers'>
-              <li ng-repeat="answer in question.answers">
+              <li ng-repeat="answer in question.answers" class="inline">
                 <input type="radio" name="answer_{{question.id}}" id="answer_{{question.id}}{{answer.id}}" />
                 <label for="answer_{{question.id}}{{answer.id}}" ng-bind="answer.text"></label>
               </li>
@@ -56,7 +56,9 @@
           
         </li>
       </ol>
-      <button type="submit" class="btn full_width">Share Feedback!</button>
+      <fieldset class="padded">
+        <button type="submit" class="btn full_width">Share Feedback!</button>
+      </fieldset>
     </form>
   </div>
 </div>
