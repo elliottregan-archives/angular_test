@@ -16,7 +16,8 @@
         </div>
         <a href="#/rewards/{{reward.id}}">
           <h2 ng-bind="reward.title"></h2>
-          <p>expires <span ng-bind="reward.exp_date"></span></p>
+          <p ng-show="reward.claimed == false">expires <span ng-bind="reward.exp_date"></span></p>
+          <p ng-show="reward.claimed != false">used <span ng-bind="reward.claimed"></span></p>
         </a>
       </li>
     </ul>

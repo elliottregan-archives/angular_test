@@ -10,98 +10,13 @@ function sidebarCtr($scope) {
   
 };
 
-function formCtr($scope) {
+function formCtr($scope, formData) {
 
-  $scope.fdbkCampaign = {
-      id: 'camp0',
-      handle: 'crepesandthings',
-      description: 'Our main feedback portal.',
-      title: 'Crepes & Things',
-      local: false,
-      location: '',
-      discoverable: false,
-      questionsList: [
-        {
-          id: 'asdf',
-          type: 'multipleChoice',
-          text: "How was your service today?",
-          answers: [
-            {
-              id: 0,
-              text: "ass"
-            },
-            {
-              id: 2,
-              text: "mehhhhh..."
-            },
-            {
-              id: 3,
-              text: "better than not"
-            },
-            {
-              id: 4,
-              text: "fabul-fucking-tastic!"
-            }
-          ]
-        },
-        {
-          id: 'asdf2',
-          type: 'binary',
-          text: "Yes or no?",
-          answers: [
-            {
-              id: 50,
-              text: "yes"
-            },
-            {
-              id: 52,
-              text: "no"
-            }
-          ]
-        },
-        {
-          id: 'asdf3',
-          type: 'freeText',
-          text: "Tell us about something you like.",
-          answers: []
-        },
-        {
-          id: 'asdf4',
-          type: 'number',
-          text: "How old are you?",
-          answers: []
-        },
-        {
-          id: 'asdf5',
-          type: 'rating',
-          text: "Rate your overall experience.",
-          answers: [
-            {
-              id: 30,
-              text: "poor"
-            },
-            {
-              id: 32,
-              text: "fair"
-            },
-            {
-              id: 33,
-              text: "good"
-            },
-            {
-              id: 34,
-              text: "great"
-            },
-          ]
-        }
-      ],
-      reward:
-        {
-          title: 'Free espresso!',
-          description: 'Come back for a free espresso any time you want.',
-          terms: "Just show us your code, and we'll hand you a free espresso drink.",
-          exp: "01-02-2014"
-        }
+  init();
+  
+  function init() {
+    $scope.fdbkCampaign = formData.getFdbkCampaign();
+    $scope.title = 'Settings';
   };
  
 };
@@ -634,7 +549,6 @@ function appCtr($scope, $routeParams, $location, $route) {
     if ($scope.currentStep < $scope.steps.length-1) {
       $scope.currentStep = $scope.currentStep+1;
     };
-    console.log($scope.buildCampaign.reward);
   };
   
   $scope.activateCampaign = function() {
@@ -664,75 +578,14 @@ function appCtr($scope, $routeParams, $location, $route) {
   
 };
 
-function accountCtr($scope, $routeParams, $location) {
-
-  $scope.title = "Settings";
+function accountCtr($scope, $routeParams, $location, userData) {
   
-  $scope.userDetails = {
-    name: "Elliott Regan",
-    email: "oatmealsnap@gmail.com",
-    city: "Brooklyn, NY",
-    bio: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-    instances : {
-      msg0: {
-        id: 'msg0',
-        author: "You",
-        to_name: "Crepes & Things",
-        to_handle: '@crepesandthings',
-        time: "2013-02-13T01:15-05:00",
-        text: "This is the main text of the feedback instance",
-        heard: "false",
-        reward: "free coffee",
-        comments: [
-          { commentId: 'fdsahy',
-            author: "Crepes & Things", 
-            time: "2013-02-13T01:15-05:00",
-            text: "This might be a response to the feedback.",
-            heard: "false"
-          },
-          { commentId: 'asdfgtr',
-            author: "You", 
-            time: "2013-02-13T01:15-05:00",
-            text: "This might be your reply",
-            heard: "false"
-          }
-        ]
-      },
-      msg1: {
-        id: 'msg1',
-        author: "You",
-        time: "2013-02-13T01:15-05:00",
-        text: "This is the main text of the feedback instance",
-        heard: "false",
-        comments: [
-          { commentId: 'asdf',
-            author: "Crepes & Things", 
-            time: "2013-02-13T01:15-05:00",
-            text: "Glad to hear from you. Anything else we can do for you?",
-            heard: "false"
-          },
-          { commentId: 'fdsaf',
-            author: "You", 
-            time: "2013-02-13T01:15-05:00",
-            text: "The text on the menus is too small. Can you make it bigger?",
-            heard: "false"
-          },
-          { commentId: 'fdsaf',
-            author: "Crepes & Things", 
-            time: "2013-02-13T01:15-05:00",
-            text: "Sure. Not a problem. I'll let you know when we reprint our menus, some time next month.",
-            heard: "false"
-          },
-          { commentId: 'fdsaf',
-            author: "You", 
-            time: "2013-02-13T01:15-05:00",
-            text: "Ok, thanks! You guys are the best.",
-            heard: "false"
-          }
-        ]
-      }
-    }
-    
+  init();
+  
+  function init() {
+    $scope.userDetails = userData.getUserDetails();
+    $scope.instances = userData.getInstances();
+    $scope.title = 'Settings';
   };
 
 };
@@ -745,40 +598,40 @@ function dashCtr($scope, $routeParams, $location) {
      $location.path( '/dashboard' ); //redirect back to dashboard if a new campaign has not been initiated
   };
   
-  $scope.chooseTemplate = function(template_type) {
-  
-    if (template_type == 'blank') {
-      $scope.buildCampaign.questionsList = [];
-    }
-    else if (template_type == 'business') {
-      $scope.buildCampaign.questionsList = [
-        {
-          id: 'asdf',
-          type: 'multipleChoice',
-          text: "How was your service today?",
-          answers: [
-            {
-              id: 0,
-              text: "poor"
-            },
-            {
-              id: 2,
-              text: "fair"
-            },
-            {
-              id: 3,
-              text: "good"
-            },
-            {
-              id: 4,
-              text: "great"
-            },
-          ]
-        }
-      ];
-    }
-  
-  };
+//  $scope.chooseTemplate = function(template_type) {
+//  
+//    if (template_type == 'blank') {
+//      $scope.buildCampaign.questionsList = [];
+//    }
+//    else if (template_type == 'business') {
+//      $scope.buildCampaign.questionsList = [
+//        {
+//          id: 'asdf',
+//          type: 'multipleChoice',
+//          text: "How was your service today?",
+//          answers: [
+//            {
+//              id: 0,
+//              text: "poor"
+//            },
+//            {
+//              id: 2,
+//              text: "fair"
+//            },
+//            {
+//              id: 3,
+//              text: "good"
+//            },
+//            {
+//              id: 4,
+//              text: "great"
+//            },
+//          ]
+//        }
+//      ];
+//    }
+//  
+//  };
   
 };
 
@@ -789,30 +642,36 @@ function rewardsListCtr($scope, userData) {
   function init() {
     $scope.rewardsList = userData.getRewardsList();
     $scope.title = 'Rewards';
+    console.log(userData.getRewardsList());
   };
 
 };
 
-function rewardCtr($scope, $routeParams, $location) {
+function rewardCtr($scope, $routeParams, $location, userData) {
 
-  if ($scope.rewardsList[$routeParams.rewardId] != null) { //first make sure the rewardId from route exists.
-    $scope.viewReward = $scope.rewardsList[$routeParams.rewardId]; //find reward with id in the list of rewards and save to variable.
-    $scope.title = $scope.viewReward.title;
-  }
-  else {
-    $location.path( "/rewards" ); //redirect back to dashboard if campaign isn't found
-    console.log('redirect')
-  }
+  init();
   
+  function init() {
+    $scope.rewardsList = userData.getRewardsList();
+    
+    if ($scope.rewardsList[$routeParams.rewardId] != null) { //first make sure the rewardId from route exists.
+      $scope.viewReward = $scope.rewardsList[$routeParams.rewardId]; //find reward with id in the list of rewards and save to variable.
+      $scope.title = $scope.viewReward.title;
+    }
+    else {
+      $location.path( "/rewards" ); //redirect back to dashboard if campaign isn't found
+      console.log('redirect')
+    };
+  };
+
   $scope.claimReward = function (el) {
     el.claimed = new Date();
-    console.log("claimed!");
   }
 
 }
 
 function instanceCtr($scope, $routeParams, $location) {
-  console.log($scope.campaignList[$routeParams.campaignId].instances)
+
   if ($scope.campaignList[$routeParams.campaignId].instances != null) { //first make sure the messageId from route exists.
     $scope.viewInstance = $scope.campaignList[$routeParams.campaignId].instances[$routeParams.instanceId]; //find message with id in the list of campaigns
       console.log("success")
@@ -890,7 +749,6 @@ function instancesCtr($scope, $routeParams, $location) {
   }
 
   $scope.title = $scope.viewCampaign.title + " Instances"
-  console.log($scope.viewCampaign.instances);
 
 }
 

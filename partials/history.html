@@ -6,7 +6,7 @@
   <div class="scroller">
     <p ng-show="userDetails.instances == []">empty!</p>
     <ul class="instances">
-      <li ng-repeat="instance in userDetails.instances" class="instance">
+      <li ng-repeat="instance in instances" class="instance">
         <article class="card">
           <button class="btn right" ng-click="toggleConvo()" ng-init="collapsed=true">
             <span ng-show="collapsed==false">hide</span>
