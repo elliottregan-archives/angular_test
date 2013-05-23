@@ -10,12 +10,13 @@ function sidebarCtr($scope) {
   
 };
 
-function formCtr($scope, formData) {
+function formCtr($scope, formData, campaignData) {
 
   init();
   
   function init() {
-    $scope.fdbkCampaign = formData.getFdbkCampaign();
+//    $scope.fdbkCampaign = formData.getFdbkCampaign();
+    $scope.fdbkCampaign = campaignData.getCampaigns().camp0;
     $scope.title = 'Settings';
   };
  
@@ -50,13 +51,18 @@ function discoveryCtr($scope) {
 
 function appCtr($scope, $routeParams, $location, $route) {
   
-  $scope.title = "default title";
+  init();
+  
+  function init() {
+    $scope.title = 'default title';
+  };
   
   $scope.toggleHeaderDropdown = function() {
     $('header .dropdown').toggleClass('closed');
   };
   
   $scope.sidebar_visible = false;
+  
   $scope.toggleSidebar = function(direction) {
     if ( !$scope.sidebar_visible) {
       
@@ -272,249 +278,7 @@ function appCtr($scope, $routeParams, $location, $route) {
     $scope.togglePanel();
   };
   
-  $scope.handleList = ["crepesandthings", "crepesandthings_tea"];
   
-  $scope.campaignList = {
-    camp0: {
-      id: 'camp0',
-      handle: $scope.handleList[0],
-      description: 'Our main feedback portal.',
-      title: 'Crepes & Things',
-      local: false,
-      location: '',
-      discoverable: false,
-      questionsList: [
-        {
-          id: 'asdf',
-          type: 'multipleChoice',
-          text: "How was your service today?",
-          answers: [
-            {
-              id: 0,
-              text: "poor"
-            },
-            {
-              id: 2,
-              text: "fair"
-            },
-            {
-              id: 3,
-              text: "good"
-            },
-            {
-              id: 4,
-              text: "great"
-            },
-          ]
-        }
-      ],
-      reward:
-        {
-          title: 'Free espresso!',
-          description: 'Come back for a free espresso any time you want.',
-          terms: "Just show us your code, and we'll hand you a free espresso drink.",
-          exp: "01-02-2014"
-        },
-      permissions: 
-        { accepted: [
-            { first: 'Bubbles',
-              last: '',
-              email: 'yup@ahdoughno.com',
-              date_sent: '',
-              level: []
-            }
-          ],
-          pending: []
-        },
-      instances : {
-        msg0: {
-          id: 'msg0',
-          author: "Franz Ferdinand",
-          time: "2013-02-13T01:15-05:00",
-          text: "This is the main text of the feedback instance",
-          heard: "false",
-          comments: [
-            { commentId: 'fdsahy',
-              author: "You", 
-              time: "2013-02-13T01:15-05:00",
-              text: "This might be a response to the feedback.",
-              heard: "false"
-            },
-            { commentId: 'asdfgtr',
-              author: "Franz Ferdinand", 
-              time: "2013-02-13T01:15-05:00",
-              text: "This might be you reply",
-              heard: "false"
-            }
-          ]
-        },
-        msg1: {
-          id: 'msg1',
-          author: "Chad Grecko",
-          time: "2013-02-13T01:15-05:00",
-          text: "This is the main text of the feedback instance",
-          heard: "false",
-          comments: [
-            { commentId: 'asdf',
-              author: "You", 
-              time: "2013-02-13T01:15-05:00",
-              text: "Glad to hear from you. Anything else we can do for you?",
-              heard: "false"
-            },
-            { commentId: 'fdsaf',
-              author: "Chad Grecko", 
-              time: "2013-02-13T01:15-05:00",
-              text: "The text on the menus is too small. Can you make it bigger?",
-              heard: "false"
-            },
-            { commentId: 'fdsaf',
-              author: "You", 
-              time: "2013-02-13T01:15-05:00",
-              text: "Sure. Not a problem. I'll let you know when we reprint our menus, some time next month.",
-              heard: "false"
-            },
-            { commentId: 'fdsaf',
-              author: "Chad Grecko", 
-              time: "2013-02-13T01:15-05:00",
-              text: "Ok, thanks! You guys are the best.",
-              heard: "false"
-            }
-          ]
-        }
-      }
-    },
-    camp1: {
-      id: 'camp1',
-      handle: $scope.handleList[1],
-      title: 'Which tea?',
-      description: "Asking our customers if they like our green tea or white tea better.",
-      local: true,
-      location: '',
-      discoverable: false,
-      questionsList: [
-        {
-          id: 'fdsa',
-          type: 'freeText',
-          text: "Which kind of tea did you like best?",
-          answers: []
-        }
-      ],
-      reward:
-        {
-          title: 'Free rocket ball',
-          description: 'What is a rocket ball?',
-          terms: 'Guess correctly, and you get it for free!',
-          exp: "01-02-2014"
-        },
-      permissions: 
-        {
-          accepted: [],
-          pending: [
-            {
-              first: 'Elliott',
-              last: 'Regan',
-              email: 'regan.elliott@gmail.com',
-              date_sent: '10/2/2013',
-              level: 'view'
-            }
-          ]
-        },
-      instances : {
-        msg0 : {
-          id: 'msg0',
-          author: "Hans Lipman",
-          time: "2013-02-13T01:15-05:00",
-          text: "This is the main text of the feedback instance",
-          heard: "false",
-          comments: [
-            { commentId: 'fdsahy',
-              author: "You", 
-              time: "2013-02-13T01:15-05:00",
-              text: "This might be a response to the feedback.",
-              heard: "false"
-            },
-            { commentId: 'asdfgtr',
-              author: "Hans Lipman", 
-              time: "2013-02-13T01:15-05:00",
-              text: "This might be you reply",
-              heard: "false"
-            }
-          ]
-        },
-        msg1 : {
-          id: 'msg0',
-          author: "Becky Johnson",
-          time: "2013-02-13T01:15-05:00",
-          text: "This is the main text of the feedback instance",
-          heard: "false",
-          comments: [
-            { commentId: 'asdf',
-              author: "You", 
-              time: "2013-02-13T01:15-05:00",
-              text: "Glad to hear from you. Anything else we can do for you?",
-              heard: "false"
-            },
-            { commentId: 'fdsaf',
-              author: "Becky Johnson", 
-              time: "2013-02-13T01:15-05:00",
-              text: "The text on the menus is too small. Can you make it bigger?",
-              heard: "false"
-            },
-            { commentId: 'fdsaf',
-              author: "You", 
-              time: "2013-02-13T01:15-05:00",
-              text: "Sure. Not a problem. I'll let you know when we reprint our menus, some time next month.",
-              heard: "false"
-            },
-            { commentId: 'fdsaf',
-              author: "Becky Johnson", 
-              time: "2013-02-13T01:15-05:00",
-              text: "Ok, thanks! You guys are the best.",
-              heard: "false"
-            }
-          ]
-        }
-      }
-    }
-  };
-    
-// example of a campaign
-//  $scope.buildCampaign = { 
-//    id: '',
-//    name: '',
-//    description: '',
-//    title: '',
-//    local: false,
-//    location: '',
-//    discoverable: false,
-//    questionsList: [
-//      {
-//        id: '',
-//        type: '',
-//        text: null,
-//        answers: []
-//      }
-//    ],
-//    reward:
-//      {
-//        title: '',
-//        description: '',
-//        terms: ''
-//      },
-//    permissions: 
-//      {
-//        accepted: [],
-//        pending: [
-//          {
-//            first: '',
-//            last: '',
-//            email: '',
-//            date_sent: '',
-//            level: ''
-//          }
-//        ]
-//      } 
-//  };
   
   $scope.createCampaign = function(new_campaign_title, handle, is_local, new_campaign_locale, discoverable) {
     var datetime = Date.now();
@@ -590,49 +354,20 @@ function accountCtr($scope, $routeParams, $location, userData) {
 
 };
 
-function dashCtr($scope, $routeParams, $location) {
-    
-  $scope.title = 'Dashboard';
+function dashCtr($scope, $routeParams, $location, campaignData) {
+  
+  init();
+  
+  function init() {
+    $scope.title = 'Dashboard';
+    $scope.campaignList = campaignData.getCampaigns();    
+  };
+  
   
   if (($location.$$path == "/new") && (!$scope.buildCampaign)) {
      $location.path( '/dashboard' ); //redirect back to dashboard if a new campaign has not been initiated
   };
-  
-//  $scope.chooseTemplate = function(template_type) {
-//  
-//    if (template_type == 'blank') {
-//      $scope.buildCampaign.questionsList = [];
-//    }
-//    else if (template_type == 'business') {
-//      $scope.buildCampaign.questionsList = [
-//        {
-//          id: 'asdf',
-//          type: 'multipleChoice',
-//          text: "How was your service today?",
-//          answers: [
-//            {
-//              id: 0,
-//              text: "poor"
-//            },
-//            {
-//              id: 2,
-//              text: "fair"
-//            },
-//            {
-//              id: 3,
-//              text: "good"
-//            },
-//            {
-//              id: 4,
-//              text: "great"
-//            },
-//          ]
-//        }
-//      ];
-//    }
-//  
-//  };
-  
+    
 };
 
 function rewardsListCtr($scope, userData) {
@@ -682,7 +417,13 @@ function instanceCtr($scope, $routeParams, $location) {
   }
 };
 
-function campaignCtr($scope, $routeParams, $location) {
+function campaignCtr($scope, $routeParams, $location, campaignData) {
+  
+  init();
+  
+  function init() {
+    $scope.campaignList = campaignData.getCampaigns();
+  };  
   
   function Campaign(id, handle, title, local, location, discoverable) {
     
@@ -739,7 +480,15 @@ function inboxCtr($scope, $routeParams) {
     
 };
 
-function instancesCtr($scope, $routeParams, $location) {
+function instancesCtr($scope, $routeParams, $location, campaignData) {
+
+  init();
+  
+  function init() {
+    $scope.campaignList = campaignData.getCampaigns();
+  };
+
+  
 
   if ($scope.campaignList[$routeParams.campaignId] != null) { //first make sure the messageId from route exists.
     $scope.viewCampaign = $scope.campaignList[$routeParams.campaignId]; //find message with id in the list of campaigns
