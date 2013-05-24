@@ -11,7 +11,7 @@
 
 <div class="scroller_wrapper  with_header_padding">
   <section class="scroller">
-    <button href="#/new" class="btn full_width" ng-click="toggleNewMode()" ng-show="!new_mode">+ New Campaign</button>
+    <button class="btn full_width" ng-click="toggleNewMode()" ng-show="!new_mode">+ New Campaign</button>
     <div ng-show="new_mode">
       <form ng-submit="createCampaign(new_campaign_title, handle, is_local, new_campaign_locale, discoverable)">
         <fieldset>
@@ -27,7 +27,7 @@
           <select ng-model="handle">
             <option ng-repeat="handle in handleList">{{handle}}</option>
           </select>
-        </fieldset>     
+        </fieldset>
         <input type="text" name="new_campaign_title" placeholder="Title for new campaign" ng-model="new_campaign_title"/>   
         <button class="btn" type="submit" ng-click="resetStep()">Continue</button>
         <button class="btn" ng-click="toggleNewMode()" type="button">cancel</button>

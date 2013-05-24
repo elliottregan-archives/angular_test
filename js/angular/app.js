@@ -53,7 +53,7 @@ var appmodule = angular.module('appmodule', ['ui']).
       }).
       when('/new', {
         templateUrl: 'partials/new.html',
-        controller: dashCtr,
+        controller: campaignBuilderCtr,
         layer: 'layer1'
       }).
       when('/settings', {

@@ -50,11 +50,12 @@ function discoveryCtr($scope) {
 };
 
 function appCtr($scope, $routeParams, $location, $route) {
-  
+  console.log('app')
   init();
   
   function init() {
     $scope.title = 'default title';
+    
   };
   
   $scope.toggleHeaderDropdown = function() {
@@ -91,23 +92,9 @@ function appCtr($scope, $routeParams, $location, $route) {
     $scope.panel=panelName;
   };
   
-  $scope.duplicateMode = function(state, clicked_campaign) {
-    $scope.duplicating_mode = state;
-    $scope.temporary_duplicate = angular.copy(clicked_campaign);
-    $scope.toggleEditMode();
-  };
   
-  $scope.edit_mode = false;
-  $scope.new_mode = false;
   
-  $scope.toggleEditMode = function() {
-    $scope.edit_mode = !$scope.edit_mode;
-    $scope.new_mode = false;
-  };
   
-  $scope.toggleNewMode = function() {
-    $scope.new_mode = !$scope.new_mode;
-  };
   
   $scope.duplicateCampaign = function(title, handle) {
     
@@ -188,9 +175,84 @@ function appCtr($scope, $routeParams, $location, $route) {
         accepted: [],
         pending: []
       }
+  }; 
+    
+  $scope.sendInvite = function(first_input, last_input, email_input, level_input, contact_list) {
+    contact_list.push({
+      first: first_input,
+      last: last_input,
+      email: email_input,
+      date_sent: getDate(),
+      level: level_input
+    });
   };
   
-  $scope.selectedQType = '';
+  $scope.steps = [0,1,2,3,4];
+  
+  $scope.currentStep = 0;
+  
+  $scope.resetStep = function() {
+    $scope.currentStep = 0;
+  }
+  
+  $scope.changeStep = function(step) {
+    $scope.currentStep = step;
+  };
+  
+  $scope.advanceStep = function() {
+    if ($scope.currentStep < $scope.steps.length-1) {
+      $scope.currentStep = $scope.currentStep+1;
+    };
+  };
+  
+  $scope.panel = 'default';
+  
+  getDate = function() {
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth()+1; //January is 0!
+    
+    var yyyy = today.getFullYear();
+    if (dd<10) {
+      dd='0'+dd
+    }
+    if (mm<10) {
+      mm='0'+mm
+    }
+    
+    today = yyyy+mm+dd;
+    return today;
+    
+  };
+  
+};
+
+function accountCtr($scope, $routeParams, $location, userData, campaignData) {
+  
+  init();
+  
+  function init() {
+    $scope.userDetails = userData.getUserDetails();
+    $scope.instances = userData.getInstances();
+    $scope.title = 'Settings';
+  };
+
+};
+
+function campaignBuilderCtr($scope, $location, tempObjects, campaignData) {
+    
+  init();
+  
+  if ($scope.buildCampaign == undefined) {
+     $location.path( '/dashboard' ); //redirect back to dashboard if a new campaign has not been initiated
+  };
+  
+  function init() {
+    $scope.title = 'Dashboard';
+    $scope.buildCampaign = tempObjects.getBuildCampaign();
+  };
+  
+  var selectedQType = '';
   
   $scope.buildQuestion = {
     id: 'asdf',
@@ -201,7 +263,9 @@ function appCtr($scope, $routeParams, $location, $route) {
   
   $scope.SelectQuestionType = function(clicked_type, question) {
     question.type = clicked_type;
-    
+  
+    console.log('clicked');
+  
     if (clicked_type == 'binary') {
       question.answers = [
         {
@@ -237,6 +301,7 @@ function appCtr($scope, $routeParams, $location, $route) {
   };
   
   $scope.saveQuestion = function() {
+    
     if ($scope.buildQuestion.type == 'rating') {
       $scope.buildQuestion.answers = [
         {
@@ -257,8 +322,11 @@ function appCtr($scope, $routeParams, $location, $route) {
         },
       ];
     };
-    
+    console.log($scope.buildCampaign)
     $scope.buildCampaign.questionsList.push(angular.copy($scope.buildQuestion));
+    
+    
+    
     $scope.buildQuestion = {
         id: "",
         type: "",
@@ -278,96 +346,77 @@ function appCtr($scope, $routeParams, $location, $route) {
     $scope.togglePanel();
   };
   
+  $scope.activateCampaign = function(campaign_id) {
+    console.log(campaign_id)
+    campaignData.addCampaign(campaign_id, $scope.buildCampaign);
+    $scope.currentStep = 0;
+  };
   
+};
+
+function dashCtr($scope, $routeParams, $location, campaignData, tempObjects) {
+  
+  $scope.edit_mode = false;
+  $scope.new_mode = false;
+  $scope.title = 'Dashboard';
+  
+  init();
+  
+  function init() {
+    $scope.campaignList = campaignData.getCampaigns();
+    $scope.handleList = campaignData.getHandles();
+    $scope.buildCampaign = tempObjects.getBuildCampaign();
+  };
+  
+  $scope.duplicateMode = function(state, clicked_campaign) {
+    $scope.duplicating_mode = state;
+    $scope.temporary_duplicate = angular.copy(clicked_campaign);
+    $scope.toggleEditMode();
+  };
+  
+  $scope.toggleEditMode = function() {
+    $scope.edit_mode = !$scope.edit_mode;
+    $scope.new_mode = false;
+  };
+  
+  $scope.toggleNewMode = function() {
+    $scope.new_mode = !$scope.new_mode;
+  };
+  
+  function Campaign(id, handle, title, local, location, discoverable) {
+    
+    this.id = id,
+    this.handle = handle,
+    this.title = title,
+    this.description = 'This is the default description.',
+    this.local = local,
+    this.location = location,
+    this.discoverable = discoverable,
+    this.questionsList = [],
+    this.reward =
+      {
+        title: '',
+        description: '',
+        terms: ''
+      },
+    this.permissions = 
+      {
+        accepted: [],
+        pending: []
+      }
+  };
   
   $scope.createCampaign = function(new_campaign_title, handle, is_local, new_campaign_locale, discoverable) {
-    var datetime = Date.now();
-    $scope.buildCampaign = new Campaign(datetime, handle, new_campaign_title, is_local, new_campaign_locale, discoverable);
-    $scope.handleList.push(handle)
+    var datetimeId = Date.now();
+        
+    var temp_builder = new Campaign(datetimeId, handle, new_campaign_title, is_local, new_campaign_locale, discoverable);
+    
+    tempObjects.updateBuildCampaign(temp_builder);
+    
     $location.path( '/new' );
+ 
   };
   
-  $scope.sendInvite = function(first_input, last_input, email_input, level_input, contact_list) {
-    contact_list.push({
-      first: first_input,
-      last: last_input,
-      email: email_input,
-      date_sent: getDate(),
-      level: level_input
-    });
-  };
-  
-  $scope.steps = [0,1,2,3,4];
-  
-  $scope.currentStep = 0;
-  
-  $scope.resetStep = function() {
-    $scope.currentStep = 0;
-  }
-  
-  $scope.changeStep = function(step) {
-    $scope.currentStep = step;
-  };
-  
-  $scope.advanceStep = function() {
-    if ($scope.currentStep < $scope.steps.length-1) {
-      $scope.currentStep = $scope.currentStep+1;
-    };
-  };
-  
-  $scope.activateCampaign = function() {
-    $scope.campaignList[$scope.buildCampaign['id']] = $scope.buildCampaign;
-    $scope.currentStep = 0;
-  };
-  
-  $scope.panel = 'default';
-  
-  getDate = function() {
-    var today = new Date();
-    var dd = today.getDate();
-    var mm = today.getMonth()+1; //January is 0!
-    
-    var yyyy = today.getFullYear();
-    if (dd<10) {
-      dd='0'+dd
-    }
-    if (mm<10) {
-      mm='0'+mm
-    }
-    
-    today = yyyy+mm+dd;
-    return today;
-    
-  };
-  
-};
-
-function accountCtr($scope, $routeParams, $location, userData) {
-  
-  init();
-  
-  function init() {
-    $scope.userDetails = userData.getUserDetails();
-    $scope.instances = userData.getInstances();
-    $scope.title = 'Settings';
-  };
-
-};
-
-function dashCtr($scope, $routeParams, $location, campaignData) {
-  
-  init();
-  
-  function init() {
-    $scope.title = 'Dashboard';
-    $scope.campaignList = campaignData.getCampaigns();    
-  };
-  
-  
-  if (($location.$$path == "/new") && (!$scope.buildCampaign)) {
-     $location.path( '/dashboard' ); //redirect back to dashboard if a new campaign has not been initiated
-  };
-    
 };
 
 function rewardsListCtr($scope, userData) {
@@ -451,7 +500,6 @@ function campaignCtr($scope, $routeParams, $location, campaignData) {
   if ($scope.campaignList[$routeParams.campaignId] != null) { //first make sure the campaignId from route exists
     $scope.editCampaign = angular.copy($scope.campaignList[$routeParams.campaignId]); //find campaign with id in the list of campaigns
     $scope.viewCampaign = $scope.campaignList[$routeParams.campaignId]; //find message with id in the list of campaigns
-    
   }
   else {
     console.log($routeParams.campaignId)
@@ -500,8 +548,3 @@ function instancesCtr($scope, $routeParams, $location, campaignData) {
   $scope.title = $scope.viewCampaign.title + " Instances"
 
 }
-
-function panelCtr($scope) {
-  $scope.text = "panel success!";
-  
-};

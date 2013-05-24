@@ -1,0 +1,55 @@
+<header>
+  <button ui-event="{click : 'togglePanel()'}" class="btn left">cancel</button>
+  <button ng-show="panel=='Create Question'" class="btn right" ng-click="saveQuestion()"  ui-event="{click : 'togglePanel()'}">add question</button>
+  <h1 ng-bind="panel"></h1>
+</header>
+<div class="content scroller">
+
+  <div ng-show="panel=='Create Question'">
+    <h3>Choose Question Type:</h3>
+    <ul class="btnset five_btns">
+      <li ng-click="SelectQuestionType('binary', buildQuestion)" class="btn" ng-class="{selected: buildQuestion.type == 'binary'}">
+        Yes/No
+      </li><li ng-click="SelectQuestionType('rating', buildQuestion)" class="btn" ng-class="{selected: buildQuestion.type == 'rating'}">
+        Rating
+      </li><li ng-click="SelectQuestionType('freeText', buildQuestion)" class="btn" ng-class="{selected: buildQuestion.type == 'freeText'}">
+        Text
+      </li><li ng-click="SelectQuestionType('multipleChoice', buildQuestion)" class="btn" ng-class="{selected: buildQuestion.type == 'multipleChoice'}">
+        Choice
+      </li><li ng-click="SelectQuestionType('number', buildQuestion)" class="btn" ng-class="{selected: buildQuestion.type == 'number'}">
+        Number
+      </li>
+    </ul>
+    <input type="text" name="question_{{question.id}}" ng-model="buildQuestion.text" placeholder="Enter your question here." />
+    <div class="options">
+      <div ng-show="buildQuestion.type == 'binary'" >
+        <input type="text" ng-model="buildQuestion.answers[0].text" placeholder="add an answer here."/>
+        <input type="text" ng-model="buildQuestion.answers[1].text" placeholder="add an answer here."/>
+      </div>
+      <div ng-show="buildQuestion.type == 'rating'">
+      </div>
+      <div ng-show="buildQuestion.type == 'freeText'">
+      </div>
+      <div ng-show="buildQuestion.type == 'multipleChoice'">
+        <input type="number" name="number_of_answers" placeholder="How many answers can be selected?" min="1" max="{{buildQuestion.answers.length}}"/>
+        <ul class='answers' ng-show="buildQuestion.type == 'multipleChoice'">
+          <li ng-repeat="answer in buildQuestion.answers">
+            <input type="text" ng-model="answer.text" placeholder="add an answer here."/>
+          </li>
+        </ul>
+        <button class="btn" ng-click="addAnswer('',buildQuestion.answers)">+ Answer</button>
+      </div>
+      <div ng-show="buildQuestion.type == 'number'">
+        <input type="number" name="min" placeholder="min" />
+        <input type="number" name="max" placeholder="max" />
+      </div>
+    </div>
+    
+  </div>
+  <div ng-show="panel=='share'">
+    <label for="share_email">Enter a friend's email to share your reward with them:</label>
+    <input type="email" name="share_email" placeholder="friend@email.com" />
+    <button class="btn" ng-click="togglePanel()">send!</button>
+  </div>
+  <div ng-show="panel=='social_accounts'">This is where you would be a list of your connected social accounts.</div>
+</div>

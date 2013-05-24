@@ -18,72 +18,8 @@
       <h2>{{editCampaign.title}}</h2>
       <section ng-switch on='currentStep'>
           <div ng-switch-when='0'>
-            <ol>
-              <li ng-repeat="question in editCampaign.questionsList">
-                <!--Start 'Multiple Choice' Template-->
-                <div ng-show="question.type == 'multipleChoice'">
-                  <h3 ng-bind="question.text">Multiple-Choice</h3>
-                  <ul class='answers'>
-                    <li ng-repeat="answer in question.answers">
-                      <input type="radio" name="answer_{{question.id}}" id="answer_{{question.id}}{{answer.id}}" />
-                      <label for="answer_{{question.id}}{{answer.id}}" ng-bind="answer.text"></label>
-                    </li>
-                  </ul>
-                </div>
-                <!--End 'Multiple Choice' Template-->
-                
-                <!--Start 'rating' Template-->
-                <div ng-show="question.type == 'rating'">
-                  <h3 ng-bind="question.text"></h3>
-                  <ul class='answers'>
-                    <li ng-repeat="answer in question.answers">
-                      <input type="radio" name="answer_{{question.id}}" id="answer_{{question.id}}{{answer.id}}" />
-                      <label for="answer_{{question.id}}{{answer.id}}" ng-bind="answer.text"></label>
-                    </li>
-                  </ul>
-                </div>
-                <!--End 'rating' Template-->
-                
-                <!--Start 'freeText' Template-->
-                <div ng-show="question.type == 'freeText'">
-                  <h3 ng-bind="question.text"></h3>
-                  <input type="text" name="answer_{{question.id}}{{answer.id}}" ng-model="answer.text" placeholder="add an answer here."/>
-                </div>
-                <!--End 'freeText' Template-->
-                
-                <!--Start 'binary' Template-->
-                <div ng-show="question.type == 'binary'">
-                  <h3 ng-bind="question.text"></h3>
-                  <ul class='answers'>
-                    <li ng-repeat="answer in question.answers">
-                      <input type="radio" name="answer_{{question.id}}" id="answer_{{question.id}}{{answer.id}}" />
-                      <label for="answer_{{question.id}}{{answer.id}}" ng-bind="answer.text"></label>
-                    </li>
-                  </ul>
-                </div>
-                <!--End 'binary' Template-->
-                
-                <!--Start 'number' Template-->
-                <div ng-show="question.type == 'number'">
-                  <h3 ng-bind="question.text"></h3>
-                  <label for="answer_{{question.id}}{{answer.id}}">Choose a number:</label>
-                  <input type="text" name="answer_{{question.id}}{{answer.id}}" ng-model="answer.text" placeholder="type your answer here."/>
-                </div>
-                <!--End 'number' Template-->
-                
-              </li>
-            </ol>
+            <div ng-include src="'partials/list_of_questions.html'"></div>
             <button ng-click="togglePanel('Create Question')" class="btn">+ New Question</button>
-<!--            <div class="horizontal_scroller">
-              <ol class="templates">
-                <li>
-                  <button class="btn inline" ng-click="chooseTemplate('blank')">blank</button>
-                </li>
-                <li>
-                  <button class="btn inline" ng-click="chooseTemplate('business')">business</button>
-                </li>
-              </ol>
-            </div>-->
           </div>
         <div ng-switch-when='1'>
           <form method="post" action="">

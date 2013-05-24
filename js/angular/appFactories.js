@@ -1,3 +1,19 @@
+appmodule.factory('tempObjects', function() {
+
+  var buildCampaign = undefined;
+
+  var factory = {};
+  factory.getBuildCampaign = function() {
+    return buildCampaign;
+  };
+  factory.updateBuildCampaign = function(incoming_campaign) {
+    buildCampaign = incoming_campaign;
+  };
+  
+  return factory;
+
+});
+
 appmodule.factory('campaignData', function() {
   
   var handleList = ["crepesandthings", "crepesandthings_tea"];
@@ -276,6 +292,13 @@ appmodule.factory('campaignData', function() {
   var factory = {};
   factory.getCampaigns = function() {
     return campaignList;
+  };
+  factory.getHandles = function() {
+    return handleList;
+  };
+  
+  factory.addCampaign = function(campaign_id, campaign) {
+    campaignList[campaign_id] = campaign;
   };
   
   return factory;
