@@ -355,17 +355,27 @@ function campaignBuilderCtr($scope, $location, tempObjects, campaignData) {
 };
 
 function dashCtr($scope, $routeParams, $location, campaignData, tempObjects) {
-  
+    
   $scope.edit_mode = false;
   $scope.new_mode = false;
   $scope.title = 'Dashboard';
   
   init();
+  $scope.form = {type : $scope.handleList[0].value}; //fix for weird empty <option> created by angular.
   
   function init() {
     $scope.campaignList = campaignData.getCampaigns();
     $scope.handleList = campaignData.getHandles();
     $scope.buildCampaign = tempObjects.getBuildCampaign();
+  };
+    
+  $scope.changeHandle = function() {
+    if ($scope.handle != "+") {
+      $scope.handle_to_submit = $scope.handle;
+    }
+    else {
+      $scope.handle_to_submit = '';
+    }
   };
   
   $scope.duplicateMode = function(state, clicked_campaign) {
@@ -412,6 +422,7 @@ function dashCtr($scope, $routeParams, $location, campaignData, tempObjects) {
     var temp_builder = new Campaign(datetimeId, handle, new_campaign_title, is_local, new_campaign_locale, discoverable);
     
     tempObjects.updateBuildCampaign(temp_builder);
+    campaignData.addCampaign(temp_builder.id, temp_builder);
     
     $location.path( '/new' );
  

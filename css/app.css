@@ -579,10 +579,19 @@ fieldset.padded {
 
 /* @end */
 
+select {
+  display: block;
+}
+
 fieldset {
   border: none;
   margin: 0;
   padding: 0;
+}
+
+label {
+  display: block;
+  margin: 10px 0;
 }
 
 input[type=text], input[type=email], input[type=number], input[type=date], input[type=password], textarea {

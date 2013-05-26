@@ -13,22 +13,18 @@
   <section class="scroller">
     <button class="btn full_width" ng-click="toggleNewMode()" ng-show="!new_mode">+ New Campaign</button>
     <div ng-show="new_mode">
-      <form ng-submit="createCampaign(new_campaign_title, handle, is_local, new_campaign_locale, discoverable)">
-        <fieldset>
-          <input id="has_handle_false" type="radio" name="has_handle" ng-model="has_handle" value="old" />
-          <label for="has_handle_false">Previous handle</label>
-          <input id="has_handle_true" type="radio" name="has_handle" ng-model="has_handle" value="new" />
-          <label for="has_handle_true">New handle</label>
-        </fieldset>
-        <fieldset ng-show="has_handle == 'new'">
-          <input class="inline" type="text" name="new_handle" placeholder="Enter new handle" ng-model="handle" />
-        </fieldset>
-        <fieldset ng-show="has_handle == 'old'">
-          <select ng-model="handle">
-            <option ng-repeat="handle in handleList">{{handle}}</option>
-          </select>
-        </fieldset>
-        <input type="text" name="new_campaign_title" placeholder="Title for new campaign" ng-model="new_campaign_title"/>   
+      <form ng-submit="createCampaign(new_campaign_title, handle_to_submit, is_local, new_campaign_locale, discoverable)">
+        <label for="handle_select">Choose a handle</label>
+        <select ng-model="handle" id="handle_select" ng-change="changeHandle()" >
+          <option ng-repeat="handle in handleList" ng-bind="handle" value="{{handle}}"></option>
+          <option value="+">+ create new</option>
+        </select>
+        
+        <label for="handle_text" ng-show="handle == '+'">New handle name:</label>
+        <input id="handle_text" ng-show="handle == '+'" class="inline" type="text" name="new_handle" placeholder="Try your twitter handle!" ng-model="handle_to_submit" />
+        
+        <label for="campaign_text">Name this campaign: <br /><small>(this is the public title for your feedback.)</small></label>
+        <input type="text" name="new_campaign_title" placeholder="eg. 'Crepes & Things Feedback'" ng-model="new_campaign_title"/>   
         <button class="btn" type="submit" ng-click="resetStep()">Continue</button>
         <button class="btn" ng-click="toggleNewMode()" type="button">cancel</button>
       </form>
@@ -36,6 +32,7 @@
     <ul id="campaign_list" class="object_list">
       <li ng-repeat="campaign in campaignList">
         <div ng-show="edit_mode == true">
+          <a class="btn right" href="#/campaign/{{campaign.id}}/edit">edit</a>
           <button class="btn right" ng-click="deleteListItem(campaign, campaignList)">delete</button>
           <button class="btn right" ng-click="duplicateMode(true, campaign)">duplicate</button>
         </div>
