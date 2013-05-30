@@ -31,22 +31,32 @@
 </head>
 <body>
   <main>
-    <div class="dimmer" ng-click="toggleSidebar('left')" ng-show="sidebar_visible" ng-animate="'fade'"></div>
+    <div class="dimmer" ng-click="toggleSidebar()" ng-show="sidebar_visible" ng-animate="'fade'"></div>
     <div deepnav></div>
   </main>
   
-  <nav id="sidebar" ng-controller="sidebarCtr" class="main_nav">
+  <nav ng-controller="sidebarCtr" class="main_nav sidebar">
     <h3>ACCOUNT PAGES</h3>
     <ul>
-      <li><a href="#dashboard" ng-click="toggleSidebar('left')">Dashboard</a></li>
+      <li><a href="#dashboard" ng-click="toggleSidebar()">Dashboard</a></li>
       <li ng-repeat="(page, url) in appPages">
-        <a href="#/{{url}}" ng-click="toggleSidebar('left')" ng-bind='page'></a>
+        <a href="#/{{url}}" ng-click="toggleSidebar()" ng-bind='page'></a>
       </li>
     </ul>
     <h3>CAMPAIGN SHORTCUTS</h3>
     <ul>
       <li ng-repeat="campaign in campaignList">
-        <a href="#/campaign/{{campaign.id}}/instances" ng-bind="campaign.title" ng-click="toggleSidebar('left')"></a>
+        <a href="#/campaign/{{campaign.id}}/instances" ng-bind="campaign.title" ng-click="toggleSidebar()"></a>
+      </li>
+    </ul>
+  </nav>
+  
+  <nav ng-controller="sidebarCtr" class="second_nav sidebar">
+    <h3>ACCOUNT PAGES</h3>
+    <ul>
+      <li><a href="#dashboard" ng-click="toggleSidebar()">Dashboard</a></li>
+      <li ng-repeat="(page, url) in secondSidebar">
+        <a href="#/{{currentCampaignId}}/{{url}}" ng-click="toggleSidebar()" ng-bind='page'></a>
       </li>
     </ul>
   </nav>

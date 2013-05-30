@@ -10,6 +10,7 @@ appmodule.factory('tempObjects', function() {
     buildCampaign = incoming_campaign;
   };
   
+  
   return factory;
 
 });
@@ -296,9 +297,11 @@ appmodule.factory('campaignData', function() {
   factory.getHandles = function() {
     return handleList;
   };
-  
   factory.addCampaign = function(campaign_id, campaign) {
     campaignList[campaign_id] = campaign;
+  };
+  factory.getCampaign = function(campaign_id) {
+    return campaignList[campaign_id];
   };
   
   return factory;

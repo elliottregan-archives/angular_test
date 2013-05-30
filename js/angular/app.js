@@ -1,11 +1,6 @@
 var appmodule = angular.module('appmodule', ['ui']).
   config(['$routeProvider', function($routeProvider) {
     $routeProvider.
-      when('/discover', {
-        templateUrl: 'partials/index.html', 
-        controller: discoveryCtr,
-        layer: 'main'
-      }).
       when('/form', {
         templateUrl: 'partials/form.html', 
         controller: formCtr,
@@ -23,23 +18,18 @@ var appmodule = angular.module('appmodule', ['ui']).
       }).
       when('/rewards', {
         templateUrl: 'partials/rewards.html',
-        controller: rewardsListCtr,
+        controller: rewardsCtr,
         layer: 'main'
       }).
       when('/rewards/:rewardId', {
         templateUrl: 'partials/reward_info.html',
-        controller: rewardCtr,
+        controller: rewardsCtr,
         layer: 'layer1'
       }).
       when('/campaign/:campaignId/instances/', {
         templateUrl: 'partials/instances.html',
         controller: instancesCtr,
         layer: 'layer1'
-      }).
-      when('/campaign/:campaignId/instance/:instanceId', {
-        templateUrl: 'partials/instance.html',
-        controller: instanceCtr,
-        layer: 'layer2'
       }).
       when('/campaign/:campaignId', {
         templateUrl: 'partials/campaign_info.html',
@@ -48,11 +38,6 @@ var appmodule = angular.module('appmodule', ['ui']).
       }).
       when('/campaign/:campaignId/edit', {
         templateUrl: 'partials/edit.html',
-        controller: campaignCtr,
-        layer: 'layer1'
-      }).
-      when('/new', {
-        templateUrl: 'partials/new.html',
         controller: campaignBuilderCtr,
         layer: 'layer1'
       }).

@@ -1,10 +1,10 @@
 <ol>
-  <li ng-repeat="question in editCampaign.questionsList" ng-switch="question.type">
+  <li ng-repeat="question in buildCampaign.questionsList" ng-switch="question.type">
     <!--Start 'Multiple Choice' Template-->
     <div ng-switch-when="multipleChoice">
       <h3 ng-bind="question.text">Multiple-Choice</h3>
       <ul class='answers'>
-        <li ng-repeat="answer in question.answers">
+        <li ng-repeat="answer in question.answers" class="inline">
           <input type="radio" name="answer_{{question.id}}" id="answer_{{question.id}}{{answer.id}}" />
           <label for="answer_{{question.id}}{{answer.id}}" ng-bind="answer.text"></label>
         </li>
@@ -16,7 +16,7 @@
     <div ng-switch-when="rating">
       <h3 ng-bind="question.text"></h3>
       <ul class='answers'>
-        <li ng-repeat="answer in question.answers">
+        <li ng-repeat="answer in question.answers" class="inline">
           <input type="radio" name="answer_{{question.id}}" id="answer_{{question.id}}{{answer.id}}" />
           <label for="answer_{{question.id}}{{answer.id}}" ng-bind="answer.text"></label>
         </li>
@@ -35,7 +35,7 @@
     <div ng-switch-when="binary">
       <h3 ng-bind="question.text"></h3>
       <ul class='answers'>
-        <li ng-repeat="answer in question.answers">
+        <li ng-repeat="answer in question.answers" class="inline">
           <input type="radio" name="answer_{{question.id}}" id="answer_{{question.id}}{{answer.id}}" />
           <label for="answer_{{question.id}}{{answer.id}}" ng-bind="answer.text"></label>
         </li>
