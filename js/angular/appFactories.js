@@ -290,9 +290,79 @@ appmodule.factory('campaignData', function() {
     }
   };
   
+  var rewardsList = {
+    open : {
+      rwd0 : {
+        id: "rwd0",
+        title: 'Free Coffee!',
+        description: 'This is an offer for a free coffee.',
+        creator: "Crepes & Things",
+        terms: "This would be a long, possibly very long paragraph of terms. It may even have more than one paragraph, although this one does not.",
+        exp_date: "4/1/2014",
+        claimed: false,
+        owner: "Elliott Regan",
+        date_issued: "1/2/1013",
+        shared_with: "Joe, Mark, Ruby"
+      },
+      rwd1 : {
+        id: "rwd1",
+        title: 'Half off a burrito!',
+        description: 'Trade this in for 50% off a burrito.',
+        creator: "Long Live Guac",
+        terms: "May not be used in Missouri. Sorry.",
+        exp_date: "2/28/1993",
+        claimed: false,
+        owner: "Elliott Regan",
+        date_issued: "1/2/1013",
+        shared_with: ["Joe", "Mark", "Ruby"]
+      }
+    },
+    closed : {
+      rwd2 : {
+        id: "rwd2",
+        title: 'Free Burrito!',
+        description: 'This is an offer for a free coffee.',
+        creator: "Crepes & Things",
+        terms: "This would be a long, possibly very long paragraph of terms. It may even have more than one paragraph, although this one does not.",
+        exp_date: "4/1/2014",
+        claimed: false,
+        owner: "Forrest Regan",
+        date_issued: "1/2/1013",
+        shared_with: "Joe, Mark, Ruby"
+      },
+      rwd3 : {
+        id: "rwd3",
+        title: 'City Key!',
+        description: 'Trade this in for 50% off a burrito.',
+        creator: "Long Live Guac",
+        terms: "May not be used in Missouri. Sorry.",
+        exp_date: "2/28/1993",
+        claimed: false,
+        owner: "Kieran Regan",
+        date_issued: "1/2/1013",
+        shared_with: ["Joe", "Mark", "Ruby"]
+      },
+      rwd4 : {
+        id: "rwd4",
+        title: 'Ticket to France!',
+        description: 'Trade this in for 50% off a burrito.',
+        creator: "Long Live Guac",
+        terms: "May not be used in Missouri. Sorry.",
+        exp_date: "2/28/1993",
+        claimed: false,
+        owner: "Craig Regan",
+        date_issued: "1/2/1013",
+        shared_with: ["Joe", "Mark", "Ruby"]
+      }
+    }
+  };
+  
   var factory = {};
   factory.getCampaigns = function() {
     return campaignList;
+  };
+  factory.getRewardsList = function() {
+    return rewardsList;
   };
   factory.getHandles = function() {
     return handleList;

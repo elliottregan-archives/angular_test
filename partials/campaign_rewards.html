@@ -1,0 +1,41 @@
+<header>
+  <a href="#/campaign/{{campaignId}}/instances" class="btn left">back</a>
+  <button class="btn right" ng-click="toggleSidebar('left')"> . . . </button>
+  <h1 ng-bind="title"></h1>
+</header>
+
+<div class="scroller_wrapper  with_header_padding">
+  <section class="scroller">
+    
+    <div class="btnset two_btns">
+      <button class="btn" ng-click="toggleRewardsList()" ng-class="{selected: rewardsView == 'open'}">Open</button><button class="btn" ng-click="toggleRewardsList()" ng-class="{selected: rewardsView == 'closed'}">Closed</button>
+    </div>
+    
+    <div class="data_section row">
+      <figure class="data centered col-1-3">
+        <div class="big_number">2</div>
+        <figcaption>rewards open</figcaption>
+      </figure>
+      <ul class="data text col-2-3">
+        <li>No rewards are expiring this month.</li>
+        <li>No rewards have been redeemed this month.</li>
+      </ul>
+    </div>
+    <ul class="object_list">
+      <li ng-repeat="reward in rewardsList">
+        <div ng-show="edit_mode == true">
+          <button class="btn right" ng-click="deleteListItem(reward, rewardsList)">delete</button>
+        </div>
+        <a href="#/campaign/{{campaignId}}/rewards/{{reward.id}}">
+          <h2 ng-bind="reward.title"></h2>
+          <dl>
+            <dt>Owner:</dt>
+            <dd ng-bind="reward.owner"></dd>
+            <dt>Date Issued:</dt>
+            <dd ng-bind="reward.date_issued"></dd>
+          </dl>
+        </a>
+      </li>
+    </ul>
+  </section>
+</div>

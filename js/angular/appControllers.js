@@ -1,11 +1,10 @@
 function sidebarCtr($scope, $routeParams, $location, campaignData, $route) {
-  $scope.text = "sidebar success!";
   
-  $scope.routeParams = ($routeParams)
+  console.log($routeParams, $routeParams.campaignId);
   
-  console.log($routeParams);
-    
-  console.log(campaignData.getCampaign('camp0'));
+  $scope.$on("ENTERED_CAMPAIGN", function(event, page_data) {
+    $scope.campaignId = page_data.campaignId;
+  });
   
   $scope.appPages = {
     "Fdbk Feed" : "feed",
@@ -27,7 +26,6 @@ function formCtr($scope, formData, campaignData) {
   init();
   
   function init() {
-//    $scope.fdbkCampaign = formData.getFdbkCampaign();
     $scope.fdbkCampaign = campaignData.getCampaigns().camp0;
     $scope.title = 'Settings';
   };
@@ -35,6 +33,14 @@ function formCtr($scope, formData, campaignData) {
 };
 
 function appCtr($scope, $routeParams, $location, $route) {
+  
+  $scope.$on("ENTERED_CAMPAIGN", function(event, id_from_instances) {
+    
+    $scope.$broadcast("ENTERED_CAMPAIGN", id_from_instances);
+  });
+  
+  $scope.test_value = "app";
+  
   init();
   
   function init() {
@@ -47,6 +53,7 @@ function appCtr($scope, $routeParams, $location, $route) {
   $scope.sidebar_visible = false;
   
   $scope.toggleSidebar = function(direction) {
+    
     if ( (!$scope.sidebar_visible) && (direction != undefined) ) {
       
       $('.main_nav').toggleClass('visible');
@@ -74,8 +81,6 @@ function appCtr($scope, $routeParams, $location, $route) {
       $('main').removeClass('slide_right');
       $('main').removeClass('slide_left');
     }
-    
-     
 
   };
   
@@ -152,7 +157,7 @@ function appCtr($scope, $routeParams, $location, $route) {
   
   $scope.resetStep = function() {
     $scope.currentStep = 0;
-  }
+  };
   
   $scope.changeStep = function(step) {
     $scope.currentStep = step;
@@ -345,7 +350,10 @@ function campaignBuilderCtr($scope, $location, $routeParams, tempObjects, campai
 };
 
 function dashCtr($scope, $routeParams, $location, campaignData, tempObjects) {
-    
+ 
+ 
+  $scope.test_value = "dash";
+  
   $scope.edit_mode = false;
   $scope.new_mode = false;
   $scope.title = 'Dashboard';
@@ -458,9 +466,41 @@ function rewardsCtr($scope, $routeParams, $location, userData) {
     el.claimed = new Date();
   }
 
+};
+
+function CampaignRewardsCtr($scope, $routeParams, $location, campaignData) {
+  
+  var fullRewardsData
+  init();
+  
+  function init() {
+    fullRewardsData = campaignData.getRewardsList();
+  };
+
+  $scope.title = 'Rewards';
+  $scope.campaignId = $routeParams.campaignId;
+  
+  $scope.$emit("ENTERED_CAMPAIGN", {
+    campaignId : $routeParams.campaignId,
+  });
+
+
+  $scope.rewardsList = fullRewardsData.open;
+  $scope.rewardsView = "open";
+
+  $scope.toggleRewardsList = function() {
+    if ($scope.rewardsList == fullRewardsData.open) {
+      $scope.rewardsList = fullRewardsData.closed;
+      $scope.rewardsView = "closed";
+    }
+    else {
+      $scope.rewardsList = fullRewardsData.open;
+      $scope.rewardsView = "open";
+    };
+    
+  };
+
 }
-
-
 
 function inboxCtr($scope, campaignData) {
   $scope.title = 'All Incoming Feedback';
@@ -489,7 +529,11 @@ function instancesCtr($scope, $routeParams, $location, campaignData) {
   else  {
     $location.path( "/dashboard" ); //redirect back to dashboard if campaign isn't found
   };
-
+  
+  $scope.$emit("ENTERED_CAMPAIGN", {
+    campaignId : $scope.viewCampaign.id,
+  });
+  
   $scope.addReply = function(post, comments) {
     comments.push({
       commentId: 1,
@@ -502,3 +546,13 @@ function instancesCtr($scope, $routeParams, $location, campaignData) {
   };
 
 }
+
+function analyticsCtr($scope, $routeParams) {
+  
+  console.log("hello!");
+  $scope.title = "Analytics";
+  $scope.campaignId = $routeParams.campaignId;
+  $scope.$emit("ENTERED_CAMPAIGN", {
+    campaignId : $routeParams.campaignId,
+  });
+};

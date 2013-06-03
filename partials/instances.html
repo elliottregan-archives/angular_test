@@ -2,13 +2,6 @@
   <a href="#/dashboard" class="btn left">Dashboard</a>
   <button class="btn right" ng-click="toggleSidebar('left')"> . . . </button>
   <h1 ng-bind="title"></h1>
-  <div class="dropdown closed">
-    <ul>
-      <li ng-click="togglePanel('social_accounts')">share!</li>
-      <li><a href="#/campaign/{{viewCampaign.id}}/edit" ng-click="resetStep()">edit</a></li>
-      <li>Rewards</li>
-    </ul>
-  </div>
 </header>
 <div class="scroller_wrapper  with_header_padding">
   <div class="scroller">

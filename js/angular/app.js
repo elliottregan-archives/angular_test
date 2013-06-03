@@ -41,6 +41,21 @@ var appmodule = angular.module('appmodule', ['ui']).
         controller: campaignBuilderCtr,
         layer: 'layer1'
       }).
+      when('/campaign/:campaignId/rewards', {
+        templateUrl: 'partials/campaign_rewards.html',
+        controller: CampaignRewardsCtr,
+        layer: 'layer1'
+      }).
+      when('/campaign/:campaignId/rewards/:rewardsId', {
+        templateUrl: 'partials/campaign_reward_info.html',
+        controller: CampaignRewardsCtr,
+        layer: 'layer1'
+      }).
+      when('/campaign/:campaignId/analytics', {
+        templateUrl: 'partials/analytics.html',
+        controller: analyticsCtr,
+        layer: 'main'
+      }).
       when('/settings', {
         templateUrl: 'partials/settings.html',
         controller: accountCtr,
@@ -56,7 +71,6 @@ var appmodule = angular.module('appmodule', ['ui']).
 
 appmodule.run(function($templateCache,$http) {
   $http.get('partials/dashboard.html', {cache:$templateCache});
-  $http.get('partials/new.html', {cache:$templateCache});
   $http.get('partials/edit.html', {cache:$templateCache});
   $http.get('partials/inbox.html', {cache:$templateCache});
   $http.get('partials/instance.html', {cache:$templateCache});
