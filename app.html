@@ -32,13 +32,13 @@
   <nav ng-controller="sidebarCtr" class="main_nav sidebar">
     <h3>ACCOUNT PAGES</h3>
     <ul>
-      <li><a href="#dashboard" ng-click="toggleSidebar()">Dashboard</a></li>
       <li ng-repeat="(page, url) in appPages">
         <a href="#/{{url}}" ng-click="toggleSidebar()" ng-bind='page'></a>
       </li>
     </ul>
     <h3>CAMPAIGN SHORTCUTS</h3>
     <ul>
+      <li><a href="#dashboard" ng-click="toggleSidebar()">Dashboard</a></li>
       <li ng-repeat="campaign in campaignList">
         <a href="#/campaign/{{campaign.id}}/instances" ng-bind="campaign.title" ng-click="toggleSidebar()"></a>
       </li>

@@ -1,6 +1,11 @@
 function sidebarCtr($scope, $routeParams, $location, campaignData, $route) {
   
-  console.log($routeParams, $routeParams.campaignId);
+  init();
+  
+  function init() {
+    $scope.campaignList = campaignData.getCampaigns();
+  };
+  
   
   $scope.$on("ENTERED_CAMPAIGN", function(event, page_data) {
     $scope.campaignId = page_data.campaignId;
@@ -204,9 +209,7 @@ function accountCtr($scope, userData, campaignData) {
 };
 
 function campaignCtr($scope, $routeParams, $location, campaignData) {
-  
-  console.log($routeParams.campaignId);
-  
+    
   init();
   
   function init() {
@@ -223,7 +226,6 @@ function campaignCtr($scope, $routeParams, $location, campaignData) {
 };
 
 function campaignBuilderCtr($scope, $location, $routeParams, tempObjects, campaignData) {
-        console.log(campaignData.getCampaign($routeParams.campaignId ))
     
   init();
   
@@ -470,11 +472,12 @@ function rewardsCtr($scope, $routeParams, $location, userData) {
 
 function CampaignRewardsCtr($scope, $routeParams, $location, campaignData) {
   
-  var fullRewardsData
+  var fullRewardsData = {};
   init();
   
   function init() {
     fullRewardsData = campaignData.getRewardsList();
+    
   };
 
   $scope.title = 'Rewards';
@@ -483,24 +486,71 @@ function CampaignRewardsCtr($scope, $routeParams, $location, campaignData) {
   $scope.$emit("ENTERED_CAMPAIGN", {
     campaignId : $routeParams.campaignId,
   });
+  
+  $scope.rewardsList = [];
 
-
-  $scope.rewardsList = fullRewardsData.open;
+  for ( property in fullRewardsData.open) {
+    $scope.rewardsList.push(fullRewardsData.open[property]);
+  };
+  
   $scope.rewardsView = "open";
 
   $scope.toggleRewardsList = function() {
-    if ($scope.rewardsList == fullRewardsData.open) {
-      $scope.rewardsList = fullRewardsData.closed;
+    if ($scope.rewardsView == "open") {
+      $scope.rewardsList = [];
+      for ( property in fullRewardsData.closed) {
+        $scope.rewardsList.push(fullRewardsData.closed[property]);
+      };
       $scope.rewardsView = "closed";
     }
     else {
-      $scope.rewardsList = fullRewardsData.open;
+      $scope.rewardsList = [];
+      for ( property in fullRewardsData.open) {
+        $scope.rewardsList.push(fullRewardsData.open[property]);
+      };
       $scope.rewardsView = "open";
     };
     
   };
+  
+  $scope.claimReward = function (el) {
+    el.date_claimed = new Date();
+  }
 
 }
+
+function CampaignRewardCtr($scope, $routeParams, $location, campaignData) {
+
+  var fullRewardsData = {};
+  init();
+  
+  function init() {
+    fullRewardsData = campaignData.getRewardsList();
+  };
+  
+  $scope.campaignId = $routeParams.campaignId;
+  $scope.rewardId = $routeParams.rewardId;
+  
+  $scope.$emit("ENTERED_CAMPAIGN", {
+    campaignId : $routeParams.campaignId,
+  });
+  
+  if (fullRewardsData.closed[$routeParams.rewardId] != null) { //first make sure the rewardId from route exists.
+    $scope.viewReward = fullRewardsData.closed[$routeParams.rewardId]; //find reward with id in the list of rewards and save to variable.
+  }
+  else if (fullRewardsData.open[$routeParams.rewardId] != null) {
+    $scope.viewReward = fullRewardsData.open[$routeParams.rewardId]; //find reward with id in the list of rewards and save to variable.
+  }
+  else {
+    $location.path( "/campaign/"+$routeParams.campaignId+"/rewards" ); //redirect back to dashboard if campaign isn't found
+  };
+    $scope.title = $scope.viewReward.title;
+
+  $scope.claimReward = function (el) {
+    el.date_claimed = new Date();
+  }
+
+};
 
 function inboxCtr($scope, campaignData) {
   $scope.title = 'All Incoming Feedback';
@@ -549,7 +599,6 @@ function instancesCtr($scope, $routeParams, $location, campaignData) {
 
 function analyticsCtr($scope, $routeParams) {
   
-  console.log("hello!");
   $scope.title = "Analytics";
   $scope.campaignId = $routeParams.campaignId;
   $scope.$emit("ENTERED_CAMPAIGN", {

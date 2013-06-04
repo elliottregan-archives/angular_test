@@ -299,10 +299,13 @@ appmodule.factory('campaignData', function() {
         creator: "Crepes & Things",
         terms: "This would be a long, possibly very long paragraph of terms. It may even have more than one paragraph, although this one does not.",
         exp_date: "4/1/2014",
-        claimed: false,
+        date_claimed: false,
+        verified: false,
         owner: "Elliott Regan",
+        instanceId: "msg0",
+        passphrase: "oceantree",
         date_issued: "1/2/1013",
-        shared_with: "Joe, Mark, Ruby"
+        shared_with: ["Joe", "Mark", "Ruby"]
       },
       rwd1 : {
         id: "rwd1",
@@ -311,8 +314,11 @@ appmodule.factory('campaignData', function() {
         creator: "Long Live Guac",
         terms: "May not be used in Missouri. Sorry.",
         exp_date: "2/28/1993",
-        claimed: false,
+        date_claimed: false,
+        verified: false,
         owner: "Elliott Regan",
+        instanceId: "msg0",
+        passphrase: "applegoat",
         date_issued: "1/2/1013",
         shared_with: ["Joe", "Mark", "Ruby"]
       }
@@ -325,10 +331,13 @@ appmodule.factory('campaignData', function() {
         creator: "Crepes & Things",
         terms: "This would be a long, possibly very long paragraph of terms. It may even have more than one paragraph, although this one does not.",
         exp_date: "4/1/2014",
-        claimed: false,
+        date_claimed: "4/12/2013",
+        verified: "Me",
         owner: "Forrest Regan",
+        instanceId: "msg0",
+        passphrase: "starseed",
         date_issued: "1/2/1013",
-        shared_with: "Joe, Mark, Ruby"
+        shared_with: ["Joe", "Mark", "Ruby"]
       },
       rwd3 : {
         id: "rwd3",
@@ -337,8 +346,11 @@ appmodule.factory('campaignData', function() {
         creator: "Long Live Guac",
         terms: "May not be used in Missouri. Sorry.",
         exp_date: "2/28/1993",
-        claimed: false,
+        date_claimed: "4/1/2014",
+        verified: "Me",
         owner: "Kieran Regan",
+        instanceId: "msg0",
+        passphrase: "freshspoon",
         date_issued: "1/2/1013",
         shared_with: ["Joe", "Mark", "Ruby"]
       },
@@ -349,8 +361,11 @@ appmodule.factory('campaignData', function() {
         creator: "Long Live Guac",
         terms: "May not be used in Missouri. Sorry.",
         exp_date: "2/28/1993",
-        claimed: false,
+        date_claimed: "4/1/2014",
+        verified: "Me",
         owner: "Craig Regan",
+        instanceId: "msg0",
+        passphrase: "richzing",
         date_issued: "1/2/1013",
         shared_with: ["Joe", "Mark", "Ruby"]
       }
