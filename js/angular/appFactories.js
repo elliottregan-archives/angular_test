@@ -91,7 +91,21 @@ appmodule.factory('campaignData', function() {
               text: "This might be you reply",
               heard: "false"
             }
-          ]
+          ],
+          reward: {
+            id: "rwd2",
+            title: 'Free Burrito!',
+            description: 'This is an offer for a free coffee.',
+            creator: "Crepes & Things",
+            terms: "This would be a long, possibly very long paragraph of terms. It may even have more than one paragraph, although this one does not.",
+            exp_date: "4/1/2014",
+            date_claimed: "4/12/2013",
+            verified: "Me",
+            owner: "Forrest Regan",
+            passphrase: "starseed",
+            date_issued: "1/2/1013",
+            shared_with: ["Joe", "Mark", "Ruby"]
+          }
         },
         msg1: {
           id: 'msg1',
@@ -124,7 +138,21 @@ appmodule.factory('campaignData', function() {
               text: "Ok, thanks! You guys are the best.",
               heard: "false"
             }
-          ]
+          ],
+          reward: {
+            id: "rwd3",
+            title: 'City Key!',
+            description: 'Trade this in for 50% off a burrito.',
+            creator: "Long Live Guac",
+            terms: "May not be used in Missouri. Sorry.",
+            exp_date: "2/28/1993",
+            date_claimed: "4/1/2014",
+            verified: "Me",
+            owner: "Kieran Regan",
+            passphrase: "freshspoon",
+            date_issued: "1/2/1013",
+            shared_with: ["Joe", "Mark", "Ruby"]
+          }
         }
       }
     },
@@ -251,7 +279,21 @@ appmodule.factory('campaignData', function() {
               text: "This might be you reply",
               heard: "false"
             }
-          ]
+          ],
+          reward: {
+            id: "rwd1",
+            title: 'Half off a burrito!',
+            description: 'Trade this in for 50% off a burrito.',
+            creator: "Long Live Guac",
+            terms: "May not be used in Missouri. Sorry.",
+            exp_date: "2/28/1993",
+            date_claimed: false,
+            verified: false,
+            owner: "Elliott Regan",
+            passphrase: "applegoat",
+            date_issued: "1/2/1013",
+            shared_with: ["Joe", "Mark", "Ruby"]
+          }
         },
         msg1 : {
           id: 'msg0',
@@ -284,7 +326,21 @@ appmodule.factory('campaignData', function() {
               text: "Ok, thanks! You guys are the best.",
               heard: "false"
             }
-          ]
+          ],
+          reward: {
+            id: "rwd4",
+            title: 'Ticket to France!',
+            description: 'Trade this in for 50% off a burrito.',
+            creator: "Long Live Guac",
+            terms: "May not be used in Missouri. Sorry.",
+            exp_date: "2/28/1993",
+            date_claimed: "4/1/2014",
+            verified: "Me",
+            owner: "Craig Regan",
+            passphrase: "richzing",
+            date_issued: "1/2/1013",
+            shared_with: ["Joe", "Mark", "Ruby"]
+          }
         }
       }
     }
@@ -372,6 +428,19 @@ appmodule.factory('campaignData', function() {
     }
   };
   
+  var rewardsList = {};
+  
+  var campaignIds = Object.getOwnPropertyNames(campaignList);
+  campaignIds.forEach(function(campaign) {
+    var instanceIds = Object.getOwnPropertyNames(campaignList[campaign].instances);
+    
+    instanceIds.forEach(function(instance) {
+      var reward = campaignList[campaign].instances[instance].reward;
+      rewardsList[reward.id] = reward;
+    });
+    
+  });
+    
   var factory = {};
   factory.getCampaigns = function() {
     return campaignList;

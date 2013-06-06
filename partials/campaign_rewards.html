@@ -35,8 +35,8 @@
             <dd ng-show="rewardsView == 'open'" ng-bind="reward.date_issued"></dd>
             <dt ng-show="rewardsView == 'open'">Secret Code:</dt>
             <dd ng-show="rewardsView == 'open'" ng-bind="reward.passphrase"></dd>
-            <dt ng-show="rewardsView == 'closed'">Date Redeemed:</dt>
-            <dd ng-show="rewardsView == 'closed'"ng-bind="reward.claimed"></dd>
+            <dt ng-show="reward.date_claimed != false">Date Redeemed:</dt>
+            <dd ng-show="reward.date_claimed != false" ng-bind="reward.date_claimed"></dd>
           </dl>
         </a>
       </li>

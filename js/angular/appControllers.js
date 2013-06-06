@@ -473,12 +473,32 @@ function rewardsCtr($scope, $routeParams, $location, userData) {
 function CampaignRewardsCtr($scope, $routeParams, $location, campaignData) {
   
   var fullRewardsData = {};
+  var closedRewards = [];
+  var openRewards = [];
   init();
   
   function init() {
     fullRewardsData = campaignData.getRewardsList();
     
   };
+  
+  function splitRewardsList(reward) {    
+    
+    if (fullRewardsData[reward].date_claimed == false) {
+      openRewards.push(fullRewardsData[reward]);
+    }
+    else {
+      closedRewards.push(fullRewardsData[reward]);
+    }
+    
+  };
+  
+  
+  
+  var rewardIds = Object.getOwnPropertyNames(fullRewardsData);
+  rewardIds.forEach(splitRewardsList);
+  
+  
 
   $scope.title = 'Rewards';
   $scope.campaignId = $routeParams.campaignId;
@@ -489,32 +509,26 @@ function CampaignRewardsCtr($scope, $routeParams, $location, campaignData) {
   
   $scope.rewardsList = [];
 
-  for ( property in fullRewardsData.open) {
-    $scope.rewardsList.push(fullRewardsData.open[property]);
-  };
+  $scope.rewardsList = openRewards;
   
   $scope.rewardsView = "open";
 
   $scope.toggleRewardsList = function() {
     if ($scope.rewardsView == "open") {
       $scope.rewardsList = [];
-      for ( property in fullRewardsData.closed) {
-        $scope.rewardsList.push(fullRewardsData.closed[property]);
-      };
+      $scope.rewardsList = closedRewards;
       $scope.rewardsView = "closed";
     }
     else {
       $scope.rewardsList = [];
-      for ( property in fullRewardsData.open) {
-        $scope.rewardsList.push(fullRewardsData.open[property]);
-      };
+      $scope.rewardsList = openRewards;
       $scope.rewardsView = "open";
     };
-    
   };
   
   $scope.claimReward = function (el) {
     el.date_claimed = new Date();
+        
   }
 
 }
