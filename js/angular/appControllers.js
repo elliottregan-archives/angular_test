@@ -477,8 +477,7 @@ function CampaignRewardsCtr($scope, $routeParams, $location, campaignData) {
   init();
   
   function init() {
-    fullRewardsData = campaignData.getRewardsList();
-    
+    fullRewardsData = campaignData.getRewardsList($routeParams.campaignId);
   };
   
   function splitRewardsList(reward) {    
@@ -494,7 +493,8 @@ function CampaignRewardsCtr($scope, $routeParams, $location, campaignData) {
   
   
   
-  var rewardIds = Object.getOwnPropertyNames(fullRewardsData);
+  var rewardIds = Object.keys(fullRewardsData);
+  
   rewardIds.forEach(splitRewardsList);
   
   
@@ -623,6 +623,6 @@ function campaignContactsCtr($scope, $routeParams, campaignData) {
     campaignId : $routeParams.campaignId,
   });
   
-  $scope.contactList = campaignData.getContactList();
+  $scope.contactList = campaignData.getContactList($routeParams.campaignId);
   
 };

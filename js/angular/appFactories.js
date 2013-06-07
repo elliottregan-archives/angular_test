@@ -22,19 +22,12 @@ appmodule.factory('allUserData', function() {
       name: "Franz Ferdinand",
       username: "franzy",
       id: "user0",
-      conversations: [
-        {
-          id:"msg0"
-        },
-        {
-          id:"msg98"
-        }
-      ]
+      conversations: ["msg0", "msg97"]
     },
     {
-      name: "Franz Ferdinand",
-      username: "franzy",
-      id: "user0",
+      name: "Chad Grecko",
+      username: "Chezgo",
+      id: "user1",
       conversations: ["msg0", "msg97"]
     },
   
@@ -45,7 +38,6 @@ appmodule.factory('allUserData', function() {
 appmodule.factory('campaignData', function() {
   
   var handleList = [];
-  var contactList = [];  
   var campaignList = {
     camp0: {
       id: 'camp0',
@@ -373,19 +365,9 @@ appmodule.factory('campaignData', function() {
     }
   };
     
-  var rewardsList = {};
   
   var campaignIds = Object.getOwnPropertyNames(campaignList);
-  campaignIds.forEach(function(campaign) {
-    var instanceIds = Object.getOwnPropertyNames(campaignList[campaign].instances);
-    instanceIds.forEach(function(instance) {
-      var reward = campaignList[campaign].instances[instance].reward;
-      var author = campaignList[campaign].instances[instance].author;
-      rewardsList[reward.id] = reward;
-      contactList.push(author);
-    });
-    
-  });
+  
   
   campaignIds.forEach(function(campaign) {
     var handle = campaignList[campaign].handle;
@@ -397,10 +379,24 @@ appmodule.factory('campaignData', function() {
   factory.getCampaigns = function() {
     return campaignList;
   };
-  factory.getRewardsList = function() {
+  factory.getRewardsList = function(campaign_id) {
+    var rewardsList = [];
+    var instanceIds = Object.getOwnPropertyNames(campaignList[campaign_id].instances);
+    instanceIds.forEach(function(instance) {
+      var reward = campaignList[campaign_id].instances[instance].reward;
+      rewardsList.push(reward);
+    });
+    
     return rewardsList;
   };
-  factory.getContactList = function() {
+  factory.getContactList = function(campaign_id) {
+    var contactList = [];  
+    var instanceIds = Object.getOwnPropertyNames(campaignList[campaign_id].instances);
+    instanceIds.forEach(function(instance) {
+      var author = campaignList[campaign_id].instances[instance].author;
+      contactList.push(author)
+    });
+    
     return contactList;
   };
   factory.getHandles = function() {
