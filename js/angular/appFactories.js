@@ -24,8 +24,7 @@ appmodule.factory('allUserData', function() {
       id: "user0",
       conversations: {
         camp0: [
-          "msg0",
-          "msg1"
+          "msg0"
         ],
         camp1: [
           "msg2",
@@ -116,7 +115,7 @@ appmodule.factory('campaignData', function() {
       instances : {
         msg0: {
           id: 'msg0',
-          author: "Franz Ferdinand",
+          author: "user0",
           time: "2013-02-13T01:15-05:00",
           text: "This is the main text of the feedback instance",
           heard: "false",
@@ -151,7 +150,7 @@ appmodule.factory('campaignData', function() {
         },
         msg1: {
           id: 'msg1',
-          author: "Chad Grecko",
+          author: "user1",
           time: "2013-02-13T01:15-05:00",
           text: "This is the main text of the feedback instance",
           heard: "false",
@@ -404,10 +403,10 @@ appmodule.factory('campaignData', function() {
   };
   factory.getRewardsList = function(campaign_id) {
     var rewardsList = [];
-    var instanceIds = Object.getOwnPropertyNames(campaignList[campaign_id].instances);
+    var instanceIds = Object.keys(campaignList[campaign_id].instances);
     instanceIds.forEach(function(instance) {
       var reward = campaignList[campaign_id].instances[instance].reward;
-      rewardsList.push(reward);
+      rewardsList[reward.id] = reward;
     });
     
     return rewardsList;

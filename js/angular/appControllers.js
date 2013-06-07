@@ -536,9 +536,8 @@ function CampaignRewardCtr($scope, $routeParams, $location, campaignData) {
 
   var fullRewardsData = {};
   init();
-  
   function init() {
-    fullRewardsData = campaignData.getRewardsList();
+    fullRewardsData = campaignData.getRewardsList($routeParams.campaignId);
   };
   
   $scope.campaignId = $routeParams.campaignId;
@@ -547,13 +546,14 @@ function CampaignRewardCtr($scope, $routeParams, $location, campaignData) {
     campaignId : $routeParams.campaignId,
   });
   
-  if (fullRewardsData[$routeParams.rewardId] != null) { //first make sure the rewardId from route exists.
+  if (fullRewardsData[$routeParams.rewardId] != undefined) { //first make sure the rewardId from route exists.
     $scope.viewReward = fullRewardsData[$routeParams.rewardId]; //find reward with id in the list of rewards and save to variable.
+    $scope.title = $scope.viewReward.title;
+    
   }
   else {
     $location.path( "/campaign/"+$routeParams.campaignId+"/rewards" ); //redirect back to dashboard if campaign isn't found
   };
-  $scope.title = $scope.viewReward.title;
 
   $scope.claimReward = function (el) {
     el.date_claimed = new Date();
