@@ -616,13 +616,34 @@ function analyticsCtr($scope, $routeParams) {
 };
 
 
-function campaignContactsCtr($scope, $routeParams, campaignData) {
+function campaignContactsCtr($scope, $routeParams, $location, campaignData, allUserData) {
   $scope.title = "Contact List";
   $scope.campaignId = $routeParams.campaignId;
+  $scope.userId = $routeParams.userId;
   $scope.$emit("ENTERED_CAMPAIGN", {
     campaignId : $routeParams.campaignId,
   });
   
-  $scope.contactList = campaignData.getContactList($routeParams.campaignId);
+  $scope.convoList = [];
+  
+  var contactIdList = campaignData.getContactList($routeParams.campaignId);
+  
+  $scope.contactList = [];
+  
+  Object.values(contactIdList, function(userId) {
+    $scope.contactList.push(allUserData.getUser(userId));
+  });
+  
+  if ($routeParams.userId != undefined) { //first make sure the userId from route exists.
+    $scope.viewUser = allUserData.getUser($routeParams.userId); //find user with id 
+    Object.values($scope.viewUser.conversations[$routeParams.campaignId], function(messageId) {
+      $scope.convoList.push(campaignData.getCampaign($routeParams.campaignId).instances[messageId])
+    });
+    
+    $scope.title = $scope.viewUser.name;
+  }
+  else  {
+    $location.path( "/campaign/"+$scope.campaignId+"/contacts" ); //redirect back to dashboard if campaign isn't found
+  };
   
 };

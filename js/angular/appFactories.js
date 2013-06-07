@@ -17,22 +17,45 @@ appmodule.factory('tempObjects', function() {
 
 appmodule.factory('allUserData', function() {
 
-  var allUsers = [
-    {
+  var allUsers = {
+    user0: {
       name: "Franz Ferdinand",
       username: "franzy",
       id: "user0",
-      conversations: ["msg0", "msg97"]
+      conversations: {
+        camp0: [
+          "msg0",
+          "msg1"
+        ],
+        camp1: [
+          "msg2",
+          "msg3"
+        ]
+      }
     },
-    {
+    user1: {
       name: "Chad Grecko",
       username: "Chezgo",
       id: "user1",
-      conversations: ["msg0", "msg97"]
-    },
+      conversations: {
+        camp0: [
+          "msg0",
+          "msg1"
+        ],
+        camp1: [
+          "msg2",
+          "msg97"
+        ]
+      }
+    }
   
-  ];
-
+  };
+  
+  var factory = {};
+  factory.getUser = function(user_id) {
+    return allUsers[user_id];
+  };
+  return factory;
 });
 
 appmodule.factory('campaignData', function() {
@@ -279,9 +302,9 @@ appmodule.factory('campaignData', function() {
           ]
         },
       instances : {
-        msg0 : {
-          id: 'msg0',
-          author: "Hans Lipman",
+        msg2 : {
+          id: 'msg2',
+          author: "user0",
           time: "2013-02-13T01:15-05:00",
           text: "This is the main text of the feedback instance",
           heard: "false",
@@ -314,9 +337,9 @@ appmodule.factory('campaignData', function() {
             shared_with: ["Joe", "Mark", "Ruby"]
           }
         },
-        msg1 : {
-          id: 'msg0',
-          author: "Becky Johnson",
+        msg3 : {
+          id: 'msg3',
+          author: "user1",
           time: "2013-02-13T01:15-05:00",
           text: "This is the main text of the feedback instance",
           heard: "false",
@@ -364,8 +387,8 @@ appmodule.factory('campaignData', function() {
       }
     }
   };
-    
   
+    
   var campaignIds = Object.getOwnPropertyNames(campaignList);
   
   
