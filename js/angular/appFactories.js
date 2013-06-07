@@ -15,14 +15,41 @@ appmodule.factory('tempObjects', function() {
 
 });
 
+appmodule.factory('allUserData', function() {
+
+  var allUsers = [
+    {
+      name: "Franz Ferdinand",
+      username: "franzy",
+      id: "user0",
+      conversations: [
+        {
+          id:"msg0"
+        },
+        {
+          id:"msg98"
+        }
+      ]
+    },
+    {
+      name: "Franz Ferdinand",
+      username: "franzy",
+      id: "user0",
+      conversations: ["msg0", "msg97"]
+    },
+  
+  ];
+
+});
+
 appmodule.factory('campaignData', function() {
   
-  var handleList = ["crepesandthings", "crepesandthings_tea"];
-  
+  var handleList = [];
+  var contactList = [];  
   var campaignList = {
     camp0: {
       id: 'camp0',
-      handle: handleList[0],
+      handle: "crepesandthings",
       description: 'Our main feedback portal.',
       title: 'Crepes & Things',
       local: false,
@@ -158,7 +185,7 @@ appmodule.factory('campaignData', function() {
     },
     camp1: {
       id: 'camp1',
-      handle: handleList[1],
+      handle: "crepesandthings_tea",
       title: 'Which tea?',
       description: "Asking our customers if they like our green tea or white tea better.",
       local: true,
@@ -345,101 +372,26 @@ appmodule.factory('campaignData', function() {
       }
     }
   };
-  
-  var rewardsList = {
-    open : {
-      rwd0 : {
-        id: "rwd0",
-        title: 'Free Coffee!',
-        description: 'This is an offer for a free coffee.',
-        creator: "Crepes & Things",
-        terms: "This would be a long, possibly very long paragraph of terms. It may even have more than one paragraph, although this one does not.",
-        exp_date: "4/1/2014",
-        date_claimed: false,
-        verified: false,
-        owner: "Elliott Regan",
-        instanceId: "msg0",
-        passphrase: "oceantree",
-        date_issued: "1/2/1013",
-        shared_with: ["Joe", "Mark", "Ruby"]
-      },
-      rwd1 : {
-        id: "rwd1",
-        title: 'Half off a burrito!',
-        description: 'Trade this in for 50% off a burrito.',
-        creator: "Long Live Guac",
-        terms: "May not be used in Missouri. Sorry.",
-        exp_date: "2/28/1993",
-        date_claimed: false,
-        verified: false,
-        owner: "Elliott Regan",
-        instanceId: "msg0",
-        passphrase: "applegoat",
-        date_issued: "1/2/1013",
-        shared_with: ["Joe", "Mark", "Ruby"]
-      }
-    },
-    closed : {
-      rwd2 : {
-        id: "rwd2",
-        title: 'Free Burrito!',
-        description: 'This is an offer for a free coffee.',
-        creator: "Crepes & Things",
-        terms: "This would be a long, possibly very long paragraph of terms. It may even have more than one paragraph, although this one does not.",
-        exp_date: "4/1/2014",
-        date_claimed: "4/12/2013",
-        verified: "Me",
-        owner: "Forrest Regan",
-        instanceId: "msg0",
-        passphrase: "starseed",
-        date_issued: "1/2/1013",
-        shared_with: ["Joe", "Mark", "Ruby"]
-      },
-      rwd3 : {
-        id: "rwd3",
-        title: 'City Key!',
-        description: 'Trade this in for 50% off a burrito.',
-        creator: "Long Live Guac",
-        terms: "May not be used in Missouri. Sorry.",
-        exp_date: "2/28/1993",
-        date_claimed: "4/1/2014",
-        verified: "Me",
-        owner: "Kieran Regan",
-        instanceId: "msg0",
-        passphrase: "freshspoon",
-        date_issued: "1/2/1013",
-        shared_with: ["Joe", "Mark", "Ruby"]
-      },
-      rwd4 : {
-        id: "rwd4",
-        title: 'Ticket to France!',
-        description: 'Trade this in for 50% off a burrito.',
-        creator: "Long Live Guac",
-        terms: "May not be used in Missouri. Sorry.",
-        exp_date: "2/28/1993",
-        date_claimed: "4/1/2014",
-        verified: "Me",
-        owner: "Craig Regan",
-        instanceId: "msg0",
-        passphrase: "richzing",
-        date_issued: "1/2/1013",
-        shared_with: ["Joe", "Mark", "Ruby"]
-      }
-    }
-  };
-  
+    
   var rewardsList = {};
   
   var campaignIds = Object.getOwnPropertyNames(campaignList);
   campaignIds.forEach(function(campaign) {
     var instanceIds = Object.getOwnPropertyNames(campaignList[campaign].instances);
-    
     instanceIds.forEach(function(instance) {
       var reward = campaignList[campaign].instances[instance].reward;
+      var author = campaignList[campaign].instances[instance].author;
       rewardsList[reward.id] = reward;
+      contactList.push(author);
     });
     
   });
+  
+  campaignIds.forEach(function(campaign) {
+    var handle = campaignList[campaign].handle;
+    handleList.push(handle)
+  });
+  
     
   var factory = {};
   factory.getCampaigns = function() {
@@ -447,6 +399,9 @@ appmodule.factory('campaignData', function() {
   };
   factory.getRewardsList = function() {
     return rewardsList;
+  };
+  factory.getContactList = function() {
+    return contactList;
   };
   factory.getHandles = function() {
     return handleList;

@@ -51,6 +51,11 @@ var appmodule = angular.module('appmodule', ['ui']).
         controller: CampaignRewardCtr,
         layer: 'layer1'
       }).
+      when('/campaign/:campaignId/contacts', {
+        templateUrl: 'partials/campaign_contacts.html',
+        controller: campaignContactsCtr,
+        layer: 'layer1'
+      }).
       when('/campaign/:campaignId/analytics', {
         templateUrl: 'partials/analytics.html',
         controller: analyticsCtr,

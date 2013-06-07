@@ -7,7 +7,7 @@ function sidebarCtr($scope, $routeParams, $location, campaignData, $route) {
   };
   
   
-  $scope.$on("ENTERED_CAMPAIGN", function(event, page_data) {
+  $scope.$on("UPDATE_CAMPAIGN_ID", function(event, page_data) {
     $scope.campaignId = page_data.campaignId;
   });
   
@@ -41,7 +41,7 @@ function appCtr($scope, $routeParams, $location, $route) {
   
   $scope.$on("ENTERED_CAMPAIGN", function(event, id_from_instances) {
     
-    $scope.$broadcast("ENTERED_CAMPAIGN", id_from_instances);
+    $scope.$broadcast("UPDATE_CAMPAIGN_ID", id_from_instances);
   });
   
   $scope.test_value = "app";
@@ -361,11 +361,10 @@ function dashCtr($scope, $routeParams, $location, campaignData, tempObjects) {
   $scope.title = 'Dashboard';
   
   init();
-  $scope.form = {type : $scope.handleList[0].value}; //fix for weird empty <option> created by angular.
   
   function init() {
     $scope.campaignList = campaignData.getCampaigns();
-    $scope.handleList = campaignData.getHandles();
+    $scope.handleList = campaignData.getHandles();    
     $scope.buildCampaign = tempObjects.getBuildCampaign();
   };
     
@@ -544,21 +543,17 @@ function CampaignRewardCtr($scope, $routeParams, $location, campaignData) {
   
   $scope.campaignId = $routeParams.campaignId;
   $scope.rewardId = $routeParams.rewardId;
-  
   $scope.$emit("ENTERED_CAMPAIGN", {
     campaignId : $routeParams.campaignId,
   });
   
-  if (fullRewardsData.closed[$routeParams.rewardId] != null) { //first make sure the rewardId from route exists.
-    $scope.viewReward = fullRewardsData.closed[$routeParams.rewardId]; //find reward with id in the list of rewards and save to variable.
-  }
-  else if (fullRewardsData.open[$routeParams.rewardId] != null) {
-    $scope.viewReward = fullRewardsData.open[$routeParams.rewardId]; //find reward with id in the list of rewards and save to variable.
+  if (fullRewardsData[$routeParams.rewardId] != null) { //first make sure the rewardId from route exists.
+    $scope.viewReward = fullRewardsData[$routeParams.rewardId]; //find reward with id in the list of rewards and save to variable.
   }
   else {
     $location.path( "/campaign/"+$routeParams.campaignId+"/rewards" ); //redirect back to dashboard if campaign isn't found
   };
-    $scope.title = $scope.viewReward.title;
+  $scope.title = $scope.viewReward.title;
 
   $scope.claimReward = function (el) {
     el.date_claimed = new Date();
@@ -618,4 +613,16 @@ function analyticsCtr($scope, $routeParams) {
   $scope.$emit("ENTERED_CAMPAIGN", {
     campaignId : $routeParams.campaignId,
   });
+};
+
+
+function campaignContactsCtr($scope, $routeParams, campaignData) {
+  $scope.title = "Contact List";
+  $scope.campaignId = $routeParams.campaignId;
+  $scope.$emit("ENTERED_CAMPAIGN", {
+    campaignId : $routeParams.campaignId,
+  });
+  
+  $scope.contactList = campaignData.getContactList();
+  
 };
