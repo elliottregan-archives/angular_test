@@ -572,7 +572,7 @@ function inboxCtr($scope, campaignData) {
     
 };
 
-function instancesCtr($scope, $routeParams, $location, campaignData) {
+function instancesCtr($scope, $routeParams, $location, campaignData, allUserData) {
 
   init();
   
@@ -593,6 +593,12 @@ function instancesCtr($scope, $routeParams, $location, campaignData) {
     campaignId : $scope.viewCampaign.id,
   });
   
+  
+
+}
+
+function instanceCtr($scope, $routeParams, $location, campaignData, allUserData) {
+
   $scope.addReply = function(post, comments) {
     comments.push({
       commentId: 1,
@@ -603,8 +609,10 @@ function instancesCtr($scope, $routeParams, $location, campaignData) {
     });
     this.newCommentText = '';
   };
-
-}
+  
+  $scope.author = allUserData.getUser($scope.instance.author);
+  $scope.instance.author = $scope.instance.author.name
+};
 
 function analyticsCtr($scope, $routeParams) {
   

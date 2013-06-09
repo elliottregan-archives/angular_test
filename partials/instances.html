@@ -7,13 +7,13 @@
   <div class="scroller">
     <p ng-show="viewCampaign.instances == []">empty!</p>
     <ul class="instances">
-      <li ng-repeat="instance in viewCampaign.instances" class="instance">
+      <li ng-repeat="instance in viewCampaign.instances" class="instance" ng-controller="instanceCtr">
         <aside class="btn_set vert">
           <button class="btn">!</button>
         </aside>
         <article class="card">
           <button ng-click="hearIt(instance)" class="btn heard heard_{{instance.heard}}" ui-if="instance.author != 'You'">heard!</button>
-          <h4 ng-bind="instance.author"></h4>
+          <h4 ng-bind="author.name"></h4>
           <time ng-bind="instance.time"></time>
           <p ng-bind="instance.text" ng-click="expandReplies($index)"></p>
           <ul class="replies" ng-show="isExpanded($index) && instance.comments[2]">
