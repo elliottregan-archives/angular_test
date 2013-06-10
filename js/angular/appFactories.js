@@ -315,7 +315,7 @@ appmodule.factory('campaignData', function() {
               heard: "false"
             },
             { commentId: 'asdfgtr',
-              author: "Hans Lipman", 
+              author: "user0", 
               time: "2013-02-13T01:15-05:00",
               text: "This might be you reply",
               heard: "false"
@@ -350,7 +350,7 @@ appmodule.factory('campaignData', function() {
               heard: "false"
             },
             { commentId: 'fdsaf',
-              author: "Becky Johnson", 
+              author: "user1", 
               time: "2013-02-13T01:15-05:00",
               text: "The text on the menus is too small. Can you make it bigger?",
               heard: "false"
@@ -362,7 +362,7 @@ appmodule.factory('campaignData', function() {
               heard: "false"
             },
             { commentId: 'fdsaf',
-              author: "Becky Johnson", 
+              author: "user1", 
               time: "2013-02-13T01:15-05:00",
               text: "Ok, thanks! You guys are the best.",
               heard: "false"

@@ -573,7 +573,7 @@ function inboxCtr($scope, campaignData) {
 };
 
 function instancesCtr($scope, $routeParams, $location, campaignData, allUserData) {
-
+  
   init();
   
   function init() {
@@ -584,14 +584,16 @@ function instancesCtr($scope, $routeParams, $location, campaignData, allUserData
     $scope.viewCampaign = $scope.campaignList[$routeParams.campaignId]; //find message with id in the list of campaigns
     
     $scope.title = $scope.viewCampaign.title + " Instances";
+    
+    $scope.$emit("ENTERED_CAMPAIGN", {
+      campaignId : $scope.viewCampaign.id
+    });
   }
   else  {
     $location.path( "/dashboard" ); //redirect back to dashboard if campaign isn't found
   };
   
-  $scope.$emit("ENTERED_CAMPAIGN", {
-    campaignId : $scope.viewCampaign.id,
-  });
+  
   
   
 
@@ -611,7 +613,6 @@ function instanceCtr($scope, $routeParams, $location, campaignData, allUserData)
   };
   
   $scope.author = allUserData.getUser($scope.instance.author);
-  $scope.instance.author = $scope.instance.author.name
 };
 
 function analyticsCtr($scope, $routeParams) {
