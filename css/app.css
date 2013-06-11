@@ -486,6 +486,10 @@ fieldset.padded {
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.37);
 }
 
+.btn.disabled {
+  background-color: #969696;
+}
+
 /* @end */
 
 .btn_set.vert .btn {
@@ -584,6 +588,24 @@ fieldset.padded {
   background-color: #ffffff;
   padding: 4px;
   margin: 10px 0;
+}
+
+.object_list li.selected {
+  background-color: #a3a3a3;
+  color: #fefefe;
+}
+
+.object_list li .checkbox {
+  height: 40px;
+  width: 40px;
+  display: block;
+  background-color: #cbcbcb;
+  border: 1px solid #a8a8a8;
+  margin: 3px;
+}
+
+.object_list li.selected .checkbox {
+  background-color: #fdfefd;
 }
 
 .campaign_info::after {

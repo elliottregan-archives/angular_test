@@ -353,12 +353,12 @@ function campaignBuilderCtr($scope, $location, $routeParams, tempObjects, campai
 
 function dashCtr($scope, $routeParams, $location, campaignData, tempObjects) {
  
- 
-  $scope.test_value = "dash";
-  
+   
   $scope.edit_mode = false;
   $scope.new_mode = false;
   $scope.title = 'Dashboard';
+  
+  $scope.selected_campaigns = [];
   
   init();
   
@@ -366,6 +366,32 @@ function dashCtr($scope, $routeParams, $location, campaignData, tempObjects) {
     $scope.campaignList = campaignData.getCampaigns();
     $scope.handleList = campaignData.getHandles();    
     $scope.buildCampaign = tempObjects.getBuildCampaign();
+  };
+  
+  $scope.selectCampaign = function(campaign_id) {
+    
+    if ( $scope.selected_campaigns.some(campaign_id) ) {
+      $scope.selected_campaigns.remove(campaign_id);
+    }
+    else {
+      $scope.selected_campaigns.push(campaign_id);
+    };
+    
+    if ($scope.selected_campaigns.length == 0) {
+      $scope.edit_mode = false;
+      $scope.disable_single_edit_buttons = false;
+      $scope.edit_link = "";
+    }
+    else if ($scope.selected_campaigns.length == 1) {
+      $scope.edit_mode = true;
+      $scope.disable_single_edit_buttons = false; 
+      $scope.edit_link = "#/campaign/"+$scope.selected_campaigns[0]+"/edit";
+    }
+    else if ( $scope.selected_campaigns.length >= 2 ) {
+      $scope.disable_single_edit_buttons = true;
+      $scope.edit_link = "";
+    };
+    
   };
     
   $scope.changeHandle = function() {
@@ -379,7 +405,15 @@ function dashCtr($scope, $routeParams, $location, campaignData, tempObjects) {
   
   $scope.duplicateMode = function(state, clicked_campaign) {
     $scope.duplicating_mode = state;
-    $scope.temporary_duplicate = angular.copy(clicked_campaign);
+    
+    if (clicked_campaign != '') {
+      $scope.temporary_duplicate = angular.copy($scope.campaignList[clicked_campaign]);
+      $scope.temp_handle = $scope.temporary_duplicate.handle; 
+    }
+    else {
+      $scope.temporary_duplicate = '';
+      $scope.temp_handle = ''; 
+    }
     $scope.toggleEditMode();
   };
   
@@ -402,10 +436,18 @@ function dashCtr($scope, $routeParams, $location, campaignData, tempObjects) {
   $scope.toggleEditMode = function() {
     $scope.edit_mode = !$scope.edit_mode;
     $scope.new_mode = false;
+    $scope.selected_campaigns = [];
+    
   };
   
   $scope.toggleNewMode = function() {
     $scope.new_mode = !$scope.new_mode;
+  };
+  
+  $scope.deleteAnyListItems = function(checked_items, parent_object) { //deletes any item from an ng-repeat list
+      var shortened_list = Object.reject(parent_object, checked_items);
+      $scope.toggleEditMode();
+      $scope.campaignList = shortened_list;
   };
   
   function Campaign(id, handle, title, local, location, discoverable) {
@@ -592,8 +634,6 @@ function instancesCtr($scope, $routeParams, $location, campaignData, allUserData
   else  {
     $location.path( "/dashboard" ); //redirect back to dashboard if campaign isn't found
   };
-  
-  
   
   
 

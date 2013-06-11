@@ -1,17 +1,12 @@
 <header>
   <button ng-click="toggleSidebar('right')" class="btn left">menu</button>
   
-  <button ng-click="toggleEditMode()" class="btn right" ng-switch on="edit_mode">
-    <span ng-switch-when="false">edit</span>
-    <span ng-switch-when="true">done</span>
-  </button>
-  
   <h1>{{title}}</h1>
 </header>
 
 <div class="scroller_wrapper  with_header_padding">
   <section class="scroller">
-    <button class="btn full_width" ng-click="toggleNewMode()" ng-show="!new_mode">+ New Campaign</button>
+    <button class="btn full_width" ng-click="toggleNewMode()" ng-show="!new_mode" ng-hide="edit_mode == true">+ New Campaign</button>
     <div ng-show="new_mode">
       <form ng-submit="createCampaign(new_campaign_title, handle_to_submit, is_local, new_campaign_locale, discoverable)">
         <label for="handle_select">Choose a handle</label>
@@ -29,12 +24,21 @@
         <button class="btn" ng-click="toggleNewMode()" type="button">cancel</button>
       </form>
     </div>
+    <div ng-show="edit_mode == true">
+      <form ng-submit="">
+        <a class="btn" href="{{edit_link}}"  ng-class="{disabled: disable_single_edit_buttons}">edit</a>
+        <button class="btn" ng-click="deleteAnyListItems(selected_campaigns, campaignList)">delete</button>
+        <button class="btn" ng-class="{disabled: disable_single_edit_buttons}" ng-click="disable_single_edit_buttons || duplicateMode(true, selected_campaigns)">duplicate</button>
+      </form>
+    </div>
+    
+    
     <ul id="campaign_list" class="object_list">
-      <li ng-repeat="campaign in campaignList">
-        <div ng-show="edit_mode == true">
-          <a class="btn right" href="#/campaign/{{campaign.id}}/edit">edit</a>
-          <button class="btn right" ng-click="deleteListItem(campaign, campaignList)">delete</button>
-          <button class="btn right" ng-click="duplicateMode(true, campaign)">duplicate</button>
+      
+      <li ng-repeat="campaign in campaignList" ng-class="{selected : selected_campaigns.some(campaign.id)}">
+        
+        <div class="left">
+          <button class="checkbox" ng-click="selectCampaign('{{campaign.id}}')"></button>
         </div>
         <a href="#/campaign/{{campaign.id}}/instances">
           <small>@{{campaign.handle}}</small>
@@ -43,16 +47,19 @@
       </li>
       <li ng-show="duplicating_mode">
         <form ng-submit="duplicateCampaign(temp_name, temp_handle)">
-          <input type="text" name="temp_name" ng-model="temporary_duplicate.title" placeholder="Type a new name for this duplicated campaign."/>
+          
           <label>Choose a handle</label>
           <select ng-model="temp_handle">
             <option ng-repeat="handle in handleList">{{handle}}</option>
             <option disabled="true">no more available listening points</option>
           </select>
+          <input type="text" name="temp_name" ng-model="temporary_duplicate.title" placeholder="Type a new name for this duplicated campaign."/>
+          
           <button type="submit" class="btn">save</button>
           <button type="reset" class="btn" ng-click="duplicateMode(false, '')">cancel</button>
         </form>
       </li>
     </ul>
+    
   </section>
 </div>
