@@ -3,78 +3,63 @@ var appmodule = angular.module('appmodule', ['ui']).
     $routeProvider.
       when('/form', {
         templateUrl: 'partials/form.html', 
-        controller: formCtr,
-        layer: 'layer1'
+        controller: formCtr
       }).
       when('/dashboard', {
         templateUrl: 'partials/dashboard.html', 
-        controller: dashCtr,
-        layer: 'main'
+        controller: dashCtr
       }).
       when('/feed', {
         templateUrl: 'partials/inbox.html',
-        controller: inboxCtr,
-        layer: 'main'
+        controller: inboxCtr
       }).
       when('/rewards', {
         templateUrl: 'partials/rewards.html',
-        controller: rewardsCtr,
-        layer: 'main'
+        controller: rewardsCtr
       }).
       when('/rewards/:rewardId', {
         templateUrl: 'partials/reward_info.html',
-        controller: rewardsCtr,
-        layer: 'layer1'
+        controller: rewardsCtr
       }).
       when('/campaign/:campaignId/instances/', {
         templateUrl: 'partials/instances.html',
-        controller: instancesCtr,
-        layer: 'layer1'
+        controller: instancesCtr
       }).
       when('/campaign/:campaignId', {
         templateUrl: 'partials/campaign_info.html',
-        controller: campaignCtr,
-        layer: 'layer1'
+        controller: campaignCtr
       }).
       when('/campaign/:campaignId/edit', {
         templateUrl: 'partials/edit.html',
-        controller: campaignBuilderCtr,
-        layer: 'layer1'
+        controller: campaignBuilderCtr
       }).
       when('/campaign/:campaignId/rewards', {
         templateUrl: 'partials/campaign_rewards.html',
-        controller: CampaignRewardsCtr,
-        layer: 'layer1'
+        controller: CampaignRewardsCtr
       }).
       when('/campaign/:campaignId/rewards/:rewardId', {
         templateUrl: 'partials/campaign_reward_info.html',
-        controller: CampaignRewardCtr,
-        layer: 'layer1'
+        controller: CampaignRewardCtr
       }).
       when('/campaign/:campaignId/contacts', {
         templateUrl: 'partials/campaign_contacts.html',
-        controller: campaignContactsCtr,
-        layer: 'layer1'
+        controller: campaignContactsCtr
       }).
       when('/campaign/:campaignId/contacts/:userId', {
         templateUrl: 'partials/user_info.html',
-        controller: campaignContactsCtr,
-        layer: 'layer1'
+        controller: campaignContactsCtr
       }).
       when('/campaign/:campaignId/analytics', {
         templateUrl: 'partials/analytics.html',
-        controller: analyticsCtr,
-        layer: 'main'
+        controller: analyticsCtr
       }).
       when('/settings', {
         templateUrl: 'partials/settings.html',
-        controller: accountCtr,
-        layer: 'main'
+        controller: accountCtr
       }).
       when('/history', {
         templateUrl: 'partials/history.html',
-        controller: accountCtr,
-        layer: 'main'
+        controller: accountCtr
       }).
       otherwise({redirectTo: '/dashboard'});
 }]);

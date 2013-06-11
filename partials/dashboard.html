@@ -27,6 +27,7 @@
     <div ng-show="edit_mode == true">
       <form ng-submit="">
         <a class="btn" href="{{edit_link}}"  ng-class="{disabled: disable_single_edit_buttons}">edit</a>
+        <a class="btn" href="{{view_link}}"  ng-class="">view</a>
         <button class="btn" ng-click="deleteAnyListItems(selected_campaigns, campaignList)">delete</button>
         <button class="btn" ng-class="{disabled: disable_single_edit_buttons}" ng-click="disable_single_edit_buttons || duplicateMode(true, selected_campaigns)">duplicate</button>
       </form>

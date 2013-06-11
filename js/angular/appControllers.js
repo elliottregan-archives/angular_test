@@ -370,6 +370,8 @@ function dashCtr($scope, $routeParams, $location, campaignData, tempObjects) {
   
   $scope.selectCampaign = function(campaign_id) {
     
+    var selected_campaigns_url_string = "";
+    
     if ( $scope.selected_campaigns.some(campaign_id) ) {
       $scope.selected_campaigns.remove(campaign_id);
     }
@@ -381,15 +383,24 @@ function dashCtr($scope, $routeParams, $location, campaignData, tempObjects) {
       $scope.edit_mode = false;
       $scope.disable_single_edit_buttons = false;
       $scope.edit_link = "";
+      selected_campaigns_url_string = "";
     }
     else if ($scope.selected_campaigns.length == 1) {
       $scope.edit_mode = true;
       $scope.disable_single_edit_buttons = false; 
       $scope.edit_link = "#/campaign/"+$scope.selected_campaigns[0]+"/edit";
+      selected_campaigns_url_string = selected_campaigns_url_string.add(campaign_id);
+      $scope.view_link = "#/campaign/{1}/instances".assign(selected_campaigns_url_string);
     }
     else if ( $scope.selected_campaigns.length >= 2 ) {
       $scope.disable_single_edit_buttons = true;
       $scope.edit_link = "";
+      $scope.selected_campaigns.forEach(function(campaign_id) {
+        selected_campaigns_url_string = selected_campaigns_url_string.add("+"+campaign_id);
+        while(selected_campaigns_url_string.charAt(0) === '+')
+            selected_campaigns_url_string = selected_campaigns_url_string.substr(1);
+        $scope.view_link = "#/campaign/{1}/instances".assign(selected_campaigns_url_string);
+      });
     };
     
   };
@@ -419,7 +430,6 @@ function dashCtr($scope, $routeParams, $location, campaignData, tempObjects) {
   
   $scope.duplicateCampaign = function(title, handle) {
     
-    $scope.duplicating_mode = true;
     var datetime = new Date().getTime();
     
     $scope.temporary_duplicate.handle = handle;
@@ -430,7 +440,7 @@ function dashCtr($scope, $routeParams, $location, campaignData, tempObjects) {
     $scope.duplicating_mode = false;
     
     $scope.buildCampaign = angular.copy($scope.temporary_duplicate);
-    $location.path( '/new' );
+    $location.path( '/campaign/'+$scope.campaignList[datetime].id+'/edit' );
   };
   
   $scope.toggleEditMode = function() {
@@ -622,18 +632,26 @@ function instancesCtr($scope, $routeParams, $location, campaignData, allUserData
     $scope.campaignList = campaignData.getCampaigns();
   };  
 
-  if ($scope.campaignList[$routeParams.campaignId] != null) { //first make sure the messageId from route exists.
-    $scope.viewCampaign = $scope.campaignList[$routeParams.campaignId]; //find message with id in the list of campaigns
     
-    $scope.title = $scope.viewCampaign.title + " Instances";
+    var arrayOfCampaignIds = $routeParams.campaignId.split("+");
+    var mergedInstances = angular.copy($scope.campaignList[arrayOfCampaignIds[0]].instances);
+    var mergedRewards = angular.copy($scope.campaignList[arrayOfCampaignIds[0]].rewards);
+    
+    arrayOfCampaignIds.forEach(function(campaign_id) {
+      mergedInstances = Object.merge(mergedInstances, angular.copy($scope.campaignList[campaign_id].instances), true);
+      mergedRewards = Object.merge(mergedRewards, angular.copy($scope.campaignList[campaign_id].rewards), true);
+    });
+    
+    $scope.viewCampaign = $scope.campaignList[arrayOfCampaignIds[0]]; //find campaign with id in the list of campaigns
+    $scope.viewCampaign.instances = mergedInstances
+    $scope.title = "Conversations";
     
     $scope.$emit("ENTERED_CAMPAIGN", {
-      campaignId : $scope.viewCampaign.id
+//      campaignId : $scope.viewCampaign.id
     });
-  }
-  else  {
-    $location.path( "/dashboard" ); //redirect back to dashboard if campaign isn't found
-  };
+//  else  {
+//    $location.path( "/dashboard" ); //redirect back to dashboard if campaign isn't found
+//  };
   
   
 
