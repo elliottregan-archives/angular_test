@@ -419,22 +419,16 @@ appmodule.factory('campaignData', function() {
   };
   factory.getRewardsList = function(campaign_id_array) {
     var rewardsList = [];
-    console.log(rewardsList);
     
     campaign_id_array.forEach( function(campaign_id) {
-      console.log(campaign_id);
       var instanceIds = Object.keys(campaignList[campaign_id].instances);
       
       instanceIds.forEach(function(instance) {
         var reward = campaignList[campaign_id].instances[instance].reward;
         rewardsList[reward.id] = reward;
-            console.log(reward);
         
       });
-    console.log(rewardsList);
     });
-    
-        console.log(rewardsList);
     
     return rewardsList;
   };

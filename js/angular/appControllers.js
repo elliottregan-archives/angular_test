@@ -185,7 +185,6 @@ function campaignCtr($scope, $routeParams, $location, campaignData) {
   init();
   
   $scope.$on("ENTERED_CAMPAIGN", function(event, id_from_instances) {
-    console.log($routeParams.campaignId);
     $scope.campaignId = $routeParams.campaignId;
     init();
   });
@@ -613,9 +612,12 @@ function CampaignRewardsCtr($scope, $routeParams, $location, campaignData) {
 function CampaignRewardCtr($scope, $routeParams, $location, campaignData) {
 
   var fullRewardsData = {};
+  var arrayOfCampaignIds = $routeParams.campaignId.split("+");
+  
   init();
+  
   function init() {
-    fullRewardsData = campaignData.getRewardsList($routeParams.campaignId);
+    fullRewardsData = campaignData.getRewardsList(arrayOfCampaignIds);
   };
   
   $scope.campaignId = $routeParams.campaignId;
@@ -728,27 +730,26 @@ function campaignContactsCtr($scope, $routeParams, $location, campaignData, allU
   
   
   var contactIdList = campaignData.getContactList(arrayOfCampaignIds);
-  console.log(contactIdList)
   contactIdList = contactIdList.unique();
-  console.log(contactIdList)
   $scope.contactList = [];
   
   Object.values(contactIdList, function(userId) {
     $scope.contactList.push(allUserData.getUser(userId));
   });
   
-//  if ($routeParams.userId != undefined) { //first make sure the userId from route exists.
-//    
-//    $scope.viewUser = allUserData.getUser($routeParams.userId); //find user with id 
-//    
-//    Object.values($scope.viewUser.conversations[$routeParams.campaignId], function(messageId) {
-//      $scope.convoList.push(campaignData.getCampaign($routeParams.campaignId).instances[messageId])
-//    });
-//    
-//    $scope.title = $scope.viewUser.name;
-//  }
-//  else  {
-//    $location.path( "/campaign/"+$scope.campaignId+"/contacts" ); //redirect back to dashboard if campaign isn't found
-//  };
+  //*********For user details view *********
+  if ($routeParams.userId != undefined) { //first make sure the userId from route exists.
+    
+    $scope.viewUser = allUserData.getUser($routeParams.userId); //find user with id 
+    
+    Object.values($scope.viewUser.conversations[$routeParams.campaignId], function(messageId) {
+      $scope.convoList.push(campaignData.getCampaign($routeParams.campaignId).instances[messageId])
+    });
+    
+    $scope.title = $scope.viewUser.name;
+  }
+  else  {
+    $location.path( "/campaign/"+$scope.campaignId+"/contacts" ); //redirect back to dashboard if campaign isn't found
+  };
   
 };
