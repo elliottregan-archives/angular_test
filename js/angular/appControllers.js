@@ -1,31 +1,3 @@
-function sidebarCtr($scope, $routeParams, $location, campaignData, $route) {
-  
-  init();
-  
-  function init() {
-    $scope.campaignList = campaignData.getCampaigns();
-  };
-  
-  
-  $scope.$on("UPDATE_CAMPAIGN_ID", function(event, page_data) {
-    $scope.campaignId = page_data.campaignId;
-  });
-  
-  $scope.appPages = {
-    "Fdbk Feed" : "feed",
-    "Your Fdbk History" : "history",
-    "Your Rewards" : "rewards",
-    "Personal Settings" : "settings"
-  };
-  
-  $scope.secondSidebar = {
-    "edit" : "feed",
-    "share" : "history",
-    "Rewards List" : "rewards"
-  };
-  
-};
-
 function formCtr($scope, formData, campaignData) {
 
   init();
@@ -65,14 +37,14 @@ function appCtr($scope, $routeParams, $location, $route) {
       $scope.sidebar_visible = true;
       
       if (direction == 'left') {
-        $('main').toggleClass('slide_left');
+        $('#main_view').toggleClass('slide_left');
         $('.main_nav').addClass("invisible");
         $('.main_nav').removeClass("visible");
         $('.second_nav').addClass("visible");
         $('.second_nav').removeClass("invisible");
       }
       else if (direction == 'right') {
-        $('main').toggleClass('slide_right');
+        $('#main_view').toggleClass('slide_right');
         $('.main_nav').addClass("visible");
         $('.main_nav').removeClass("invisible");
         $('.second_nav').addClass("invisible");
@@ -83,8 +55,8 @@ function appCtr($scope, $routeParams, $location, $route) {
     else {
       $('.main_nav').removeClass('visible');
       $scope.sidebar_visible = false;
-      $('main').removeClass('slide_right');
-      $('main').removeClass('slide_left');
+      $('#main_view').removeClass('slide_right');
+      $('#main_view').removeClass('slide_left');
     }
 
   };
@@ -196,7 +168,7 @@ function appCtr($scope, $routeParams, $location, $route) {
   
 };
 
-function accountCtr($scope, userData, campaignData) {
+function userCtr($scope, userData, campaignData) {
   
   init();
   
@@ -209,20 +181,76 @@ function accountCtr($scope, userData, campaignData) {
 };
 
 function campaignCtr($scope, $routeParams, $location, campaignData) {
-    
+  
   init();
   
-  function init() {
-    $scope.campaignList = campaignData.getCampaigns();
-  };  
+  $scope.$on("ENTERED_CAMPAIGN", function(event, id_from_instances) {
+    console.log($routeParams.campaignId);
+    $scope.campaignId = $routeParams.campaignId;
+    init();
+  });
+  
+  function checkIfUrlCampaginsExist(array_of_campaign_ids) {
+    var outcome = true;
+    var BreakException = {};
+    try {
+      array_of_campaign_ids.forEach(function(campaign_id) {
+        outcome = Object.keys($scope.campaignList).any(campaign_id);
+        if (!outcome) throw BreakException;
+      });
+    } catch(outcome) {
+        if (outcome!==BreakException) throw outcome;
+    };
     
-  if ($scope.campaignList[$routeParams.campaignId] != null) { //first make sure the campaignId from route exists
-    $scope.editCampaign = angular.copy($scope.campaignList[$routeParams.campaignId]); //find campaign with id in the list of campaigns
-    $scope.viewCampaign = $scope.campaignList[$routeParams.campaignId]; //find message with id in the list of campaigns
-  }
-  else {
-    $location.path( '/dashboard' ); //redirect back to dashboard if campaign isn't found
-  }
+    return outcome;
+  };
+  
+  function setViewCampaign(array_of_campaign_ids) {
+      
+    mergedInstances = angular.copy($scope.campaignList[array_of_campaign_ids[0]].instances);
+    mergedRewards = angular.copy($scope.campaignList[array_of_campaign_ids[0]].rewards);
+  
+    array_of_campaign_ids.forEach(function(campaign_id) {
+      mergedInstances = Object.merge(mergedInstances, angular.copy($scope.campaignList[campaign_id].instances), true);
+      mergedRewards = Object.merge(mergedRewards, angular.copy($scope.campaignList[campaign_id].rewards), true);
+    });
+  
+    $scope.viewCampaign = $scope.campaignList[array_of_campaign_ids[0]]; //find campaign with id in the list of campaigns
+    $scope.viewCampaign.instances = mergedInstances;
+    
+  };
+  
+  
+  function init() {
+    var arrayOfCampaignIds = [];
+    $scope.campaignList = campaignData.getCampaigns();
+    var mergedInstances = {};
+    var mergedRewards = {};
+    
+    if ($routeParams.campaignId) {
+      arrayOfCampaignIds = $routeParams.campaignId.split("+");
+      if (checkIfUrlCampaginsExist(arrayOfCampaignIds)) {
+        setViewCampaign(arrayOfCampaignIds);
+      }
+      else {
+        $location.path( '/dashboard' ); //redirect back to dashboard if campaign isn't found
+      };
+   }; 
+  };  
+  
+  $scope.appPages = {
+    "Fdbk Feed" : "feed",
+    "Your Fdbk History" : "history",
+    "Your Rewards" : "rewards",
+    "Personal Settings" : "settings"
+  };
+  
+  $scope.secondSidebar = {
+    "edit" : "feed",
+    "share" : "history",
+    "Rewards List" : "rewards"
+  };
+    
 };
 
 function campaignBuilderCtr($scope, $location, $routeParams, tempObjects, campaignData) {
@@ -397,8 +425,9 @@ function dashCtr($scope, $routeParams, $location, campaignData, tempObjects) {
       $scope.edit_link = "";
       $scope.selected_campaigns.forEach(function(campaign_id) {
         selected_campaigns_url_string = selected_campaigns_url_string.add("+"+campaign_id);
-        while(selected_campaigns_url_string.charAt(0) === '+')
+        while(selected_campaigns_url_string.charAt(0) === '+') {
             selected_campaigns_url_string = selected_campaigns_url_string.substr(1);
+        };
         $scope.view_link = "#/campaign/{1}/instances".assign(selected_campaigns_url_string);
       });
     };
@@ -526,11 +555,16 @@ function CampaignRewardsCtr($scope, $routeParams, $location, campaignData) {
   var fullRewardsData = {};
   var closedRewards = [];
   var openRewards = [];
-  init();
+  $scope.title = 'Rewards';
   
-  function init() {
-    fullRewardsData = campaignData.getRewardsList($routeParams.campaignId);
-  };
+  $scope.$emit("ENTERED_CAMPAIGN", {
+    campaignId : $routeParams.campaignId
+  });
+  var arrayOfCampaignIds = $routeParams.campaignId.split("+");
+  
+  
+  
+  fullRewardsData = campaignData.getRewardsList(arrayOfCampaignIds);
   
   function splitRewardsList(reward) {    
     
@@ -543,20 +577,12 @@ function CampaignRewardsCtr($scope, $routeParams, $location, campaignData) {
     
   };
   
-  
-  
   var rewardIds = Object.keys(fullRewardsData);
   
   rewardIds.forEach(splitRewardsList);
   
   
-
-  $scope.title = 'Rewards';
   $scope.campaignId = $routeParams.campaignId;
-  
-  $scope.$emit("ENTERED_CAMPAIGN", {
-    campaignId : $routeParams.campaignId,
-  });
   
   $scope.rewardsList = [];
 
@@ -631,24 +657,28 @@ function instancesCtr($scope, $routeParams, $location, campaignData, allUserData
   function init() {
     $scope.campaignList = campaignData.getCampaigns();
   };  
-
-    
-    var arrayOfCampaignIds = $routeParams.campaignId.split("+");
-    var mergedInstances = angular.copy($scope.campaignList[arrayOfCampaignIds[0]].instances);
-    var mergedRewards = angular.copy($scope.campaignList[arrayOfCampaignIds[0]].rewards);
-    
-    arrayOfCampaignIds.forEach(function(campaign_id) {
-      mergedInstances = Object.merge(mergedInstances, angular.copy($scope.campaignList[campaign_id].instances), true);
-      mergedRewards = Object.merge(mergedRewards, angular.copy($scope.campaignList[campaign_id].rewards), true);
-    });
-    
-    $scope.viewCampaign = $scope.campaignList[arrayOfCampaignIds[0]]; //find campaign with id in the list of campaigns
-    $scope.viewCampaign.instances = mergedInstances
-    $scope.title = "Conversations";
-    
-    $scope.$emit("ENTERED_CAMPAIGN", {
-//      campaignId : $scope.viewCampaign.id
-    });
+//  var mergedInstances = {};
+//  var mergedRewards = {};
+//  var arrayOfCampaignIds = [];
+//  
+//  arrayOfCampaignIds = $routeParams.campaignId.split("+");
+//        console.log(arrayOfCampaignIds)
+//  
+//  mergedInstances = angular.copy($scope.campaignList[arrayOfCampaignIds[0]].instances);
+//  mergedRewards = angular.copy($scope.campaignList[arrayOfCampaignIds[0]].rewards);
+//  arrayOfCampaignIds.forEach(function(campaign_id) {
+//    mergedInstances = Object.merge(mergedInstances, angular.copy($scope.campaignList[campaign_id].instances), true);
+//    mergedRewards = Object.merge(mergedRewards, angular.copy($scope.campaignList[campaign_id].rewards), true);
+//    
+//  });
+//  
+//  $scope.viewCampaign = $scope.campaignList[arrayOfCampaignIds[0]]; //find campaign with id in the list of campaigns
+//  $scope.viewCampaign.instances = mergedInstances;
+  $scope.title = "Conversations";
+  
+  $scope.$emit("ENTERED_CAMPAIGN", {
+      campaignId : $routeParams.campaignId
+  });
 //  else  {
 //    $location.path( "/dashboard" ); //redirect back to dashboard if campaign isn't found
 //  };
@@ -687,30 +717,38 @@ function campaignContactsCtr($scope, $routeParams, $location, campaignData, allU
   $scope.title = "Contact List";
   $scope.campaignId = $routeParams.campaignId;
   $scope.userId = $routeParams.userId;
+  
   $scope.$emit("ENTERED_CAMPAIGN", {
     campaignId : $routeParams.campaignId,
   });
   
   $scope.convoList = [];
   
-  var contactIdList = campaignData.getContactList($routeParams.campaignId);
+  var arrayOfCampaignIds = $routeParams.campaignId.split("+");
   
+  
+  var contactIdList = campaignData.getContactList(arrayOfCampaignIds);
+  console.log(contactIdList)
+  contactIdList = contactIdList.unique();
+  console.log(contactIdList)
   $scope.contactList = [];
   
   Object.values(contactIdList, function(userId) {
     $scope.contactList.push(allUserData.getUser(userId));
   });
   
-  if ($routeParams.userId != undefined) { //first make sure the userId from route exists.
-    $scope.viewUser = allUserData.getUser($routeParams.userId); //find user with id 
-    Object.values($scope.viewUser.conversations[$routeParams.campaignId], function(messageId) {
-      $scope.convoList.push(campaignData.getCampaign($routeParams.campaignId).instances[messageId])
-    });
-    
-    $scope.title = $scope.viewUser.name;
-  }
-  else  {
-    $location.path( "/campaign/"+$scope.campaignId+"/contacts" ); //redirect back to dashboard if campaign isn't found
-  };
+//  if ($routeParams.userId != undefined) { //first make sure the userId from route exists.
+//    
+//    $scope.viewUser = allUserData.getUser($routeParams.userId); //find user with id 
+//    
+//    Object.values($scope.viewUser.conversations[$routeParams.campaignId], function(messageId) {
+//      $scope.convoList.push(campaignData.getCampaign($routeParams.campaignId).instances[messageId])
+//    });
+//    
+//    $scope.title = $scope.viewUser.name;
+//  }
+//  else  {
+//    $location.path( "/campaign/"+$scope.campaignId+"/contacts" ); //redirect back to dashboard if campaign isn't found
+//  };
   
 };

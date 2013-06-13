@@ -23,39 +23,45 @@
   <link rel="stylesheet" href="css/normalize.css" type="text/css" />
   <link rel="stylesheet" href="css/app.css" type="text/css" />
 </head>
-<body>
-  <main>
-    <div class="dimmer_clicker" ng-click="toggleSidebar()">
-      <div class="dimmer"  ng-show="sidebar_visible" ng-animate="'fade'" ></div>
+<body ng-controller="userCtr">
+  
+  
+  <div ng-controller="campaignCtr">
+    <div id="main_view">
+      <div ng-view ng-animate="'slide'"></div>
+      <div class="dimmer_clicker" ng-click="toggleSidebar()">
+        <div class="dimmer"  ng-show="sidebar_visible" ng-animate="'fade'" ></div>
+      </div>
     </div>
-    <div ng-view ng-animate="'slide'"></div>
-  </main>
+    
+    <nav class="main_nav sidebar">
+      <h3>ACCOUNT PAGES</h3>
+      <ul>
+        <li ng-repeat="(page, url) in appPages">
+          <a href="#/{{url}}" ng-click="toggleSidebar()" ng-bind='page'></a>
+        </li>
+      </ul>
+      <h3>CAMPAIGN SHORTCUTS</h3>
+      <ul>
+        <li><a href="#dashboard" ng-click="toggleSidebar()">Dashboard</a></li>
+        <li ng-repeat="campaign in campaignList">
+          <a href="#/campaign/{{campaign.id}}/instances" ng-bind="campaign.title" ng-click="toggleSidebar()"></a>
+        </li>
+      </ul>
+    </nav>
+    
+    <nav class="second_nav sidebar">
+      <h3>CAMPAIGN PAGES</h3>
+      <ul>
+        <li><a href="#/campaign/{{campaignId}}/analytics" ng-click="toggleSidebar()">Analytics</a></li>
+        <li><a href="#/campaign/{{campaignId}}/edit" ng-click="toggleSidebar()">edit</a></li>
+        <li><a href="#/campaign/{{campaignId}}/rewards" ng-click="toggleSidebar()">rewards</a></li>
+        <li><a href="#/campaign/{{campaignId}}/contacts" ng-click="toggleSidebar()">contacts</a></li>
+      </ul>
+    </nav>
+  </div>
   
-  <nav ng-controller="sidebarCtr" class="main_nav sidebar">
-    <h3>ACCOUNT PAGES</h3>
-    <ul>
-      <li ng-repeat="(page, url) in appPages">
-        <a href="#/{{url}}" ng-click="toggleSidebar()" ng-bind='page'></a>
-      </li>
-    </ul>
-    <h3>CAMPAIGN SHORTCUTS</h3>
-    <ul>
-      <li><a href="#dashboard" ng-click="toggleSidebar()">Dashboard</a></li>
-      <li ng-repeat="campaign in campaignList">
-        <a href="#/campaign/{{campaign.id}}/instances" ng-bind="campaign.title" ng-click="toggleSidebar()"></a>
-      </li>
-    </ul>
-  </nav>
   
-  <nav ng-controller="sidebarCtr" class="second_nav sidebar">
-    <h3>CAMPAIGN PAGES</h3>
-    <ul>
-      <li><a href="#/campaign/{{campaignId}}/analytics" ng-click="toggleSidebar()">Analytics</a></li>
-      <li><a href="#/campaign/{{campaignId}}/edit" ng-click="toggleSidebar()">edit</a></li>
-      <li><a href="#/campaign/{{campaignId}}/rewards" ng-click="toggleSidebar()">rewards</a></li>
-      <li><a href="#/campaign/{{campaignId}}/contacts" ng-click="toggleSidebar()">contacts</a></li>
-    </ul>
-  </nav>
   
   <!--App libraries-->
   

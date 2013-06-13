@@ -24,11 +24,10 @@ appmodule.factory('allUserData', function() {
       id: "user0",
       conversations: {
         camp0: [
-          "msg0"
+          "msg1"
         ],
-        camp1: [
-          "msg2",
-          "msg3"
+        camp5: [
+          "msg56"
         ]
       }
     },
@@ -37,13 +36,30 @@ appmodule.factory('allUserData', function() {
       username: "Chezgo",
       id: "user1",
       conversations: {
-        camp0: [
-          "msg0",
-          "msg1"
-        ],
         camp1: [
           "msg2",
           "msg97"
+        ]
+      }
+    },
+    user3: {
+      name: "Alex Frfuisfs Jr.",
+      username: "Chezgo",
+      id: "user3",
+      conversations: {
+        camp1: [
+          "msg3",
+          "msg97"
+        ]
+      }
+    },
+    user4: {
+      name: "Ronda LeFleur",
+      username: "rondstat",
+      id: "user4",
+      conversations: {
+        camp0: [
+          "msg0"
         ]
       }
     }
@@ -115,7 +131,7 @@ appmodule.factory('campaignData', function() {
       instances : {
         msg0: {
           id: 'msg0',
-          author: "user0",
+          author: "user4",
           time: "2013-02-13T01:15-05:00",
           text: "This is the main text of the feedback instance",
           heard: "false",
@@ -150,7 +166,7 @@ appmodule.factory('campaignData', function() {
         },
         msg1: {
           id: 'msg1',
-          author: "user1",
+          author: "user0",
           time: "2013-02-13T01:15-05:00",
           text: "This is the main text of the feedback instance",
           heard: "false",
@@ -183,14 +199,14 @@ appmodule.factory('campaignData', function() {
           reward: {
             id: "rwd3",
             title: 'City Key!',
-            description: 'Trade this in for 50% off a burrito.',
-            creator: "Long Live Guac",
+            description: 'Trade this in for the key to the city.',
+            creator: "Mayor Bumsted",
             terms: "May not be used in Missouri. Sorry.",
             exp_date: "2/28/1993",
             date_claimed: "4/1/2014",
             verified: "Me",
             owner: "Kieran Regan",
-            passphrase: "freshspoon",
+            passphrase: "honeynut",
             date_issued: "1/2/1013",
             shared_with: ["Joe", "Mark", "Ruby"]
           }
@@ -303,7 +319,7 @@ appmodule.factory('campaignData', function() {
       instances : {
         msg2 : {
           id: 'msg2',
-          author: "user0",
+          author: "user1",
           time: "2013-02-13T01:15-05:00",
           text: "This is the main text of the feedback instance",
           heard: "false",
@@ -323,10 +339,10 @@ appmodule.factory('campaignData', function() {
           ],
           reward: {
             id: "rwd1",
-            title: 'Half off a burrito!',
-            description: 'Trade this in for 50% off a burrito.',
-            creator: "Long Live Guac",
-            terms: "May not be used in Missouri. Sorry.",
+            title: 'Free rocket ball',
+            description: 'What is a rocket ball?',
+            creator: "RocketMan",
+            terms: "Guess correctly, and you get it for free!",
             exp_date: "2/28/1993",
             date_claimed: false,
             verified: false,
@@ -338,7 +354,7 @@ appmodule.factory('campaignData', function() {
         },
         msg3 : {
           id: 'msg3',
-          author: "user1",
+          author: "user3",
           time: "2013-02-13T01:15-05:00",
           text: "This is the main text of the feedback instance",
           heard: "false",
@@ -401,22 +417,35 @@ appmodule.factory('campaignData', function() {
   factory.getCampaigns = function() {
     return campaignList;
   };
-  factory.getRewardsList = function(campaign_id) {
+  factory.getRewardsList = function(campaign_id_array) {
     var rewardsList = [];
-    var instanceIds = Object.keys(campaignList[campaign_id].instances);
-    instanceIds.forEach(function(instance) {
-      var reward = campaignList[campaign_id].instances[instance].reward;
-      rewardsList[reward.id] = reward;
+    console.log(rewardsList);
+    
+    campaign_id_array.forEach( function(campaign_id) {
+      console.log(campaign_id);
+      var instanceIds = Object.keys(campaignList[campaign_id].instances);
+      
+      instanceIds.forEach(function(instance) {
+        var reward = campaignList[campaign_id].instances[instance].reward;
+        rewardsList[reward.id] = reward;
+            console.log(reward);
+        
+      });
+    console.log(rewardsList);
     });
+    
+        console.log(rewardsList);
     
     return rewardsList;
   };
-  factory.getContactList = function(campaign_id) {
+  factory.getContactList = function(campaign_id_array) {
     var contactList = [];  
-    var instanceIds = Object.getOwnPropertyNames(campaignList[campaign_id].instances);
-    instanceIds.forEach(function(instance) {
-      var author = campaignList[campaign_id].instances[instance].author;
-      contactList.push(author)
+    campaign_id_array.forEach( function(campaign_id) {
+      var instanceIds = Object.getOwnPropertyNames(campaignList[campaign_id].instances);
+      instanceIds.forEach(function(instance) {
+        var author = campaignList[campaign_id].instances[instance].author;
+        contactList.push(author)
+      });
     });
     
     return contactList;

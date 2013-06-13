@@ -28,7 +28,7 @@ dd:after {
 	white-space: pre;
 }
 
-main {
+#main_view {
   background-color: #e0e0e0;
   position: absolute;
   top: 0;

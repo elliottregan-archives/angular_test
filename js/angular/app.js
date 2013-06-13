@@ -25,10 +25,6 @@ var appmodule = angular.module('appmodule', ['ui']).
         templateUrl: 'partials/instances.html',
         controller: instancesCtr
       }).
-      when('/campaign/:campaignId', {
-        templateUrl: 'partials/campaign_info.html',
-        controller: campaignCtr
-      }).
       when('/campaign/:campaignId/edit', {
         templateUrl: 'partials/edit.html',
         controller: campaignBuilderCtr
@@ -55,11 +51,9 @@ var appmodule = angular.module('appmodule', ['ui']).
       }).
       when('/settings', {
         templateUrl: 'partials/settings.html',
-        controller: accountCtr
       }).
       when('/history', {
         templateUrl: 'partials/history.html',
-        controller: accountCtr
       }).
       otherwise({redirectTo: '/dashboard'});
 }]);
