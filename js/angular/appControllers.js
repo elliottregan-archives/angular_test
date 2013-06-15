@@ -742,8 +742,13 @@ function campaignContactsCtr($scope, $routeParams, $location, campaignData, allU
     
     $scope.viewUser = allUserData.getUser($routeParams.userId); //find user with id 
     
-    Object.values($scope.viewUser.conversations[$routeParams.campaignId], function(messageId) {
-      $scope.convoList.push(campaignData.getCampaign($routeParams.campaignId).instances[messageId])
+      arrayOfCampaignIds.forEach(function(campaign_id) {
+        
+        Object.values($scope.viewUser.conversations[campaign_id], function(messageId) {
+        
+        $scope.convoList.push(campaignData.getCampaign(campaign_id).instances[messageId])
+        console.log(campaign_id)
+      });
     });
     
     $scope.title = $scope.viewUser.name;
