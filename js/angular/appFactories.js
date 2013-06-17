@@ -158,10 +158,23 @@ appmodule.factory('campaignData', function() {
             exp_date: "4/1/2014",
             date_claimed: "4/12/2013",
             verified: "Me",
-            owner: "Forrest Regan",
+            owner: "user4",
             passphrase: "starseed",
             date_issued: "1/2/1013",
             shared_with: ["Joe", "Mark", "Ruby"]
+          },
+          collaboration: {
+            importance: true,
+            tags: ["kitchen", "service"],
+            tagged_users: ["user1", "user45"],
+            comments: [
+              {
+                commentId: "cjioe3",
+                author: "user47",
+                time: "2013-02-13T01:15-05:00",
+                text: "Here is an internal comment about this conversation.",
+              }
+            ]
           }
         },
         msg1: {
@@ -205,10 +218,29 @@ appmodule.factory('campaignData', function() {
             exp_date: "2/28/1993",
             date_claimed: "4/1/2014",
             verified: "Me",
-            owner: "Kieran Regan",
+            owner: "user0",
             passphrase: "honeynut",
             date_issued: "1/2/1013",
             shared_with: ["Joe", "Mark", "Ruby"]
+          },
+          collaboration: {
+            importance: false,
+            tags: ["tagged", "another tag!"],
+            tagged_users: ["user1", "user45"],
+            comments: [
+              {
+                commentId: "cjfdsag4ioe3",
+                author: "user47",
+                time: "2013-02-13T01:15-05:00",
+                text: "Do you think that's wiiiiiise?",
+              },
+              {
+                commentId: "afes3",
+                author: "user87",
+                time: "2013-02-13T01:15-05:00",
+                text: "What?!",
+              }
+            ]
           }
         }
       }
@@ -346,7 +378,7 @@ appmodule.factory('campaignData', function() {
             exp_date: "2/28/1993",
             date_claimed: false,
             verified: false,
-            owner: "Elliott Regan",
+            owner: "user1",
             passphrase: "applegoat",
             date_issued: "1/2/1013",
             shared_with: ["Joe", "Mark", "Ruby"]
@@ -393,7 +425,7 @@ appmodule.factory('campaignData', function() {
             exp_date: "2/28/1993",
             date_claimed: "4/1/2014",
             verified: "Me",
-            owner: "Craig Regan",
+            owner: "user3",
             passphrase: "richzing",
             date_issued: "1/2/1013",
             shared_with: ["Joe", "Mark", "Ruby"]

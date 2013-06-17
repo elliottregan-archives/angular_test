@@ -383,6 +383,26 @@ nav a {
   transform: translateY(0);
 }
 
+.tools_panel {
+  position: absolute;
+  z-index: 1000;
+  height: 100%;
+  width: 90%;
+  right: -90%;
+  background-color: #f4f4f4;
+  border-left: 1px solid #777777;
+  
+  -webkit-transition: all 500ms ease-in-out;
+  -moz-transition: all 500ms ease-in-out;
+  -ms-transition: all 500ms ease-in-out;
+  -o-transition: all 500ms ease-in-out;
+  transition: all 500ms ease-in-out;
+}
+
+.tools_panel.visible {
+  right: 0;
+}
+
 .instances {
 
 }
@@ -412,10 +432,6 @@ nav a {
   box-sizing: border-box;
   padding: 4px;
   border: 1px solid #989998;
-}
-
-.instance > .btn_set.vert + article {
-  margin-right: 50px;
 }
 
 .replies {

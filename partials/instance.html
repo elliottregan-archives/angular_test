@@ -1,44 +1,39 @@
-<header>
-  <a href="#/campaign/{{campaign}}" class="btn left">back</a>
-  <h2>{{editCampaign.title}}</h2>
-</header>
-
-<div class="scroller_wrapper  with_header_padding">
-  <div class="scroller">
-    <h2>{{editCampaign.title}}</h2>
-      <div class="instance">
-        <aside class="btn_set vert">
-          <button class="btn">!</button>
-        </aside>
-        <article class="card">
-          <button ng-click="hearIt(instance)" class="btn heard heard_{{instance.heard}}" ui-if="instance.author != 'You'">heard!</button>
-          <h4 ng-init="instance.author"></h4>
-          <time ng-bind="instance.time"></time>
-          <p ng-bind="instance.text" ng-click="expandReplies($index)"></p>
-          <ul class="replies" ng-show="isExpanded($index) && instance.comments[2]">
-            <li ng-repeat="comment in instance.comments | limitTo:(instance.comments.length-2)" class="reply">
-              <button ng-click="hearIt(comment)" class="btn heard heard_{{comment.heard}}" ui-if="comment.author != 'You'">heard!</button>
-              <h5 ng-bind="comment.author"></h5>
-              <p ng-bind="comment.text"></p>
-            </li>
-          </ul>
-          <ul class="replies">
-            <li class="reply" ng-show="instance.comments[(instance.comments.length-2)]">
-              <button ng-click="hearIt(instance.comments[(instance.comments.length-2)])" class="btn heard heard_{{instance.comments[(instance.comments.length-2)].heard}}" ui-if="instance.comments[(instance.comments.length-2)].author != 'You'">heard!</button>
-              <h5 ng-bind="instance.comments[(instance.comments.length-2)].author"></h5>
-              <p ng-bind="instance.comments[(instance.comments.length-2)].text"></p>
-            </li>
-            <li class="reply" ng-show="instance.comments[(instance.comments.length-1)]">
-              <button ng-click="hearIt(instance.comments[(instance.comments.length-1)])" class="btn heard heard_{{instance.comments[(instance.comments.length-1)].heard}}" ui-if="instance.comments[(instance.comments.length-1)].author != 'You'">heard!</button>
-              <h5 ng-bind="instance.comments[(instance.comments.length-1)].author"></h5>
-              <p ng-bind="instance.comments[(instance.comments.length-1)].text"></p>
-            </li>
-          </ul>
-          <form class="reply" ng-submit="addReply(newCommentText, instance.comments)">
-            <input type="text" name="new_comment" ng-model="newCommentText" />
-            <button class="btn"type="submit">reply</button>
-          </form>
-        </article>
-      </div>
-  </div>
-</div>
+<article class="card">
+  <button ng-click="toggleToolPanel(instance)" class="btn right">Tools</button>
+  <button ng-click="hearIt(instance)" class="btn right heard heard_{{instance.heard}}" ui-if="instance.author != 'You'">heard!</button>
+  <h4><a href="#/campaign/{{viewCampaign.id}}/contacts/{{instance.author}}" ng-bind="author.name"></a></h4>
+  <time ng-bind="instance.time"></time>
+  <p ng-bind="instance.text" ng-click="expandReplies($index)"></p>
+  <ul class="replies" ng-show="isExpanded($index) && instance.comments[2]">
+    <li ng-repeat="comment in instance.comments | limitTo:(instance.comments.length-2)" class="reply">
+      <button ng-click="hearIt(comment)" class="btn heard heard_{{comment.heard}}" ui-if="comment.author != 'You'">heard!</button>
+      <h5>
+        <span ui-if="comment.author != 'You'" ng-bind="author.name"></span>
+        <span ui-if="comment.author == 'You'">You</span>
+      </h5>
+      <p ng-bind="comment.text"></p>
+    </li>
+  </ul>
+  <ul class="replies">
+    <li class="reply" ng-show="instance.comments[(instance.comments.length-2)]">
+      <button ng-click="hearIt(instance.comments[(instance.comments.length-2)])" class="btn heard heard_{{instance.comments[(instance.comments.length-2)].heard}}" ui-if="instance.comments[(instance.comments.length-2)].author != 'You'">heard!</button>
+      <h5>
+        <span ui-if="instance.comments[(instance.comments.length-2)].author != 'You'" ng-bind="author.name"></span>
+        <span ui-if="instance.comments[(instance.comments.length-2)].author == 'You'">You</span>
+      </h5>
+      <p ng-bind="instance.comments[(instance.comments.length-2)].text"></p>
+    </li>
+    <li class="reply" ng-show="instance.comments[(instance.comments.length-1)]">
+      <button ng-click="hearIt(instance.comments[(instance.comments.length-1)])" class="btn heard heard_{{instance.comments[(instance.comments.length-1)].heard}}" ui-if="instance.comments[(instance.comments.length-1)].author != 'You'">heard!</button>
+      <h5>
+        <span ui-if="instance.comments[(instance.comments.length-1)].author != 'You'" ng-bind="author.name"></span>
+        <span ui-if="instance.comments[(instance.comments.length-1)].author == 'You'">You</span>
+      </h5>
+      <p ng-bind="instance.comments[(instance.comments.length-1)].text"></p>
+    </li>
+  </ul>
+  <form class="reply" ng-submit="addReply(newCommentText, instance.comments)">
+    <input type="text" name="new_comment" ng-model="newCommentText" />
+    <button class="btn"type="submit">reply</button>
+  </form>
+</article>

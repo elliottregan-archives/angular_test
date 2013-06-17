@@ -21,7 +21,7 @@ var appmodule = angular.module('appmodule', ['ui']).
         templateUrl: 'partials/reward_info.html',
         controller: rewardsCtr
       }).
-      when('/campaign/:campaignId/instances/', {
+      when('/campaign/:campaignId/instances*instanceId', {
         templateUrl: 'partials/instances.html',
         controller: instancesCtr
       }).
