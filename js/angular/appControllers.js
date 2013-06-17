@@ -671,16 +671,16 @@ function instancesCtr($scope, $route, $routeParams, $location, campaignData, all
     
   $scope.toggleToolPanel = function(conversation_object) {
     console.log(lastRoute.params.instanceId)
-    if (!lastRoute.params.instanceId) {
-      $scope.$on('$locationChangeSuccess', function(event) {
-          $route.current = lastRoute;
-          console.log("route intercepted: "+lastRoute.params.instanceId)
-      });
-    }
-    else {
-      $route.current = $route.current;
-      console.log("route as normal");
-    }
+//    if (!lastRoute.params.instanceId) {
+//      $scope.$on('$locationChangeSuccess', function(event) {
+//          $route.current = lastRoute;
+//          console.log("route intercepted: "+lastRoute.params.instanceId)
+//      });
+//    }
+//    else {
+//      $route.current = $route.current;
+//      console.log("route as normal");
+//    }
     
     
     if (conversation_object) {
@@ -725,13 +725,14 @@ function instancesCtr($scope, $route, $routeParams, $location, campaignData, all
     instanceId = instanceId_as_text[1];
     try {
       arrayOfCampaignIds.forEach(function(campaign_id) {
-        
+        console.log(campaign_id)
         if ( $scope.campaignList[campaign_id].instances[instanceId]) {  //check if instanceId exists in the campaign
           throw campaign_id
 
         }
         
       });
+      $location.path( "/campaign/"+$scope.campaignId+"/instances" ); //redirect back to campaign instances if message isn't found
     }
     catch (campaign_id) {
       $scope.toggleToolPanel($scope.campaignList[campaign_id].instances[instanceId]) //message found
