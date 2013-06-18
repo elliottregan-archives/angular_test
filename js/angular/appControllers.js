@@ -659,7 +659,7 @@ function inboxCtr($scope, campaignData) {
     
 };
 
-function instancesCtr($scope, $route, $routeParams, $location, campaignData, allUserData) {
+function instancesCtr($rootScope, $scope, $route, $routeParams, $location, campaignData, allUserData) {
   
   var lastRoute = $route.current;
   $scope.$emit("ENTERED_CAMPAIGN", {
@@ -668,27 +668,37 @@ function instancesCtr($scope, $route, $routeParams, $location, campaignData, all
   $scope.title = "Conversations";
   $scope.conversationDetailView = false;
   var arrayOfCampaignIds = $routeParams.campaignId.split("+");
-    
-  $scope.toggleToolPanel = function(conversation_object) {
-    console.log(lastRoute.params.instanceId)
-//    if (!lastRoute.params.instanceId) {
-//      $scope.$on('$locationChangeSuccess', function(event) {
-//          $route.current = lastRoute;
-//          console.log("route intercepted: "+lastRoute.params.instanceId)
-//      });
-//    }
-//    else {
-//      $route.current = $route.current;
-//      console.log("route as normal");
-//    }
-    
+  
+  //http://bit.ly/16GanLZ
+  $scope.one = function(event, fn, scope) {
+    var _scope = scope || $rootScope;
+    var deregister = _scope.$on(event, function(){
+      fn.apply(this, arguments);
+      deregister();
+    }); 
+  };
+
+  
+  $scope.toggleToolPanel = function(conversation_object, reload_view) {
     
     if (conversation_object) {
+      console.log("if");
+      
+      $scope.one('$locationChangeSuccess', function () {
+          $route.current = lastRoute;
+      });
+      
       $scope.conversationDetailView = true;
       $scope.viewConversation = conversation_object.collaboration;
       $location.path("/campaign/"+$routeParams.campaignId+"/instances/"+conversation_object.id);
     }
     else {
+      console.log("else")
+
+      $scope.one('$locationChangeSuccess', function () {
+          $route.current = lastRoute;
+      });
+
       $scope.conversationDetailView = false;
       $scope.viewConversation = undefined;
       $location.path("/campaign/"+$routeParams.campaignId+"/instances/");
@@ -725,17 +735,16 @@ function instancesCtr($scope, $route, $routeParams, $location, campaignData, all
     instanceId = instanceId_as_text[1];
     try {
       arrayOfCampaignIds.forEach(function(campaign_id) {
-        console.log(campaign_id)
+
         if ( $scope.campaignList[campaign_id].instances[instanceId]) {  //check if instanceId exists in the campaign
           throw campaign_id
-
         }
         
       });
       $location.path( "/campaign/"+$scope.campaignId+"/instances" ); //redirect back to campaign instances if message isn't found
     }
     catch (campaign_id) {
-      $scope.toggleToolPanel($scope.campaignList[campaign_id].instances[instanceId]) //message found
+      $scope.toggleToolPanel($scope.campaignList[campaign_id].instances[instanceId], true) //message found
     }
     
   }
