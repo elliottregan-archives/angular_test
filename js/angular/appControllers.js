@@ -679,8 +679,8 @@ function instancesCtr($rootScope, $scope, $route, $routeParams, $location, campa
   };
 
   
-  $scope.toggleToolPanel = function(conversation_object, reload_view) {
-    
+  $scope.toggleToolPanel = function(conversation_object) {
+    console.log("clicked")
     if (conversation_object) {
       console.log("if");
       
@@ -703,7 +703,6 @@ function instancesCtr($rootScope, $scope, $route, $routeParams, $location, campa
       $scope.viewConversation = undefined;
       $location.path("/campaign/"+$routeParams.campaignId+"/instances/");
     }
-  
   };
   
   $scope.addTag = function(submitted_tag, conversation) {
@@ -744,7 +743,7 @@ function instancesCtr($rootScope, $scope, $route, $routeParams, $location, campa
       $location.path( "/campaign/"+$scope.campaignId+"/instances" ); //redirect back to campaign instances if message isn't found
     }
     catch (campaign_id) {
-      $scope.toggleToolPanel($scope.campaignList[campaign_id].instances[instanceId], true) //message found
+      $scope.toggleToolPanel($scope.campaignList[campaign_id].instances[instanceId]) //message found
     }
     
   }

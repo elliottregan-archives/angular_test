@@ -29,9 +29,7 @@
   <div ng-controller="campaignCtr">
     <div id="main_view">
       <div ng-view ng-animate="'slide'"></div>
-      <div class="dimmer_clicker" ng-click="toggleSidebar()">
-        <div class="dimmer"  ng-show="sidebar_visible" ng-animate="'fade'" ></div>
-      </div>
+      <div class="dimmer" ng-click="toggleSidebar()" ng-class="{visible: sidebar_visible == true}"></div>
     </div>
     
     <nav class="main_nav sidebar">

@@ -1,19 +1,23 @@
-<header>
-  <a href="#/dashboard" class="btn left">Dashboard</a>
-  <button class="btn right" ng-click="toggleSidebar('left')"> . . . </button>
-  <h1 ng-bind="title"></h1>
-</header>
-<div class="scroller_wrapper with_header_padding">
-  <div class="scroller">
-    <p ng-show="viewCampaign.instances == []">empty!</p>
-    <ul class="instances">
-      <li ng-repeat="instance in viewCampaign.instances" class="instance" ng-controller="instanceCtr" ng-include src="'partials/instance.html'"></li>
-    </ul>
+<div>
+  <div class="dimmer" ng-click="toggleToolPanel()" ng-class="{visible: conversationDetailView == true}"></div>
+  
+  <header>
+    <a href="#/dashboard" class="btn left">Dashboard</a>
+    <button class="btn right" ng-click="toggleSidebar('left')"> . . . </button>
+    <h1 ng-bind="title"></h1>
+  </header>
+  <div class="scroller_wrapper with_header_padding">
+    <div class="scroller">
+      <p ng-show="viewCampaign.instances == []">empty!</p>
+      <ul class="instances">
+        <li ng-repeat="instance in viewCampaign.instances" class="instance" ng-controller="instanceCtr" ng-include src="'partials/instance.html'"></li>
+      </ul>
+    </div>
   </div>
 </div>
 <aside class="tools_panel" ng-class="{visible: conversationDetailView == true}">
   <header>
-    <button ng-click="toggleToolPanel(undefined, true)">close</button>
+    <button ng-click="toggleToolPanel()">close</button>
   </header>
   <div class="scroller_wrapper with_header_padding">
     <div class="scroller">
