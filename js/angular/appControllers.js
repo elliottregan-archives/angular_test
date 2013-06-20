@@ -682,10 +682,9 @@ function instancesCtr($rootScope, $scope, $route, $routeParams, $location, campa
   $scope.toggleToolPanel = function(conversation_object) {
     console.log("clicked")
     if (conversation_object) {
-      console.log("if");
       
       $scope.one('$locationChangeSuccess', function () {
-          $route.current = lastRoute;
+        $route.current = lastRoute;
       });
       
       $scope.conversationDetailView = true;
@@ -693,10 +692,9 @@ function instancesCtr($rootScope, $scope, $route, $routeParams, $location, campa
       $location.path("/campaign/"+$routeParams.campaignId+"/instances/"+conversation_object.id);
     }
     else {
-      console.log("else")
 
       $scope.one('$locationChangeSuccess', function () {
-          $route.current = lastRoute;
+        $route.current = lastRoute;
       });
 
       $scope.conversationDetailView = false;
@@ -705,11 +703,17 @@ function instancesCtr($rootScope, $scope, $route, $routeParams, $location, campa
     }
   };
   
-  $scope.addTag = function(submitted_tag, conversation) {
-  
-    conversation.push(submitted_tag);
-
+  $scope.addTopicTag = function(submitted_tag, conversationAttributes) {
+    conversationAttributes.tags.push(submitted_tag);
+    $scope.topic_tag.$setPristine();
+    $scope.tag_to_submit = "";
   };
+  
+  $scope.addUserTag = function(submitted_user, conversationAttributes) {
+      conversationAttributes.tagged_users.push(submitted_user);
+      $scope.user_tag.$setPristine();
+      $scope.user_to_submit = "";  
+    };
   
   $scope.removeTag = function(tag_to_remove, conversation) {
     var tag_index = conversation.indexOf(tag_to_remove);
@@ -724,7 +728,9 @@ function instancesCtr($rootScope, $scope, $route, $routeParams, $location, campa
       text: post,
       heard: false
     });
-    this.newCommentText = '';
+    
+    $scope.comment_form.$setPristine();
+    $scope.comment_text = "";
   };
   
   if ($routeParams.instanceId != "") {
