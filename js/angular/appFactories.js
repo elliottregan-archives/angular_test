@@ -503,8 +503,8 @@ appmodule.factory('userData', function() {
     msg0: {
       id: 'msg0',
       author: "You",
-      to_name: "Crepes & Things",
-      to_handle: '@crepesandthings',
+      name: "Crepes & Things",
+      handle: '@crepesandthings',
       time: "2013-02-13T01:15-05:00",
       text: "This is the main text of the feedback instance",
       heard: "false",
@@ -527,6 +527,8 @@ appmodule.factory('userData', function() {
     msg1: {
       id: 'msg1',
       author: "You",
+      name: "Crepes & Things",
+      handle: '@crepesandthings',
       time: "2013-02-13T01:15-05:00",
       text: "This is the main text of the feedback instance",
       heard: "false",

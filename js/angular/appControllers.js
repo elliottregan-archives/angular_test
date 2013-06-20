@@ -72,13 +72,13 @@ function appCtr($scope, $routeParams, $location, $route) {
   };
   
   var expandedReply = -1;
-  
-  $scope.expandReplies = function(instance_id) {
-    if (expandedReply != instance_id) {
-      expandedReply = instance_id;
+  $scope.expandReplies = function(comment) {
+    if ( comment.cap == -2) {
+      comment.cap = 8;
     }
     else {
-      expandedReply = -1;
+      
+      comment.cap = -2;
     }
   };
   
@@ -758,7 +758,7 @@ function instancesCtr($rootScope, $scope, $route, $routeParams, $location, campa
   }
 }
 
-function instanceCtr($scope, $routeParams, $location, campaignData, allUserData) {
+function instanceCtr($scope) {
 
   $scope.addReply = function(post, comments) {
     comments.push({
@@ -769,9 +769,19 @@ function instanceCtr($scope, $routeParams, $location, campaignData, allUserData)
       heard: false
     });
     this.newCommentText = '';
-  };
+    $scope.previewComments.removeAt(0);
+    
+    $scope.previewComments.push({
+      commentId: 1,
+      author: "You",
+      time: getDate(),
+      text: post,
+      heard: false
+    });
   
-  $scope.author = allUserData.getUser($scope.instance.author);
+  };
+    
+  $scope.previewComments = $scope.instance.comments.last(2);
 };
 
 function analyticsCtr($scope, $routeParams) {

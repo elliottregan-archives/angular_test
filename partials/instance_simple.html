@@ -1,0 +1,21 @@
+<article class="card" ng-init="instance.cap = -2">
+  <h4>
+    <span ng-bind="instance.name"></span>
+    <span ng-bind="instance.handle"></span>
+  </h4>
+  <time ng-bind="instance.time"></time>
+  <p ng-bind="instance.text" ng-click="expandReplies(instance)"></p>
+  <ul class="replies">
+    <li ng-repeat="comment in (instance.comments | limitTo:instance.cap)" class="reply" ng-animate="'collapse'">
+      <h5>
+        <span ui-if="comment.author != 'You'" ng-bind="comment.author"></span>
+        <span ui-if="comment.author == 'You'">You</span>
+      </h5>
+      <p ng-bind="comment.text"></p>
+    </li>
+  </ul>
+  <form class="reply" ng-submit="addReply(newCommentText, instance.comments)">
+    <button class="btn inline" type="submit">reply</button>
+    <input type="text" name="new_comment" ng-model="newCommentText" class="inline"/>
+  </form>
+</article>

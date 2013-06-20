@@ -63,6 +63,7 @@ appmodule.run(function($templateCache,$http) {
   $http.get('partials/edit.html', {cache:$templateCache});
   $http.get('partials/inbox.html', {cache:$templateCache});
   $http.get('partials/instance.html', {cache:$templateCache});
+  $http.get('partials/instance_simple.html', {cache:$templateCache});
   $http.get('partials/campaign_info.html', {cache:$templateCache});
   $http.get('partials/rewards.html', {cache:$templateCache});
   $http.get('partials/reward_info.html', {cache:$templateCache});
