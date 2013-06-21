@@ -40,7 +40,7 @@
         <dt>tagged users:</dt>
         <dd>
           <ul class="tag_list inline">
-            <li ng-repeat="user in viewConversation.tagged_users" class="inline tag">
+            <li ng-repeat="user in viewConversation.tagged_users" class="inline tag" ng-animate="'collapse'">
               <span ng-bind="user"></span><span class="close_btn" ng-click="removeTag(user, viewConversation.tagged_users)">x</span>
             </li>
           </ul>
@@ -52,7 +52,7 @@
         <dt>Notes:</dt>
         <dd>
           <ul class="notes">
-            <li ng-repeat="comment in viewConversation.comments" class="note">
+            <li ng-repeat="comment in viewConversation.comments" class="note" ng-animate="'collapse'">
               <span ng-bind="comment.text"></span><br><small> - <span ng-bind="comment.author"></span></small>
             </li>
           </ul>

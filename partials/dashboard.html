@@ -1,12 +1,10 @@
-
-
 <header>
   <button ng-click="toggleSidebar('right')" class="btn left">menu</button>
   
   <h1>{{title}}</h1>
 </header>
 
-<div class="scroller_wrapper  with_header_padding">
+<div class="scroller_wrapper with_header_padding">
   <section class="scroller">
     <button class="btn full_width" ng-click="toggleNewMode()" ng-show="!new_mode" ng-hide="edit_mode == true">+ New Campaign</button>
     <div ng-show="new_mode">
@@ -17,8 +15,8 @@
           <option value="+">+ create new</option>
         </select>
         
-        <label for="handle_text" ng-show="handle == '+'">New handle name:</label>
-        <input id="handle_text" ng-show="handle == '+'" class="inline" type="text" name="new_handle" placeholder="Try your twitter handle!" ng-model="handle_to_submit" />
+        <label for="handle_text" ng-show="handle == '+'" ng-animate="'collapse'">New handle name:</label>
+        <input id="handle_text" ng-show="handle == '+'"ng-animate="'collapse'" class="inline" type="text" name="new_handle" placeholder="Try your twitter handle!" ng-model="handle_to_submit" />
         
         <label for="campaign_text">Name this campaign: <br /><small>(this is the public title for your feedback.)</small></label>
         <input type="text" name="new_campaign_title" placeholder="eg. 'Crepes & Things Feedback'" ng-model="new_campaign_title"/>   

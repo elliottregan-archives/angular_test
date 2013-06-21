@@ -7,6 +7,7 @@ html, body {
 
 body {
   overflow: hidden;
+  font-family: "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
 }
 
 a {
@@ -69,25 +70,19 @@ dd:after {
 /* @group Dimmer animation */
 
 .dimmer {
-  width: 100%;
+  width: 0;
   height: 100%;
   position: absolute;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 1000;
-  opacity: 0;
-  display: none;
   
-  -webkit-transition: all 500ms ease-in-out;
-  -moz-transition: all 500ms ease-in-out;
-  -ms-transition: all 500ms ease-in-out;
-  -o-transition: all 500ms ease-in-out;
-  transition: all 500ms ease-in-out;
+  z-index: 1000;
+  left: 0;
+  -webkit-transition: all 400ms ease-in-out;
+  background-color: rgba(0, 0, 0, 0);
 }
 
-.dimmer_clicker {
-  position: absolute;
+.dimmer.visible {
   width: 100%;
-  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
   
 }
 
@@ -112,7 +107,8 @@ opacity: 1;
 
 
 .collapse-enter, 
-.collapse-leave { 
+.collapse-leave, .collapse-show, 
+.collapse-hide { 
 	-webkit-transition: 400ms ease all;
 	-moz-transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
 	-ms-transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
@@ -122,14 +118,15 @@ opacity: 1;
 } 
 
 .collapse-leave.collapse-leave-active,
-.collapse-enter {
-  
+.collapse-enter, .collapse-hide.collapse-hide-active,
+.collapse-show {
   opacity: 0;
   max-height: 0px;
 }
 
 .collapse-enter.collapse-enter-active,
-.collapse-leave {
+.collapse-leave, .collapse-show.collapse-show-active,
+.collapse-hide {
   opacity: 1;
   max-height: 300px;
 }
@@ -364,12 +361,12 @@ p {
 
 .visible {
   opacity: 1;
-  display: inherit;
+  width: 100%;
 }
 
 .invisible {
   opacity: 0;
-  display: none;
+  width: 0%;
 }
 
 nav a {
@@ -539,6 +536,11 @@ form {
   -o-transition: all 500ms ease-in-out;
   transition: all 500ms ease-in-out;
   padding: 0 10px 10px;
+}
+
+form.reply {
+  margin-top: 10px;
+  padding: 20px 10px;
 }
 
 .reply p {
@@ -720,6 +722,13 @@ fieldset.padded {
   background-color: #ffffff;
   padding: 4px;
   margin: 10px 0;
+  
+  
+  -webkit-transition: all 500ms ease-in-out;
+  -moz-transition: all 500ms ease-in-out;
+  -ms-transition: all 500ms ease-in-out;
+  -o-transition: all 500ms ease-in-out;
+  transition: all 500ms ease-in-out;
 }
 
 .object_list li.selected {

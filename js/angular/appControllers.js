@@ -71,17 +71,6 @@ function appCtr($scope, $routeParams, $location, $route) {
       $scope.toggleEditMode();
   };
   
-  var expandedReply = -1;
-  $scope.expandReplies = function(comment) {
-    if ( comment.cap == -2) {
-      comment.cap = 8;
-    }
-    else {
-      
-      comment.cap = -2;
-    }
-  };
-  
   $scope.toggleConvo = function() {
     this.collapsed = !this.collapsed;
   };
@@ -680,7 +669,6 @@ function instancesCtr($rootScope, $scope, $route, $routeParams, $location, campa
 
   
   $scope.toggleToolPanel = function(conversation_object) {
-    console.log("clicked")
     if (conversation_object) {
       
       $scope.one('$locationChangeSuccess', function () {
@@ -698,7 +686,6 @@ function instancesCtr($rootScope, $scope, $route, $routeParams, $location, campa
       });
 
       $scope.conversationDetailView = false;
-      $scope.viewConversation = undefined;
       $location.path("/campaign/"+$routeParams.campaignId+"/instances/");
     }
   };
@@ -760,6 +747,15 @@ function instancesCtr($rootScope, $scope, $route, $routeParams, $location, campa
 
 function instanceCtr($scope) {
 
+  $scope.expandReplies = function(convo) {
+    if ( convo.cap == -2) {
+      convo.cap = 8;
+    }
+    else {
+      convo.cap = -2;
+    }
+  };
+  
   $scope.addReply = function(post, comments) {
     comments.push({
       commentId: 1,
