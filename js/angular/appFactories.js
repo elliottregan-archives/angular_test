@@ -248,7 +248,7 @@ appmodule.factory('campaignData', function() {
     },
     camp1: {
       id: 'camp1',
-      archived: true,
+      archived: false,
       handle: "crepesandthings_tea",
       title: 'Which tea?',
       description: "Asking our customers if they like our green tea or white tea better.",
@@ -450,16 +450,7 @@ appmodule.factory('campaignData', function() {
     
   var factory = {};
   factory.getCampaigns = function() {
-    
-    campaignIds.forEach( function(campaign_id) {
-      if (campaignList[campaign_id].archived == true) {
-        activeCampaignList[campaign_id] = campaignList[campaign_id];
-      }
-      else {
-        archivedCampaignList[campaign_id] = campaignList[campaign_id];
-      }
-    });
-    return activeCampaignList;
+    return campaignList;
   };
   factory.getRewardsList = function(campaign_id_array) {
     var rewardsList = [];

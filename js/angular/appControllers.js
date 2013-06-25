@@ -31,6 +31,10 @@ function appCtr($scope, $routeParams, $location, $route, $timeout) {
   
   $scope.toggleSidebar = function(direction) {
     
+    var arrayOfCampaignIds = $routeParams.campaignId.split("+");
+    $scope.multipleViewCampaigns = arrayOfCampaignIds.length > 1;
+    
+    
     if ( (!$scope.sidebar_visible) && (direction != undefined) ) {
       
       $scope.sidebar_in_frame = true;
@@ -176,6 +180,7 @@ function userCtr($scope, userData, campaignData) {
 
 function campaignCtr($scope, $routeParams, $location, campaignData) {
   
+  
   init();
   
   $scope.$on("ENTERED_CAMPAIGN", function(event, id_from_instances) {
@@ -243,12 +248,6 @@ function campaignCtr($scope, $routeParams, $location, campaignData) {
     "Your Fdbk History" : "history",
     "Your Rewards" : "rewards",
     "Personal Settings" : "settings"
-  };
-  
-  $scope.secondSidebar = {
-    "edit" : "feed",
-    "share" : "history",
-    "Rewards List" : "rewards"
   };
     
 };
@@ -692,7 +691,7 @@ function instancesCtr($rootScope, $scope, $route, $routeParams, $location, campa
   $scope.title = "Conversations";
   $scope.conversationDetailView = false;
   var arrayOfCampaignIds = $routeParams.campaignId.split("+");
-  
+
   //http://bit.ly/16GanLZ
   $scope.one = function(event, fn, scope) {
     var _scope = scope || $rootScope;

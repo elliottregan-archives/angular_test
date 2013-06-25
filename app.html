@@ -52,7 +52,7 @@
       <h3>CAMPAIGN PAGES</h3>
       <ul>
         <li><a href="#/campaign/{{campaignId}}/analytics" ng-click="toggleSidebar()">Analytics</a></li>
-        <li><a href="#/campaign/{{campaignId}}/edit" ng-click="toggleSidebar()">edit</a></li>
+        <li ng-hide="multipleViewCampaigns"><a href="#/campaign/{{campaignId}}/edit" ng-click="toggleSidebar()">edit</a></li>
         <li><a href="#/campaign/{{campaignId}}/rewards" ng-click="toggleSidebar()">rewards</a></li>
         <li><a href="#/campaign/{{campaignId}}/contacts" ng-click="toggleSidebar()">contacts</a></li>
       </ul>
