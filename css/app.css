@@ -36,11 +36,11 @@ dd:after {
   bottom: 0;
   width: 100%;
   overflow: scroll;
-  -webkit-transition: all 500ms ease-in-out;
-  -moz-transition: all 500ms ease-in-out;
-  -ms-transition: all 500ms ease-in-out;
-  -o-transition: all 500ms ease-in-out;
-  transition: all 500ms ease-in-out;
+  -webkit-transition: all 200ms ease-in-out;
+  -moz-transition: all 200ms ease-in-out;
+  -ms-transition: all 200ms ease-in-out;
+  -o-transition: all 200ms ease-in-out;
+  transition: all 200ms ease-in-out;
   color: #4d4d4d;
   -webkit-overflow-scrolling: touch;
   z-index: 100;
@@ -59,11 +59,11 @@ dd:after {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  -webkit-transition: all 500ms ease-in-out;
-  -moz-transition: all 500ms ease-in-out;
-  -ms-transition: all 500ms ease-in-out;
-  -o-transition: all 500ms ease-in-out;
-  transition: all 500ms ease-in-out;
+  -webkit-transition: all 200ms ease-in-out;
+  -moz-transition: all 200ms ease-in-out;
+  -ms-transition: all 200ms ease-in-out;
+  -o-transition: all 200ms ease-in-out;
+  transition: all 200ms ease-in-out;
   background-color: #000000;
 }
 
@@ -76,23 +76,30 @@ dd:after {
   
   z-index: 1000;
   left: 0;
-  -webkit-transition: all 400ms ease-in-out;
   background-color: rgba(0, 0, 0, 0);
+  
+  -webkit-transition: background-color 200ms ease-in-out;
+  -moz-transition: background-color 200ms ease-in-out;
+  -ms-transition: background-color 200ms ease-in-out;
+  -o-transition: background-color 200ms ease-in-out;
+  transition: background-color 200ms ease-in-out;
+}
+
+.dimmer.inFrame {
+  width: 100%;
 }
 
 .dimmer.visible {
-  width: 100%;
   background-color: rgba(0, 0, 0, 0.5);
-  
 }
 
 .fade-show,
 .fade-hide {
--webkit-transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
--moz-transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
--ms-transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
--o-transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
-transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+-webkit-transition: 200ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+-moz-transition: 200ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+-ms-transition: 200ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+-o-transition: 200ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+transition: 200ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
 }
  
 .fade-hide.fade-hide-active,
@@ -109,11 +116,11 @@ opacity: 1;
 .collapse-enter, 
 .collapse-leave, .collapse-show, 
 .collapse-hide { 
-	-webkit-transition: 400ms ease all;
-	-moz-transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
-	-ms-transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
-	-o-transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
-	transition: 400ms ease all;
+	-webkit-transition: 200ms ease all;
+	-moz-transition: 200ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+	-ms-transition: 200ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+	-o-transition: 200ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+	transition: 200ms ease all;
   display: block;
 } 
 
@@ -135,11 +142,11 @@ opacity: 1;
 
 .slide-enter,
 .slide-leave {
--webkit-transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
--moz-transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
--ms-transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
--o-transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
-transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+-webkit-transition: 200ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+-moz-transition: 200ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+-ms-transition: 200ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+-o-transition: 200ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+transition: 200ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
 }
  
 .slide-leave.slide-leave-active,
@@ -225,11 +232,11 @@ header .btn {
 .dropdown {
   overflow: hidden;
   opacity: 1;
-  -webkit-transition: all 500ms ease-in-out;
-  -moz-transition: all 500ms ease-in-out;
-  -ms-transition: all 500ms ease-in-out;
-  -o-transition: all 500ms ease-in-out;
-  transition: all 500ms ease-in-out;
+  -webkit-transition: all 200ms ease-in-out;
+  -moz-transition: all 200ms ease-in-out;
+  -ms-transition: all 200ms ease-in-out;
+  -o-transition: all 200ms ease-in-out;
+  transition: all 200ms ease-in-out;
   -webkit-transform: translate3d(0, 0, 0);
   background-color: #d4d5d4;
   -webkit-transform: translateY(0%);
@@ -372,11 +379,11 @@ p {
 nav a {
   padding: 10px;
   display: inline-block;
-  -webkit-transition: all 500ms ease-in-out;
-  -moz-transition: all 500ms ease-in-out;
-  -ms-transition: all 500ms ease-in-out;
-  -o-transition: all 500ms ease-in-out;
-  transition: all 500ms ease-in-out;
+  -webkit-transition: all 200ms ease-in-out;
+  -moz-transition: all 200ms ease-in-out;
+  -ms-transition: all 200ms ease-in-out;
+  -o-transition: all 200ms ease-in-out;
+  transition: all 200ms ease-in-out;
   -webkit-transform: scale(.8) ;
   -moz-transform: scale(.8);
   transform: scale(.8);
@@ -398,11 +405,11 @@ nav a {
   -webkit-transform: translateY(100%);
   -moz-transform: translateY(100%);
   transform: translateY(100%);
-  -webkit-transition: all 500ms ease-in-out;
-  -moz-transition: all 500ms ease-in-out;
-  -ms-transition: all 500ms ease-in-out;
-  -o-transition: all 500ms ease-in-out;
-  transition: all 500ms ease-in-out;
+  -webkit-transition: all 200ms ease-in-out;
+  -moz-transition: all 200ms ease-in-out;
+  -ms-transition: all 200ms ease-in-out;
+  -o-transition: all 200ms ease-in-out;
+  transition: all 200ms ease-in-out;
 }
 
 #palette .content {
@@ -429,11 +436,11 @@ nav a {
   background-color: #f4f4f4;
   border-left: 1px solid #777777;
   
-  -webkit-transition: all 500ms ease-in-out;
-  -moz-transition: all 500ms ease-in-out;
-  -ms-transition: all 500ms ease-in-out;
-  -o-transition: all 500ms ease-in-out;
-  transition: all 500ms ease-in-out;
+  -webkit-transition: all 200ms ease-in-out;
+  -moz-transition: all 200ms ease-in-out;
+  -ms-transition: all 200ms ease-in-out;
+  -o-transition: all 200ms ease-in-out;
+  transition: all 200ms ease-in-out;
 }
 
 .tools_panel.visible {
@@ -522,19 +529,19 @@ form {
   margin: 0 0 0 20px;
   font-size: .9em;
   border-left: 3px solid #545554;
-  -webkit-transition: all 500ms ease-in-out;
-  -moz-transition: all 500ms ease-in-out;
-  -ms-transition: all 500ms ease-in-out;
-  -o-transition: all 500ms ease-in-out;
-  transition: all 500ms ease-in-out;
+  -webkit-transition: all 200ms ease-in-out;
+  -moz-transition: all 200ms ease-in-out;
+  -ms-transition: all 200ms ease-in-out;
+  -o-transition: all 200ms ease-in-out;
+  transition: all 200ms ease-in-out;
 }
 
 .reply {  
-  -webkit-transition: all 500ms ease-in-out;
-  -moz-transition: all 500ms ease-in-out;
-  -ms-transition: all 500ms ease-in-out;
-  -o-transition: all 500ms ease-in-out;
-  transition: all 500ms ease-in-out;
+  -webkit-transition: all 200ms ease-in-out;
+  -moz-transition: all 200ms ease-in-out;
+  -ms-transition: all 200ms ease-in-out;
+  -o-transition: all 200ms ease-in-out;
+  transition: all 200ms ease-in-out;
   padding: 0 10px 10px;
 }
 
@@ -722,13 +729,6 @@ fieldset.padded {
   background-color: #ffffff;
   padding: 4px;
   margin: 10px 0;
-  
-  
-  -webkit-transition: all 500ms ease-in-out;
-  -moz-transition: all 500ms ease-in-out;
-  -ms-transition: all 500ms ease-in-out;
-  -o-transition: all 500ms ease-in-out;
-  transition: all 500ms ease-in-out;
 }
 
 .object_list li.selected {
@@ -968,27 +968,27 @@ textarea {
 }
     
 .in {
-  -webkit-animation: in 400ms;
-  -moz-animation: in 400ms;
-  animation: in 400ms;
+  -webkit-animation: in 200ms;
+  -moz-animation: in 200ms;
+  animation: in 200ms;
   position: absolute;
 }     
 .out {
-  -webkit-animation: out 400ms;
-  -moz-animation: out 400ms;
-  animation: out 400ms;
+  -webkit-animation: out 200ms;
+  -moz-animation: out 200ms;
+  animation: out 200ms;
   position: absolute;
 }
 
 .level_two.in {
-  -webkit-animation: in_two 400ms;
-  -moz-animation: in_two 400ms;
-  animation: in_two 400ms;
+  -webkit-animation: in_two 200ms;
+  -moz-animation: in_two 200ms;
+  animation: in_two 200ms;
   position: absolute;
 }     
 .level_two.out {
-  -webkit-animation: out_two 400ms;
-  -moz-animation: out_two 400ms;
-  animation: out_two 400ms;
+  -webkit-animation: out_two 200ms;
+  -moz-animation: out_two 200ms;
+  animation: out_two 200ms;
   position: absolute;
 }

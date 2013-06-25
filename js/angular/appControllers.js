@@ -9,7 +9,7 @@ function formCtr($scope, formData, campaignData) {
  
 };
 
-function appCtr($scope, $routeParams, $location, $route) {
+function appCtr($scope, $routeParams, $location, $route, $timeout) {
   
   $scope.$on("ENTERED_CAMPAIGN", function(event, id_from_instances) {
     
@@ -33,8 +33,10 @@ function appCtr($scope, $routeParams, $location, $route) {
     
     if ( (!$scope.sidebar_visible) && (direction != undefined) ) {
       
-      $('.main_nav').toggleClass('visible');
+      $scope.sidebar_in_frame = true;
       $scope.sidebar_visible = true;
+      
+      $('.main_nav').toggleClass('visible');
       
       if (direction == 'left') {
         $('#main_view').toggleClass('slide_left');
@@ -49,6 +51,7 @@ function appCtr($scope, $routeParams, $location, $route) {
         $('.main_nav').removeClass("invisible");
         $('.second_nav').addClass("invisible");
         $('.second_nav').removeClass("visible");
+        
       }
       
     }
@@ -57,6 +60,8 @@ function appCtr($scope, $routeParams, $location, $route) {
       $scope.sidebar_visible = false;
       $('#main_view').removeClass('slide_right');
       $('#main_view').removeClass('slide_left');
+      $scope.sidebar_in_frame = false;
+      $scope.sidebar_visible = false;
     }
 
   };
@@ -376,19 +381,49 @@ function campaignBuilderCtr($scope, $location, $routeParams, tempObjects, campai
 
 function dashCtr($scope, $routeParams, $location, campaignData, tempObjects) {
  
-   
+  $scope.view_archived = false;
   $scope.edit_mode = false;
   $scope.new_mode = false;
   $scope.title = 'Dashboard';
   
   $scope.selected_campaigns = [];
+  $scope.activeCampaignList = {};
+  $scope.archivedCampaignList = {};
+  
   
   init();
+  var campaignIds = Object.getOwnPropertyNames($scope.campaignList);
   
   function init() {
     $scope.campaignList = campaignData.getCampaigns();
     $scope.handleList = campaignData.getHandles();    
     $scope.buildCampaign = tempObjects.getBuildCampaign();
+  };
+  
+  $scope.archiveListItem = function(clicked_list_item, parent_object) {
+    parent_object[clicked_list_item].archived = true;
+    splitCampaignList();
+    $scope.edit_mode = false;
+    
+  };
+  
+  function splitCampaignList() {    
+    
+    campaignIds.forEach( function(campaign_id) {
+      if ($scope.campaignList[campaign_id].archived == false) {
+        $scope.activeCampaignList[campaign_id] = $scope.campaignList[campaign_id];
+      }
+      else {
+        $scope.archivedCampaignList[campaign_id] = $scope.campaignList[campaign_id];
+      }
+    $scope.campaignList = $scope.activeCampaignList;
+    });
+    
+  };
+  
+  
+  $scope.toggleArchived = function() {
+    $scope.view_archived = !$scope.view_archived;
   };
   
   $scope.selectCampaign = function(campaign_id) {
