@@ -384,6 +384,12 @@ appmodule.factory('campaignData', function() {
             passphrase: "applegoat",
             date_issued: "1/2/1013",
             shared_with: ["Joe", "Mark", "Ruby"]
+          },
+          collaboration: {
+            importance: false,
+            tags: [],
+            tagged_users: [],
+            comments: []
           }
         },
         msg3 : {
@@ -431,6 +437,12 @@ appmodule.factory('campaignData', function() {
             passphrase: "richzing",
             date_issued: "1/2/1013",
             shared_with: ["Joe", "Mark", "Ruby"]
+          },
+          collaboration: {
+            importance: false,
+            tags: [],
+            tagged_users: [],
+            comments: []
           }
         }
       }

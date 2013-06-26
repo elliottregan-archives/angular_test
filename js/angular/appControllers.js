@@ -31,9 +31,10 @@ function appCtr($scope, $routeParams, $location, $route, $timeout) {
   
   $scope.toggleSidebar = function(direction) {
     
-    var arrayOfCampaignIds = $routeParams.campaignId.split("+");
-    $scope.multipleViewCampaigns = arrayOfCampaignIds.length > 1;
-    
+    if ($routeParams.campaignId) {
+      var arrayOfCampaignIds = $routeParams.campaignId.split("+");
+      $scope.multipleViewCampaigns = arrayOfCampaignIds.length > 1;
+    }
     
     if ( (!$scope.sidebar_visible) && (direction != undefined) ) {
       
@@ -379,7 +380,7 @@ function campaignBuilderCtr($scope, $location, $routeParams, tempObjects, campai
 };
 
 function dashCtr($scope, $routeParams, $location, campaignData, tempObjects) {
- 
+  var campaignList = campaignData.getCampaigns();
   $scope.view_archived = false;
   $scope.edit_mode = false;
   $scope.new_mode = false;
@@ -391,35 +392,40 @@ function dashCtr($scope, $routeParams, $location, campaignData, tempObjects) {
   
   
   init();
-  var campaignIds = Object.getOwnPropertyNames($scope.campaignList);
   
   function init() {
-    $scope.campaignList = campaignData.getCampaigns();
+    $scope.activeCampaignList = campaignData.getCampaigns();
     $scope.handleList = campaignData.getHandles();    
     $scope.buildCampaign = tempObjects.getBuildCampaign();
   };
   
   $scope.archiveListItem = function(clicked_list_item, parent_object) {
-    parent_object[clicked_list_item].archived = true;
+    $scope.toggleEditMode();
+    campaignList[clicked_list_item].archived = true;
     splitCampaignList();
-    $scope.edit_mode = false;
+  };
+  
+  $scope.unarchiveListItem = function(clicked_list_item, relocate_to_object) {
+    campaignList[clicked_list_item.id].archived = false;
+    splitCampaignList();
     
   };
   
   function splitCampaignList() {    
     
+    var campaignIds = Object.getOwnPropertyNames(campaignList);
+    $scope.activeCampaignList = {};
+    $scope.archivedCampaignList = {};
+    
     campaignIds.forEach( function(campaign_id) {
-      if ($scope.campaignList[campaign_id].archived == false) {
-        $scope.activeCampaignList[campaign_id] = $scope.campaignList[campaign_id];
+      if (campaignList[campaign_id].archived == false) {
+        $scope.activeCampaignList[campaign_id] = campaignList[campaign_id];
       }
       else {
-        $scope.archivedCampaignList[campaign_id] = $scope.campaignList[campaign_id];
+        $scope.archivedCampaignList[campaign_id] = campaignList[campaign_id];
       }
-    $scope.campaignList = $scope.activeCampaignList;
     });
-    
   };
-  
   
   $scope.toggleArchived = function() {
     $scope.view_archived = !$scope.view_archived;

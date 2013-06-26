@@ -28,8 +28,8 @@
       <form ng-submit="">
         <a class="btn" href="{{edit_link}}" ng-class="{disabled: disable_single_edit_buttons}">edit</a>
         <a class="btn" href="{{view_link}}"  ng-class="">view</a>
-        <button class="btn" ng-click="deleteAnyListItems(selected_campaigns, campaignList)">delete</button>
-        <button class="btn" ng-click="archiveListItem(selected_campaigns, campaignList)">archive</button>
+        <!--<button class="btn" ng-click="deleteAnyListItems(selected_campaigns, activeCampaignList)">delete</button>-->
+        <button class="btn" ng-class="{disabled: disable_single_edit_buttons}" ng-click="disable_single_edit_buttons || archiveListItem(selected_campaigns, activeCampaignList)">archive</button>
         <button class="btn" ng-class="{disabled: disable_single_edit_buttons}" ng-click="disable_single_edit_buttons || duplicateMode(true, selected_campaigns)">duplicate</button>
       </form>
     </div>
@@ -37,7 +37,7 @@
     
     <ul id="campaign_list" class="object_list">
       
-      <li ng-repeat="campaign in campaignList" ng-class="{selected : selected_campaigns.some(campaign.id)}">
+      <li ng-repeat="campaign in activeCampaignList" ng-class="{selected : selected_campaigns.some(campaign.id)}">
         
         <div class="left">
           <button class="checkbox" ng-click="selectCampaign('{{campaign.id}}')"></button>
@@ -68,13 +68,13 @@
     </button>
     <ul class="object_list" ng-show="view_archived == true">
       <li ng-repeat="campaign in archivedCampaignList">
-        <div class="left">
-          <button class="checkbox" ng-click="selectCampaign('{{campaign.id}}')"></button>
-        </div>
+        <button class="btn right" ng-click="unarchiveListItem(campaign, activeCampaignList)">unarchive</button>
+
         <a href="#/campaign/{{campaign.id}}/instances">
           <small>@{{campaign.handle}}</small>
           <h2>{{campaign.title}}</h2>
         </a>
+        
       </li>
     </ul>
   </section>
