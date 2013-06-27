@@ -5,12 +5,15 @@
   </h4>
   <time ng-bind="instance.time"></time>
   <p ng-bind="instance.text" ng-click="expandReplies(instance)"></p>
+  <div ng-include src="'partials/form_completed.html'"></div>
+  
+  <h5>Conversation:</h5>
   <ul class="replies">
     <li ng-repeat="comment in (instance.comments | limitTo:instance.cap)" class="reply" ng-animate="'collapse'">
-      <h5>
+      <h6>
         <span ui-if="comment.author != 'You'" ng-bind="comment.author"></span>
         <span ui-if="comment.author == 'You'">You</span>
-      </h5>
+      </h6>
       <p ng-bind="comment.text"></p>
     </li>
   </ul>
