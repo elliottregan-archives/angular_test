@@ -1,9 +1,12 @@
+
 <article class="card" ng-init="instance.cap = -2">
+  <button class="btn right" ng-click="toggleFullFormView()">toggle view</button>
   <button ng-click="toggleToolPanel(instance)" class="btn right">Tools</button>
   <button ng-click="hearIt(instance)" class="btn right heard heard_{{instance.heard}}" ui-if="instance.author != 'You'">heard!</button>
+  <button class="btn right" ng-click="expandReplies(instance)">expand replies</button>
   <h4><a href="#/campaign/{{viewCampaign.id}}/contacts/{{instance.author}}" ng-bind="instance.author"></a></h4>
   <time ng-bind="instance.time"></time>
-  <p ng-bind="instance.text" ng-click="expandReplies(instance)"></p>
+  <div ng-include src="'partials/form_completed.html'"></div>
   <ul class="replies">
     <li ng-repeat="comment in (instance.comments | limitTo:instance.cap)" class="reply" ng-animate="'collapse'">
       <button ng-click="hearIt(comment)" class="btn heard heard_{{comment.heard}}" ui-if="comment.author != 'You'">heard!</button>

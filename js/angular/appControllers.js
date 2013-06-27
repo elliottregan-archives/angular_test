@@ -787,6 +787,13 @@ function instancesCtr($rootScope, $scope, $route, $routeParams, $location, campa
 
 function instanceCtr($scope) {
 
+  $scope.full_form_view_on = false;
+
+  $scope.toggleFullFormView = function() {
+    console.log($scope.full_form_view_on);
+    $scope.full_form_view_on = !$scope.full_form_view_on;
+  };
+  
   $scope.expandReplies = function(convo) {
     if ( convo.cap == -2) {
       convo.cap = 8;

@@ -4,8 +4,8 @@
     <div ng-if="(question.type == 'binary') || (question.type == 'rating') || (question.type == 'multipleChoice')">
       <h3 ng-bind="question.text"></h3>
       <ul class='answers'>
-        <li ng-repeat="answer in question.answers" class="inline" ng-show="full_view_on || (question.response == answer.id)">
-          <div class="checked" ng-show="full_view_on">yup!</div>
+        <li ng-repeat="answer in question.answers" class="inline" ng-show="full_form_view_on || (question.response == answer.id)">
+          <div class="checked" ng-show="full_form_view_on && (question.response == answer.id)">yup!</div>
           <label for="answer_{{question.id}}{{answer.id}}" ng-bind="answer.text"></label>
         </li>
       </ul>
