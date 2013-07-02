@@ -30,7 +30,7 @@ dd:after {
 }
 
 #main_view {
-  background-color: #e0e0e0;
+  background-color: #424242;
   position: absolute;
   top: 0;
   bottom: 0;
@@ -140,24 +140,79 @@ opacity: 1;
 
 /* @end */
 
+.animation_wrapper {
+  height: 100%;
+  width: 100%;
+}
+
 .slide-enter,
 .slide-leave {
--webkit-transition: 200ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
--moz-transition: 200ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
--ms-transition: 200ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
--o-transition: 200ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
-transition: 200ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+-webkit-transition: 400ms ease-in all;
+-moz-transition: 400ms ease-in all;
+-ms-transition: 400ms ease-in all;
+-o-transition: 400ms ease-in all;
+transition: 400ms ease-in all;
+  position: absolute;
+  width: 100%;
 }
  
 .slide-leave.slide-leave-active,
 .slide-enter {
-opacity: 0;
+
 }
  
 .slide-enter.slide-enter-active,
 .slide-leave {
-opacity: 1;
+
 }
+
+
+
+.slide-enter {
+  left: 100%;
+}
+
+.slide-leave.layer0 {
+  left: 0;
+}
+
+.slide-enter.layer0 {
+  left: 0;
+  -webkit-transform: scale(.8);
+}
+
+.slide-enter-active.layer0 {
+  -webkit-transform: scale(1);
+  left: 0;
+  
+}
+
+.slide-enter-active {
+  left: 0;
+}
+
+.slide-leave {
+  left: 100%;
+  -webkit-transform: scale(1);
+}
+
+.slide-leave-active {
+  -webkit-transform: scale(.8);
+}
+
+.slide-leave.layer1 {
+  left: 100%;
+  z-index: 100;
+  -webkit-transform: scale(1);
+  
+}
+
+.layer1 {
+  z-index: 100;
+}
+
+
+
 
 .focus {
   -webkit-transform: translateX(0%);

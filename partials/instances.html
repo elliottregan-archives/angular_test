@@ -1,67 +1,69 @@
-<div>
-  <div class="dimmer" ng-click="toggleToolPanel()" ng-class="{visible: conversationDetailView == true}"></div>
+<div class="dimmer" ng-click="toggleToolPanel()" ng-class="{visible: conversationDetailView == true}"></div>
   
-  <header>
-    <a href="#/dashboard" class="btn left">Dashboard</a>
-    <button class="btn right" ng-click="toggleSidebar('left')"> . . . </button>
-    <h1 ng-bind="title"></h1>
-  </header>
-  <div class="scroller_wrapper with_header_padding">
-    <div class="scroller">
-      <p ng-show="viewCampaign.instances == []">empty!</p>
-      <ul class="instances">
-        <li ng-repeat="instance in viewCampaign.instances" class="instance" ng-controller="instanceCtr" ng-include src="'partials/instance.html'"></li>
-      </ul>
+<div class="animation_wrapper layer1">
+    <header>
+      <a href="#/dashboard" class="btn left">Dashboard</a>
+      <button class="btn right" ng-click="toggleSidebar('left')"> . . . </button>
+      <h1 ng-bind="title"></h1>
+    </header>
+    <div class="scroller_wrapper with_header_padding">
+      <div class="scroller">
+        <p ng-show="viewCampaign.instances == []">empty!</p>
+        <ul class="instances">
+          <li ng-repeat="instance in viewCampaign.instances" class="instance" ng-controller="instanceCtr" ng-include src="'partials/instance.html'"></li>
+        </ul>
+      </div>
     </div>
+    <div>
+        <aside class="tools_panel" ng-class="{visible: conversationDetailView == true}">
+        <header>
+          <button class="left btn"ng-click="toggleToolPanel()">close</button>
+          <h1>Collaboration Tools</h1>
+        </header>
+        <div class="scroller_wrapper with_header_padding">
+          <div class="scroller">
+            <dl class="tools_list">
+              <dt>importance:</dt>
+              <dd ng-bind="viewConversation.importance"></dd>
+              <dt>tags:</dt>
+              <dd>
+                <ul class="tag_list inline">
+                  <li ng-repeat="tag in viewConversation.tags" class="inline tag">
+                    <span ng-bind="tag"></span><span ng-click="removeTag(tag, viewConversation.tags)" class="close_btn">x</span>
+                  </li>
+                </ul>
+                <form ng-submit="addTopicTag(tag_to_submit, viewConversation)" name="topic_tag">
+                  <input type="text" ng-model="tag_to_submit"/>
+                  <button type="submit" class="btn">save tag</button>
+                </form>
+              </dd>
+              <dt>tagged users:</dt>
+              <dd>
+                <ul class="tag_list inline">
+                  <li ng-repeat="user in viewConversation.tagged_users" class="inline tag" ng-animate="'collapse'">
+                    <span ng-bind="user"></span><span class="close_btn" ng-click="removeTag(user, viewConversation.tagged_users)">x</span>
+                  </li>
+                </ul>
+                <form ng-submit="addUserTag(user_to_submit, viewConversation)" name="user_tag">
+                  <input type="text" ng-model="user_to_submit" />
+                  <button type="submit" class="btn">save tag</button>
+                </form>
+              </dd>
+              <dt>Notes:</dt>
+              <dd>
+                <ul class="notes">
+                  <li ng-repeat="comment in viewConversation.comments" class="note" ng-animate="'collapse'">
+                    <span ng-bind="comment.text"></span><br><small> - <span ng-bind="comment.author"></span></small>
+                  </li>
+                </ul>
+                <form ng-submit="addComment(comment_text, viewConversation.comments)" name="comment_form">
+                  <input type="text" ng-model="comment_text"/>
+                  <button type="submit" class="btn">save comment</button>
+                </form>
+              </dd>
+            </dl>
+          </div>
+        </div>
+      </aside>
+      </div>
   </div>
-</div>
-<aside class="tools_panel" ng-class="{visible: conversationDetailView == true}">
-  <header>
-    <button class="left btn"ng-click="toggleToolPanel()">close</button>
-    <h1>Collaboration Tools</h1>
-  </header>
-  <div class="scroller_wrapper with_header_padding">
-    <div class="scroller">
-      <dl class="tools_list">
-        <dt>importance:</dt>
-        <dd ng-bind="viewConversation.importance"></dd>
-        <dt>tags:</dt>
-        <dd>
-          <ul class="tag_list inline">
-            <li ng-repeat="tag in viewConversation.tags" class="inline tag">
-              <span ng-bind="tag"></span><span ng-click="removeTag(tag, viewConversation.tags)" class="close_btn">x</span>
-            </li>
-          </ul>
-          <form ng-submit="addTopicTag(tag_to_submit, viewConversation)" name="topic_tag">
-            <input type="text" ng-model="tag_to_submit"/>
-            <button type="submit" class="btn">save tag</button>
-          </form>
-        </dd>
-        <dt>tagged users:</dt>
-        <dd>
-          <ul class="tag_list inline">
-            <li ng-repeat="user in viewConversation.tagged_users" class="inline tag" ng-animate="'collapse'">
-              <span ng-bind="user"></span><span class="close_btn" ng-click="removeTag(user, viewConversation.tagged_users)">x</span>
-            </li>
-          </ul>
-          <form ng-submit="addUserTag(user_to_submit, viewConversation)" name="user_tag">
-            <input type="text" ng-model="user_to_submit" />
-            <button type="submit" class="btn">save tag</button>
-          </form>
-        </dd>
-        <dt>Notes:</dt>
-        <dd>
-          <ul class="notes">
-            <li ng-repeat="comment in viewConversation.comments" class="note" ng-animate="'collapse'">
-              <span ng-bind="comment.text"></span><br><small> - <span ng-bind="comment.author"></span></small>
-            </li>
-          </ul>
-          <form ng-submit="addComment(comment_text, viewConversation.comments)" name="comment_form">
-            <input type="text" ng-model="comment_text"/>
-            <button type="submit" class="btn">save comment</button>
-          </form>
-        </dd>
-      </dl>
-    </div>
-  </div>
-</aside>

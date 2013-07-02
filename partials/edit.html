@@ -2,7 +2,7 @@
   <div ng-include src="'partials/panel.html'"></div>
 </aside>
 
-<section id="page_02">
+<section id="page_02" class="animation_wrapper">
   <header>
     <a href="#/campaign/{{buildCampaign.id}}/instances" class="btn left">cancel</a>
     <a ng-click='advanceStep()' ng-hide='currentStep >= (steps.length-1)' class="btn right">Next Page</a>

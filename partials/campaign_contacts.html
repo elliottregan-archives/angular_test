@@ -1,17 +1,19 @@
-<header>
-  <a href="#/campaign/{{campaignId}}/instances" class="btn left">back</a>
-  <button class="btn right" ng-click="toggleSidebar('left')"> . . . </button>
-  <h1 ng-bind="title"></h1>
-</header>
-
-<div class="scroller_wrapper with_header_padding">
-  <section class="scroller">
-        
-    <input type="text" ng-model="search_query" placeholder="search names or seacret codes"/>
-    <ul class="object_list">
-      <li ng-repeat="contact in contactList | filter:search_query">
-        <a href="#/campaign/{{campaignId}}/contacts/{{contact.id}}"><h2 ng-bind="contact.name"></h2></a>
-      </li>
-    </ul>
-  </section>
+<div class="animation_wrapper">
+  <header>
+    <a href="#/campaign/{{campaignId}}/instances" class="btn left">back</a>
+    <button class="btn right" ng-click="toggleSidebar('left')"> . . . </button>
+    <h1 ng-bind="title"></h1>
+  </header>
+  
+  <div class="scroller_wrapper with_header_padding">
+    <section class="scroller">
+          
+      <input type="text" ng-model="search_query" placeholder="search names or seacret codes"/>
+      <ul class="object_list">
+        <li ng-repeat="contact in contactList | filter:search_query">
+          <a href="#/campaign/{{campaignId}}/contacts/{{contact.id}}"><h2 ng-bind="contact.name"></h2></a>
+        </li>
+      </ul>
+    </section>
+  </div>
 </div>
