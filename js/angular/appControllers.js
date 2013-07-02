@@ -351,7 +351,7 @@ function campaignBuilderCtr($scope, $location, $routeParams, tempObjects, campai
         type: "",
         text: "",
         answers: []
-    }
+    };
   };
   
   $scope.chooseQType = function(question_type) { //function from the form creator

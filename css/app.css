@@ -661,10 +661,23 @@ fieldset.padded {
   margin-left: 1em;
 }
 
-.checked {
+.filled_answer {
+  width: 20px;
+  height: 20px;
+  border: 1px solid #8e8e8e;
+}
+
+.filled_answer.checked {
   width: 20px;
   height: 20px;
   background-color: #5ab534;
+  border-color: #4b8a35;
+}
+
+.empty_textarea {
+  border: 1px solid #8d8e8d;
+  width: 100%;
+  height: 40px;
 }
 
 .answers li.inline:first-of-type input {

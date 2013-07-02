@@ -10,7 +10,7 @@
     <h2>Edit {{buildCampaign.title}}: Step {{steps[currentStep]+1}}</h2>
   </header>
   
-<div class="scroller_wrapper  with_header_padding">
+<div class="scroller_wrapper with_header_padding">
   <nav>
     <ol class="breadcrumbs five_btns btnset">
       <li ng-class="{selected: currentStep==n}" class="crumb btn" ng-repeat='n in steps' ng-click='changeStep(n)'>{{n+1}}</li>
@@ -20,7 +20,7 @@
       <h2>{{buildCampaign.title}}</h2>
       <section ng-switch on='currentStep'>
           <div ng-switch-when='0'>
-            <div ng-include src="'partials/list_of_questions.html'"></div>
+            <div ng-include src="'partials/form_not_completed.html'"></div>
             <button ng-click="togglePanel('Create Question')" class="btn">+ New Question</button>
           </div>
         <div ng-switch-when='1'>
