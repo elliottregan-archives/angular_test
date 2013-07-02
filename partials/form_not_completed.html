@@ -1,0 +1,19 @@
+<ol>
+  <li ng-repeat="question in buildCampaign.questionsList">
+    <div ng-if="(question.type == 'binary') || (question.type == 'rating') || (question.type == 'multipleChoice')">
+      <h3 ng-bind="question.text"></h3>
+      <ul class='answers'>
+        <li ng-repeat="answer in question.answers" class="inline">
+          <div class="filled_answer"></div>
+          <label for="answer_{{question.id}}{{answer.id}}" ng-bind="answer.text"></label>
+        </li>
+      </ul>
+    </div>
+    
+    <div ng-if="(question.type == 'freeText') || (question.type == 'number')">
+      <h3 ng-bind="question.text"></h3>
+      <div class="empty_textarea"></div>
+    </div>
+    
+  </li>
+</ol>
