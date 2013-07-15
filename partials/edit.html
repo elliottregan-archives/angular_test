@@ -25,11 +25,26 @@
           </div>
         <div ng-switch-when='1'>
           <form method="post" action="">
+            
+            <label for="title">Title:</label>
             <input type="text" name="title" ng-model="buildCampaign.reward.title" placeholder="Gift Title" />
+            
+            <label for="description">Description:</label>
             <input type="text" name="description" ng-model="buildCampaign.reward.description" placeholder="Description"/>
+            
+            <label for="terms">Terms:</label>
             <input type="text" name="terms" ng-model="buildCampaign.reward.terms" placeholder="Terms and Conditions"/>
+            
+            <label for="date">Expiration Date:</label>
             <input type="date" name="expiration" ng-model="buildCampaign.reward.exp" placeholder="Expiration Date" />
           </form>
+          
+          <label for="previous">Or choose a previous reward:</label>
+          <select>
+            <option></option>
+            <option>Previous Reward 1</option>
+            <option>Previous Reward 2</option>
+          </select>
         </div>
         <div ng-switch-when='2'>
           <ul>
@@ -41,17 +56,30 @@
         
         <div ng-switch-when='3'>
           <form ng-submit="sendInvite(first, last, invite_email, level, buildCampaign.permissions.pending)">
-            <label for="emails">Send email invitations to others to help manage this campaign.</label>
-            <input ng-model="first" type="text" name="name" placeholder="first name"/>
-            <input ng-model="last" type="text" name="name" placeholder="last name"/>
+            <h3>Send email invitations to others to help manage this campaign.</h3>
+            <label for="name">Full Name:</label>
+            <input ng-model="name" type="text" name="name" placeholder="name"/>
+            <label for="email">Email:</label>
             <input ng-model="invite_email" type="email" name="email" placeholder="email"/>
+            <label for="message">Message:</label>
+            <textarea placeholder="optional"></textarea>
             <fieldset>
-              <input ng-model="perm_respond" type="checkbox" name="perm_respond" ng-true-value="respond" id="perm_respond"/>
-              <label for="perm_respond">respond</label>
-              <input ng-model="perm_export" type="checkbox" name="perm_export" ng-true-value="export" id="perm_export"/>
-              <label for="perm_export">export</label>
-              <input ng-model="perm_admin" type="checkbox" name="perm_admin" ng-true-value="admin" id="perm_admin"/>
-              <label for="perm_admin">admin</label>
+              
+              <fieldset class="inline">
+                <input ng-model="perm_respond" type="checkbox" name="perm_respond" ng-true-value="respond" id="perm_respond"/>
+                <label for="perm_respond">view only</label>
+              </fieldset>
+              
+              <fieldset class="inline">
+                <input ng-model="perm_export" type="checkbox" name="perm_export" ng-true-value="export" id="perm_export"/>
+                <label for="perm_export">respond</label>
+              </fieldset>
+              
+              <fieldset class="inline">
+                <input ng-model="perm_admin" type="checkbox" name="perm_admin" ng-true-value="admin" id="perm_admin"/>
+                <label for="perm_admin">admin + export</label>
+              </fieldset>
+              
             </fieldset>
             <button class="new_invite btn">Send</button>
           </form>
@@ -71,12 +99,41 @@
         </div>
         
         <div ng-switch-when='4'>
-          <label for="url">Add a physical location to your access point (optional):</label>
-          <input type="text" name="location" id="location" placeholder="1 Street Address, Whereverville, FL"/>
-          <label for="location">or choose a previous location:</label>
-          <select>
-            <option>407 9th St, Brooklyn, NY</option>
-          </select>
+          
+          <fieldset>
+            <input ng-model="discoverable" type="checkbox" class="inline" id="discoverable"/>
+            <label for="discoverable" class="inline">location discoverable?</label>
+          </fieldset>
+          
+          <div ng-show="discoverable">
+            <label for="url">Add a physical location to your access point (optional):</label>
+            <input type="text" name="location" id="location" placeholder="1 Street Address, Whereverville, FL"/>
+            <label for="location">or choose a previous location:</label>
+            <select>
+              <option>407 9th St, Brooklyn, NY</option>
+            </select>
+          </div>
+          
+          
+          
+          <div>
+            
+            <fieldset class="inline">
+              <input type="checkbox"/>
+              <label>public</label>
+            </fieldset>
+            
+            <fieldset class="inline">
+              <input type="checkbox"/>
+              <label>private</label>
+            </fieldset>
+            
+            <fieldset class="inline">
+              <input type="checkbox"/>
+              <label>passphrase protected</label>
+            </fieldset>
+            
+          </div>
         </div>
       </section>
     </div>

@@ -245,7 +245,6 @@ function campaignCtr($scope, $routeParams, $location, campaignData) {
   };  
   
   $scope.appPages = {
-    "Fdbk Feed" : "feed",
     "Your Fdbk History" : "history",
     "Your Rewards" : "rewards",
     "Personal Settings" : "settings"

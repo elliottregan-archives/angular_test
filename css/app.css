@@ -636,9 +636,7 @@ form.reply {
 }
 
 form h3 {
-  margin: 2em 0 .4em;
-  font-weight: normal;
-  font-style: normal;
+  margin: .5em 0;
 }
 
 form li:first-of-type h3 {
