@@ -71,6 +71,12 @@ function appCtr($scope, $routeParams, $location, $route, $timeout) {
 
   };
   
+  $scope.personal_pages_visible = false;
+  
+  $scope.togglePersonalPages = function() {
+    $scope.personal_pages_visible = !$scope.personal_pages_visible;
+  };
+  
   $scope.togglePanel = function(panelName) {
     $('aside').toggleClass('visible');
     $scope.panel=panelName;

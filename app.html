@@ -33,12 +33,21 @@
     </div>
     
     <nav class="main_nav sidebar">
-      <h3>ACCOUNT PAGES</h3>
-      <ul>
-        <li ng-repeat="(page, url) in appPages">
-          <a href="#/{{url}}" ng-click="toggleSidebar()" ng-bind='page'></a>
-        </li>
-      </ul>
+      
+      <button class="personal_button" ng-click="togglePersonalPages()"></button>
+      
+      <div class="personal_pages bounceInDown animated" ng-class="{visible: personal_pages_visible == true}">
+        <h3>ACCOUNT PAGES</h3>
+        <ul>
+          <li ng-repeat="(page, url) in appPages">
+            <a href="#/{{url}}" ng-click="toggleSidebar()" ng-bind='page'></a>
+          </li>
+        </ul>
+      </div>
+      
+      <!--<a href="http://thenounproject.com/noun/people/#icon-No16570" target="_blank">People</a> designed by <a href="http://thenounproject.com/ofcapl" target="_blank">Łukasz Kupś (OfcaPL)</a> from The Noun Project-->
+      
+      
       <h3>CAMPAIGN SHORTCUTS</h3>
       <ul>
         <li><a href="#dashboard" ng-click="toggleSidebar()">Dashboard</a></li>
