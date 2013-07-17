@@ -25,6 +25,9 @@
           </div>
         <div ng-switch-when='1'>
           <form method="post" action="">
+            
+            <h3>Reward details:</h3>
+            
             <label for="title">Title:</label>
             <input type="text" name="title" ng-model="buildCampaign.reward.title" placeholder="Gift Title" />
             
@@ -36,14 +39,75 @@
             
             <label for="date">Expiration Date:</label>
             <input type="date" name="expiration" ng-model="buildCampaign.reward.exp" placeholder="Expiration Date" />
+          
+            <h3>How will this reward be redeemed?</h3>
+            <div>
+              
+              <fieldset class="inline">
+                <input ng-model="location_redemption" type="radio" name="reward_type" ng-true-value="location" id="location_redemption"/>
+                <label for="location_redemption">location redemption <small>(User receives a code when they choose to redeem. They will have 10mins to present a code to you or an associate. You will also be able to manually redeem these rewards, in case of technical difficulties.)</small></label>
+              </fieldset>
+              
+              <fieldset class="inline">
+                <input ng-model="email_redemption" type="radio" name="reward_type" ng-true-value="email" id="email_redemption"/>
+                <label for="email_redemption">through email <small>(Prompts user for their email address. You get it, reward automatically gets sent.)</small></label>
+              </fieldset>
+              
+              <fieldset class="inline">
+                <input ng-model="mail_redemption" type="radio" name="reward_type" ng-true-value="mail" id="mail_redemption"/>
+                <label for="mail_redemption">mailed to address <small>(Asks user for their mailing address. The rest is up to you!)</small></label>
+              </fieldset>
+              
+              <fieldset class="inline">
+                <input ng-model="basic_text" type="radio" name="reward_type" ng-true-value="basic_text" id="basic_text"/>
+                <label for="basic_text">Basic text <small>(Free text to do what you want. Could be a code for your own system, a link to a website, go wild!)</small></label>
+              </fieldset>
+              
+            </div>
+          
+            <h3>Validity:</h3>
+          
+            <div>
+            
+              <label for="title">Start Date:</label>
+              <input type="date" name="start_date" ng-model="buildCampaign.reward.start_date" placeholder="" />
+              <label for="title">Start Time:</label>
+              <input type="time" name="start_time" ng-model="buildCampaign.reward.start_time" placeholder="" />
+              
+              <label for="title">End Date:</label>
+              <input type="date" name="end_date" ng-model="buildCampaign.reward.end_date" placeholder="" />
+              <label for="title">End Time:</label>
+              <input type="time" name="end_time" ng-model="buildCampaign.reward.end_time" placeholder="" />
+            
+              <input class="inline" type="checkbox" name="delay" id="delay"/>
+              <label class="inline" for="delay">24-hour delay <small>(user must wait 24 hours before redeeming.)</small></label>
+              
+            </div>
+          
+          
+            <h3>Sharability:</h3>
+            
+            <div>
+              
+              <fieldset>
+                <input class="inline" ng-model="sharability" type="radio" name="sharability" ng-true-value="not_sharable" id="not_sharable"/>
+                <label class="inline" for="not_sharable">not sharable </label>
+              </fieldset>
+              
+              <fieldset>
+                <input class="inline" ng-model="sharability" type="radio" name="sharability" ng-true-value="sharable_three" id="sharable_three"/>
+                <label class="inline" for="sharable_three">three times<small>(User may share this reward with up to three (3) contacts.)</small></label>
+              </fieldset>
+              
+              <fieldset>
+                <input class="inline" ng-model="sharability" type="radio" name="sharability" ng-true-value="sharable_any" id="sharable_any"/>
+                <label class="inline" for="sharable_any">openly sharable<small>(This reward can be shared freely through any means (blogs, social networks, email, etc.)</small></label>
+              </fieldset>
+              
+            </div>
+            
           </form>
           
-          <label for="previous">Or choose a previous reward:</label>
-          <select>
-            <option></option>
-            <option>Previous Reward 1</option>
-            <option>Previous Reward 2</option>
-          </select>
         </div>
         <div ng-switch-when='2'>
           <ul>
@@ -62,7 +126,7 @@
             <input ng-model="invite_email" type="email" name="email" placeholder="email"/>
             <label for="message">Message:</label>
             <textarea placeholder="optional"></textarea>
-            <fieldset>
+            <div>
               
               <fieldset class="inline">
                 <input ng-model="perm_respond" type="checkbox" name="perm_respond" ng-true-value="respond" id="perm_respond"/>
@@ -79,7 +143,7 @@
                 <label for="perm_admin">admin + export</label>
               </fieldset>
               
-            </fieldset>
+            </div>
             <button class="new_invite btn">Send</button>
           </form>
           <hr>
