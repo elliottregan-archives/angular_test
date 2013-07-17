@@ -95,17 +95,6 @@ function appCtr($scope, $routeParams, $location, $route, $timeout) {
     el.heard = "true";
   };
   
-  $scope.addReply = function(post, comments) {
-    comments.push({
-      commentId: 1,
-      author: "You",
-      time: getDate(),
-      text: post,
-      heard: false
-    });
-    this.newCommentText = '';
-  };
-  
   $scope.isExpanded = function(instance_id) {
     return expandedReply == instance_id;
   };
@@ -324,7 +313,14 @@ function campaignBuilderCtr($scope, $location, $routeParams, tempObjects, campai
       id: new Date().getTime(),
       text: input_text
     });
-    this.newAnswerText = '';
+  };
+  
+  $scope.addLocation = function(input_location, list_of_locations) {    
+    list_of_locations.push({
+      id: new Date().getTime(),
+      text: angular.copy(input_location)
+    });
+    this.addLocation_address.text = "";
   };
   
   $scope.saveQuestion = function() {
@@ -761,8 +757,8 @@ function instancesCtr($rootScope, $scope, $route, $routeParams, $location, campa
       heard: false
     });
     
-    $scope.comment_form.$setPristine();
     $scope.comment_text = "";
+    $scope.comment_form.$setPristine();
   };
   
   if ($routeParams.instanceId != "") {
@@ -826,7 +822,7 @@ function instanceCtr($scope) {
       text: post,
       heard: false
     });
-  
+    console.log("hello");
   };
     
   $scope.previewComments = $scope.instance.comments.last(2);

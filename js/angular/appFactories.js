@@ -84,7 +84,12 @@ appmodule.factory('campaignData', function() {
       description: 'Our main feedback portal.',
       title: 'Crepes & Things',
       local: false,
-      location: '',
+      locationsList: [
+        {
+          id: 'asdf',
+          text: "1 Location Way, Somewhere"
+        }
+      ],
       discoverable: false,
       questionsList: [
         {
@@ -411,7 +416,12 @@ appmodule.factory('campaignData', function() {
       title: 'Which tea?',
       description: "Asking our customers if they like our green tea or white tea better.",
       local: true,
-      location: '',
+      locationsList: [
+        {
+          id: 'asdf',
+          text: "1 Location Way, Somewhere"
+        }
+      ],
       discoverable: false,
       questionsList: [
         {
@@ -1093,7 +1103,12 @@ appmodule.factory('formData', function() {
       description: 'Our main feedback portal.',
       title: 'Crepes & Things',
       local: false,
-      location: '',
+      locationsList: [
+        {
+          id: 'asdf',
+          text: "1 Location Way, Somewhere"
+        }
+      ],
       discoverable: false,
       questionsList: [
         {

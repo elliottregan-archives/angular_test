@@ -39,7 +39,7 @@
       <div class="personal_pages bounceInDown animated" ng-class="{visible: personal_pages_visible == true}">
         <h3>ACCOUNT PAGES</h3>
         <ul>
-          <li ng-repeat="(page, url) in appPages">
+          <li ng-repeat="(page, url) in appPages" ng-click="togglePersonalPages()">
             <a href="#/{{url}}" ng-click="toggleSidebar()" ng-bind='page'></a>
           </li>
         </ul>
