@@ -1,5 +1,11 @@
 <ol>
   <li ng-repeat="question in buildCampaign.questionsList">
+    
+    <div class="right">
+      <button ng-click="editQuestion($index)">edit</button>
+      <button ng-click="deleteQuestion($index)">delete</button>
+    </div>
+    
     <div ng-if="(question.type == 'binary') || (question.type == 'rating') || (question.type == 'multipleChoice')">
       <h3 ng-bind="question.text"></h3>
       <ul class='answers'>
@@ -13,11 +19,6 @@
     <div ng-if="(question.type == 'freeText') || (question.type == 'number')">
       <h3 ng-bind="question.text"></h3>
       <div class="empty_textarea"></div>
-    </div>
-    
-    <div>
-      <button>edit</button>
-      <button ng-click="deleteAnyListItems(question, buildCampaign.questionsList)">delete</button>
     </div>
     
   </li>

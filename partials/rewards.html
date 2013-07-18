@@ -13,7 +13,7 @@
       <ul class="object_list">
         <li ng-repeat="reward in rewardsList">
           <div ng-show="edit_mode == true">
-            <button class="btn right" ng-click="deleteListItem(reward, rewardsList)">delete</button>
+            <button class="btn right" ng-click="deleteAnyListItems(reward, rewardsList)">delete</button>
           </div>
           <a href="#/rewards/{{reward.id}}">
             <h2 ng-bind="reward.title"></h2>

@@ -80,11 +80,15 @@ function appCtr($scope, $routeParams, $location, $route, $timeout) {
   $scope.togglePanel = function(panelName) {
     $('aside').toggleClass('visible');
     $scope.panel=panelName;
-  };
-  
-  $scope.deleteListItem = function(clicked_list_item, parent_object) { //deletes any item from an ng-repeat list
-      delete parent_object[clicked_list_item.id];
-      $scope.toggleEditMode();
+    
+    $scope.buildQuestion = {
+        id: "",
+        type: "",
+        text: "",
+        answers: []
+    };
+    
+    $scope.editing_question = false;
   };
   
   $scope.toggleConvo = function() {
@@ -268,6 +272,7 @@ function campaignBuilderCtr($scope, $location, $routeParams, tempObjects, campai
   
   var selectedQType = '';
   
+  
   $scope.buildQuestion = {
     id: 'asdf',
     type: 'freeText',
@@ -320,6 +325,37 @@ function campaignBuilderCtr($scope, $location, $routeParams, tempObjects, campai
     });
   };
   
+  $scope.deleteQuestion = function(index) {
+    $scope.buildCampaign.questionsList.splice(index, 1);  
+  };
+  
+  $scope.editing_question = false;
+  var buildQuestionIndex;
+  
+  $scope.togglePanel = function(panelName) {  //this is in here because of different scoped buildQuestions. I'm tired. bad note. we just need separate functions for the individual panels. :/
+  
+    $('aside').toggleClass('visible');  //why are we using jQuery here? come on!
+    $scope.panel=panelName;
+    
+    $scope.buildQuestion = {
+        id: "",
+        type: "freeText",
+        text: "",
+        answers: []
+    };
+    
+    $scope.editing_question = false;
+  };
+  
+  $scope.editQuestion = function(index) {
+    buildQuestionIndex = index;
+    var original_question = angular.copy($scope.buildCampaign.questionsList[index]);
+    
+    $scope.togglePanel('Create Question');
+    $scope.buildQuestion = angular.copy(original_question);
+    $scope.editing_question = true;
+  };
+  
   $scope.addLocation = function(input_location, list_of_locations) {    
     list_of_locations.push({
       id: new Date().getTime(),
@@ -329,7 +365,6 @@ function campaignBuilderCtr($scope, $location, $routeParams, tempObjects, campai
   };
   
   $scope.saveQuestion = function() {
-    
     if ($scope.buildQuestion.type == 'rating') {
       $scope.buildQuestion.answers = [
         {
@@ -350,25 +385,23 @@ function campaignBuilderCtr($scope, $location, $routeParams, tempObjects, campai
         },
       ];
     };
-    $scope.buildCampaign.questionsList.push(angular.copy($scope.buildQuestion));
     
+    if ($scope.editing_question == false) {
+      $scope.buildCampaign.questionsList.push(angular.copy($scope.buildQuestion));
+    }
+    else {
+      $scope.buildCampaign.questionsList[buildQuestionIndex] = angular.copy($scope.buildQuestion);
+    }
+        console.log($scope.buildQuestion)
+    
+    
+    $scope.editing_question = false;
     $scope.buildQuestion = {
         id: "",
         type: "",
         text: "",
         answers: []
     };
-  };
-  
-  $scope.chooseQType = function(question_type) { //function from the form creator
-    $scope.buildCampaign.questionsList.push({
-        id: "q_"+datetime,
-        type: question_type,
-        text: '',
-        answers: []
-    });
-    var datetime = new Date();    
-    $scope.togglePanel();
   };
   
   $scope.saveChanges = function() {

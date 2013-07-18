@@ -1,10 +1,12 @@
 <header>
-  <button ui-event="{click : 'togglePanel()'}" class="btn left">cancel</button>
-  <button ng-show="panel=='Create Question'" class="btn right" ng-click="saveQuestion()"  ui-event="{click : 'togglePanel()'}">add question</button>
+  <button ng-click="togglePanel()" class="btn left">cancel</button>
+  <button ng-show="panel=='Create Question'" class="btn right" ng-click="saveQuestion()"  ui-event="{click : 'togglePanel()'}">
+    <span ng-if="!editing_question">add question</span>
+    <span ng-if="editing_question">save changes</span>
+  </button>
   <h1 ng-bind="panel"></h1>
 </header>
 <div class="content scroller">
-
   <div ng-show="panel=='Create Question'">
     <h3>Choose Question Type:</h3>
     <ul class="btnset five_btns">
@@ -51,5 +53,5 @@
     <input type="email" name="share_email" placeholder="friend@email.com" />
     <button class="btn" ng-click="togglePanel()">send!</button>
   </div>
-  <div ng-show="panel=='social_accounts'">This is where you would be a list of your connected social accounts.</div>
+  <div ng-show="panel=='social_accounts'">This is where you would find a list of your connected social accounts.</div>
 </div>
