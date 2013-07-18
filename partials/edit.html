@@ -42,25 +42,29 @@
           
             <h3>How will this reward be redeemed?</h3>
             <div>
-              
-              <fieldset class="inline">
-                <input ng-model="location_redemption" type="radio" name="reward_type" ng-true-value="location" id="location_redemption"/>
+              <fieldset>
+                <input ng-model="reward_type" type="radio" name="reward_type" value="location" id="location_redemption"/>
                 <label for="location_redemption">location redemption <small>(User receives a code when they choose to redeem. They will have 10mins to present a code to you or an associate. You will also be able to manually redeem these rewards, in case of technical difficulties.)</small></label>
               </fieldset>
               
-              <fieldset class="inline">
-                <input ng-model="email_redemption" type="radio" name="reward_type" ng-true-value="email" id="email_redemption"/>
+              <fieldset>
+                <input ng-model="reward_type" type="radio" name="reward_type" value="email" id="email_redemption"/>
                 <label for="email_redemption">through email <small>(Prompts user for their email address. You get it, reward automatically gets sent.)</small></label>
               </fieldset>
               
-              <fieldset class="inline">
-                <input ng-model="mail_redemption" type="radio" name="reward_type" ng-true-value="mail" id="mail_redemption"/>
+              <fieldset>
+                <input ng-model="reward_type" type="radio" name="reward_type" value="mail" id="mail_redemption"/>
                 <label for="mail_redemption">mailed to address <small>(Asks user for their mailing address. The rest is up to you!)</small></label>
               </fieldset>
               
-              <fieldset class="inline">
-                <input ng-model="basic_text" type="radio" name="reward_type" ng-true-value="basic_text" id="basic_text"/>
+              <fieldset>
+                <input ng-model="reward_type" type="radio" name="reward_type" value="basic_text" id="basic_text"/>
                 <label for="basic_text">Basic text <small>(Free text to do what you want. Could be a code for your own system, a link to a website, go wild!)</small></label>
+              </fieldset>
+              
+              <fieldset>
+                <label for="basic_text_message">Message for the recipient:</label>
+                <textarea placeholder="Put your message, along with any other instructions for redeeming this reward here. This includes any external links, or coupon codes."></textarea>
               </fieldset>
               
             </div>

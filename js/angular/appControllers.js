@@ -259,6 +259,11 @@ function campaignBuilderCtr($scope, $location, $routeParams, tempObjects, campai
     $scope.title = 'Dashboard';
     tempObjects.updateBuildCampaign(campaignData.getCampaign($routeParams.campaignId ));
     $scope.buildCampaign = tempObjects.getBuildCampaign();
+    
+    if ($scope.reward_type == undefined) {
+      $scope.reward_type = "location";
+    }
+    
   };
   
   var selectedQType = '';

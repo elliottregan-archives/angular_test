@@ -228,6 +228,7 @@ transition: 400ms ease-in all;
 
 .scroller_wrapper.with_header_padding {
   padding-top: 40px;
+  padding-bottom: 40px;
 }
 
 .scroller_wrapper {
