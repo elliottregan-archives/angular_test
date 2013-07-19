@@ -1,4 +1,4 @@
-var appmodule = angular.module('appmodule', ['ui']).
+var appmodule = angular.module('appmodule', ['ui.sortable']).
   config(['$routeProvider', function($routeProvider) {
     $routeProvider.
       when('/form', {
