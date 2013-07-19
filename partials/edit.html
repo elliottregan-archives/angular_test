@@ -18,9 +18,13 @@
     </nav>
     <div class="scroller">
       <div class="card">
-        <h2>{{buildCampaign.title}}</h2>
+        <h2 ng-bind="buildCampaign.title"></h2>
+        <h3 ng-bind="buildCampaign.handle"></h3>
         <section ng-switch on='currentStep'>
             <div ng-switch-when='0'>
+              <label for="personal_message" ng-model="buildCampaign.message">Create a personal message for the recipient:</label>
+              <textarea id="personal_message" placeholder="(optional)"></textarea>
+              
               <div ng-include src="'partials/form_not_completed.html'"></div>
               <button ng-click="togglePanel('Create Question')" class="btn">+ New Question</button>
             </div>
@@ -156,13 +160,32 @@
             <h2>Permissions set:</h2>
             <ul>
               <li ng-repeat="person in buildCampaign.permissions.accepted">
-                {{person.first}} {{person.last}} <small class="status">permission level: {{person.level}}</small>
+                {{person.first}} {{person.last}} <small class="status">permission level: {{person.level}}</small><button class="btn right" ng-click="deleteListItem($index, buildCampaign.permissions.accepted)">revoke</button>
+              
+                <div>
+                  <label>change permissions:</label>
+                  <fieldset class="inline">
+                    <input ng-model="person.level" type="checkbox" name="perm_respond" ng-true-value="respond" id="perm_respond"/>
+                    <label for="perm_respond">view only</label>
+                  </fieldset>
+                  
+                  <fieldset class="inline">
+                    <input ng-model="person.level" type="checkbox" name="perm_export" ng-true-value="respond" id="perm_export"/>
+                    <label for="perm_export">respond</label>
+                  </fieldset>
+                  
+                  <fieldset class="inline">
+                    <input ng-model="person.level" type="checkbox" name="perm_admin" ng-true-value="admin" id="perm_admin"/>
+                    <label for="perm_admin">admin + export</label>
+                  </fieldset>
+                  
+                </div>
               </li>
             </ul>
             <h2>Pending Invites:</h2>
             <ul>
               <li ng-repeat="person in buildCampaign.permissions.pending">
-                {{person.first}} {{person.last}} ({{person.email}}, {{person.level}}) <small class="status">pending...</small><button class="btn right clear">resend</button>
+                {{person.first}} {{person.last}} ({{person.email}}, {{person.level}}) <small class="status">pending...</small><button class="btn right clear">resend</button><button class="btn right" ng-click="deleteListItem($index, buildCampaign.permissions.pending)">cancel</button>
               </li>
             </ul>
           </div>

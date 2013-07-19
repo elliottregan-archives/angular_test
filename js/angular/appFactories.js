@@ -83,6 +83,7 @@ appmodule.factory('campaignData', function() {
       handle: "crepesandthings",
       description: 'Our main feedback portal.',
       title: 'Crepes & Things',
+      message: 'We value your input. Thanks for sharing with us!',
       local: false,
       locationsList: [
         {
@@ -416,6 +417,7 @@ appmodule.factory('campaignData', function() {
       title: 'Which tea?',
       description: "Asking our customers if they like our green tea or white tea better.",
       local: true,
+      message: 'We value your input. Thanks for sharing with us!',
       locationsList: [
         {
           id: 'asdf',

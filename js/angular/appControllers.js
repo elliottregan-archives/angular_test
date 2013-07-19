@@ -139,6 +139,7 @@ function appCtr($scope, $routeParams, $location, $route, $timeout) {
   };
   
   $scope.advanceStep = function() {
+    
     if ($scope.currentStep < $scope.steps.length-1) {
       $scope.currentStep = $scope.currentStep+1;
     };
@@ -329,10 +330,14 @@ function campaignBuilderCtr($scope, $location, $routeParams, tempObjects, campai
     $scope.buildCampaign.questionsList.splice(index, 1);  
   };
   
+  $scope.deleteListItem = function(index, parent_object) {
+    parent_object.splice(index, 1);  
+  };
+  
   $scope.editing_question = false;
   var buildQuestionIndex;
   
-  $scope.togglePanel = function(panelName) {  //this is in here because of different scoped buildQuestions. I'm tired. bad note. we just need separate functions for the individual panels. :/
+  $scope.togglePanel = function(panelName) {  //this function is also in here because of different scoped buildQuestions. I'm tired. bad note. we just need separate functions for the individual panels. :/
   
     $('aside').toggleClass('visible');  //why are we using jQuery here? come on!
     $scope.panel=panelName;
@@ -392,9 +397,8 @@ function campaignBuilderCtr($scope, $location, $routeParams, tempObjects, campai
     else {
       $scope.buildCampaign.questionsList[buildQuestionIndex] = angular.copy($scope.buildQuestion);
     }
-        console.log($scope.buildQuestion)
     
-    
+    $scope.togglePanel();
     $scope.editing_question = false;
     $scope.buildQuestion = {
         id: "",
