@@ -24,6 +24,7 @@
     
   <link rel="stylesheet" href="css/normalize.css" type="text/css" />
   <link rel="stylesheet" href="css/app.css" type="text/css" />
+  <link rel="stylesheet" href="css/fontello-9444168f/css/fontello.css" type="text/css" />
 </head>
 <body ng-controller="userCtr">
   
@@ -36,23 +37,27 @@
     
     <nav class="main_nav sidebar">
       
-      <button class="personal_button" ng-click="togglePersonalPages()"></button>
+      <div>
+        <button class="btn icon" ng-click="togglePersonalPages()"><i class="icon-users"></i></button>
+      </div>
       
       <div class="personal_pages bounceInDown animated" ng-class="{visible: personal_pages_visible == true}">
         <h3>ACCOUNT PAGES</h3>
         <ul>
-          <li ng-repeat="(page, url) in appPages" ng-click="togglePersonalPages()">
-            <a href="#/{{url}}" ng-click="toggleSidebar()" ng-bind='page'></a>
+          <li ng-click="togglePersonalPages()">
+            <a href="#/settings" ng-click="toggleSidebar()"><i class="icon-cog"></i> My Settings</a>
+          </li>
+          <li ng-click="togglePersonalPages()">
+            <a href="#/rewards" ng-click="toggleSidebar()"><i class="icon-trophy"></i> My Rewards</a>
+          </li>
+          <li ng-click="togglePersonalPages()">
+            <a href="#/history" ng-click="toggleSidebar()"><i class="icon-chat"></i> My Conversations</a>
           </li>
         </ul>
       </div>
-      
-      <!--<a href="http://thenounproject.com/noun/people/#icon-No16570" target="_blank">People</a> designed by <a href="http://thenounproject.com/ofcapl" target="_blank">Łukasz Kupś (OfcaPL)</a> from The Noun Project-->
-      
-      
-      <h3>CAMPAIGN SHORTCUTS</h3>
+            
       <ul>
-        <li><a href="#dashboard" ng-click="toggleSidebar()">Dashboard</a></li>
+        <li><a href="#dashboard" ng-click="toggleSidebar()"><i class="icon-home"></i></a></li>
         <li ng-repeat="campaign in campaignList">
           <a href="#/campaign/{{campaign.id}}/instances" ng-bind="campaign.title" ng-click="toggleSidebar()"></a>
         </li>
@@ -60,12 +65,11 @@
     </nav>
     
     <nav class="second_nav sidebar">
-      <h3>CAMPAIGN PAGES</h3>
       <ul>
-        <li><a href="#/campaign/{{campaignId}}/analytics" ng-click="toggleSidebar()">Analytics</a></li>
-        <li ng-hide="multipleViewCampaigns"><a href="#/campaign/{{campaignId}}/edit" ng-click="toggleSidebar()">edit</a></li>
-        <li><a href="#/campaign/{{campaignId}}/rewards" ng-click="toggleSidebar()">rewards</a></li>
-        <li><a href="#/campaign/{{campaignId}}/contacts" ng-click="toggleSidebar()">contacts</a></li>
+        <li><a href="#/campaign/{{campaignId}}/analytics" ng-click="toggleSidebar()">Analytics <i class="icon-chart-bar"></i></a></li>
+        <li ng-hide="multipleViewCampaigns"><a href="#/campaign/{{campaignId}}/edit" ng-click="toggleSidebar()">edit <i class="icon-pencil"></i></a></li>
+        <li><a href="#/campaign/{{campaignId}}/rewards" ng-click="toggleSidebar()">rewards <i class="icon-trophy"></i></a></li>
+        <li><a href="#/campaign/{{campaignId}}/contacts" ng-click="toggleSidebar()">contacts <i class="icon-at"></i></a></li>
       </ul>
     </nav>
   </div>

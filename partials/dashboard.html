@@ -1,13 +1,11 @@
 <div class="animation_wrapper layer0">
     <header>
-      <button ng-click="toggleSidebar('right')" class="btn left">menu</button>
-      
-      <h1>{{title}}</h1>
+      <button ng-click="toggleSidebar('right')" class="btn icon left"><i class="icon-menu"></i></button>
     </header>
   
     <div class="scroller_wrapper with_header_padding">
     <section class="scroller">
-      <button class="btn full_width" ng-click="toggleNewMode()" ng-show="!new_mode" ng-hide="edit_mode == true">+ New Campaign</button>
+      <button class="btn primary full_width" ng-click="toggleNewMode()" ng-show="!new_mode" ng-hide="edit_mode == true">+ New Campaign</button>
       <div ng-show="new_mode">
         <form ng-submit="createCampaign(new_campaign_title, handle_to_submit, is_local, new_campaign_locale, discoverable)">
           <label for="handle_select">Choose a handle</label>
@@ -63,7 +61,7 @@
           </form>
         </li>
       </ul>
-      <button ng-click="toggleArchived()" class="btn full_width">
+      <button ng-click="toggleArchived()" class="btn fadded full_width">
         <span ng-show="view_archived == true">hide archived</span>
         <span ng-show="view_archived == false">view archived</span>
       </button>

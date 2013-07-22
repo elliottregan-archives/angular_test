@@ -2,8 +2,8 @@
   
 <div class="animation_wrapper layer1">
     <header>
-      <a href="#/dashboard" class="btn left">Dashboard</a>
-      <button class="btn right" ng-click="toggleSidebar('left')"> . . . </button>
+      <a href="#/dashboard" class="btn icon left"><i class="icon-home"></i></a>
+      <button class="btn icon right" ng-click="toggleSidebar('left')"> . . . </button>
       <h1 ng-bind="title"></h1>
     </header>
     <div class="scroller_wrapper with_header_padding">
@@ -17,7 +17,7 @@
     <div>
         <aside class="tools_panel" ng-class="{visible: conversationDetailView == true}">
         <header>
-          <button class="left btn"ng-click="toggleToolPanel()">close</button>
+          <button class="left icon btn"ng-click="toggleToolPanel()"><i class="icon-cancel"></i></button>
           <h1>Collaboration Tools</h1>
         </header>
         <div class="scroller_wrapper with_header_padding">

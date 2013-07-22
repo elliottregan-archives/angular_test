@@ -238,7 +238,7 @@ transition: 400ms ease-in all;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  background-color: #dfe0df;
+  background-color: #ffffff;
 }
 
 .scroller {
@@ -261,7 +261,7 @@ transition: 400ms ease-in all;
 
 header {
   position: absolute;
-  background-color: #d5d5d5;
+  background-color: #ffffff;
   width: 100%;
   height: 40px;
   
@@ -281,8 +281,7 @@ header h1, header h2 {
 }
 
 header .btn {
-  margin: 6px;
-  padding: 4px;
+  margin: 6px 10px;
   line-height: 20px;
 }
 
@@ -723,8 +722,8 @@ fieldset.padded {
 }
 
 .btn {
-  background-color: #555555;
-  color: #d9d9d9;
+  background-color: #b2c951;
+  color: #ffffff;
   cursor: pointer;
   text-decoration: none;
   padding: 8px 14px;
@@ -733,10 +732,30 @@ fieldset.padded {
   -moz-border-radius: 2px;
   border-radius: 2px;
   font-size: .8em;
-  border: 1px solid #343534;
-  -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.37);
-  -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.37);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.37);
+  border: 1px solid rgba(52, 52, 52, 0);
+}
+
+.btn.primary {
+  color: #545454;
+}
+
+.btn.fadded {
+  background-color: #fefffe;
+  border-color: #c0cc8c;
+  color: #bfcb8b;
+}
+
+.btn.icon {
+  background-color: #ffffff;
+  color: #535352;
+  padding: 2px 7px;
+  border: 1px solid #4c4d4c;
+  border-radius: 4px;
+}
+
+.btn.icon:active {
+  background-color: #4c4c4b;
+  color: #fffffe;
 }
 
 .btn.disabled {
@@ -844,21 +863,23 @@ fieldset.padded {
 }
 
 .object_list li.selected {
-  background-color: #a3a3a3;
-  color: #fefefe;
+  background-color: #ffffff;
 }
 
 .object_list li .checkbox {
-  height: 40px;
-  width: 40px;
+  height: 30px;
+  width: 30px;
   display: block;
-  background-color: #cbcbcb;
-  border: 1px solid #a8a8a8;
-  margin: 3px;
+  background-color: #ffffff;
+  border: 2px solid #535453;
+  margin: 10px 10px 3px 0;
+  border-radius: 20px;
 }
 
 .object_list li.selected .checkbox {
-  background-color: #fdfefd;
+  background-color: #ffffff;
+  border-style: double;
+  border-width: 6px;
 }
 
 .campaign_info::after {

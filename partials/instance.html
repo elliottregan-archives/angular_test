@@ -1,12 +1,12 @@
 
 <article class="card" ng-init="instance.cap = -2">
-  <button class="btn right" ng-click="toggleFullFormView()">toggle view</button>
-  <button ng-click="toggleToolPanel(instance)" class="btn right">Tools</button>
+  <!--<button class="btn right" ng-click="toggleFullFormView()">toggle view</button>-->
+  <button ng-click="toggleToolPanel(instance)" class="btn right"><i class="icon-cog"></i></button>
   <button ng-click="hearIt(instance)" class="btn right heard heard_{{instance.heard}}" ui-if="instance.author != 'You'">heard!</button>
   <h4><a href="#/campaign/{{viewCampaign.id}}/contacts/{{instance.author}}" ng-bind="instance.author"></a></h4>
   <time ng-bind="instance.time"></time>
   <div ng-include src="'partials/form_completed.html'"></div>
-    <button class="btn right" ng-click="expandReplies(instance)">expand replies</button>
+    <button class="btn right" ng-click="expandReplies(instance)"><i class="icon-down-open"></i></button>
   
   <ul class="replies">
     <li ng-repeat="comment in (instance.comments | limitTo:instance.cap)" class="reply" ng-animate="'collapse'">
@@ -19,7 +19,7 @@
     </li>
   </ul>
   <form class="reply" ng-submit="addReply(newCommentText, instance.comments)">
-    <button class="btn inline" type="submit">reply</button>
+    <button class="btn inline" type="submit"><i class="icon-paper-plane"></i></button>
     <input type="text" class="inline" name="new_comment" ng-model="newCommentText" />
   </form>
 </article>
