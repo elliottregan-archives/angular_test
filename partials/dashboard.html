@@ -50,20 +50,12 @@
         </form>
       </div>
       
-      <div>
-        {{testModel}}
-      </div>
-      
-      <div ng-controller="controlPanelCtr" jq-draggable>
-        <button ng-click="changeTestValue()">change it</button>
-        <button ng-click="resetTestValue('99')">reset it</button>
-      </div>
-      
       <ul id="campaign_list" class="object_list" ui-sortable="sortableOptions">
         
         <li ng-repeat="campaign in activeCampaignList" ng-class="{selected : selected_campaigns.some(campaign.id)}">
           
           <div class="handle right"><i class="icon-menu"></i></div>
+          <div class="right new_counter" ng-if="campaign.newCounter != 0" ng-bind="campaign.newCounter"></div>
           <div class="left">
             <button class="checkbox" ng-click="selectCampaign('{{campaign.id}}')"></button>
           </div>

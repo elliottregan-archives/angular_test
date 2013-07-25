@@ -80,6 +80,7 @@ appmodule.factory('campaignData', function() {
     camp0: {
       id: 'camp0',
       archived: false,
+      newCounter: 0,
       handle: "crepesandthings",
       description: 'Our main feedback portal.',
       title: 'Crepes & Things',
@@ -413,6 +414,7 @@ appmodule.factory('campaignData', function() {
     camp1: {
       id: 'camp1',
       archived: false,
+      newCounter: 0,
       handle: "crepesandthings_tea",
       title: 'Which tea?',
       description: "Asking our customers if they like our green tea or white tea better.",

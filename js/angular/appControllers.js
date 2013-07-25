@@ -11,18 +11,121 @@ function formCtr($scope, formData, campaignData) {
 
 function controlPanelCtr($scope) {
   
-  $scope.$watch('testModel', function() {
-    $scope.$emit("MODEL_CHANGED", $scope.testModel);
-  }, true);
+  $scope.receiveFdbk = function() {
+    var campaignIndex = ['camp0', 'camp1'].sample();
+    messageId = Number.random(10,500);
+    var newMessage = {
+      id: 'msg10',
+      author: "user1",
+      time: "just now",
+      questionsList: [
+        {
+          id: 'asdf',
+          type: 'multipleChoice',
+          text: "How was your service today?",
+          answers: [
+            {
+              id: 0,
+              text: "ass"
+            },
+            {
+              id: 2,
+              text: "mehhhhh..."
+            },
+            {
+              id: 3,
+              text: "better than not"
+            },
+            {
+              id: 4,
+              text: "fabul-fucking-tastic!"
+            }
+          ],
+          response: 4
+        },
+        {
+          id: 'asdf2',
+          type: 'binary',
+          text: "Yes or no?",
+          answers: [
+            {
+              id: 50,
+              text: "yes"
+            },
+            {
+              id: 52,
+              text: "no"
+            }
+          ],
+          response: 50
+        },
+        {
+          id: 'asdf3',
+          type: 'freeText',
+          text: "Tell us about something you like.",
+          answers: [],
+          response: "I like turtles."
+        },
+        {
+          id: 'asdf4',
+          type: 'number',
+          text: "How old are you?",
+          answers: [],
+          response: 18
+        },
+        {
+          id: 'asdf5',
+          type: 'rating',
+          text: "Rate your overall experience.",
+          answers: [
+            {
+              id: 30,
+              text: "poor"
+            },
+            {
+              id: 32,
+              text: "fair"
+            },
+            {
+              id: 33,
+              text: "good"
+            },
+            {
+              id: 34,
+              text: "great"
+            },
+          ],
+          response: 33
+        }
+      ],
+      heard: "false",
+      comments: [],
+      reward: {
+        id: "rwd1",
+        title: 'Free rocket ball',
+        description: 'What is a rocket ball?',
+        creator: "RocketMan",
+        terms: "Guess correctly, and you get it for free!",
+        exp_date: "2/28/1993",
+        date_claimed: false,
+        verified: false,
+        owner: "user1",
+        passphrase: "applegoat",
+        date_issued: "1/2/1013",
+        shared_with: ["Joe", "Mark", "Ruby"]
+      },
+      collaboration: {
+        importance: false,
+        tags: [],
+        tagged_users: [],
+        comments: []
+      }
+    };
+
+    $scope.$emit("NEW_MESSAGE", campaignIndex, newMessage, messageId);
   
-  $scope.changeTestValue = function() {
-    var set = [1,2,3,4,5]
-    $scope.testModel = set.sample();  
   };
-  
-  $scope.resetTestValue = function(id) {
-    $scope.testModel = 99;  
-  };
+
 };
 
 function appCtr($scope, $routeParams, $location, $route, $timeout) {
@@ -39,9 +142,9 @@ function appCtr($scope, $routeParams, $location, $route, $timeout) {
     $scope.$broadcast("UPDATE_CAMPAIGN_ID", id_from_instances);
   });
   
-  $scope.$on("MODEL_CHANGED", function(event, value) {
-    $scope.testModel = value;  
-  });
+  $scope.$on("NEW_MESSAGE", function(event, campaignIndex, message, messageId) {
+    $scope.$broadcast("MESSAGE_RECEIVED", campaignIndex, message, messageId);
+  });  
     
   init();
   
@@ -194,12 +297,18 @@ function userCtr($scope, userData, campaignData) {
 
 function campaignCtr($scope, $routeParams, $location, campaignData) {
   
-  
   init();
   
   $scope.$on("ENTERED_CAMPAIGN", function(event, id_from_instances) {
     $scope.campaignId = $routeParams.campaignId;
+    $scope.campaignList[$scope.campaignId].newCounter = 0;
     init();
+  });
+  
+  $scope.$on("MESSAGE_RECEIVED", function(event, campaignIndex, message, messageId) {
+    $scope.campaignList[campaignIndex].instances[messageId] = message;
+    $scope.campaignList[campaignIndex].newCounter = $scope.campaignList[campaignIndex].newCounter + 1;
+    console.log("messaged")
   });
   
   function checkIfUrlCampaginsExist(array_of_campaign_ids) {
@@ -435,7 +544,7 @@ function campaignBuilderCtr($scope, $location, $routeParams, tempObjects, campai
 };
 
 function dashCtr($scope, $routeParams, $location, campaignData, tempObjects) {
-  var campaignList = campaignData.getCampaigns();
+  $scope.campaignList = campaignData.getCampaigns();
   
   $scope.view_archived = false;
   $scope.edit_mode = false;
@@ -446,6 +555,10 @@ function dashCtr($scope, $routeParams, $location, campaignData, tempObjects) {
   $scope.activeCampaignList = {};
   $scope.archivedCampaignList = {};
   
+  $scope.$on("MESSAGE_RECEIVED", function(event, campaignIndex, message) {
+    $scope.campaignList[campaignIndex].instances[message.id] = message;
+    $scope.campaignList[campaignIndex].newCounter = $scope.campaignList[campaignIndex].newCounter + 1;
+  });
   
   init();
   checkForArchived();
@@ -458,12 +571,12 @@ function dashCtr($scope, $routeParams, $location, campaignData, tempObjects) {
   
   $scope.archiveListItem = function(clicked_list_item, parent_object) {
     $scope.toggleEditMode();
-    campaignList[clicked_list_item].archived = true;
+    $scope.campaignList[clicked_list_item].archived = true;
     splitCampaignList();
   };
   
   $scope.unarchiveListItem = function(clicked_list_item, relocate_to_object) {
-    campaignList[clicked_list_item.id].archived = false;
+    $scope.campaignList[clicked_list_item.id].archived = false;
     splitCampaignList();
     
   };
@@ -481,16 +594,16 @@ function dashCtr($scope, $routeParams, $location, campaignData, tempObjects) {
   
   function splitCampaignList() {    
     
-    var campaignIds = Object.getOwnPropertyNames(campaignList);
+    var campaignIds = Object.getOwnPropertyNames($scope.campaignList);
     $scope.activeCampaignList = {};
     $scope.archivedCampaignList = {};
     
     campaignIds.forEach( function(campaign_id) {
-      if (campaignList[campaign_id].archived == false) {
-        $scope.activeCampaignList[campaign_id] = campaignList[campaign_id];
+      if ($scope.campaignList[campaign_id].archived == false) {
+        $scope.activeCampaignList[campaign_id] = $scope.campaignList[campaign_id];
       }
       else {
-        $scope.archivedCampaignList[campaign_id] = campaignList[campaign_id];
+        $scope.archivedCampaignList[campaign_id] = $scope.campaignList[campaign_id];
       }
     });
     checkForArchived();
