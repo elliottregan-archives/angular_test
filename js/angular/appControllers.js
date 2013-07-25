@@ -555,11 +555,6 @@ function dashCtr($scope, $routeParams, $location, campaignData, tempObjects) {
   $scope.activeCampaignList = {};
   $scope.archivedCampaignList = {};
   
-  $scope.$on("MESSAGE_RECEIVED", function(event, campaignIndex, message) {
-    $scope.campaignList[campaignIndex].instances[message.id] = message;
-    $scope.campaignList[campaignIndex].newCounter = $scope.campaignList[campaignIndex].newCounter + 1;
-  });
-  
   init();
   checkForArchived();
   
