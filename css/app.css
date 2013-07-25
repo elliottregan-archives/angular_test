@@ -148,11 +148,11 @@ opacity: 1;
 
 .slide-enter,
 .slide-leave {
--webkit-transition: 400ms ease-in all;
--moz-transition: 400ms ease-in all;
--ms-transition: 400ms ease-in all;
--o-transition: 400ms ease-in all;
-transition: 400ms ease-in all;
+  -webkit-transition: 400ms ease-in all;
+  -moz-transition: 400ms ease-in all;
+  -ms-transition: 400ms ease-in all;
+  -o-transition: 400ms ease-in all;
+  transition: 400ms ease-in all;
   position: absolute;
   width: 100%;
 }
@@ -180,10 +180,12 @@ transition: 400ms ease-in all;
 .slide-enter.layer0 {
   left: 0;
   -webkit-transform: scale(.8);
+  -moz-transform: scale(.8);
 }
 
 .slide-enter-active.layer0 {
   -webkit-transform: scale(1);
+  -moz-transform: scale(1);
   left: 0;
   
 }
@@ -195,17 +197,19 @@ transition: 400ms ease-in all;
 .slide-leave {
   left: 100%;
   -webkit-transform: scale(1);
+  -moz-transform: scale(1);
 }
 
 .slide-leave-active {
   -webkit-transform: scale(.8);
+  -moz-transform: scale(.8);
 }
 
 .slide-leave.layer1 {
   left: 100%;
   z-index: 100;
   -webkit-transform: scale(1);
-  
+  -moz-transform: scale(1);
 }
 
 .layer1 {
@@ -228,6 +232,10 @@ transition: 400ms ease-in all;
 
 .scroller_wrapper.with_header_padding {
   padding-top: 40px;
+  padding-bottom: 0px;
+}
+
+.scroller_wrapper.with_header_padding.extra {
   padding-bottom: 40px;
 }
 
@@ -259,7 +267,7 @@ transition: 400ms ease-in all;
 
 /* @group Header Stuff */
 
-header {
+.app_header {
   position: absolute;
   background-color: #ffffff;
   width: 100%;
@@ -271,6 +279,18 @@ header {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   color: #2d2d2d;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+
+.instance_header {
+  margin-bottom: 0px;
+  padding: 4px 0;
+  border-top: 3px solid #535251;
+}
+
+.card section {
+  border-top: 1px solid #525150;
+  padding: 4px 0;
 }
 
 header h1, header h2 {
@@ -283,6 +303,7 @@ header h1, header h2 {
 header .btn {
   margin: 6px 10px;
   line-height: 20px;
+  font-size: 14px;
 }
 
 .dropdown {
@@ -345,6 +366,11 @@ p {
 
 .clear {
   clear: both;
+}
+
+header .btn {
+  padding: 2px 10px;
+  font-size: .8em;
 }
 
 .btnset {
@@ -592,15 +618,32 @@ form {
 }
 
 .instance {
-  margin: 10px 0;
+  margin: 10px 0 60px;
 }
 
 .instance .btn_set {
   float: right;
 }
 
-.instance h3, .instance h4 {
+.instance h3 {
   font-weight: bold;
+  font-size: 1.1em;
+  margin: 0 4px 10px 0;
+}
+
+.instance h4 {
+  margin: 10px 0 0;
+}
+
+.instance label, .instance p {
+  margin: 0px 0 20px;
+}
+
+.instance h2 {
+  text-align: left;
+  padding: 0;
+  margin: 0;
+  font-size: 1.1em;
 }
 
 .instance time {
@@ -610,19 +653,16 @@ form {
 }
 
 .card {
-  background-color: #f0f0f0;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  padding: 4px;
-  border: 1px solid #989998;
+  border-style: none;
 }
 
 .replies {
   padding: 0;
-  margin: 0 0 0 20px;
+  margin: 0;
   font-size: .9em;
-  border-left: 3px solid #545554;
   -webkit-transition: all 200ms ease-in-out;
   -moz-transition: all 200ms ease-in-out;
   -ms-transition: all 200ms ease-in-out;
@@ -636,12 +676,12 @@ form {
   -ms-transition: all 200ms ease-in-out;
   -o-transition: all 200ms ease-in-out;
   transition: all 200ms ease-in-out;
-  padding: 0 10px 10px;
+  padding: 10px 0;
 }
 
 form.reply {
   margin-top: 10px;
-  padding: 20px 10px;
+  padding: 20px 0;
 }
 
 .reply p {
@@ -670,10 +710,6 @@ input[type="text"].inline {
 
 /* @group Form Stuff */
 
-form.reply {
-  padding-left: 20px;
-}
-
 form h3 {
   margin: .5em 0;
 }
@@ -688,10 +724,6 @@ fieldset.padded {
 
 .answers li {
   margin: .3em 0;
-}
-
-.answers label {
-  padding-left: .3em;
 }
 
 .answers .inline input {
@@ -726,13 +758,14 @@ fieldset.padded {
   color: #ffffff;
   cursor: pointer;
   text-decoration: none;
-  padding: 8px 14px;
+  padding: 4px 10px;
   text-align: center;
   -webkit-border-radius: 2px;
   -moz-border-radius: 2px;
   border-radius: 2px;
   font-size: .8em;
-  border: 1px solid rgba(52, 52, 52, 0);
+  border: 1px solid rgba(0, 0, 0, 0.17);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.14), inset 0 1px rgba(255, 255, 255, 0.35);
 }
 
 .btn.primary {
@@ -749,7 +782,7 @@ fieldset.padded {
   background-color: #ffffff;
   color: #535352;
   padding: 2px 7px;
-  border: 1px solid #4c4d4c;
+  border: 1px solid rgba(76, 77, 76, 0);
   border-radius: 4px;
 }
 
@@ -856,14 +889,19 @@ fieldset.padded {
   padding: 4px;
 }
 
+.toolbar {
+  height: 20px;
+}
+
 .object_list li {
   background-color: #ffffff;
-  padding: 4px;
-  margin: 10px 0;
+  margin: 0;
+  padding: 10px 0;
 }
 
 .object_list li.selected {
   background-color: #ffffff;
+  color: #212121;
 }
 
 .object_list li .checkbox {
@@ -874,6 +912,9 @@ fieldset.padded {
   border: 2px solid #535453;
   margin: 10px 10px 3px 0;
   border-radius: 20px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 .object_list li.selected .checkbox {
@@ -1128,7 +1169,9 @@ textarea {
 
 /* @group from animate.css */
 
-.animated{-webkit-animation-fill-mode:both;-moz-animation-fill-mode:both;-ms-animation-fill-mode:both;-o-animation-fill-mode:both;animation-fill-mode:both;-webkit-animation-duration:1s;-moz-animation-duration:1s;-ms-animation-duration:1s;-o-animation-duration:1s;animation-duration:1s;}.animated.hinge{-webkit-animation-duration:2s;-moz-animation-duration:2s;-ms-animation-duration:2s;-o-animation-duration:2s;animation-duration:2s;}@-webkit-keyframes bounceInUp {
+.animated{-webkit-animation-fill-mode:both;-moz-animation-fill-mode:both;-ms-animation-fill-mode:both;-o-animation-fill-mode:both;animation-fill-mode:both;-webkit-animation-duration:.5s;-moz-animation-duration:.5s;-ms-animation-duration:.5s;-o-animation-duration:.5s;animation-duration:.5s;}
+
+@-webkit-keyframes bounceInUp {
 	0% {
 		opacity: 0;
 		-webkit-transform: translateY(2000px);
@@ -1191,72 +1234,20 @@ textarea {
 	-o-animation-name: bounceInUp;
 	animation-name: bounceInUp;
 }
-@-webkit-keyframes bounceOutDown {
-	0% {
-		-webkit-transform: translateY(0);
-	}
-	
-	20% {
-		opacity: 1;
-		-webkit-transform: translateY(-20px);
-	}
-	
-	100% {
-		opacity: 0;
-		-webkit-transform: translateY(2000px);
-	}
-}
-
-@-moz-keyframes bounceOutDown {
-	0% {
-		-moz-transform: translateY(0);
-	}
-	
-	20% {
-		opacity: 1;
-		-moz-transform: translateY(-20px);
-	}
-	
-	100% {
-		opacity: 0;
-		-moz-transform: translateY(2000px);
-	}
-}
-
-@keyframes bounceOutDown {
-	0% {
-		transform: translateY(0);
-	}
-	
-	20% {
-		opacity: 1;
-		transform: translateY(-20px);
-	}
-	
-	100% {
-		opacity: 0;
-		transform: translateY(2000px);
-	}
-}
-
-.bounceOutDown {
-	-webkit-animation-name: bounceOutDown;
-	-moz-animation-name: bounceOutDown;
-	-o-animation-name: bounceOutDown;
-	animation-name: bounceOutDown;
-}
 
 @-webkit-keyframes bounceInDown {
 	0% {
 		opacity: 0;
-		-webkit-transform: translateY(-2000px);
-	}	60% {
+		-webkit-transform: translateY(-40px);
+	}
+	
+	40% {
 		opacity: 1;
-		-webkit-transform: translateY(30px);
+		-webkit-transform: translateY(10px);
 	}
 	
 	80% {
-		-webkit-transform: translateY(-10px);
+		-webkit-transform: translateY(-5px);
 	}
 	
 	100% {
@@ -1267,36 +1258,36 @@ textarea {
 @-moz-keyframes bounceInDown {
 	0% {
 		opacity: 0;
-		-moz-transform: translateY(-2000px);
+		transform: translateY(-40px);
 	}
 	
-	60% {
+	40% {
 		opacity: 1;
-		-moz-transform: translateY(30px);
+		transform: translateY(10px);
 	}
 	
 	80% {
-		-moz-transform: translateY(-10px);
+		transform: translateY(-5px);
 	}
 	
 	100% {
-		-moz-transform: translateY(0);
+		transform: translateY(0);
 	}
 }
 
 @keyframes bounceInDown {
 	0% {
 		opacity: 0;
-		transform: translateY(-2000px);
+		transform: translateY(-40px);
 	}
 	
-	60% {
+	40% {
 		opacity: 1;
-		transform: translateY(30px);
+		transform: translateY(10px);
 	}
 	
 	80% {
-		transform: translateY(-10px);
+		transform: translateY(-5px);
 	}
 	
 	100% {
@@ -1312,3 +1303,22 @@ textarea {
 }
 
 /* @end */
+
+.bounceIn-enter
+{
+-webkit-animation-name: bounceInDown;
+-moz-animation-name: bounceInDown;
+-o-animation-name: bounceInDown;
+animation-name: bounceInDown;
+}
+ 
+.bounceIn-leave.bounceIn-leave-active,
+.bounceIn-enter {
+
+
+}
+ 
+.bounceIn-enter.bounceIn-enter-active,
+.bounceIn-leave {
+
+}

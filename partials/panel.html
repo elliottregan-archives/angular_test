@@ -1,5 +1,5 @@
-<header>
-  <button ng-click="togglePanel()" class="btn left">cancel</button>
+<header class="app_header">
+  <button ng-click="togglePanel()" class="btn icon left">cancel</button>
   <button ng-show="panel=='Create Question'" class="btn right" ng-click="saveQuestion()"  ui-event="{click : 'togglePanel()'}">
     <span ng-if="!editing_question">add question</span>
     <span ng-if="editing_question">save changes</span>

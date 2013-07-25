@@ -3,14 +3,14 @@
 </aside>
 
 <section id="page_02" class="animation_wrapper">
-  <header>
-    <a href="#/campaign/{{buildCampaign.id}}/instances" class="btn left">cancel</a>
-    <a ng-click='advanceStep()' ng-hide='currentStep >= (steps.length-1)' class="btn right">Next Page</a>
+  <header class="app_header">
+    <a href="#/campaign/{{buildCampaign.id}}/instances" class="btn icon left"><i class="icon-left-open"></i>cancel</a>
+    <a ng-click='advanceStep()' ng-hide='currentStep >= (steps.length-1)' class="btn right">next<i class="icon-right-open"></i></a>
     <button ng-show='currentStep >= (steps.length-1)' class="btn right" ng-click="saveChanges()">Save Changes</button>
     <h2>Edit {{buildCampaign.title}}: Step {{steps[currentStep]+1}}</h2>
   </header>
   
-  <div class="scroller_wrapper with_header_padding">
+  <div class="scroller_wrapper with_header_padding extra">
     <nav>
       <ol class="breadcrumbs five_btns btnset">
         <li ng-class="{selected: currentStep==n}" class="crumb btn" ng-repeat='n in steps' ng-click='changeStep(n)'>{{n+1}}</li>

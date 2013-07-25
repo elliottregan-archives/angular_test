@@ -1,6 +1,7 @@
-<ol ui-sortable>
+<ol ui-sortable="sortableOptions">
   <li ng-repeat="question in buildCampaign.questionsList">
     
+    <div class="handle right"><i class="icon-menu"></i></div>
     <div class="right">
       <button ng-click="editQuestion($index)">edit</button>
       <button ng-click="deleteQuestion($index)">delete</button>

@@ -1,25 +1,34 @@
 
 <article class="card" ng-init="instance.cap = -2">
   <!--<button class="btn right" ng-click="toggleFullFormView()">toggle view</button>-->
-  <button ng-click="toggleToolPanel(instance)" class="btn right"><i class="icon-cog"></i></button>
-  <button ng-click="hearIt(instance)" class="btn right heard heard_{{instance.heard}}" ui-if="instance.author != 'You'">heard!</button>
-  <h4><a href="#/campaign/{{viewCampaign.id}}/contacts/{{instance.author}}" ng-bind="instance.author"></a></h4>
-  <time ng-bind="instance.time"></time>
-  <div ng-include src="'partials/form_completed.html'"></div>
-    <button class="btn right" ng-click="expandReplies(instance)"><i class="icon-down-open"></i></button>
+  <header class="instance_header">
+    <button ng-click="toggleToolPanel(instance)" class="btn icon right"><i class="icon-cog"></i></button>
+    <h2><a href="#/campaign/{{viewCampaign.id}}/contacts/{{instance.author}}" ng-bind="instance.author"></a></h2>
+    <time ng-bind="instance.time"></time>
+  </header>
+  <section>
+    <button ng-click="hearIt(instance)" class="btn right heard heard_{{instance.heard}}" ng-if="instance.author != 'You'">heard!</button>
+    <div ng-include src="'partials/form_completed.html'"></div>
+    
+    <button class="btn icon right" ng-if="isExpandable" ng-click="expandReplies(instance)"><i class="icon-down-open" ng-if="isExpandable"></i><i class="icon-up-open"></i></button>
+  </section>
   
-  <ul class="replies">
-    <li ng-repeat="comment in (instance.comments | limitTo:instance.cap)" class="reply" ng-animate="'collapse'">
-      <button ng-click="hearIt(comment)" class="btn heard heard_{{comment.heard}}" ui-if="comment.author != 'You'">heard!</button>
-      <h5>
-        <span ui-if="comment.author != 'You'" ng-bind="comment.author"></span>
-        <span ui-if="comment.author == 'You'">You</span>
-      </h5>
-      <p ng-bind="comment.text"></p>
-    </li>
-  </ul>
-  <form class="reply" ng-submit="addReply(newCommentText, instance.comments)">
-    <button class="btn inline" type="submit"><i class="icon-paper-plane"></i></button>
-    <input type="text" class="inline" name="new_comment" ng-model="newCommentText" />
-  </form>
+  <section>
+    <h3>Conversation</h3>
+    
+    <ul class="replies">
+      <li ng-repeat="comment in (instance.comments | limitTo:instance.cap)" class="reply" ng-animate="'collapse'">
+        <button ng-click="hearIt(comment)" class="btn heard heard_{{comment.heard}}" ng-if="comment.author != 'You'">heard!</button>
+        <h5>
+          <span ng-if="comment.author != 'You'" ng-bind="comment.author"></span>
+          <span ng-if="comment.author == 'You'">You</span>
+        </h5>
+        <p ng-bind="comment.text"></p>
+      </li>
+    </ul>
+    <form class="reply" ng-submit="addReply(newCommentText, instance.comments)">
+      <button class="btn inline" type="submit"><i class="icon-paper-plane"></i></button>
+      <input type="text" class="inline" name="new_comment" ng-model="newCommentText" />
+    </form>
+  </section>
 </article>

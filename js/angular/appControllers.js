@@ -9,15 +9,40 @@ function formCtr($scope, formData, campaignData) {
  
 };
 
+function controlPanelCtr($scope) {
+  
+  $scope.$watch('testModel', function() {
+    $scope.$emit("MODEL_CHANGED", $scope.testModel);
+  }, true);
+  
+  $scope.changeTestValue = function() {
+    var set = [1,2,3,4,5]
+    $scope.testModel = set.sample();  
+  };
+  
+  $scope.resetTestValue = function(id) {
+    $scope.testModel = 99;  
+  };
+};
+
 function appCtr($scope, $routeParams, $location, $route, $timeout) {
   
-  $scope.$on("ENTERED_CAMPAIGN", function(event, id_from_instances) {
+  $scope.sortableOptions = {
+    axis: 'y',
+    distance: 30,
+    handle: ".handle"
+  };
+  
+  $scope.testModel = "unchanged";
     
+  $scope.$on("ENTERED_CAMPAIGN", function(event, id_from_instances) {
     $scope.$broadcast("UPDATE_CAMPAIGN_ID", id_from_instances);
   });
   
-  $scope.test_value = "app";
-  
+  $scope.$on("MODEL_CHANGED", function(event, value) {
+    $scope.testModel = value;  
+  });
+    
   init();
   
   function init() {
@@ -27,7 +52,7 @@ function appCtr($scope, $routeParams, $location, $route, $timeout) {
   
   $scope.currentCampaign = "camp0";
   
-  $scope.sidebar_visible = false;
+  $scope.sidebar_visible = false;  
   
   $scope.toggleSidebar = function(direction) {
     
@@ -89,18 +114,6 @@ function appCtr($scope, $routeParams, $location, $route, $timeout) {
     };
     
     $scope.editing_question = false;
-  };
-  
-  $scope.toggleConvo = function() {
-    this.collapsed = !this.collapsed;
-  };
-  
-  $scope.hearIt = function(el) {
-    el.heard = "true";
-  };
-  
-  $scope.isExpanded = function(instance_id) {
-    return expandedReply == instance_id;
   };
   
   function Campaign(id, handle, title, local, location, discoverable) {
@@ -273,7 +286,6 @@ function campaignBuilderCtr($scope, $location, $routeParams, tempObjects, campai
   
   var selectedQType = '';
   
-  
   $scope.buildQuestion = {
     id: 'asdf',
     type: 'freeText',
@@ -424,6 +436,7 @@ function campaignBuilderCtr($scope, $location, $routeParams, tempObjects, campai
 
 function dashCtr($scope, $routeParams, $location, campaignData, tempObjects) {
   var campaignList = campaignData.getCampaigns();
+  
   $scope.view_archived = false;
   $scope.edit_mode = false;
   $scope.new_mode = false;
@@ -435,6 +448,7 @@ function dashCtr($scope, $routeParams, $location, campaignData, tempObjects) {
   
   
   init();
+  checkForArchived();
   
   function init() {
     $scope.activeCampaignList = campaignData.getCampaigns();
@@ -454,6 +468,17 @@ function dashCtr($scope, $routeParams, $location, campaignData, tempObjects) {
     
   };
   
+  function checkForArchived() {
+  
+    if ( Object.isEmpty($scope.archivedCampaignList) ) {
+      $scope.archiveExists = false;
+    }
+    else {
+      $scope.archiveExists = true;
+    }
+  
+  }
+  
   function splitCampaignList() {    
     
     var campaignIds = Object.getOwnPropertyNames(campaignList);
@@ -468,6 +493,7 @@ function dashCtr($scope, $routeParams, $location, campaignData, tempObjects) {
         $scope.archivedCampaignList[campaign_id] = campaignList[campaign_id];
       }
     });
+    checkForArchived();
   };
   
   $scope.toggleArchived = function() {
@@ -833,8 +859,18 @@ function instanceCtr($scope) {
   $scope.full_form_view_on = false;
 
   $scope.toggleFullFormView = function() {
-    console.log($scope.full_form_view_on);
     $scope.full_form_view_on = !$scope.full_form_view_on;
+  };
+  
+  if ($scope.instance.comments.length >= 3) {
+    $scope.isExpandable = true;
+  }
+  else {
+    $scope.isExpandable = false
+  };
+  
+  $scope.hearIt = function(el) {
+    el.heard = "true";
   };
   
   $scope.expandReplies = function(convo) {
@@ -855,19 +891,16 @@ function instanceCtr($scope) {
       heard: false
     });
     this.newCommentText = '';
-    $scope.previewComments.removeAt(0);
     
-    $scope.previewComments.push({
-      commentId: 1,
-      author: "You",
-      time: getDate(),
-      text: post,
-      heard: false
-    });
-    console.log("hello");
+    if ($scope.instance.comments.length >= 3) {
+      $scope.isExpandable = true;
+    }
+    else {
+      $scope.isExpandable = false;
+    };
+    
   };
     
-  $scope.previewComments = $scope.instance.comments.last(2);
 };
 
 function analyticsCtr($scope, $routeParams) {

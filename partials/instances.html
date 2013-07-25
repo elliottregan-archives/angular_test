@@ -1,7 +1,7 @@
 <div class="dimmer" ng-click="toggleToolPanel()" ng-class="{visible: conversationDetailView == true}"></div>
   
 <div class="animation_wrapper layer1">
-    <header>
+    <header class="app_header">
       <a href="#/dashboard" class="btn icon left"><i class="icon-home"></i></a>
       <button class="btn icon right" ng-click="toggleSidebar('left')"> . . . </button>
       <h1 ng-bind="title"></h1>
@@ -16,7 +16,7 @@
     </div>
     <div>
         <aside class="tools_panel" ng-class="{visible: conversationDetailView == true}">
-        <header>
+        <header class="app_header">
           <button class="left icon btn"ng-click="toggleToolPanel()"><i class="icon-cancel"></i></button>
           <h1>Collaboration Tools</h1>
         </header>

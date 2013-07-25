@@ -1,5 +1,5 @@
-<header>
-  <a href="#/dashboard" class="btn left">cancel</a>
+<header class="app_header">
+  <a href="#/dashboard" class="btn icon left">cancel</a>
   <a ng-click='advanceStep()' ng-hide='currentStep >= (steps.length-1)' class="btn right">Next Step</a>
   <a href="#/dashboard" ng-show='currentStep >= (steps.length-1)' class="btn right">Save Changes</a>
   <h2 ng-click="toggleSidebar('right')">Edit Campaign #1: Step {{steps[currentStep]+1}}</h2>
