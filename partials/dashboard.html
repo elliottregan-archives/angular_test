@@ -1,7 +1,6 @@
 <div class="animation_wrapper layer0">
     <header class="app_header">
       <button ng-click="toggleSidebar('right')" class="btn icon left"><i class="icon-menu"></i></button>
-      <button class="btn primary right" ng-click="edit_mode || toggleNewMode()" ng-show="!new_mode" ng-class="{disabled: edit_mode}">+ New Campaign</button>
     </header>
   
     <div class="scroller_wrapper with_header_padding">
@@ -26,7 +25,9 @@
       </div>
       
       <div class="toolbar">
-        <div ng-if="edit_mode == true" ng-animate="{enter: 'bounceIn-enter'}" class="animated">
+        <button class="btn primary full_width" ng-click="edit_mode || toggleNewMode()" ng-if="!new_mode" ng-hide="edit_mode" ng-class="{disabled: edit_mode}">+ New Campaign</button>
+        
+        <div ng-if="edit_mode" ng-animate="{enter: 'bounceIn-enter'}" class="animated">
             <a class="btn" href="{{edit_link}}" ng-class="{disabled: disable_single_edit_buttons}">edit</a>
             <a class="btn" href="{{view_link}}"  ng-class="">view</a>
             <!--<button class="btn" ng-click="deleteAnyListItems(selected_campaigns, activeCampaignList)">delete</button>-->
@@ -55,7 +56,7 @@
         <li ng-repeat="campaign in activeCampaignList" ng-class="{selected : selected_campaigns.some(campaign.id)}">
           
           <div class="handle right"><i class="icon-menu"></i></div>
-          <div class="right new_counter" ng-if="campaign.newCounter != 0" ng-bind="campaign.newCounter"></div>
+          <div class="right new_counter" ng-if="campaign.newCounter != 0" ng-hide="edit_mode" ng-bind="campaign.newCounter"></div>
           <div class="left">
             <button class="checkbox" ng-click="selectCampaign('{{campaign.id}}')"></button>
           </div>

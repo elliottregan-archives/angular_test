@@ -10,9 +10,452 @@ appmodule.factory('tempObjects', function() {
     buildCampaign = incoming_campaign;
   };
   
-  
   return factory;
 
+});
+
+appmodule.factory('accountData', function() {
+
+  var accounts = {
+    account01 : {
+      id : "account01",
+      handle : "thecinema",
+      questions : {
+        q0001 : {
+          id : "q0001",
+          text : "How one does not think they like which more as?",
+          type : "multipleChoice",
+          answers : [
+            {text:"That it is"},
+            {text:"They be do"},
+            {text:"There all that"},
+            {text:"Jalopy"}
+          ]
+        },
+        q0002 : {
+          id : "q0002",
+          text : "Nah, but for real:",
+          type : "freeText",
+          answers : {
+            a001 : {
+              text:"That it is"
+            },
+            a002 : {
+              text:"They be do"
+            },
+            a003 : {
+              text:"There all that"
+            },
+            a004 : {
+              text:"Jalopy"
+            }
+          }
+        },
+        q0003 : {
+          id : "q0003",
+          type: 'binary',
+          text: "Yes or no?",
+          answers: []
+        },
+        q0004 : {
+          id : "q0004",
+          type: 'number',
+          text: "How old are you?",
+          answers: []
+        }
+      },
+      locations : {
+        l0001 : {
+          l0001 : "The mooooon!"
+        },
+        l0002 : {
+          l0002 : "Downstairs"
+        },
+        l0003 : {
+          l0003 : "407 9th St. Brooklyn, NY 11215"
+        }
+      },
+      contacts : [
+        "user0","user1"
+      ],
+      rewards : {
+        r0001 : {
+          id : "r0001",
+          title : 'Free rocket ball',
+          description : 'What is a rocket ball?',
+          terms : 'Guess correctly, and you get it for free!',
+          startdate : "01-02-2013",
+          starttime : "8:00am",
+          enddate : "01-02-2013",
+          endtime : "5:00pm",
+          delay : true,
+          redeem : "location",
+          sharable : "open"
+        },
+        r0002 : {
+          id: "r0002",
+          title: 'Ticket to France!',
+          description: 'Trade this in for 50% off a burrito.',
+          terms: "May not be used in Missouri. Sorry.",
+          startdate : "01-02-2013",
+          starttime : "8:00am",
+          enddate : "01-02-2013",
+          endtime : "5:00pm",
+          delay : true,
+          redeem : "location",
+          sharable : "open"
+        }
+      },
+      campaigns : {
+      camp0 : {
+        id: 'camp0',
+        archived: false,
+        newCounter: 0,
+        handle: "crepesandthings",
+        description: 'Our main feedback portal.',
+        title: 'Crepes & Things',
+        message: 'We value your input. Thanks for sharing with us!',
+        local: false,
+        locationsList: [
+          {
+            id: 'asdf',
+            text: "1 Location Way, Somewhere"
+          }
+        ],
+        discoverable: false,
+        questionsList: [
+          {
+            id: 'asdf',
+            type: 'multipleChoice',
+            text: "How was your service today?",
+            answers: [
+              {
+                id: 0,
+                text: "poor"
+              },
+              {
+                id: 2,
+                text: "fair"
+              },
+              {
+                id: 3,
+                text: "good"
+              },
+              {
+                id: 4,
+                text: "great"
+              },
+            ]
+          }
+        ],
+        reward:
+          {
+            title: 'Free espresso!',
+            description: 'Come back for a free espresso any time you want.',
+            terms: "Just show us your code, and we'll hand you a free espresso drink.",
+            exp: "01-02-2014"
+          },
+        permissions: 
+          { accepted: [
+              { first: 'Bubbles',
+                last: '',
+                email: 'yup@ahdoughno.com',
+                date_sent: '',
+                level: []
+              }
+            ],
+            pending: []
+          },
+        instances : {
+          msg0: {
+            id: 'msg0',
+            author: "user4",
+            time: "2013-02-13T01:15-05:00",
+            questionsList: [
+              {
+                id: 'asdf',
+                type: 'multipleChoice',
+                text: "How was your service today?",
+                answers: [
+                  {
+                    id: 0,
+                    text: "ass"
+                  },
+                  {
+                    id: 2,
+                    text: "mehhhhh..."
+                  },
+                  {
+                    id: 3,
+                    text: "better than not"
+                  },
+                  {
+                    id: 4,
+                    text: "fabul-fucking-tastic!"
+                  }
+                ],
+                response: 4
+              },
+              {
+                id: 'asdf2',
+                type: 'binary',
+                text: "Yes or no?",
+                answers: [
+                  {
+                    id: 50,
+                    text: "yes"
+                  },
+                  {
+                    id: 52,
+                    text: "no"
+                  }
+                ],
+                response: 50
+              },
+              {
+                id: 'asdf3',
+                type: 'freeText',
+                text: "Tell us about something you like.",
+                answers: [],
+                response: "I like turtles."
+              },
+              {
+                id: 'asdf4',
+                type: 'number',
+                text: "How old are you?",
+                answers: [],
+                response: 18
+              },
+              {
+                id: 'asdf5',
+                type: 'rating',
+                text: "Rate your overall experience.",
+                answers: [
+                  {
+                    id: 30,
+                    text: "poor"
+                  },
+                  {
+                    id: 32,
+                    text: "fair"
+                  },
+                  {
+                    id: 33,
+                    text: "good"
+                  },
+                  {
+                    id: 34,
+                    text: "great"
+                  },
+                ],
+                response: 33
+              }
+            ],
+            heard: "false",
+            comments: [
+              { commentId: 'fdsahy',
+                author: "You", 
+                time: "2013-02-13T01:15-05:00",
+                text: "This might be a response to the feedback.",
+                heard: "false"
+              },
+              { commentId: 'asdfgtr',
+                author: "Franz Ferdinand", 
+                time: "2013-02-13T01:15-05:00",
+                text: "This might be you reply",
+                heard: "false"
+              }
+            ],
+            reward: {
+              id: "rwd2",
+              title: 'Free Burrito!',
+              description: 'This is an offer for a free coffee.',
+              creator: "Crepes & Things",
+              terms: "This would be a long, possibly very long paragraph of terms. It may even have more than one paragraph, although this one does not.",
+              exp_date: "4/1/2014",
+              date_claimed: "4/12/2013",
+              verified: "Me",
+              owner: "user4",
+              passphrase: "starseed",
+              date_issued: "1/2/1013",
+              shared_with: ["Joe", "Mark", "Ruby"]
+            },
+            collaboration: {
+              importance: true,
+              tags: ["kitchen", "service"],
+              tagged_users: ["user1", "user45"],
+              comments: [
+                {
+                  commentId: "cjioe3",
+                  author: "user47",
+                  time: "2013-02-13T01:15-05:00",
+                  text: "Here is an internal comment about this conversation.",
+                }
+              ]
+            }
+          },
+          msg1: {
+            id: 'msg1',
+            author: "user0",
+            time: "2013-02-13T01:15-05:00",
+            questionsList: [
+              {
+                id: 'asdf',
+                type: 'multipleChoice',
+                text: "How was your service today?",
+                answers: [
+                  {
+                    id: 0,
+                    text: "ass"
+                  },
+                  {
+                    id: 2,
+                    text: "mehhhhh..."
+                  },
+                  {
+                    id: 3,
+                    text: "better than not"
+                  },
+                  {
+                    id: 4,
+                    text: "fabul-fucking-tastic!"
+                  }
+                ],
+                response: 4
+              },
+              {
+                id: 'asdf2',
+                type: 'binary',
+                text: "Yes or no?",
+                answers: [
+                  {
+                    id: 50,
+                    text: "yes"
+                  },
+                  {
+                    id: 52,
+                    text: "no"
+                  }
+                ],
+                response: 50
+              },
+              {
+                id: 'asdf3',
+                type: 'freeText',
+                text: "Tell us about something you like.",
+                answers: [],
+                response: "I like turtles."
+              },
+              {
+                id: 'asdf4',
+                type: 'number',
+                text: "How old are you?",
+                answers: [],
+                response: 18
+              },
+              {
+                id: 'asdf5',
+                type: 'rating',
+                text: "Rate your overall experience.",
+                answers: [
+                  {
+                    id: 30,
+                    text: "poor"
+                  },
+                  {
+                    id: 32,
+                    text: "fair"
+                  },
+                  {
+                    id: 33,
+                    text: "good"
+                  },
+                  {
+                    id: 34,
+                    text: "great"
+                  },
+                ],
+                response: 33
+              }
+            ],
+            heard: "false",
+            comments: [
+              { commentId: 'asdf',
+                author: "You", 
+                time: "2013-02-13T01:15-05:00",
+                text: "Glad to hear from you. Anything else we can do for you?",
+                heard: "false"
+              },
+              { commentId: 'fdsaf',
+                author: "Chad Grecko", 
+                time: "2013-02-13T01:15-05:00",
+                text: "The text on the menus is too small. Can you make it bigger?",
+                heard: "false"
+              },
+              { commentId: 'fdsaf',
+                author: "You", 
+                time: "2013-02-13T01:15-05:00",
+                text: "Sure. Not a problem. I'll let you know when we reprint our menus, some time next month.",
+                heard: "false"
+              },
+              { commentId: 'fdsaf',
+                author: "Chad Grecko", 
+                time: "2013-02-13T01:15-05:00",
+                text: "Ok, thanks! You guys are the best.",
+                heard: "false"
+              }
+            ],
+            reward: {
+              id: "rwd3",
+              title: 'City Key!',
+              description: 'Trade this in for the key to the city.',
+              creator: "Mayor Bumsted",
+              terms: "May not be used in Missouri. Sorry.",
+              exp_date: "2/28/1993",
+              date_claimed: "4/1/2014",
+              verified: "Me",
+              owner: "user0",
+              passphrase: "honeynut",
+              date_issued: "1/2/1013",
+              shared_with: ["Joe", "Mark", "Ruby"]
+            },
+            collaboration: {
+              importance: false,
+              tags: ["tagged", "another tag!"],
+              tagged_users: ["user1", "user45"],
+              comments: [
+                {
+                  commentId: "cjfdsag4ioe3",
+                  author: "user47",
+                  time: "2013-02-13T01:15-05:00",
+                  text: "Do you think that's wiiiiiise?",
+                },
+                {
+                  commentId: "afes3",
+                  author: "user87",
+                  time: "2013-02-13T01:15-05:00",
+                  text: "What?!",
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+    }
+  };
+
+
+  var factory = {};
+  factory.getAccount = function(accountId) {
+    if (accountId == undefined) {
+      return accounts;
+    }
+    else {
+      return accounts[accountId];
+    }
+  };
+  return factory;
 });
 
 appmodule.factory('allUserData', function() {

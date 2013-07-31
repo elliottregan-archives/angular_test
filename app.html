@@ -41,7 +41,7 @@
       </div>
       
       <div class="personal_pages bounceInDown animated" ng-class="{visible: personal_pages_visible == true}">
-        <h3>ACCOUNT PAGES</h3>
+        <h3>ACCOUNT PAGES</h3>        
         <ul>
           <li ng-click="togglePersonalPages()">
             <a href="#/settings" ng-click="toggleSidebar()"><i class="icon-cog"></i> My Settings</a>
@@ -54,11 +54,16 @@
           </li>
         </ul>
       </div>
-            
+      
       <ul>
         <li><a href="#dashboard" ng-click="toggleSidebar()"><i class="icon-home"></i>Dashboard</a></li>
-        <li ng-repeat="campaign in campaignList">
-          <a href="#/campaign/{{campaign.id}}/instances" ng-bind="campaign.title" ng-click="toggleSidebar()"></a>
+        <li ng-repeat="account in accounts">
+          @<span ng-bind="account.handle"></span>
+          <ul>
+            <li ng-repeat="campaign in account.campaigns">
+              <a href="#/campaign/{{campaign.id}}/instances" ng-bind="campaign.title" ng-click="toggleSidebar()"></a>
+            </li>
+          </ul>
         </li>
       </ul>
     </nav>

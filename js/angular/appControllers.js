@@ -128,7 +128,8 @@ function controlPanelCtr($scope) {
 
 };
 
-function appCtr($scope, $routeParams, $location, $route, $timeout) {
+function appCtr($scope, $routeParams, $location, $route, $timeout, accountData) {
+  
   
   $scope.sortableOptions = {
     axis: 'y',
@@ -150,7 +151,7 @@ function appCtr($scope, $routeParams, $location, $route, $timeout) {
   
   function init() {
     $scope.title = 'default title';
-    
+    $scope.accounts = accountData.getAccount();
   };
   
   $scope.currentCampaign = "camp0";
