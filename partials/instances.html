@@ -2,10 +2,13 @@
   
 <div class="animation_wrapper layer1">
     <header class="app_header">
-      <a href="#/dashboard" class="btn icon left"><i class="icon-home"></i></a>
-      <button class="btn icon right" ng-click="toggleSidebar('left')"> . . . </button>
+      <button ng-click="toggleSidebar('right')" class="btn icon left"><i class="icon-menu"></i></button>
+      <button class="btn icon right" ng-click="toggleNavbar()"> . . . </button>
       <h1 ng-bind="title"></h1>
     </header>
+    
+    <div ng-include src="'partials/campaign_nav.html'"></div>
+    
     <div class="scroller_wrapper with_header_padding">
       <div class="scroller">
         <p ng-show="viewCampaign.instances == []">empty!</p>
@@ -14,6 +17,7 @@
         </ul>
       </div>
     </div>
+    
     <div>
         <aside class="tools_panel" ng-class="{visible: conversationDetailView == true}">
         <header class="app_header">

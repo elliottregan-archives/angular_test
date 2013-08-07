@@ -28,8 +28,8 @@
     <button ng-click="receiveFdbk()">Receive Fdbk!</button>
   </div>
   
-  <div ng-controller="campaignCtr">
-    <div id="main_view">
+  <div ng-controller="accountCtr">
+    <div ng-controller="campaignCtr" id="main_view">
       <div ng-view ng-animate="'slide'"></div>
       <div class="dimmer" ng-click="toggleSidebar()" ng-class="{visible: sidebar_visible == true, in_frame: sidebar_inFrame == true}"></div>
     </div>
@@ -37,7 +37,7 @@
     <nav class="main_nav sidebar">
       
       <div>
-        <button class="btn icon" ng-click="togglePersonalPages()"><i class="icon-users"></i></button>
+        <div class="profile_pic" ng-click="togglePersonalPages()"></div>
       </div>
       
       <div class="personal_pages bounceInDown animated" ng-class="{visible: personal_pages_visible == true}">
@@ -56,9 +56,9 @@
       </div>
       
       <ul>
-        <li><a href="#dashboard" ng-click="toggleSidebar()"><i class="icon-home"></i>Dashboard</a></li>
+        <li><a href="#dashboard" ng-click="toggleSidebar()">All Campaigns</a></li>
         <li ng-repeat="account in accounts">
-          @<span ng-bind="account.handle"></span>
+          <a href="#/account/{{account.id}}" ng-click="toggleSidebar()">@<span ng-bind="account.handle"></span></a>
           <ul>
             <li ng-repeat="campaign in account.campaigns">
               <a href="#/campaign/{{campaign.id}}/instances" ng-bind="campaign.title" ng-click="toggleSidebar()"></a>

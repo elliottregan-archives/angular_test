@@ -1,12 +1,12 @@
 <header class="app_header">
-  <a href="#/dashboard" class="btn icon left">cancel</a>
+  <a href="#/account/{{accountId}}" class="btn icon left">cancel account/{{accountId}}</a>
   <a ng-click='advanceStep()' ng-hide='currentStep >= (steps.length-1)' class="btn right">Next Step</a>
-  <a href="#/dashboard" ng-show='currentStep >= (steps.length-1)' class="btn right">Save Changes</a>
+  <a href="#/account/{{accountId}}" ng-show='currentStep >= (steps.length-1)' class="btn right">Save Changes</a>
   <h2 ng-click="toggleSidebar('right')">Edit Campaign #1: Step {{steps[currentStep]+1}}</h2>
   <nav class="header_dropdown closed">
     <ol>
       <li ng-repeat='n in steps' ng-click='changeStep(n)'>Step {{n+1}}</li>
-      <li><a href="#/dashboard">Save Changes</a></li>
+      <li><a href="#/account/{{accountId}}">Save Changes</a></li>
     </ol>
   </nav>
 </header>

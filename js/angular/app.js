@@ -9,6 +9,10 @@ var appmodule = angular.module('appmodule', ['ui.sortable']).
         templateUrl: 'partials/dashboard.html', 
         controller: dashCtr
       }).
+      when('/account/:accountId', {
+        templateUrl: 'partials/dashboard.html', 
+        controller: dashCtr
+      }).
       when('/feed', {
         templateUrl: 'partials/inbox.html',
         controller: inboxCtr
@@ -21,7 +25,7 @@ var appmodule = angular.module('appmodule', ['ui.sortable']).
         templateUrl: 'partials/reward_info.html',
         controller: rewardsCtr
       }).
-      when('/campaign/:campaignId/instances*instanceId', {
+      when('/account/:accountId/campaign/:campaignId/instances*instanceId', {
         templateUrl: 'partials/instances.html',
         controller: instancesCtr
       }).
@@ -29,23 +33,23 @@ var appmodule = angular.module('appmodule', ['ui.sortable']).
         templateUrl: 'partials/edit.html',
         controller: campaignBuilderCtr
       }).
-      when('/campaign/:campaignId/rewards', {
+      when('/account/:accountId/campaign/:campaignId/rewards', {
         templateUrl: 'partials/campaign_rewards.html',
         controller: CampaignRewardsCtr
       }).
-      when('/campaign/:campaignId/rewards/:rewardId', {
+      when('/account/:accountId/campaign/:campaignId/rewards/:rewardId', {
         templateUrl: 'partials/campaign_reward_info.html',
         controller: CampaignRewardCtr
       }).
-      when('/campaign/:campaignId/contacts', {
+      when('/account/:accountId/campaign/:campaignId/contacts', {
         templateUrl: 'partials/campaign_contacts.html',
         controller: campaignContactsCtr
       }).
-      when('/campaign/:campaignId/contacts/:userId', {
+      when('/account/:accountId/campaign/:campaignId/contacts/:userId', {
         templateUrl: 'partials/user_info.html',
         controller: campaignContactsCtr
       }).
-      when('/campaign/:campaignId/analytics', {
+      when('/account/:accountId/campaign/:campaignId/analytics', {
         templateUrl: 'partials/analytics.html',
         controller: analyticsCtr
       }).

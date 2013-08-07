@@ -1,9 +1,11 @@
 <div class="animation_wrapper">
   <header class="app_header">
-    <a href="#/campaign/{{campaignId}}/instances" class="btn icon left"><i class="icon-left-open"></i>back</a>
-    <button class="btn icon right" ng-click="toggleSidebar('left')"> . . . </button>
+    <button ng-click="toggleSidebar('right')" class="btn icon left"><i class="icon-menu"></i></button>
+    <button class="btn icon right" ng-click="toggleNavbar()"> . . . </button>
     <h1 ng-bind="title"></h1>
   </header>
+  
+  <div ng-include src="'partials/campaign_nav.html'"></div>
   
   <div class="scroller_wrapper  with_header_padding">
     <section class="scroller">
