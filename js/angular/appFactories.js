@@ -1272,7 +1272,6 @@ appmodule.factory('accountData', function() {
   
   factory.getRewardsList = function(accountId, campaign_id_array) {
     var rewardsList = [];
-    console.log(accountId)
     var campaignList = accounts[accountId].campaigns;
     
     campaign_id_array.forEach( function(campaign_id) {
@@ -1289,6 +1288,8 @@ appmodule.factory('accountData', function() {
   };
   factory.getContactList = function(accountId, campaign_id_array) {
     var contactList = [];  
+    var campaignList = accounts[accountId].campaigns;
+    
     campaign_id_array.forEach( function(campaign_id) {
       var instanceIds = Object.getOwnPropertyNames(campaignList[campaign_id].instances);
       instanceIds.forEach(function(instance) {

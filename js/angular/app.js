@@ -1,74 +1,87 @@
-var appmodule = angular.module('appmodule', ['ui.sortable']).
-  config(['$routeProvider', function($routeProvider) {
-    $routeProvider.
-      when('/form', {
+var appmodule = angular.module('appmodule', ['ui.sortable', 'ui.state']).
+  config(function($stateProvider, $urlRouterProvider) {
+    
+    $urlRouterProvider.otherwise("/account/account01/dashboard")
+    
+    $stateProvider.
+      state('form', {
         templateUrl: 'partials/form.html', 
         controller: formCtr
       }).
-      when('/dashboard', {
-        templateUrl: 'partials/dashboard.html', 
-        controller: dashCtr
+      state('account', {
+        url: '/account/:accountId',
+        templateUrl: 'partials/account.html', 
+        controller: accountCtr
       }).
-      when('/account/:accountId', {
+      state('account.dashboard', {
+        url: '/dashboard',
         templateUrl: 'partials/dashboard.html', 
-        controller: dashCtr
+        controller: dashboardCtr
       }).
-      when('/feed', {
+      state('account.campaign', {
+        url: '/campaign/:campaignId',
+        templateUrl: 'partials/campaign.html',
+        controller: campaignCtr
+      }).
+      state('account.campaign.conversations', {
+        url: '/conversations',
+        templateUrl: 'partials/conversations.html',
+        controller: conversationsCtr
+      }).
+      state('account.campaign.conversations.tools', {
+        url: '/:conversationId',
+        templateUrl: 'partials/tools.html',
+        controller: collabToolsCtr
+      }).
+      state('feed', {
+        url: '/feed',
         templateUrl: 'partials/inbox.html',
         controller: inboxCtr
       }).
-      when('/rewards', {
+      state('user_rewards', {
+        url: '/rewards',
         templateUrl: 'partials/rewards.html',
         controller: rewardsCtr
       }).
-      when('/rewards/:rewardId', {
+      state('user_reward_detail', {
+        url: '/rewards/"rewardId',
         templateUrl: 'partials/reward_info.html',
         controller: rewardsCtr
       }).
-      when('/account/:accountId/campaign/:campaignId/instances*instanceId', {
-        templateUrl: 'partials/instances.html',
-        controller: instancesCtr
-      }).
-      when('/campaign/:campaignId/edit', {
+      state('account.campaign.edit', {
+        url: '/edit',
         templateUrl: 'partials/edit.html',
         controller: campaignBuilderCtr
       }).
-      when('/account/:accountId/campaign/:campaignId/rewards', {
+      state('account.campaign.rewards', {
+        url: '/rewards',
         templateUrl: 'partials/campaign_rewards.html',
         controller: CampaignRewardsCtr
       }).
-      when('/account/:accountId/campaign/:campaignId/rewards/:rewardId', {
+      state('account.campaign.rewards.info', {
+        url: '/:rewardId',
         templateUrl: 'partials/campaign_reward_info.html',
         controller: CampaignRewardCtr
       }).
-      when('/account/:accountId/campaign/:campaignId/contacts', {
+      state('account.campaign.contacts', {
+        url: '/contacts',
         templateUrl: 'partials/campaign_contacts.html',
         controller: campaignContactsCtr
       }).
-      when('/account/:accountId/campaign/:campaignId/contacts/:userId', {
+      state('account.campaign.contacts.info', {
+        url: '/:userId',
         templateUrl: 'partials/user_info.html',
         controller: campaignContactsCtr
       }).
-      when('/account/:accountId/campaign/:campaignId/analytics', {
+      state('account.campaign.analytics', {
+        url: '/analytics',
         templateUrl: 'partials/analytics.html',
         controller: analyticsCtr
       }).
-      when('/settings', {
+      state('settings', {
         templateUrl: 'partials/settings.html',
       }).
-      when('/history', {
+      state('history', {
         templateUrl: 'partials/history.html',
-      }).
-      otherwise({redirectTo: '/dashboard'});
-}]);
-
-appmodule.run(function($templateCache,$http) {
-  $http.get('partials/dashboard.html', {cache:$templateCache});
-  $http.get('partials/edit.html', {cache:$templateCache});
-  $http.get('partials/inbox.html', {cache:$templateCache});
-  $http.get('partials/instance.html', {cache:$templateCache});
-  $http.get('partials/instance_simple.html', {cache:$templateCache});
-  $http.get('partials/campaign_info.html', {cache:$templateCache});
-  $http.get('partials/rewards.html', {cache:$templateCache});
-  $http.get('partials/reward_info.html', {cache:$templateCache});
+      });
 });

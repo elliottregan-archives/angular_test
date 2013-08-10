@@ -59,7 +59,7 @@
           <div class="left">
             <button class="checkbox" ng-click="selectCampaign('{{campaign.id}}')"></button>
           </div>
-          <a href="#/account/{{accountId}}/campaign/{{campaign.id}}/instances">
+          <a href="#/account/{{accountId}}/campaign/{{campaign.id}}/conversations">
             <h2>{{campaign.title}}</h2>
           </a>
         </li>
@@ -73,7 +73,7 @@
         <li ng-repeat="campaign in archivedCampaignList">
           <button class="btn right" ng-click="unarchiveListItem(campaign, campaignList)">unarchive</button>
   
-          <a href="#/campaign/{{campaign.id}}/instances">
+          <a href="#/campaign/{{campaign.id}}/conversations">
             <small>@{{campaign.handle}}</small>
             <h2>{{campaign.title}}</h2>
           </a>
