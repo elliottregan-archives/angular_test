@@ -298,8 +298,15 @@ opacity: 1;
 header h1, header h2 {
   text-align: center;
   font-size: 1em;
-  margin: 10px;
+  margin: 0px;
   line-height: 20px; /*header is 40px tall. margin*2 + line-height = header*/
+color: #3e3e3e;
+}
+
+header small {
+  text-align: center;
+  display: block;
+  color: #8c8c8c;
 }
 
 header .btn {
@@ -513,14 +520,6 @@ header .btn {
 nav a {
   padding: 10px;
   display: inline-block;
-  -webkit-transition: all 200ms ease-in-out;
-  -moz-transition: all 200ms ease-in-out;
-  -ms-transition: all 200ms ease-in-out;
-  -o-transition: all 200ms ease-in-out;
-  transition: all 200ms ease-in-out;
-  -webkit-transform: scale(.8) ;
-  -moz-transform: scale(.8);
-  transform: scale(.8);
 }
 
 .visible a {

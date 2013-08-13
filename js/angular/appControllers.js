@@ -259,24 +259,6 @@ function appCtr($scope, $stateParams, $state, $location, $route, $timeout, accou
   
   $scope.panel = 'default';
   
-  getDate = function() {
-    var today = new Date();
-    var dd = today.getDate();
-    var mm = today.getMonth()+1; //January is 0!
-    
-    var yyyy = today.getFullYear();
-    if (dd<10) {
-      dd='0'+dd
-    }
-    if (mm<10) {
-      mm='0'+mm
-    }
-    
-    today = yyyy+mm+dd;
-    return today;
-    
-  };
-  
 };
 
 function userCtr($scope, userData, accountData) {
@@ -288,8 +270,13 @@ function userCtr($scope, userData, accountData) {
     $scope.userDetails = userData.getUserDetails();
     
     $scope.accounts = accountData.getAccount();
-    $scope.accountList = Object.keys($scope.accounts);
-    
+    $scope.accountList = accountData.getAccountList();
+    $scope.handleList = [];
+    console.log($scope.accountList)
+    Object.keys($scope.accountList).forEach(function(account_id) {
+      $scope.accountList[account_id].handle = (accountData.getHandle(account_id));
+    });
+    console.log($scope.accountList)
     $scope.title = 'Settings';
   };
 
@@ -298,15 +285,14 @@ function userCtr($scope, userData, accountData) {
 function accountCtr($scope, $stateParams, $location, tempObjects, accountData) {
   console.log("initialize account controller");
   init();  
-  
   function init() {
     
     $scope.accountId = $stateParams.accountId;
     $scope.handle = $scope.accounts[$scope.accountId].handle;
     
-    $scope.handleList = accountData.getHandle($scope.accountId);
+    
     $scope.campaignList = accountData.getActiveCampaigns($scope.accountId);
-    $scope.archivedCampaignList = accountData.getArchivedCampaigns($scope.accountList[0]);    
+    $scope.archivedCampaignList = accountData.getArchivedCampaigns($scope.accountList[$scope.accountId].id);    
   
   };
 };
@@ -379,9 +365,9 @@ function dashboardCtr($scope, $stateParams, $location, tempObjects, accountData)
     else if ($scope.selected_campaigns.length == 1) {
       $scope.edit_mode = true;
       $scope.disable_single_edit_buttons = false; 
-      $scope.edit_link = "#/campaign/"+$scope.selected_campaigns[0]+"/edit";
+      $scope.edit_link = "#/account/"+$scope.accountId+"/campaign/"+$scope.selected_campaigns[0]+"/edit";
       selected_campaigns_url_string = selected_campaigns_url_string.add(campaign_id);
-      $scope.view_link = "#/campaign/{1}/conversations".assign(selected_campaigns_url_string);
+      $scope.view_link = "#/account/"+$scope.accountId+"/campaign/{1}/conversations".assign(selected_campaigns_url_string);
     }
     else if ( $scope.selected_campaigns.length >= 2 ) {
       $scope.disable_single_edit_buttons = true;
@@ -430,7 +416,11 @@ function dashboardCtr($scope, $stateParams, $location, tempObjects, accountData)
     
     
     accountData.addCampaign($scope.accountId, datetime, angular.copy($scope.temporary_duplicate))
+      
+    console.log(accountData.getActiveCampaigns($scope.accountId));
     $scope.campaignList = accountData.getActiveCampaigns($scope.accountId);
+    console.log($scope.campaignList);
+    
     $scope.duplicating_mode = false;
     
     $scope.buildCampaign = angular.copy($scope.temporary_duplicate);
@@ -457,6 +447,8 @@ function dashboardCtr($scope, $stateParams, $location, tempObjects, accountData)
   function Campaign(id, handle, title, local, location, discoverable) {
     
     this.id = id,
+    this.archived = false,
+    this.newCounter = 0,
     this.handle = handle,
     this.title = title,
     this.description = 'This is the default description.',
@@ -483,16 +475,11 @@ function dashboardCtr($scope, $stateParams, $location, tempObjects, accountData)
     var temp_builder = new Campaign(datetimeId, handle, new_campaign_title, is_local, new_campaign_locale, discoverable);
     tempObjects.updateBuildCampaign(temp_builder);
     
-    console.log(accountData.getActiveCampaigns($scope.accountId))
-    
     accountData.addCampaign($scope.accountId,temp_builder.id, temp_builder);
-    console.log(accountData.getActiveCampaigns($scope.accountId))
     
-//    $scope.campaignList = accountData.getActiveCampaigns($scope.accountId);
+    $scope.campaignList = accountData.getActiveCampaigns($scope.accountId);
     
-    console.log(accountData.getActiveCampaigns($scope.accountId));
-    
-    $location.path( '/campaign/'+datetimeId+'/edit' );
+    $location.path( '/account/'+$scope.accountId+'/campaign/'+datetimeId+'/edit' );
  
   };
   
@@ -500,6 +487,7 @@ function dashboardCtr($scope, $stateParams, $location, tempObjects, accountData)
 
 function campaignCtr($scope, $stateParams, $location, accountData) {
   console.log("initialize campaign controller")
+  console.log($scope.campaignList);
   
   init();
   
@@ -510,7 +498,10 @@ function campaignCtr($scope, $stateParams, $location, accountData) {
   
   function init() {
     $scope.campaignId = $stateParams.campaignId;
-    $scope.campaignTitle = $scope.campaignList[$stateParams.campaignId].title;
+    $scope.campaignList = accountData.getActiveCampaigns($scope.accountId);
+    console.log($stateParams.accountId)
+    $scope.campaignTitle = $scope.campaignList[$scope.campaignId].title;
+    $scope.campaignHandle = $scope.campaignList[$scope.campaignId].handle;
     $scope.accountId = $stateParams.accountId;
     
     var arrayOfCampaignIds = [];
@@ -528,7 +519,7 @@ function campaignCtr($scope, $stateParams, $location, accountData) {
            setViewCampaign(arrayOfCampaignIds);
          }
          else {
-           $location.path( '/account/'+$scope.accountId ); //redirect back to dashboard if campaign isn't found
+           $location.path( '/account/'+$scope.accountId+'/dashboard' ); //redirect back to dashboard if campaign isn't found
          };
       };
     
@@ -582,15 +573,14 @@ function campaignCtr($scope, $stateParams, $location, accountData) {
 };
 
 function campaignBuilderCtr($scope, $location, $stateParams, tempObjects, accountData) {
-    
+  console.log("initialize builder controller");  
   init();
   
   if ($scope.buildCampaign == undefined) {
-     $location.path( '/account/'+$scope.accountId ); //redirect back to dashboard if a new campaign has not been initiated
+     $location.path( '/account/'+$scope.accountId+'/dashboard' ); //redirect back to dashboard if a new campaign has not been initiated
   };
   
   function init() {
-    $scope.title = 'Dashboard';
     tempObjects.updateBuildCampaign($scope.campaignList[$stateParams.campaignId]);
     $scope.buildCampaign = tempObjects.getBuildCampaign();
     
@@ -737,9 +727,9 @@ function campaignBuilderCtr($scope, $location, $stateParams, tempObjects, accoun
   };
   
   $scope.saveChanges = function() {
-    accountData.addCampaign($stateParams.campaignId, $scope.buildCampaign, $scope.accountId);
+    accountData.addCampaign($stateParams.accountId, $stateParams.campaignId, $scope.buildCampaign);
     $scope.resetStep();
-    $location.path( '/account/'+$scope.accountId ); //redirect back to dashboard
+    $location.path( '/account/'+$scope.accountId+'/dashboard' ); //redirect back to dashboard
     
   };
   

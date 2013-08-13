@@ -33,6 +33,11 @@ var appmodule = angular.module('appmodule', ['ui.sortable', 'ui.state']).
         templateUrl: 'partials/tools.html',
         controller: collabToolsCtr
       }).
+      state('account.campaign.edit', {
+        url: '/edit',
+        templateUrl: 'partials/edit.html',
+        controller: campaignBuilderCtr
+      }).
       state('feed', {
         url: '/feed',
         templateUrl: 'partials/inbox.html',
@@ -47,11 +52,6 @@ var appmodule = angular.module('appmodule', ['ui.sortable', 'ui.state']).
         url: '/rewards/"rewardId',
         templateUrl: 'partials/reward_info.html',
         controller: rewardsCtr
-      }).
-      state('account.campaign.edit', {
-        url: '/edit',
-        templateUrl: 'partials/edit.html',
-        controller: campaignBuilderCtr
       }).
       state('account.campaign.rewards', {
         url: '/rewards',

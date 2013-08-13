@@ -867,7 +867,7 @@ appmodule.factory('accountData', function() {
         }
       },
       campaigns : {
-        camp0 : {
+        camp2 : {
           id: 'camp2',
           archived: false,
           newCounter: 0,
@@ -1216,6 +1216,15 @@ appmodule.factory('accountData', function() {
     }
   };
   
+  factory.getAccountList = function() {
+    var accountList = {}
+    Object.keys(accounts).forEach(function(account_id) {
+      accountList[account_id] = {id: account_id};
+    });
+    console.log(accountList)
+    return accountList;
+  };
+  
   factory.getHandle = function(accountId) {
     return accounts[accountId].handle;
   };
@@ -1235,7 +1244,6 @@ appmodule.factory('accountData', function() {
   };
   
   factory.getActiveCampaigns = function(accountId) {
-  
     var campaignList = accounts[accountId].campaigns;
     var campaignIds = Object.getOwnPropertyNames(campaignList);
     var activeCampaigns = {};
