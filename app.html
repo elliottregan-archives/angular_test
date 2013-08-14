@@ -54,14 +54,9 @@
         </ul>
       </div>
       <ul>
-        <li>Inbox <small>(doesn't work)</small></li>
-        <li ng-repeat="account in accountIdList">
+        <li>Inbox <small>(doesn't work yet)</small></li>
+        <li ng-repeat="account in accountList">
           <a href="#/account/{{account.id}}/dashboard" ng-click="toggleSidebar()">@<span ng-bind="account.handle"></span></a>
-<!--          <ul>
-            <li ng-repeat="campaign in account.campaigns">
-              <a href="#/account/{{account.id}}/campaign/{{campaign.id}}/conversations" ng-bind="campaign.title" ng-click="toggleSidebar()"></a>
-            </li>
-          </ul>-->
         </li>
         <li><a href="#dashboard" ng-click="toggleSidebar()">All Campaigns</a></li>
       </ul>

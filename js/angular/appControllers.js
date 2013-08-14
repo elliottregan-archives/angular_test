@@ -272,11 +272,11 @@ function userCtr($scope, userData, accountData) {
     $scope.accounts = accountData.getAccount();
     $scope.accountList = accountData.getAccountList();
     $scope.handleList = [];
-    console.log($scope.accountList)
+
     Object.keys($scope.accountList).forEach(function(account_id) {
       $scope.accountList[account_id].handle = (accountData.getHandle(account_id));
     });
-    console.log($scope.accountList)
+
     $scope.title = 'Settings';
   };
 
@@ -306,7 +306,9 @@ function dashboardCtr($scope, $stateParams, $location, tempObjects, accountData)
   $scope.new_mode = false;
   
   $scope.selected_campaigns = [];
-  
+  $scope.campaignTitleList = accountData.getCampaignTitles($scope.accountId, true);
+  $scope.handleList = accountData.getHandle();
+  console.log($scope.handleList)
   
   $scope.archiveListItem = function(clicked_list_item, parent_object) {
     $scope.toggleEditMode();
@@ -382,15 +384,6 @@ function dashboardCtr($scope, $stateParams, $location, tempObjects, accountData)
     };
     
   };
-    
-  $scope.changeHandle = function() {
-    if ($scope.handle != "+") {
-      $scope.handle_to_submit = $scope.handle;
-    }
-    else {
-      $scope.handle_to_submit = '';
-    }
-  };
   
   $scope.duplicateMode = function(state, clicked_campaign) {
     $scope.duplicating_mode = state;
@@ -404,27 +397,6 @@ function dashboardCtr($scope, $stateParams, $location, tempObjects, accountData)
       $scope.temp_handle = ''; 
     }
     $scope.toggleEditMode();
-  };
-  
-  $scope.duplicateCampaign = function(title, handle) {
-    
-    var datetime = new Date().getTime();
-    
-    $scope.temporary_duplicate.handle = handle;
-    $scope.temporary_duplicate.id = datetime;
-    $scope.temporary_duplicate.instances = [];
-    
-    
-    accountData.addCampaign($scope.accountId, datetime, angular.copy($scope.temporary_duplicate))
-      
-    console.log(accountData.getActiveCampaigns($scope.accountId));
-    $scope.campaignList = accountData.getActiveCampaigns($scope.accountId);
-    console.log($scope.campaignList);
-    
-    $scope.duplicating_mode = false;
-    
-    $scope.buildCampaign = angular.copy($scope.temporary_duplicate);
-    $location.path( '/campaign/'+$scope.campaignList[datetime].id+'/edit' );
   };
   
   $scope.toggleEditMode = function() {
@@ -474,13 +446,32 @@ function dashboardCtr($scope, $stateParams, $location, tempObjects, accountData)
         
     var temp_builder = new Campaign(datetimeId, handle, new_campaign_title, is_local, new_campaign_locale, discoverable);
     tempObjects.updateBuildCampaign(temp_builder);
-    
-    accountData.addCampaign($scope.accountId,temp_builder.id, temp_builder);
-    
+    accountData.addCampaign($scope.accountId, temp_builder.id, temp_builder);
     $scope.campaignList = accountData.getActiveCampaigns($scope.accountId);
     
     $location.path( '/account/'+$scope.accountId+'/campaign/'+datetimeId+'/edit' );
  
+  };
+  
+  $scope.duplicateCampaign = function(title, handle) {
+    
+    var datetime = new Date().getTime();
+    
+    $scope.temporary_duplicate.handle = handle;
+    $scope.temporary_duplicate.id = datetime;
+    $scope.temporary_duplicate.instances = [];
+    
+    
+    accountData.addCampaign($scope.accountId, datetime, angular.copy($scope.temporary_duplicate))
+      
+    console.log(accountData.getActiveCampaigns($scope.accountId));
+    $scope.campaignList = accountData.getActiveCampaigns($scope.accountId);
+    console.log($scope.campaignList);
+    
+    $scope.duplicating_mode = false;
+    
+    $scope.buildCampaign = angular.copy($scope.temporary_duplicate);
+    $location.path( '/account/'+$scope.accountId+'/campaign/'+$scope.campaignList[datetime].id+'/edit' );
   };
   
 };

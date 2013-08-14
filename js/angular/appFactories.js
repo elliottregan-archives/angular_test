@@ -1221,26 +1221,38 @@ appmodule.factory('accountData', function() {
     Object.keys(accounts).forEach(function(account_id) {
       accountList[account_id] = {id: account_id};
     });
-    console.log(accountList)
     return accountList;
   };
   
   factory.getHandle = function(accountId) {
-    return accounts[accountId].handle;
+    var campaignHandles = [];
+    
+    if (accountId == undefined) {
+      Object.keys(accounts).forEach( function(account_id) {
+        console.log(account_id, campaignHandles);
+        campaignHandles.push({handle:accounts[account_id].handle, accountId:account_id});
+      });
+    }
+    else {
+      campaignHandles = accounts[accountId].handle;
+    }
+    console.log(campaignHandles)
+    return campaignHandles;
   };
   
-  factory.getActiveCampaigns = function(accountId) {
+  factory.getCampaignTitles = function(accountId, active_only) {
   
-    var campaignList = accounts[accountId].campaigns;
-    var campaignIds = Object.getOwnPropertyNames(campaignList);
-    var activeCampaigns = {};
+    var campaignList = {};
+    var campaignTitles = {};
     
-    campaignIds.forEach( function(campaign_id) {
-      if (campaignList[campaign_id].archived == false) {
-        activeCampaigns[campaign_id] = campaignList[campaign_id];
-      }
-    });
-  
+    if (active_only) {
+      campaignList = factory.getActiveCampaigns(accountId);
+      Object.keys(campaignList).forEach( function(campaign_id) {
+        campaignTitles[campaign_id] = {id:campaign_id, title:campaignList[campaign_id].title, newCounter: campaignList[campaign_id].newCounter};
+      });
+    }
+    
+    return campaignTitles;
   };
   
   factory.getActiveCampaigns = function(accountId) {
