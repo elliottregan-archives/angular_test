@@ -292,13 +292,30 @@ function accountCtr($scope, $stateParams, $location, tempObjects, accountData) {
     
     
     $scope.campaignList = accountData.getActiveCampaigns($scope.accountId);
+    $scope.campaignTitleList = accountData.getCampaignTitles($scope.accountId, true);
+    
     $scope.archivedCampaignList = accountData.getArchivedCampaigns($scope.accountList[$scope.accountId].id);    
   
   };
 };
 
+function multiAccountsCtr($scope, $stateParams, $location, tempObjects, accountData) {
+  console.log("initialize all accounts controller");
+  init();  
+  function init() {
+    $scope.campaignTitleList = {};
+    $scope.handle = "All Campaigns"
+    Object.keys(accountData.getAccountList()).forEach(function(account) {
+      $scope.campaignTitleList = Object.merge($scope.campaignTitleList,accountData.getCampaignTitles(account, true));
+    });
+    $scope.archivedCampaignList = {};    
+    
+  };
+};
+
 function dashboardCtr($scope, $stateParams, $location, tempObjects, accountData) {
   console.log("initialize dashboard controller");
+
   $scope.buildCampaign = tempObjects.getBuildCampaign();
   checkForArchived();
   $scope.view_archived = false;
@@ -306,9 +323,7 @@ function dashboardCtr($scope, $stateParams, $location, tempObjects, accountData)
   $scope.new_mode = false;
   
   $scope.selected_campaigns = [];
-  $scope.campaignTitleList = accountData.getCampaignTitles($scope.accountId, true);
   $scope.handleList = accountData.getHandle();
-  console.log($scope.handleList)
   
   $scope.archiveListItem = function(clicked_list_item, parent_object) {
     $scope.toggleEditMode();
@@ -316,8 +331,6 @@ function dashboardCtr($scope, $stateParams, $location, tempObjects, accountData)
     $scope.archivedCampaignList[clicked_list_item] = angular.copy($scope.campaignList[clicked_list_item]);
     $scope.campaignList = Object.reject($scope.campaignList, clicked_list_item);    
     
-    console.log($scope.campaignList)
-    console.log($scope.archivedCampaignList)
     checkForArchived();
   };
   
@@ -329,7 +342,6 @@ function dashboardCtr($scope, $stateParams, $location, tempObjects, accountData)
   };
   
   function checkForArchived() {
-  
     if ( Object.isEmpty($scope.archivedCampaignList) ) {
       $scope.archiveExists = false;
     }
@@ -337,7 +349,7 @@ function dashboardCtr($scope, $stateParams, $location, tempObjects, accountData)
       $scope.archiveExists = true;
     }
     
-    if ( Object.isEmpty($scope.campaignList) ) {
+    if ( Object.isEmpty($scope.campaignTitleList) ) {
       $scope.archiveExists = true;
     }
   
@@ -464,9 +476,7 @@ function dashboardCtr($scope, $stateParams, $location, tempObjects, accountData)
     
     accountData.addCampaign($scope.accountId, datetime, angular.copy($scope.temporary_duplicate))
       
-    console.log(accountData.getActiveCampaigns($scope.accountId));
     $scope.campaignList = accountData.getActiveCampaigns($scope.accountId);
-    console.log($scope.campaignList);
     
     $scope.duplicating_mode = false;
     
@@ -478,7 +488,6 @@ function dashboardCtr($scope, $stateParams, $location, tempObjects, accountData)
 
 function campaignCtr($scope, $stateParams, $location, accountData) {
   console.log("initialize campaign controller")
-  console.log($scope.campaignList);
   
   init();
   
@@ -490,7 +499,6 @@ function campaignCtr($scope, $stateParams, $location, accountData) {
   function init() {
     $scope.campaignId = $stateParams.campaignId;
     $scope.campaignList = accountData.getActiveCampaigns($scope.accountId);
-    console.log($stateParams.accountId)
     $scope.campaignTitle = $scope.campaignList[$scope.campaignId].title;
     $scope.campaignHandle = $scope.campaignList[$scope.campaignId].handle;
     $scope.accountId = $stateParams.accountId;

@@ -13,6 +13,16 @@ var appmodule = angular.module('appmodule', ['ui.sortable', 'ui.state']).
         templateUrl: 'partials/account.html', 
         controller: accountCtr
       }).
+      state('all_accounts', {
+        url: '/account/all',
+        templateUrl: 'partials/account.html', 
+        controller: multiAccountsCtr
+      }).
+      state('all_accounts.dashboard', {
+        url: '/dashboard',
+        templateUrl: 'partials/dashboard.html', 
+        controller: dashboardCtr
+      }).
       state('account.dashboard', {
         url: '/dashboard',
         templateUrl: 'partials/dashboard.html', 
