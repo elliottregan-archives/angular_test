@@ -56,9 +56,9 @@
           
           <div class="right new_counter" ng-if="campaign.newCounter != 0" ng-hide="edit_mode" ng-bind="campaign.newCounter"></div>
           <div class="left">
-            <button class="checkbox" ng-click="selectCampaign('{{campaign.id}}')"></button>
+            <button class="checkbox" ng-click="selectCampaign('{{campaign.id}}', '{{accountId}}')"></button>
           </div>
-          <a href="#/account/{{campaign.account_id}}/campaign/{{campaign.id}}/conversations">
+          <a href="#/account/{{accountId}}/campaign/{{campaign.id}}/conversations">
             <h2>{{campaign.title}}</h2>
           </a>
         </li>

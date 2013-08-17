@@ -23,8 +23,8 @@
     </section>
     <section>
       <h3>RECENT MESSAGES</h3>
-      <ul class="instances">
-        <li ng-repeat="instance in editCampaign.instances" class="instance">
+      <ul class="conversations">
+        <li ng-repeat="instance in editCampaign.conversations" class="instance">
           <a href="#/campaign/{{editCampaign.id}}/instance/{{instance.id}}">
             <article>
               <h5 ng-bind="instance.comments[(instance.comments.length-1)].author"></h5>

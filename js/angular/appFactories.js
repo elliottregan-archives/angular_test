@@ -166,7 +166,7 @@ appmodule.factory('accountData', function() {
               ],
               pending: []
             },
-          instances : {
+          conversations : {
             msg0: {
               id: 'msg0',
               author: "user4",
@@ -500,8 +500,8 @@ appmodule.factory('accountData', function() {
               ],
               pending: []
             },
-          instances : {
-            msg0: {
+          conversations : {
+            msg2: {
               id: 'msg0',
               author: "user4",
               time: "2013-02-13T01:15-05:00",
@@ -628,7 +628,7 @@ appmodule.factory('accountData', function() {
                 ]
               }
             },
-            msg1: {
+            msg3: {
               id: 'msg1',
               author: "user0",
               time: "2013-02-13T01:15-05:00",
@@ -926,8 +926,8 @@ appmodule.factory('accountData', function() {
               ],
               pending: []
             },
-          instances : {
-            msg0: {
+          conversations : {
+            msg5: {
               id: 'msg0',
               author: "user4",
               time: "2013-02-13T01:15-05:00",
@@ -1054,7 +1054,7 @@ appmodule.factory('accountData', function() {
                 ]
               }
             },
-            msg1: {
+            msg6: {
               id: 'msg1',
               author: "user0",
               time: "2013-02-13T01:15-05:00",
@@ -1239,7 +1239,6 @@ appmodule.factory('accountData', function() {
   };
   
   factory.getCampaignTitles = function(accountId, active_only) {
-  
     var campaignList = {};
     var campaignTitles = {};
     
@@ -1270,8 +1269,15 @@ appmodule.factory('accountData', function() {
       }
       
     }
-    
     return campaignTitles;
+  };
+  
+  factory.getMultiAccountCampaignTitles = function() {
+    var campaignTitleList = {};
+    Object.keys(factory.getAccountList()).forEach(function(account) {
+      campaignTitleList = Object.merge(campaignTitleList,factory.getCampaignTitles(account, true));
+    });
+    return campaignTitleList;
   };
   
   factory.getActiveCampaigns = function(accountId) {
@@ -1309,15 +1315,55 @@ appmodule.factory('accountData', function() {
     accounts[accountId].campaigns[campaign_id] = campaign;
   };
   
-  factory.getRewardsList = function(accountId, campaign_id_array) {
+  factory.checkIfCampaginExist = function(check_against_account_ids, campaign_id) {
+    var outcomes = [];
+    i = 0;
+    //hacky thing to convert a single account string into a one element array
+    if (Object.isString(check_against_account_ids)) {
+      campaign_id_temp = check_against_account_ids;
+      check_against_account_ids = [];
+      check_against_account_ids[0] = campaign_id_temp;
+    };
+    
+    Object.values(check_against_account_ids).forEach(function(account_id) {
+      
+      var search_in_campaigns = factory.getCampaignTitles(account_id, true);
+      
+      Object.keys(search_in_campaigns, function(campaign_id_key, campaign_value) {
+        outcomes[i] = Object.any(campaign_value,campaign_id);
+        i = i+1;
+      });
+      
+    });
+    return outcomes.some(true);    
+  };
+  
+  factory.getConversations = function(array_of_account_ids, array_of_campaign_ids) {
+    var conversationsList = {};
+    var campaignTitlesList = [];
+    
+    Object.values(array_of_account_ids).forEach(function(account_id) {
+      campaignTitlesList = factory.getCampaignTitles(account_id, true);
+      
+      array_of_campaign_ids.forEach(function(campaign_id) {
+        if (factory.checkIfCampaginExist(account_id, campaign_id)) {
+          conversationsList = Object.merge(conversationsList,accounts[account_id].campaigns[campaign_id].conversations);
+        }
+      });
+    });
+    
+    return conversationsList;
+  };
+  
+  factory.getRewardsList = function(account_id, campaign_id_array) {
     var rewardsList = [];
-    var campaignList = accounts[accountId].campaigns;
+    var campaignList = accounts[account_id].campaigns;
     
     campaign_id_array.forEach( function(campaign_id) {
-      var instanceIds = Object.keys(campaignList[campaign_id].instances);
+      var instanceIds = Object.keys(campaignList[campaign_id].conversations);
       
       instanceIds.forEach(function(instance) {
-        var reward = campaignList[campaign_id].instances[instance].reward;
+        var reward = campaignList[campaign_id].conversations[instance].reward;
         rewardsList[reward.id] = reward;
         
       });
@@ -1330,9 +1376,9 @@ appmodule.factory('accountData', function() {
     var campaignList = accounts[accountId].campaigns;
     
     campaign_id_array.forEach( function(campaign_id) {
-      var instanceIds = Object.getOwnPropertyNames(campaignList[campaign_id].instances);
+      var instanceIds = Object.getOwnPropertyNames(campaignList[campaign_id].conversations);
       instanceIds.forEach(function(instance) {
-        var author = campaignList[campaign_id].instances[instance].author;
+        var author = campaignList[campaign_id].conversations[instance].author;
         contactList.push(author)
       });
     });
@@ -1464,7 +1510,7 @@ appmodule.factory('campaignData', function() {
           ],
           pending: []
         },
-      instances : {
+      conversations : {
         msg0: {
           id: 'msg0',
           author: "user4",
@@ -1850,7 +1896,7 @@ appmodule.factory('campaignData', function() {
             }
           ]
         },
-      instances : {
+      conversations : {
         msg2 : {
           id: 'msg2',
           author: "user1",
@@ -2126,10 +2172,10 @@ appmodule.factory('campaignData', function() {
     var rewardsList = [];
     
     campaign_id_array.forEach( function(campaign_id) {
-      var instanceIds = Object.keys(campaignList[campaign_id].instances);
+      var instanceIds = Object.keys(campaignList[campaign_id].conversations);
       
       instanceIds.forEach(function(instance) {
-        var reward = campaignList[campaign_id].instances[instance].reward;
+        var reward = campaignList[campaign_id].conversations[instance].reward;
         rewardsList[reward.id] = reward;
         
       });
@@ -2140,9 +2186,9 @@ appmodule.factory('campaignData', function() {
   factory.getContactList = function(campaign_id_array) {
     var contactList = [];  
     campaign_id_array.forEach( function(campaign_id) {
-      var instanceIds = Object.getOwnPropertyNames(campaignList[campaign_id].instances);
+      var instanceIds = Object.getOwnPropertyNames(campaignList[campaign_id].conversations);
       instanceIds.forEach(function(instance) {
-        var author = campaignList[campaign_id].instances[instance].author;
+        var author = campaignList[campaign_id].conversations[instance].author;
         contactList.push(author)
       });
     });
@@ -2182,7 +2228,7 @@ appmodule.factory('userData', function() {
     }
   };
   
-  var instances = {
+  var conversations = {
     msg0: {
       id: 'msg0',
       author: "You",
@@ -2429,8 +2475,8 @@ appmodule.factory('userData', function() {
   factory.getUserDetails = function() {
     return userDetails;
   };
-  factory.getInstances = function() {
-    return instances;
+  factory.getconversations = function() {
+    return conversations;
   };
   
   return factory;

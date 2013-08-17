@@ -28,15 +28,30 @@ var appmodule = angular.module('appmodule', ['ui.sortable', 'ui.state']).
         templateUrl: 'partials/dashboard.html', 
         controller: dashboardCtr
       }).
+      state('all_accounts.campaign', {
+        url: '/campaign/:campaignId',
+        templateUrl: 'partials/campaign.html',
+        controller: campaignCtr
+      }).
       state('account.campaign', {
         url: '/campaign/:campaignId',
         templateUrl: 'partials/campaign.html',
         controller: campaignCtr
       }).
+      state('all_accounts.campaign.conversations', {
+        url: '/conversations',
+        templateUrl: 'partials/conversations.html',
+        controller: conversationsCtr
+      }).
       state('account.campaign.conversations', {
         url: '/conversations',
         templateUrl: 'partials/conversations.html',
         controller: conversationsCtr
+      }).
+      state('all_accounts.campaign.conversations.tools', {
+        url: '/:conversationId',
+        templateUrl: 'partials/tools.html',
+        controller: collabToolsCtr
       }).
       state('account.campaign.conversations.tools', {
         url: '/:conversationId',

@@ -146,12 +146,12 @@ function appCtr($scope, $stateParams, $state, $location, $route, $timeout, accou
   function init() {
     console.log("initialize app controller");
     $scope.title = 'default title';
+    $scope.currentCampaign = "camp0";
+    $scope.sidebar_visible = false; 
     
   };
   
-  $scope.currentCampaign = "camp0";
-  
-  $scope.sidebar_visible = false;  
+ 
   
   $scope.toggleSidebar = function(direction) {
     
@@ -288,6 +288,8 @@ function accountCtr($scope, $stateParams, $location, tempObjects, accountData) {
   function init() {
     
     $scope.accountId = $stateParams.accountId;
+    $scope.array_of_account_ids = [];
+    $scope.array_of_account_ids[0] = $scope.accountId;
     $scope.handle = $scope.accounts[$scope.accountId].handle;
     
     
@@ -305,11 +307,10 @@ function multiAccountsCtr($scope, $stateParams, $location, tempObjects, accountD
   function init() {
     $scope.campaignTitleList = {};
     $scope.handle = "All Campaigns"
-    Object.keys(accountData.getAccountList()).forEach(function(account) {
-      $scope.campaignTitleList = Object.merge($scope.campaignTitleList,accountData.getCampaignTitles(account, true));
-    });
-    $scope.archivedCampaignList = {};    
-    
+    $scope.campaignTitleList = accountData.getMultiAccountCampaignTitles();
+    $scope.archivedCampaignList = {};
+    $scope.array_of_account_ids = ["account01", "account02"];  
+    $scope.accountId = "all";
   };
 };
 
@@ -359,7 +360,7 @@ function dashboardCtr($scope, $stateParams, $location, tempObjects, accountData)
     $scope.view_archived = !$scope.view_archived;
   };
   
-  $scope.selectCampaign = function(campaign_id) {
+  $scope.selectCampaign = function(campaign_id, account_id) {
     
     var selected_campaigns_url_string = "";
     
@@ -379,11 +380,12 @@ function dashboardCtr($scope, $stateParams, $location, tempObjects, accountData)
     else if ($scope.selected_campaigns.length == 1) {
       $scope.edit_mode = true;
       $scope.disable_single_edit_buttons = false; 
-      $scope.edit_link = "#/account/"+$scope.accountId+"/campaign/"+$scope.selected_campaigns[0]+"/edit";
+      $scope.edit_link = "#/account/"+account_id+"/campaign/"+$scope.selected_campaigns[0]+"/edit";
       selected_campaigns_url_string = selected_campaigns_url_string.add(campaign_id);
-      $scope.view_link = "#/account/"+$scope.accountId+"/campaign/{1}/conversations".assign(selected_campaigns_url_string);
+      $scope.view_link = "#/account/"+account_id+"/campaign/{1}/conversations".assign(selected_campaigns_url_string);
     }
     else if ( $scope.selected_campaigns.length >= 2 ) {
+      $scope.edit_mode = true;
       $scope.disable_single_edit_buttons = true;
       $scope.edit_link = "";
       $scope.selected_campaigns.forEach(function(campaign_id) {
@@ -391,7 +393,7 @@ function dashboardCtr($scope, $stateParams, $location, tempObjects, accountData)
         while(selected_campaigns_url_string.charAt(0) === '+') {
             selected_campaigns_url_string = selected_campaigns_url_string.substr(1);
         };
-        $scope.view_link = "#/campaign/{1}/conversations".assign(selected_campaigns_url_string);
+        $scope.view_link = "#/account/"+account_id+"/campaign/{1}/conversations".assign(selected_campaigns_url_string);
       });
     };
     
@@ -459,7 +461,8 @@ function dashboardCtr($scope, $stateParams, $location, tempObjects, accountData)
     var temp_builder = new Campaign(datetimeId, handle, new_campaign_title, is_local, new_campaign_locale, discoverable);
     tempObjects.updateBuildCampaign(temp_builder);
     accountData.addCampaign($scope.accountId, temp_builder.id, temp_builder);
-    $scope.campaignList = accountData.getActiveCampaigns($scope.accountId);
+    $scope.campaignTitleList = accountData.getCampaignTitles($scope.accountId, true);
+    
     
     $location.path( '/account/'+$scope.accountId+'/campaign/'+datetimeId+'/edit' );
  
@@ -471,7 +474,7 @@ function dashboardCtr($scope, $stateParams, $location, tempObjects, accountData)
     
     $scope.temporary_duplicate.handle = handle;
     $scope.temporary_duplicate.id = datetime;
-    $scope.temporary_duplicate.instances = [];
+    $scope.temporary_duplicate.conversations = [];
     
     
     accountData.addCampaign($scope.accountId, datetime, angular.copy($scope.temporary_duplicate))
@@ -489,40 +492,44 @@ function dashboardCtr($scope, $stateParams, $location, tempObjects, accountData)
 function campaignCtr($scope, $stateParams, $location, accountData) {
   console.log("initialize campaign controller")
   
+  
   init();
   
   $scope.$on("MESSAGE_RECEIVED", function(event, campaignIndex, message, messageId) {
-    $scope.campaignList[campaignIndex].instances[messageId] = message;
+    $scope.campaignList[campaignIndex].conversations[messageId] = message;
     $scope.campaignList[campaignIndex].newCounter = $scope.campaignList[campaignIndex].newCounter + 1;
   });
   
   function init() {
-    $scope.campaignId = $stateParams.campaignId;
-    $scope.campaignList = accountData.getActiveCampaigns($scope.accountId);
-    $scope.campaignTitle = $scope.campaignList[$scope.campaignId].title;
-    $scope.campaignHandle = $scope.campaignList[$scope.campaignId].handle;
-    $scope.accountId = $stateParams.accountId;
-    
     var arrayOfCampaignIds = [];
-    if ($stateParams.campaignId) {
-      arrayOfCampaignIds = $stateParams.campaignId.split("+");
+    arrayOfCampaignIds = $stateParams.campaignId.split("+");
+    
+    
+    if (arrayOfCampaignIds.length == 1) {     
+      if (accountData.checkIfCampaginExist($scope.array_of_account_ids,$stateParams.campaignId)) {
+        console.log("one campaign and it exists in account"+$scope.array_of_account_ids)
+        $scope.campaignId = $stateParams.campaignId;
+        $scope.campaignTitle = $scope.campaignTitleList[$scope.campaignId].title;
+        $scope.campaignHandle = $scope.campaignTitleList[$scope.campaignId].handle;
+        
+        setViewCampaign(arrayOfCampaignIds);
+      }
+      else {
+        console.log("one campaign and it doesn't exist in account");
+        $location.path( "account/"+$scope.accountId+"/dashboard" );
+      }
+      
     }
-    var mergedInstances = {};
+    else {
+      $scope.campaignHandle = $scope.handle;
+      $scope.campaignTitle = "Multiple Campaigns";
+      setViewCampaign(arrayOfCampaignIds);
+    }    
+    
+    var mergedconversations = {};
     var mergedRewards = {};
     var mergedContacts = {};
     
-    arrayOfCampaignIds.forEach( function(campaign_id) {
-    
-      if (campaign_id) {
-         if (checkIfUrlCampaginsExist(arrayOfCampaignIds)) {
-           setViewCampaign(arrayOfCampaignIds);
-         }
-         else {
-           $location.path( '/account/'+$scope.accountId+'/dashboard' ); //redirect back to dashboard if campaign isn't found
-         };
-      };
-    
-    });
      
   };  
   
@@ -531,42 +538,18 @@ function campaignCtr($scope, $stateParams, $location, accountData) {
     $scope.campaignNav_true = !$scope.campaignNav_true;
   };
   
-  function checkIfUrlCampaginsExist(array_of_campaign_ids) {
-    var outcome = true;
-    var BreakException = {};
-    try {
-      array_of_campaign_ids.forEach(function(campaign_id) {
-        outcome = Object.keys($scope.campaignList).any(campaign_id);
-        if (!outcome) throw BreakException;
-      });
-    } catch(outcome) {
-        if (outcome!==BreakException) throw outcome;
-    };
+  function splitCampaignIdsFromUrl() {
+  
+     arrayOfCampaignIds = $stateParams.campaignId.split("+");
     
-    return outcome;
+  
   };
   
   function setViewCampaign(array_of_campaign_ids) {
-      
-    mergedInstances = angular.copy($scope.campaignList[array_of_campaign_ids[0]].instances);
-    mergedRewards = angular.copy($scope.campaignList[array_of_campaign_ids[0]].rewards);
+    console.log("set view campaign(s)")
   
-    array_of_campaign_ids.forEach(function(campaign_id) {
-      mergedInstances = Object.merge(mergedInstances, angular.copy($scope.campaignList[campaign_id].instances), true);
-      mergedRewards = Object.merge(mergedRewards, angular.copy($scope.campaignList[campaign_id].rewards), true);
-    });
-  
-    $scope.viewCampaign = $scope.campaignList[array_of_campaign_ids[0]]; //find campaign with id in the list of campaigns
-    $scope.viewCampaign.instances = mergedInstances;
-    
-  };
-  
-  
-  
-  $scope.appPages = {
-    "Your Fdbk History" : "history",
-    "Your Rewards" : "rewards",
-    "Personal Settings" : "settings"
+    $scope.viewCampaign = {};
+    $scope.viewCampaign.conversations = accountData.getConversations($scope.array_of_account_ids, array_of_campaign_ids);
   };
     
 };
@@ -866,13 +849,10 @@ function inboxCtr($scope, accountData) {
 
 function conversationsCtr($rootScope, $scope, $route, $stateParams, $location, accountData) {
   console.log("initialize conversation controller");
-  
-  var lastRoute = $route.current;
-
+    
   $scope.title = "Conversations";
   $scope.conversationDetailView = false;
-  var arrayOfCampaignIds = $stateParams.campaignId.split("+");
-  
+    
   $scope.toggleToolPanel = function(conversation_object) {
 
     if (conversation_object) {
@@ -886,31 +866,6 @@ function conversationsCtr($rootScope, $scope, $route, $stateParams, $location, a
     }
   };
   
-  
-  
-//  if ($stateParams.instanceId != "") {
-//    var instanceId_as_text = $stateParams.instanceId.split("/");
-//    var message_exists = false;
-//    var message_found = false;
-//    instanceId = instanceId_as_text[1];
-//    try {
-//      arrayOfCampaignIds.forEach(function(campaign_id) {
-//
-//        if ( $scope.campaignList[campaign_id].instances[instanceId]) {  //check if instanceId exists in the campaign
-//          throw campaign_id
-//        }
-//        
-//      });
-//      $location.path( "/campaign/"+$scope.campaignId+"/conversations" ); //redirect back to campaign instances if message isn't found
-//    }
-//    catch (campaign_id) {
-//      $scope.toggleToolPanel($scope.campaignList[campaign_id].instances[instanceId]) //message found
-//    }
-//    
-//  }
-//  else {
-//    $location.path( "/campaign/"+$scope.campaignId+"/conversations" ); //redirect back to campaign instances if message isn't found
-//  }
 };
 
 function collabToolsCtr($scope, $stateParams) {
@@ -1034,7 +989,7 @@ function campaignContactsCtr($scope, $stateParams, $location, accountData, allUs
 //        
 //        Object.values($scope.viewUser.conversations[campaign_id], function(messageId) {
 //        
-//        $scope.convoList.push(accountData.getActiveCampaign(campaign_id).instances[messageId])
+//        $scope.convoList.push(accountData.getActiveCampaign(campaign_id).conversations[messageId])
 //        console.log(campaign_id)
 //      });
 //    });

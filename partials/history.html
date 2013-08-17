@@ -4,9 +4,9 @@
 </header>
 <div class="scroller_wrapper  with_header_padding">
   <div class="scroller">
-    <p ng-show="userDetails.instances == []">empty!</p>
-    <ul class="instances">
-      <li ng-repeat="instance in instances" class="instance" ng-controller="instanceCtr" ng-include src="'partials/instance_simple.html'"></li>
+    <p ng-show="userDetails.conversations == []">empty!</p>
+    <ul class="conversations">
+      <li ng-repeat="conversation in conversations" class="instance" ng-controller="instanceCtr" ng-include src="'partials/instance_simple.html'"></li>
       
     </ul>
   </div>
