@@ -1315,7 +1315,7 @@ appmodule.factory('accountData', function() {
     accounts[accountId].campaigns[campaign_id] = campaign;
   };
   
-  factory.checkIfCampaginExist = function(check_against_account_ids, campaign_id) {
+  factory.checkIfCampaignExist = function(check_against_account_ids, campaign_id) {
     var outcomes = [];
     i = 0;
     //hacky thing to convert a single account string into a one element array
@@ -1346,13 +1346,27 @@ appmodule.factory('accountData', function() {
       campaignTitlesList = factory.getCampaignTitles(account_id, true);
       
       array_of_campaign_ids.forEach(function(campaign_id) {
-        if (factory.checkIfCampaginExist(account_id, campaign_id)) {
+        if (factory.checkIfCampaignExist(account_id, campaign_id)) {
           conversationsList = Object.merge(conversationsList,accounts[account_id].campaigns[campaign_id].conversations);
         }
       });
     });
     
     return conversationsList;
+  };
+  
+  factory.getRewards = function(array_of_account_ids, array_of_campaign_ids) {
+    var rewardsList = {};
+    var campaignTitlesList = [];
+    
+    Object.values(array_of_account_ids).forEach(function(account_id) {
+      campaignTitlesList = factory.getCampaignTitles(account_id, true);
+      
+      rewardsList = Object.merge(rewardsList,accounts[account_id].rewards);
+      console.log(accounts[account_id].rewards)
+    });
+    
+    return rewardsList;
   };
   
   factory.getRewardsList = function(account_id, campaign_id_array) {

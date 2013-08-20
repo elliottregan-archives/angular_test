@@ -25,8 +25,6 @@
     <input type="text" name="question_{{question.id}}" ng-model="buildQuestion.text" placeholder="Enter your question here." />
     <div class="options">
       <div ng-show="buildQuestion.type == 'binary'" >
-        <input type="text" ng-model="buildQuestion.answers[0].text" placeholder="add an answer here."/>
-        <input type="text" ng-model="buildQuestion.answers[1].text" placeholder="add an answer here."/>
       </div>
       <div ng-show="buildQuestion.type == 'rating'">
       </div>

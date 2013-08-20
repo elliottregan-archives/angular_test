@@ -506,7 +506,7 @@ function campaignCtr($scope, $stateParams, $location, accountData) {
     
     
     if (arrayOfCampaignIds.length == 1) {     
-      if (accountData.checkIfCampaginExist($scope.array_of_account_ids,$stateParams.campaignId)) {
+      if (accountData.checkIfCampaignExist($scope.array_of_account_ids,$stateParams.campaignId)) {
         console.log("one campaign and it exists in account"+$scope.array_of_account_ids)
         $scope.campaignId = $stateParams.campaignId;
         $scope.campaignTitle = $scope.campaignTitleList[$scope.campaignId].title;
@@ -550,6 +550,8 @@ function campaignCtr($scope, $stateParams, $location, accountData) {
   
     $scope.viewCampaign = {};
     $scope.viewCampaign.conversations = accountData.getConversations($scope.array_of_account_ids, array_of_campaign_ids);
+    $scope.viewCampaign.rewards = accountData.getRewards($scope.array_of_account_ids, array_of_campaign_ids);
+    console.log(accountData.getRewards($scope.array_of_account_ids, array_of_campaign_ids))
   };
     
 };
@@ -687,8 +689,20 @@ function campaignBuilderCtr($scope, $location, $stateParams, tempObjects, accoun
         {
           id: 4,
           text: "great"
-        },
+        }
       ];
+    };
+    if ($scope.buildQuestion.type == 'binary') {
+      $scope.buildQuestion.answers = [
+          {
+            id: 0,
+            text: "Yes"
+          },
+          {
+            id: 2,
+            text: "No"
+          }
+        ];
     };
     
     if ($scope.editing_question == false) {
