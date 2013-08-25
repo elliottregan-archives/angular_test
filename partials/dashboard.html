@@ -11,10 +11,10 @@
         <form ng-submit="createCampaign(new_campaign_title, handle_to_submit, is_local, new_campaign_locale, discoverable)">
           
           <label for="handle_select">Choose a handle</label>
-          <select id="handle_select" ng-model="handle_to_submit" ng-options="handleObj.handle as handleObj.handle for handleObj in handleList">            
+          <select id="handle_select" ng-model="handle_to_submit" ng-options="handleObj.handle as handleObj.handle for handleObj in handleList">
           </select>
-          
-          <div ng-if="handle == '+'" ng-animate="'collapse'">
+          <button class="btn" ng-click="toggle_new_handle = true" type="button">+ new handle</button>
+          <div ng-if="toggle_new_handle" ng-animate="'collapse'">
             <label for="handle_text">New handle name:</label>
             <input id="handle_text" class="inline" type="text" name="new_handle" placeholder="Try your twitter handle!" ng-model="handle_to_submit" />
           </div>

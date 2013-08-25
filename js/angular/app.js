@@ -58,6 +58,11 @@ var appmodule = angular.module('appmodule', ['ui.sortable', 'ui.state']).
         templateUrl: 'partials/tools.html',
         controller: collabToolsCtr
       }).
+      state('all_accounts.campaign.edit', {
+        url: '/edit',
+        templateUrl: 'partials/edit.html',
+        controller: campaignBuilderCtr
+      }).
       state('account.campaign.edit', {
         url: '/edit',
         templateUrl: 'partials/edit.html',

@@ -22,6 +22,8 @@
         <h3 ng-bind="buildCampaign.handle"></h3>
         <section ng-switch on='currentStep'>
             <div ng-switch-when='0'>
+              <label for="image">Upload image:</label>
+              <input type="file" id="image" name="image" accept="image/*" />
               <div ng-include src="'partials/form_not_completed.html'"></div>
               <button ng-click="togglePanel('Create Question')" class="btn">+ New Question</button>
             </div>

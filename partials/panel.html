@@ -31,7 +31,7 @@
       <div ng-show="buildQuestion.type == 'freeText'">
       </div>
       <div ng-show="buildQuestion.type == 'multipleChoice'">
-        <input type="number" name="number_of_answers" placeholder="How many answers can be selected?" min="1" max="{{buildQuestion.answers.length}}"/>
+        <input type="checkbox" name="limit" id="limit" class="inline"/><label for="limit" class="inline">Limit to one one response.</label>        
         <ul class='answers' ng-show="buildQuestion.type == 'multipleChoice'">
           <li ng-repeat="answer in buildQuestion.answers">
             <input type="text" ng-model="answer.text" placeholder="add an answer here."/>
@@ -39,10 +39,10 @@
         </ul>
         <button class="btn" ng-click="addAnswer('',buildQuestion.answers)">+ Answer</button>
       </div>
-      <div ng-show="buildQuestion.type == 'number'">
+<!--      <div ng-show="buildQuestion.type == 'number'">
         <input type="number" name="min" placeholder="min" />
         <input type="number" name="max" placeholder="max" />
-      </div>
+      </div>-->
     </div>
     
   </div>

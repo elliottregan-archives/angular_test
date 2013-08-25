@@ -317,7 +317,7 @@ function multiAccountsCtr($scope, $stateParams, $location, tempObjects, accountD
 function dashboardCtr($scope, $stateParams, $location, tempObjects, accountData) {
   console.log("initialize dashboard controller");
 
-  $scope.buildCampaign = tempObjects.getBuildCampaign();
+//  $scope.buildCampaign = tempObjects.getBuildCampaign();
   checkForArchived();
   $scope.view_archived = false;
   $scope.edit_mode = false;
@@ -460,8 +460,11 @@ function dashboardCtr($scope, $stateParams, $location, tempObjects, accountData)
         
     var temp_builder = new Campaign(datetimeId, handle, new_campaign_title, is_local, new_campaign_locale, discoverable);
     tempObjects.updateBuildCampaign(temp_builder);
+    tempObjects.updateBuildCampaign($scope.campaignList[$stateParams.campaignId]);
+    
     accountData.addCampaign($scope.accountId, temp_builder.id, temp_builder);
     $scope.campaignTitleList = accountData.getCampaignTitles($scope.accountId, true);
+    
     
     
     $location.path( '/account/'+$scope.accountId+'/campaign/'+datetimeId+'/edit' );
@@ -509,8 +512,8 @@ function campaignCtr($scope, $stateParams, $location, accountData) {
       if (accountData.checkIfCampaignExist($scope.array_of_account_ids,$stateParams.campaignId)) {
         console.log("one campaign and it exists in account"+$scope.array_of_account_ids)
         $scope.campaignId = $stateParams.campaignId;
-        $scope.campaignTitle = $scope.campaignTitleList[$scope.campaignId].title;
-        $scope.campaignHandle = $scope.campaignTitleList[$scope.campaignId].handle;
+//        $scope.campaignTitle = $scope.campaignTitleList[$scope.campaignId].title;
+//        $scope.campaignHandle = $scope.campaignTitleList[$scope.campaignId].handle;
         
         setViewCampaign(arrayOfCampaignIds);
       }
@@ -550,8 +553,6 @@ function campaignCtr($scope, $stateParams, $location, accountData) {
   
     $scope.viewCampaign = {};
     $scope.viewCampaign.conversations = accountData.getConversations($scope.array_of_account_ids, array_of_campaign_ids);
-    $scope.viewCampaign.rewards = accountData.getRewards($scope.array_of_account_ids, array_of_campaign_ids);
-    console.log(accountData.getRewards($scope.array_of_account_ids, array_of_campaign_ids))
   };
     
 };
@@ -565,8 +566,17 @@ function campaignBuilderCtr($scope, $location, $stateParams, tempObjects, accoun
   };
   
   function init() {
-    tempObjects.updateBuildCampaign($scope.campaignList[$stateParams.campaignId]);
-    $scope.buildCampaign = tempObjects.getBuildCampaign();
+    var arrayOfCampaignIds = [];
+    arrayOfCampaignIds = $stateParams.campaignId.split("+");
+    $scope.buildCampaign = {};
+//    tempObjects.updateBuildCampaign($scope.campaignList[$stateParams.campaignId]);
+//    $scope.buildCampaign = angular.copy($scope.viewCampaign);
+    
+    var metaData = accountData.getMetaData($scope.array_of_account_ids, arrayOfCampaignIds);
+    $scope.buildCampaign.questionsList = metaData.questionsList;
+    $scope.buildCampaign.locationsList = metaData.locationsList;
+    $scope.buildCampaign.permissions = metaData.permissions;
+    $scope.buildCampaign.reward = metaData.activeReward;
     
     if ($scope.reward_type == undefined) {
       $scope.reward_type = "location";
@@ -723,7 +733,9 @@ function campaignBuilderCtr($scope, $location, $stateParams, tempObjects, accoun
   };
   
   $scope.saveChanges = function() {
-    accountData.addCampaign($stateParams.accountId, $stateParams.campaignId, $scope.buildCampaign);
+    console.log($scope.buildCampaign) ;
+    var accountId = accountData.getMultiAccountCampaignTitles()[$stateParams.campaignId].account_id;
+    accountData.updateCampaign(accountId, $stateParams.campaignId, $scope.buildCampaign);
     $scope.resetStep();
     $location.path( '/account/'+$scope.accountId+'/dashboard' ); //redirect back to dashboard
     
@@ -740,16 +752,15 @@ function rewardsCtr($scope, $stateParams, $location, userData) {
   console.log("initialize user rewards controller");
   init();
   
-  function init() {
-    $scope.rewardsList = userData.getRewardsList();
+  function init() {    
     
-    if ($scope.rewardsList[$stateParams.rewardId] != null) { //first make sure the rewardId from route exists.
-      $scope.viewReward = $scope.rewardsList[$stateParams.rewardId]; //find reward with id in the list of rewards and save to variable.
-      $scope.title = $scope.viewReward.title;
-    }
-    else {
-      $location.path( "/rewards" ); //redirect back to dashboard if campaign isn't found
-    };
+//    if ($scope.rewardsList[$stateParams.rewardId] != null) { //first make sure the rewardId from route exists.
+//      $scope.viewReward = $scope.rewardsList[$stateParams.rewardId]; //find reward with id in the list of rewards and save to variable.
+//      $scope.title = $scope.viewReward.title;
+//    }
+//    else {
+//      $location.path( "/rewards" ); //redirect back to dashboard if campaign isn't found
+//    };
   };
 
   $scope.title = 'Rewards';
@@ -768,15 +779,18 @@ function CampaignRewardsCtr($scope, $stateParams, $location, accountData) {
   var fullRewardsData = {};
   var closedRewards = [];
   var openRewards = [];
+  var arrayOfCampaignIds = $stateParams.campaignId.split("+");
+  
   $scope.title = 'Rewards';
   
   function init() {
     
+    
+    $scope.viewCampaign.rewards = accountData.getRewards($scope.array_of_account_ids, arrayOfCampaignIds);
+
   };
   
-  var arrayOfCampaignIds = $stateParams.campaignId.split("+");
     
-  fullRewardsData = accountData.getRewardsList($scope.accountId, arrayOfCampaignIds);
   
   function splitRewardsList(reward) {    
     

@@ -37,7 +37,8 @@
     
     <nav class="main_nav sidebar">
       <div>
-        <div class="profile_pic" ng-click="togglePersonalPages()"></div>
+        <!--<div class="profile_pic" ng-click="togglePersonalPages()"></div>-->
+        
       </div>
       <div class="personal_pages bounceInDown animated" ng-class="{visible: personal_pages_visible == true}">
         <h3>ACCOUNT PAGES</h3>        
@@ -54,7 +55,10 @@
         </ul>
       </div>
       <ul>
-        <li>Inbox <small>(doesn't work yet)</small></li>
+        <li>
+          <a ng-click="togglePersonalPages()">Personal Pages</a>
+        </li>
+        <li><a href="#">Inbox <small>(doesn't work yet)</small></a></li>
         <li ng-repeat="account in accountList">
           <a href="#/account/{{account.id}}/dashboard" ng-click="toggleSidebar()">@<span ng-bind="account.handle"></span></a>
         </li>

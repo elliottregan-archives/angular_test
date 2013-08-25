@@ -1315,6 +1315,11 @@ appmodule.factory('accountData', function() {
     accounts[accountId].campaigns[campaign_id] = campaign;
   };
   
+  factory.updateCampaign = function(accountId, campaign_id, edited_campaign) {
+    accounts[accountId].campaigns[campaign_id] = Object.merge(accounts[accountId].campaigns[campaign_id], edited_campaign, true);
+    accounts[accountId].campaigns[campaign_id].questionsList = edited_campaign.questionsList;
+  };
+  
   factory.checkIfCampaignExist = function(check_against_account_ids, campaign_id) {
     var outcomes = [];
     i = 0;
@@ -1363,13 +1368,37 @@ appmodule.factory('accountData', function() {
       campaignTitlesList = factory.getCampaignTitles(account_id, true);
       
       rewardsList = Object.merge(rewardsList,accounts[account_id].rewards);
-      console.log(accounts[account_id].rewards)
     });
     
     return rewardsList;
   };
   
-  factory.getRewardsList = function(account_id, campaign_id_array) {
+  factory.getMetaData = function(array_of_account_ids, array_of_campaign_ids) {
+    var metaData = {
+      locationsList : [],
+      questionsList : [],
+      permissions : {},
+      activeReward : {}
+    };
+    var campaignTitlesList = [];
+    
+    Object.values(array_of_account_ids).forEach(function(account_id) {
+      campaignTitlesList = factory.getCampaignTitles(account_id, true);
+      
+      array_of_campaign_ids.forEach(function(campaign_id) {
+        if (factory.checkIfCampaignExist(account_id, campaign_id)) {
+          metaData.locationsList = Object.merge(metaData.locationsList,accounts[account_id].campaigns[campaign_id].locationsList);
+          metaData.questionsList = Object.merge(metaData.questionsList,accounts[account_id].campaigns[campaign_id].questionsList);
+          metaData.permissions = Object.merge(metaData.permissions,accounts[account_id].campaigns[campaign_id].permissions);
+          metaData.activeReward = Object.merge(metaData.activeReward,accounts[account_id].campaigns[campaign_id].reward);
+        }
+      });
+    });
+    
+    return metaData;
+  };
+  
+  factory.getRewardsList = function(account_id, campaign_id_array) { //only used for user rewards
     var rewardsList = [];
     var campaignList = accounts[account_id].campaigns;
     

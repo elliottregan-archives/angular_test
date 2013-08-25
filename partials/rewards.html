@@ -15,7 +15,7 @@
           <div ng-show="edit_mode == true">
             <button class="btn right" ng-click="deleteAnyListItems(reward, rewardsList)">delete</button>
           </div>
-          <a href="#/rewards/{{reward.id}}">
+          <a href="#/account/{{accountId}}/campaign/{{campaignId}}/rewards/{{reward.id}}">
             <h2 ng-bind="reward.title"></h2>
             <p ng-show="reward.claimed == false">expires <span ng-bind="reward.exp_date"></span></p>
             <p ng-show="reward.claimed != false">used <span ng-bind="reward.claimed"></span></p>
