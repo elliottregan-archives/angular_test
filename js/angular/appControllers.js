@@ -733,11 +733,10 @@ function campaignBuilderCtr($scope, $location, $stateParams, tempObjects, accoun
   };
   
   $scope.saveChanges = function() {
-    console.log($scope.buildCampaign) ;
     var accountId = accountData.getMultiAccountCampaignTitles()[$stateParams.campaignId].account_id;
     accountData.updateCampaign(accountId, $stateParams.campaignId, $scope.buildCampaign);
     $scope.resetStep();
-    $location.path( '/account/'+$scope.accountId+'/dashboard' ); //redirect back to dashboard
+    $location.path( '/account/'+$scope.accountId+'/campaign/'+$stateParams.campaignId+'/conversations' ); //redirect back to dashboard
     
   };
   
