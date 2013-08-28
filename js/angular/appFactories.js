@@ -273,6 +273,7 @@ appmodule.factory('accountData', function() {
                 creator: "Crepes & Things",
                 terms: "This would be a long, possibly very long paragraph of terms. It may even have more than one paragraph, although this one does not.",
                 exp_date: "4/1/2014",
+                status: "redeemed",
                 date_claimed: "4/12/2013",
                 verified: "Me",
                 owner: "user4",
@@ -412,7 +413,7 @@ appmodule.factory('accountData', function() {
                 creator: "Mayor Bumsted",
                 terms: "May not be used in Missouri. Sorry.",
                 exp_date: "2/28/1993",
-                date_claimed: "4/1/2014",
+                status: "open",
                 verified: "Me",
                 owner: "user0",
                 passphrase: "honeynut",
@@ -1355,6 +1356,12 @@ appmodule.factory('accountData', function() {
     var conversationsList = {};
     var campaignTitlesList = [];
     
+    if (Object.isString(array_of_account_ids)) {
+      account_id_temp = array_of_account_ids;
+      array_of_account_ids = [];
+      array_of_account_ids[0] = account_id_temp;
+    };
+    
     Object.values(array_of_account_ids).forEach(function(account_id) {
       campaignTitlesList = factory.getCampaignTitles(account_id, true);
       
@@ -1368,18 +1375,23 @@ appmodule.factory('accountData', function() {
     return conversationsList;
   };
   
-  factory.getRewards = function(array_of_account_ids, array_of_campaign_ids) {
+  factory.getRewards = function(array_of_account_ids, array_of_campaign_ids, requested_reward_status) {
+
+    var conversations = factory.getConversations(array_of_account_ids, array_of_campaign_ids);
     var rewardsList = {};
-    var campaignTitlesList = [];
     
-    Object.values(array_of_account_ids).forEach(function(account_id) {
-      campaignTitlesList = factory.getCampaignTitles(account_id, true);
+    Object.values(conversations).forEach( function(conversation) {
       
-      rewardsList = Object.merge(rewardsList,accounts[account_id].rewards);
-    });
+      if (conversation.reward.status == requested_reward_status) {
+        rewardsList[conversation.reward.id] = conversation.reward;
+      }
     
+    });
+        
     return rewardsList;
   };
+  
+  
   
   factory.getMetaData = function(array_of_account_ids, array_of_campaign_ids) {
     var metaData = {

@@ -518,7 +518,7 @@ function campaignCtr($scope, $stateParams, $location, accountData) {
     
     var arrayOfCampaignIds = [];
     arrayOfCampaignIds = $stateParams.campaignId.split("+");
-    
+    $scope.arrayOfCampaignIds = arrayOfCampaignIds;
     
     if (arrayOfCampaignIds.length == 1) {     
       if (accountData.checkIfCampaignExist($scope.array_of_account_ids,$stateParams.campaignId)) {
@@ -790,54 +790,34 @@ function CampaignRewardsCtr($scope, $stateParams, $location, accountData) {
   var fullRewardsData = {};
   var closedRewards = [];
   var openRewards = [];
-  var arrayOfCampaignIds = $stateParams.campaignId.split("+");
   
   $scope.title = 'Rewards';
   
   function init() {
     
-    
-    $scope.viewCampaign.rewards = accountData.getRewards($scope.array_of_account_ids, arrayOfCampaignIds);
+    $scope.viewCampaign.rewards = accountData.getRewards($scope.array_of_account_ids, $scope.arrayOfCampaignIds, "open");
 
   };
   
-    
-  
-  function splitRewardsList(reward) {    
-    
-    if (fullRewardsData[reward].date_claimed == false) {
-      openRewards.push(fullRewardsData[reward]);
-    }
-    else {
-      closedRewards.push(fullRewardsData[reward]);
-    }
-    
+  $scope.addRedeemedRewards = function() {
+    $scope.viewCampaign.rewards = Object.merge($scope.viewCampaign.rewards, accountData.getRewards($scope.array_of_account_ids, $scope.arrayOfCampaignIds, "redeemed"));
   };
   
-  var rewardIds = Object.keys(fullRewardsData);
+  $scope.addExpiredRewards = function() {
+    $scope.viewCampaign.rewards = Object.merge($scope.viewCampaign.rewards, accountData.getRewards($scope.array_of_account_ids, $scope.arrayOfCampaignIds, "expired"));
+  };
   
-  rewardIds.forEach(splitRewardsList);
-  
-  
-  $scope.campaignId = $stateParams.campaignId;
-  
-  $scope.rewardsList = [];
-
-  $scope.rewardsList = openRewards;
+  $scope.addRewards = function(queried_status) {
+    $scope.viewCampaign.rewards = Object.merge($scope.viewCampaign.rewards, accountData.getRewards($scope.array_of_account_ids, $scope.arrayOfCampaignIds, queried_status));
+  };  
   
   $scope.rewardsView = "open";
 
-  $scope.toggleRewardsList = function() {
-    if ($scope.rewardsView == "open") {
-      $scope.rewardsList = [];
-      $scope.rewardsList = closedRewards;
-      $scope.rewardsView = "closed";
-    }
-    else {
-      $scope.rewardsList = [];
-      $scope.rewardsList = openRewards;
-      $scope.rewardsView = "open";
-    };
+  $scope.toggleRewardsList = function(queried_status) {
+    
+    $scope.addRewards(queried_status);
+    $scope.rewardsView = queried_status;
+    
   };
   
   $scope.claimReward = function (el) {
