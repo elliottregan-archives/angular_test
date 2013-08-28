@@ -787,42 +787,37 @@ function CampaignRewardsCtr($scope, $stateParams, $location, accountData) {
   console.log("initialize rewards controller");
   init();
   
-  var fullRewardsData = {};
-  var closedRewards = [];
-  var openRewards = [];
-  
   $scope.title = 'Rewards';
   
   function init() {
     
     $scope.viewCampaign.rewards = accountData.getRewards($scope.array_of_account_ids, $scope.arrayOfCampaignIds, "open");
-
+    
   };
   
-  $scope.addRedeemedRewards = function() {
-    $scope.viewCampaign.rewards = Object.merge($scope.viewCampaign.rewards, accountData.getRewards($scope.array_of_account_ids, $scope.arrayOfCampaignIds, "redeemed"));
-  };
-  
-  $scope.addExpiredRewards = function() {
-    $scope.viewCampaign.rewards = Object.merge($scope.viewCampaign.rewards, accountData.getRewards($scope.array_of_account_ids, $scope.arrayOfCampaignIds, "expired"));
-  };
   
   $scope.addRewards = function(queried_status) {
-    $scope.viewCampaign.rewards = Object.merge($scope.viewCampaign.rewards, accountData.getRewards($scope.array_of_account_ids, $scope.arrayOfCampaignIds, queried_status));
+    $scope.viewCampaign.rewards.add(accountData.getRewards($scope.array_of_account_ids, $scope.arrayOfCampaignIds, queried_status));
+    $scope.viewCampaign.rewards = $scope.viewCampaign.rewards.unique(function(obj) {
+      return obj.id;
+    });
   };  
   
+  //set search query to be an object and set initial view to show only open rewards
+  $scope.search_query = {};
   $scope.rewardsView = "open";
+  $scope.search_query.status = $scope.rewardsView;
 
   $scope.toggleRewardsList = function(queried_status) {
     
     $scope.addRewards(queried_status);
     $scope.rewardsView = queried_status;
+      $scope.search_query.status = queried_status;
     
   };
   
   $scope.claimReward = function (el) {
     el.date_claimed = new Date();
-        
   }
 
 };

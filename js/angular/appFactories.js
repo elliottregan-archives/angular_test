@@ -1378,12 +1378,15 @@ appmodule.factory('accountData', function() {
   factory.getRewards = function(array_of_account_ids, array_of_campaign_ids, requested_reward_status) {
 
     var conversations = factory.getConversations(array_of_account_ids, array_of_campaign_ids);
-    var rewardsList = {};
+    var rewardsList = [];
     
     Object.values(conversations).forEach( function(conversation) {
       
       if (conversation.reward.status == requested_reward_status) {
-        rewardsList[conversation.reward.id] = conversation.reward;
+        rewardsList.add([conversation.reward]);
+        rewardsList = rewardsList.unique(function(obj) {
+          return obj.id;
+        });
       }
     
     });

@@ -12,12 +12,10 @@
       
       <div class="btnset three_btns">
         <button class="btn" ng-click="toggleRewardsList('open')" ng-class="{selected: rewardsView == 'open'}">Open</button>
-        <button class="btn" ng-click="toggleRewardsList('redeemed')" ng-class="{selected: rewardsView == 'closed'}">Redeemed</button>
-        <button class="btn" ng-click="toggleRewardsList('expired')">Expired</button>
+        <button class="btn" ng-click="toggleRewardsList('redeemed')" ng-class="{selected: rewardsView == 'redeemed'}">Redeemed</button>
+        <button class="btn" ng-click="toggleRewardsList('expired')" ng-class="{selected: rewardsView == 'expired'}">Expired</button>
       </div>
-      <button type="button" ng-click="addRedeemedRewards()" class="btn">add redeemed</button>
-      
-      <input type="text" ng-model="search_query" placeholder="search names or secret codes"/>
+      <input type="text" ng-model="search_query.$" placeholder="search names or secret codes"/>
       <ul class="object_list">
         <li ng-repeat="reward in viewCampaign.rewards | filter:search_query">
           <button class="btn right" ng-click="claimReward(reward)" class="btn" ng-class="{claimed: reward.date_claimed != false}">redeem</button>
