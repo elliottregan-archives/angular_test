@@ -818,6 +818,7 @@ function CampaignRewardsCtr($scope, $stateParams, $location, accountData) {
   
   $scope.claimReward = function (el) {
     el.date_claimed = new Date();
+    el.status = "redeemed";
   }
 
 };
