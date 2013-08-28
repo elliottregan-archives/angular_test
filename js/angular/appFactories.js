@@ -1320,6 +1320,14 @@ appmodule.factory('accountData', function() {
     accounts[accountId].campaigns[campaign_id].questionsList = edited_campaign.questionsList;
   };
   
+  factory.addMessage = function(account_id, campaign_id, message_id, message) {
+    accounts[account_id].campaigns[campaign_id].conversations[messageId] = message;
+  };
+  
+  factory.resetNewCounter = function(account_id, campaign_id) {
+    accounts[account_id].campaigns[campaign_id].newCounter = 0;
+  };
+  
   factory.checkIfCampaignExist = function(check_against_account_ids, campaign_id) {
     var outcomes = [];
     i = 0;

@@ -138,6 +138,8 @@ function appCtr($scope, $stateParams, $state, $location, $route, $timeout, accou
   
   $scope.$on("NEW_MESSAGE", function(event, campaignIndex, message, messageId) {
     $scope.$broadcast("MESSAGE_RECEIVED", campaignIndex, message, messageId);
+    console.log("message sent by app controller");
+    
   }); 
   
     
@@ -284,7 +286,14 @@ function userCtr($scope, userData, accountData) {
 
 function accountCtr($scope, $stateParams, $location, tempObjects, accountData) {
   console.log("initialize account controller");
-  init();  
+  init(); 
+  
+  $scope.$on("MESSAGE_RECEIVED", function(event, campaignIndex, message, messageId) {
+    console.log("message received by account controller");
+    accountData.addMessage("account01", campaignIndex, messageId, message);
+    $scope.campaignTitleList[campaignIndex].newCounter = $scope.campaignTitleList[campaignIndex].newCounter + 1;
+  });
+   
   function init() {
     
     $scope.accountId = $stateParams.accountId;
@@ -497,13 +506,16 @@ function campaignCtr($scope, $stateParams, $location, accountData) {
   
   
   init();
-  
+
   $scope.$on("MESSAGE_RECEIVED", function(event, campaignIndex, message, messageId) {
-    $scope.campaignList[campaignIndex].conversations[messageId] = message;
-    $scope.campaignList[campaignIndex].newCounter = $scope.campaignList[campaignIndex].newCounter + 1;
+    console.log("message received by campaign controller");
+    console.log($scope.viewCampaign.conversations)
+    $scope.viewCampaign.conversations = accountData.getConversations(["account01"], [campaignIndex]);
   });
   
   function init() {
+    
+    
     var arrayOfCampaignIds = [];
     arrayOfCampaignIds = $stateParams.campaignId.split("+");
     

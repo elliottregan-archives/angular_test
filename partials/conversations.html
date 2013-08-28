@@ -2,7 +2,7 @@
     
     <div class="scroller_wrapper with_header_padding">
       <div class="scroller">
-        <p ng-if="viewCampaign.conversations[0] == undefined">No conversations here. :( <br /><button class="btn">Spread the word!</button></p>
+        <p ng-if="viewCampaign.conversations.length == 0">No conversations here. :( <br /><button class="btn">Spread the word!</button></p>
         <ul class="conversations">
           <li ng-repeat="instance in viewCampaign.conversations" class="instance" ng-controller="instanceCtr" ng-include src="'partials/instance.html'"></li>
         </ul>
