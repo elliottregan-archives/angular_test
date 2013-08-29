@@ -1,0 +1,37 @@
+header.app_header
+    button.btn.icon.left(ng-click='toggleNavbar()')
+      i.icon-menu
+    button.btn.right(ng-click='toggleSidebar(\'right\')')  . . . 
+    h2(ng-bind='editCampaign.title')
+    .closed
+      ul
+        li
+          a(href='#campaign/{{viewCampaign.id}}') Campaign Overview
+        li(ng-click='togglePanel(\'social_accounts\')') share!
+        li
+          a(href='#/campaign/{{viewCampaign.id}}/edit', ng-click='resetStep()') edit
+        li Rewards
+  .scroller_wrapper.with_header_padding
+    .scroller
+      section
+        h3 Notifications
+        ul.notifications
+          li 11 rewards have been redeemed.
+          li Your ratings have improved this week.
+      section
+        h3 RECENT MESSAGES
+        ul.conversations
+          li.instance(ng-repeat='instance in editCampaign.conversations')
+            a(href='#/campaign/{{editCampaign.id}}/instance/{{instance.id}}')
+              article
+                h5(ng-bind='instance.comments[(instance.comments.length-1)].author')
+                p(ng-bind='instance.comments[(instance.comments.length-1)].text')
+      section
+        h3 AT A GLANCE
+        .data_section.row
+          figure.data.centered.col-1-3
+            .big_number 2
+            figcaption responses
+          ul.data.text.col-2-3
+            li Your engagement has gone down this week.
+            li Your ratings have improved this week.

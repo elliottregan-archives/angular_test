@@ -1,0 +1,18 @@
+article.card(ng-init='instance.cap = -2')
+    button.btn.right(ng-click='toggleFullFormView()') toggle view
+    h4
+      span(ng-bind='instance.name')
+      span(ng-bind='instance.handle')
+    time(ng-bind='instance.time')
+    p(ng-bind='instance.text', ng-click='expandReplies(instance)')
+    div(ng-include='ng-include', src='\'partials/form_completed.html\'')
+    h5 Conversation:
+    ul.replies
+      li.reply(ng-repeat='comment in (instance.comments | limitTo:instance.cap)', ng-animate='\'collapse\'')
+        h6
+          span(ui-if='comment.author != \'You\'', ng-bind='comment.author')
+          span(ui-if='comment.author == \'You\'') You
+        p(ng-bind='comment.text')
+    form.reply(ng-submit='addReply(newCommentText, instance.comments)')
+      button.btn.inline(type='submit') reply
+      input.inline(type='text', name='new_comment', ng-model='newCommentText')

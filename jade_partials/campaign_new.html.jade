@@ -1,0 +1,61 @@
+header.app_header
+    a.btn.icon.left(href='#/account/{{accountId}}') cancel account/{{accountId}}
+    a(ng-click='advanceStep()', ng-hide='ng-hide', currentstep='currentStep')
+      | = (steps.length-1)' class="btn right"
+      | Next Step
+    a(href='#/account/{{accountId}}', ng-show='ng-show', currentstep='currentStep')
+      | = (steps.length-1)' class="btn right"
+      | Save Changes
+    h2(ng-click='toggleSidebar(\'right\')') Edit Campaign #1: Step {{steps[currentStep]+1}}
+    nav.header_dropdown.closed
+      ol
+        li(ng-repeat='n in steps', ng-click='changeStep(n)') Step {{n+1}}
+        li
+          a(href='#/account/{{accountId}}') Save Changes
+  .scroller
+    h2 {{openedCampaign.name}}
+    section(ng-switch='ng-switch', on='currentStep')
+      div(ng-switch-when='0')
+        ol
+          li(ng-repeat='question in openedCampaign.questionsList')
+            | {{question}}
+      div(ng-switch-when='1')
+        form(method='post', action='')
+          input(type='text', name='title', value='', placeholder='Gift Title')
+          input(type='text', name='description', value='', placeholder='Description')
+          input(type='text', name='terms', value='', placeholder='Terms and Conditions')
+      div(ng-switch-when='2')
+        ul
+          li
+            | Facebook Account
+            small.status connected
+          li
+            | Twitter Account
+            small.status connected
+        button.dotted Add new social account
+      div(ng-switch-when='3')
+        label(for='emails') Send email invitations to others to help manage this campaign.
+        input(type='text', name='name', value='', placeholder='name')
+        input(type='email', name='email', value='', placeholder='email')
+        fieldset
+          input#read(type='radio', name='permission')
+          label(for='read') View Analytics
+          input#readwrite(type='radio', name='permission')
+          label(for='readwrite') View and edit details
+        button.new_invite Send
+        hr
+        h2 Invites sent:
+        ul
+          li
+            button resend
+            | John Doe
+            small.status pending...
+          li
+            | Jane Roberts
+            small.status accepted
+      div(ng-switch-when='4')
+        label(for='url') Choose a URL for your access point
+        input#url(type='text', name='url', value='fdbk.com/business_name')
+        label(for='access_points') or choose a previous access point.
+        select
+          option 407 9th St, Brooklyn, NY

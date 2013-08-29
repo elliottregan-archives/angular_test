@@ -1,0 +1,9 @@
+header.app_header
+  button.btn.icon.left(ng-click='toggleSidebar(', right='right')
+    i.icon-menu
+  h1 Fdbk History
+.scroller_wrapper.with_header_padding
+  .scroller
+    p(ng-show='userDetails.conversations == []') empty!
+    ul.conversations
+      li.instance(ng-repeat='conversation in conversations', ng-controller='instanceCtr', ng-include='ng-include', src='\'partials/instance_simple.html\'')

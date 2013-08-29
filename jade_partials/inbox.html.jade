@@ -1,0 +1,34 @@
+header.app_header
+    button.btn.icon.left(ng-click='toggleSidebar(\'right\')')
+      i.icon-menu
+    h1(ng-bind='title')
+  .scroller_wrapper.with_header_padding
+    .scroller
+      ul.conversations(ng-repeat='campaign in campaignList')
+        li.instance(ng-repeat='conversation in campaign.conversations')
+          aside.btn_set.vert
+            button.btn !
+          article.card
+            button.btn.heard.heard_{{instance.heard}}(ng-click='hearIt(instance)', ui-if='instance.author != \'You\'') heard!
+            h4(ng-bind='instance.author')
+            time(ng-bind='instance.time')
+            p(ng-bind='instance.text', ng-click='expandReplies($index)')
+            ul.replies(ng-show='isExpanded($index) && instance.comments[2]')
+              li.reply(ng-repeat='comment in instance.comments | limitTo:(instance.comments.length-2)')
+                | length:
+                | {{$last}}
+                button.btn.heard.heard_{{comment.heard}}(ng-click='hearIt(comment)', ui-if='comment.author != \'You\'') heard!
+                h5(ng-bind='comment.author')
+                p(ng-bind='comment.text')
+            ul.replies
+              li.reply(ng-show='instance.comments[(instance.comments.length-2)]')
+                button.btn.heard.heard_{{instance.comments[(instance.comments.length-2)].heard}}(ng-click='hearIt(instance.comments[(instance.comments.length-2)])', ui-if='instance.comments[(instance.comments.length-2)].author != \'You\'') heard!
+                h5(ng-bind='instance.comments[(instance.comments.length-2)].author')
+                p(ng-bind='instance.comments[(instance.comments.length-2)].text')
+              li.reply(ng-show='instance.comments[(instance.comments.length-1)]')
+                button.btn.heard.heard_{{instance.comments[(instance.comments.length-1)].heard}}(ng-click='hearIt(instance.comments[(instance.comments.length-1)])', ui-if='instance.comments[(instance.comments.length-1)].author != \'You\'') heard!
+                h5(ng-bind='instance.comments[(instance.comments.length-1)].author')
+                p(ng-bind='instance.comments[(instance.comments.length-1)].text')
+            form.reply(ng-submit='addReply(newCommentText, instance.comments)')
+              input(type='text', name='new_comment', ng-model='newCommentText')
+              button.btn(type='submit') reply

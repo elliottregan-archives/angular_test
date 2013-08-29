@@ -1,0 +1,28 @@
+article.card(ng-init='instance.cap = -2')
+    //
+      <button class="btn right" ng-click="toggleFullFormView()">toggle view</button>
+    header.instance_header
+      button.btn.icon.right(ng-click='toggleToolPanel(instance)')
+        i.icon-cog
+      h2
+        a(href='#/campaign/{{viewCampaign.id}}/contacts/{{instance.author}}', ng-bind='instance.author')
+      time(ng-bind='instance.time')
+    section
+      button.btn.right.heard.heard_{{instance.heard}}(ng-click='hearIt(instance)', ng-if='instance.author != \'You\'') heard!
+      div(ng-include='ng-include', src='\'partials/form_completed.html\'')
+      button.btn.icon.right(ng-if='isExpandable', ng-click='expandReplies(instance)')
+        i.icon-down-open(ng-if='isExpandable')
+        i.icon-up-open
+    section
+      h3 Conversation
+      ul.replies
+        li.reply(ng-repeat='comment in (instance.comments | limitTo:instance.cap)', ng-animate='\'collapse\'')
+          button.btn.heard.heard_{{comment.heard}}(ng-click='hearIt(comment)', ng-if='comment.author != \'You\'') heard!
+          h5
+            span(ng-if='comment.author != \'You\'', ng-bind='comment.author')
+            span(ng-if='comment.author == \'You\'') You
+          p(ng-bind='comment.text')
+      form.reply(ng-submit='addReply(newCommentText, instance.comments)')
+        button.btn.inline(type='submit')
+          i.icon-paper-plane
+        input.inline(type='text', name='new_comment', ng-model='newCommentText')

@@ -1,0 +1,10 @@
+.animation_wrapper.layer1
+    .scroller_wrapper.with_header_padding
+      .scroller
+        p(ng-if='viewCampaign.conversations.length == 0')
+          | No conversations here. :(
+          br
+          button.btn Spread the word!
+        ul.conversations
+          li.instance(ng-repeat='instance in viewCampaign.conversations', ng-controller='instanceCtr', ng-include='ng-include', src='\'partials/instance.html\'')
+    ui-view

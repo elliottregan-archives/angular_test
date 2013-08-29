@@ -1,0 +1,14 @@
+header.app_header
+    a.btn.icon.left(href='#/campaign/{{campaignId}}/contacts')
+      i.icon-left-open
+      | back
+    h1 {{title}}
+  .scroller_wrapper.with_header_padding
+    section.scroller
+      h2(ng-bind='viewReward.title')
+      dl
+        dt Name:
+        dd(ng-bind='viewUser.name')
+        ul
+          li(ng-repeat='convo in convoList')
+            | {{convo.text}}

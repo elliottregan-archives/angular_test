@@ -1,0 +1,37 @@
+header.app_header
+  button.btn.icon.left(ng-click='togglePanel()') cancel
+  button.btn.right(ng-show='panel==\'Create Question\'', ng-click='saveQuestion()', ui-event='{click : \'togglePanel()\'}')
+    span(ng-if='!editing_question') add question
+    span(ng-if='editing_question') save changes
+  h1(ng-bind='panel')
+.content.scroller
+  div(ng-show='panel==\'Create Question\'')
+    h3 Choose Question Type:
+    ul.btnset.five_btns
+      li.btn(ng-click='SelectQuestionType(\'binary\', buildQuestion)', ng-class='{selected: buildQuestion.type == \'binary\'}')
+        | Yes/No
+      li.btn(ng-click='SelectQuestionType(\'rating\', buildQuestion)', ng-class='{selected: buildQuestion.type == \'rating\'}')
+        | Rating
+      li.btn(ng-click='SelectQuestionType(\'freeText\', buildQuestion)', ng-class='{selected: buildQuestion.type == \'freeText\'}')
+        | Text
+      li.btn(ng-click='SelectQuestionType(\'multipleChoice\', buildQuestion)', ng-class='{selected: buildQuestion.type == \'multipleChoice\'}')
+        | Choice
+      li.btn(ng-click='SelectQuestionType(\'number\', buildQuestion)', ng-class='{selected: buildQuestion.type == \'number\'}')
+        | Number
+    input(type='text', name='question_{{question.id}}', ng-model='buildQuestion.text', placeholder='Enter your question here.')
+    .options
+      div(ng-show='buildQuestion.type == \'binary\'')
+      div(ng-show='buildQuestion.type == \'rating\'')
+      div(ng-show='buildQuestion.type == \'freeText\'')
+      div(ng-show='buildQuestion.type == \'multipleChoice\'')
+        input#limit.inline(type='checkbox', name='limit')
+        label.inline(for='limit') Limit to one one response.
+        ul.answers(ng-show='buildQuestion.type == \'multipleChoice\'')
+          li(ng-repeat='answer in buildQuestion.answers')
+            input(type='text', ng-model='answer.text', placeholder='add an answer here.')
+        button.btn(ng-click='addAnswer(\'\',buildQuestion.answers)') + Answer
+  div(ng-show='panel==\'share\'')
+    label(for='share_email') Enter a friend's email to share your reward with them:
+    input(type='email', name='share_email', placeholder='friend@email.com')
+    button.btn(ng-click='togglePanel()') send!
+  div(ng-show='panel==\'social_accounts\'') This is where you would find a list of your connected social accounts.

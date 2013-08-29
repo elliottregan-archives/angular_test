@@ -1,0 +1,15 @@
+header.app_header
+    a.btn.icon.left(href='#/rewards')
+      i.icon-left-open
+      | back
+    h1 {{title}}
+  .scroller_wrapper.with_header_padding
+    section.scroller
+      h2(ng-bind='viewReward.title')
+      dl
+        dt Description:
+        dd(ng-bind='viewReward.description')
+        dt Terms:
+        dd(ng-bind='viewReward.terms')
+      button.btn.{{!viewReward.claimed.||.'claimed'}}(ng-click='claimReward(viewReward)') claim
+      button.btn(ng-click='togglePanel(\'share\')') share

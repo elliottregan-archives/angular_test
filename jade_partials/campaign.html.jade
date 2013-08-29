@@ -1,0 +1,31 @@
+.dimmer(ng-click='toggleToolPanel()', ng-class='{visible: conversationDetailView == true}')
+  .animation_wrapper.layer1
+    header.app_header
+      button.btn.icon.left(ng-click='toggleSidebar(\'right\')')
+        i.icon-menu
+      button.btn.icon.right(ng-click='toggleNavbar()')  . . . 
+      small(ng-bind='campaignHandle')
+      h1(ng-bind='campaignTitle')
+    nav.campaign_nav.dropdown(ng-if='campaignNav_true', ng-click='toggleNavbar()')
+      ul
+        li
+          a(href='#/account/{{accountId}}/campaign/{{campaignId}}/conversations')
+            | Conversation Feed
+            i.icon-chat
+        li
+          a(href='#/account/{{accountId}}/campaign/{{campaignId}}/analytics')
+            | Analytics
+            i.icon-chart-bar
+        li(ng-hide='multipleViewCampaigns')
+          a(href='#/account/{{accountId}}/campaign/{{campaignId}}/edit')
+            | edit
+            i.icon-pencil
+        li
+          a(href='#/account/{{accountId}}/campaign/{{campaignId}}/rewards')
+            | rewards
+            i.icon-trophy
+        li
+          a(href='#/account/{{accountId}}/campaign/{{campaignId}}/contacts')
+            | contacts
+            i.icon-at
+    ui-view

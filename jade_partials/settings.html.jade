@@ -1,0 +1,21 @@
+header.app_header
+    button.btn.icon.left(ng-click='toggleSidebar(\'right\')')
+      i.icon-menu
+    h1(ng-bind='title')
+  .scroller_wrapper.with_header_padding
+    section.scroller
+      h2 Profile
+      fieldset
+        input(type='text', name='name', ng-model='userDetails.name')
+        input(type='email', name='email', ng-model='userDetails.email')
+        input(type='text', name='city', ng-model='userDetails.city')
+        textarea(ng-model='userDetails.bio')
+      h2 Password
+      fieldset
+        input(type='password', name='old_pass', placeholder='old password')
+        input(type='password', name='new_pass', placeholder='new password')
+        input(type='password', name='new_pass_conf', placeholder='confirm new password')
+      h2 Notifications
+      fieldset
+        input#email_alert(type='checkbox', name='email_alert')
+        label(for='email_alert') I want to receive an email when someone sends me feedback.

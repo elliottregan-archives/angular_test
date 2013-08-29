@@ -1,0 +1,47 @@
+ol
+    li(ng-repeat='question in buildCampaign.questionsList', ng-switch='question.type')
+      //
+        Start 'Multiple Choice' Template
+      div(ng-switch-when='multipleChoice')
+        h3(ng-bind='question.text') Multiple-Choice
+        ul.answers
+          li.inline(ng-repeat='answer in question.answers')
+            input#answer_{{question.id}}{{answer.id}}(type='radio', name='answer_{{question.id}}')
+            label(for='answer_{{question.id}}{{answer.id}}', ng-bind='answer.text')
+      //
+        End 'Multiple Choice' Template
+      //
+        Start 'rating' Template
+      div(ng-switch-when='rating')
+        h3(ng-bind='question.text')
+        ul.answers
+          li.inline(ng-repeat='answer in question.answers')
+            input#answer_{{question.id}}{{answer.id}}(type='radio', name='answer_{{question.id}}')
+            label(for='answer_{{question.id}}{{answer.id}}', ng-bind='answer.text')
+      //
+        End 'rating' Template
+      //
+        Start 'freeText' Template
+      div(ng-switch-when='freeText')
+        h3(ng-bind='question.text')
+        input(type='text', name='answer_{{question.id}}{{answer.id}}', ng-model='answer.text', placeholder='add an answer here.')
+      //
+        End 'freeText' Template
+      //
+        Start 'binary' Template
+      div(ng-switch-when='binary')
+        h3(ng-bind='question.text')
+        ul.answers
+          li.inline(ng-repeat='answer in question.answers')
+            input#answer_{{question.id}}{{answer.id}}(type='radio', name='answer_{{question.id}}')
+            label(for='answer_{{question.id}}{{answer.id}}', ng-bind='answer.text')
+      //
+        End 'binary' Template
+      //
+        Start 'number' Template
+      div(ng-switch-when='number')
+        h3(ng-bind='question.text')
+        label(for='answer_{{question.id}}{{answer.id}}') Choose a number:
+        input(type='text', name='answer_{{question.id}}{{answer.id}}', ng-model='answer.text', placeholder='type your answer here.')
+      //
+        End 'number' Template

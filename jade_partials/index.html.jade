@@ -1,0 +1,9 @@
+header.app_header
+  input(type='text', name='search', ng-model='search_query')
+.scroller_wrapper.with_header_padding
+  .scroller
+    ul.object_list
+      li(ng-repeat='campaign in searchListings | filter:search_query')
+        a(href='#/form')
+          small @{{campaign.handle}}
+          h2 {{campaign.title}}

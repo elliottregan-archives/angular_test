@@ -1,0 +1,16 @@
+ol(ui-sortable='sortableOptions')
+    li(ng-repeat='question in buildCampaign.questionsList')
+      .handle.right
+        i.icon-menu
+      .right
+        button(ng-click='editQuestion($index)') edit
+        button(ng-click='deleteQuestion($index)') delete
+      div(ng-if='(question.type == \'binary\') || (question.type == \'rating\') || (question.type == \'multipleChoice\')')
+        h3(ng-bind='question.text')
+        ul.answers
+          li.inline(ng-repeat='answer in question.answers')
+            .filled_answer
+            label(for='answer_{{question.id}}{{answer.id}}', ng-bind='answer.text')
+      div(ng-if='(question.type == \'freeText\') || (question.type == \'number\')')
+        h3(ng-bind='question.text')
+        .empty_textarea
