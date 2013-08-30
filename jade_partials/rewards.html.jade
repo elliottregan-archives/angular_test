@@ -1,22 +1,16 @@
 .animation_wrapper
-    header.app_header
-      button.btn.icon.left(ng-click='toggleSidebar(\'right\')')
-        i.icon-menu
-      button.btn.right(ng-click='toggleEditMode()', ng-switch='ng-switch', on='edit_mode')
-        span(ng-switch-when='false') edit
-        span(ng-switch-when='true') done
-      h1(ng-bind='title')
-    .scroller_wrapper.with_header_padding
-      section.scroller
-        ul.object_list
-          li(ng-repeat='reward in rewardsList')
-            div(ng-show='edit_mode == true')
-              button.btn.right(ng-click='deleteAnyListItems(reward, rewardsList)') delete
-            a(href='#/account/{{accountId}}/campaign/{{campaignId}}/rewards/{{reward.id}}')
-              h2(ng-bind='reward.title')
-              p(ng-show='reward.claimed == false')
-                | expires
-                span(ng-bind='reward.exp_date')
-              p(ng-show='reward.claimed != false')
-                | used
-                span(ng-bind='reward.claimed')
+  header.app_header
+    button.btn.icon.left(ng-click='toggleSidebar(\'right\')')
+      i.icon-menu
+    button.btn.right(ng-click='toggleEditMode()', ng-switch='ng-switch', on='edit_mode')
+      span(ng-switch-when='false') edit
+      span(ng-switch-when='true') done
+    h1(ng-bind='title')
+  .scroller_wrapper.with_header_padding
+    section.scroller
+      ul.object_list
+        li(ng-repeat='reward in rewardsList')
+          div(ng-show='edit_mode == true')
+            button.btn.right(ng-click='deleteAnyListItems(reward, rewardsList)') delete
+          a(href='#/rewards/{{reward.id}}')
+            h2(ng-bind='reward.title')

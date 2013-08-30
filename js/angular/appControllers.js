@@ -764,14 +764,8 @@ function rewardsCtr($scope, $stateParams, $location, userData) {
   init();
   
   function init() {    
-    
-//    if ($scope.rewardsList[$stateParams.rewardId] != null) { //first make sure the rewardId from route exists.
-//      $scope.viewReward = $scope.rewardsList[$stateParams.rewardId]; //find reward with id in the list of rewards and save to variable.
-//      $scope.title = $scope.viewReward.title;
-//    }
-//    else {
-//      $location.path( "/rewards" ); //redirect back to dashboard if campaign isn't found
-//    };
+    $scope.rewardsList = userData.getRewards("open");
+
   };
 
   $scope.title = 'Rewards';
@@ -976,7 +970,7 @@ function analyticsCtr($scope, $stateParams) {
 
 };
 
-function campaignContactsCtr($scope, $stateParams, $location, accountData, allUserData) {
+function campaignContactsCtr($scope, $stateParams, $location, accountData) {
   console.log("initialize contacts controller");
   $scope.title = "Contact Details";
   $scope.campaignId = $stateParams.campaignId;
@@ -990,29 +984,5 @@ function campaignContactsCtr($scope, $stateParams, $location, accountData, allUs
   var contactIdList = accountData.getContactList($scope.accountId, arrayOfCampaignIds);
   contactIdList = contactIdList.unique();
   $scope.contactList = [];
-  
-  Object.values(contactIdList, function(userId) {
-    $scope.contactList.push(allUserData.getUser(userId));
-  });
-  
-//  //*********For user details view *********
-//  if ($stateParams.userId != undefined) { //first make sure the userId from route exists.
-//    
-//    $scope.viewUser = allUserData.getUser($stateParams.userId); //find user with id 
-//    
-//      arrayOfCampaignIds.forEach(function(campaign_id) {
-//        
-//        Object.values($scope.viewUser.conversations[campaign_id], function(messageId) {
-//        
-//        $scope.convoList.push(accountData.getActiveCampaign(campaign_id).conversations[messageId])
-//        console.log(campaign_id)
-//      });
-//    });
-//    
-//    $scope.title = $scope.viewUser.name;
-//  }
-//  else  {
-//    $location.path( "/campaign/"+$scope.campaignId+"/contacts" ); //redirect back to dashboard if campaign isn't found
-//  };
   
 };

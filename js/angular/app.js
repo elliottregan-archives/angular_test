@@ -73,11 +73,6 @@ var appmodule = angular.module('appmodule', ['ui.sortable', 'ui.state']).
         templateUrl: 'partials/inbox.html',
         controller: inboxCtr
       }).
-      state('user_rewards', {
-        url: '/rewards',
-        templateUrl: 'partials/rewards.html',
-        controller: rewardsCtr
-      }).
       state('user_reward_detail', {
         url: '/rewards/"rewardId',
         templateUrl: 'partials/reward_info.html',
@@ -108,10 +103,17 @@ var appmodule = angular.module('appmodule', ['ui.sortable', 'ui.state']).
         templateUrl: 'partials/analytics.html',
         controller: analyticsCtr
       }).
+      state('user_rewards', {
+        url: '/rewards',
+        templateUrl: 'partials/rewards.html',
+        controller: rewardsCtr
+      }).
       state('settings', {
+        url: '/settings',
         templateUrl: 'partials/settings.html',
       }).
       state('history', {
+        url: '/history',
         templateUrl: 'partials/history.html',
       });
 });

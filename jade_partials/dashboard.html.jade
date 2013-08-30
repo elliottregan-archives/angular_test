@@ -15,8 +15,7 @@
           div(ng-if='toggle_new_handle', ng-animate='\'collapse\'')
             label(for='handle_text') New handle name:
             input#handle_text.inline(type='text', name='new_handle', placeholder='Try your twitter handle!', ng-model='handle_to_submit')
-          label(for='campaign_text')
-            | Name this campaign:
+          label(for='campaign_text') Name this campaign:
             br
             small (this is the public title for your feedback.)
           input#campaign_text(type='text', name='new_campaign_title', placeholder='eg. \'Crepes & Things Feedback\'', ng-model='new_campaign_title')
@@ -27,8 +26,6 @@
         .animated(ng-if='edit_mode', ng-animate='{enter: \'bounceIn-enter\'}')
           a.btn(href='{{edit_link}}', ng-class='{disabled: disable_single_edit_buttons}') edit
           a.btn(href='{{view_link}}', ng-class='') view
-          //
-            <button class="btn" ng-click="deleteAnyListItems(selected_campaigns, campaignList)">delete</button>
           button.btn(ng-class='{disabled: disable_single_edit_buttons}', ng-click='disable_single_edit_buttons || archiveListItem(selected_campaigns, campaignList)') archive
           button.btn(ng-class='{disabled: disable_single_edit_buttons}', ng-click='disable_single_edit_buttons || duplicateMode(true, selected_campaigns)') duplicate
       div(ng-show='duplicating_mode')
