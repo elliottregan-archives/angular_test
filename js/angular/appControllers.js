@@ -966,7 +966,6 @@ function instanceCtr($scope) {
 function analyticsCtr($scope, $stateParams) {
   
   $scope.title = "Analytics";
-  $scope.campaignId = $stateParams.campaignId;
 
 };
 
