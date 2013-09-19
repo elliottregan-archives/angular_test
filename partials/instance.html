@@ -1,33 +1,55 @@
 
-<article class="card" ng-init="instance.cap = -2">
-  <!--<button class="btn right" ng-click="toggleFullFormView()">toggle view</button>-->
+<article ng-init="instance.cap = -2">
   <header class="instance_header">
-    <button ng-click="toggleToolPanel(instance)" class="btn icon right"><i class="icon-cog"></i></button>
-    <h2><a href="#/campaign/{{viewCampaign.id}}/contacts/{{instance.author}}" ng-bind="instance.author"></a></h2>
-    <time ng-bind="instance.time"></time>
+    <div class="left">
+      <div class="profile_pic jon_hamm"></div>
+    </div>
+    <div class="middle">
+      <h3><a href="#/campaign/{{viewCampaign.id}}/contacts/{{instance.author}}" ng-bind="instance.author"></a></h3>
+      <time ng-bind="instance.time"></time>
+    </div>
+    <div class="right">
+      <div class="header_tools">
+        <button ng-click="toggleToolPanel(instance)" class="btn icon right"><i class="icon-cog"></i></button>
+      </div>
+    </div>
   </header>
-  <section>
-    <button ng-click="hearIt(instance)" class="btn right heard heard_{{instance.heard}}" ng-if="instance.author != 'You'">heard!</button>
-    <div ng-include src="'partials/form_completed.html'"></div>
-    
-    <button class="btn icon right" ng-if="isExpandable" ng-click="expandReplies(instance)"><i class="icon-down-open" ng-if="isExpandable"></i><i class="icon-up-open"></i></button>
-  </section>
-  <section>
-    <h3>Conversation</h3>
-    
-    <ul class="replies">
-      <li ng-repeat="comment in (instance.comments | limitTo:instance.cap)" class="reply" ng-animate="'collapse'">
-        <button ng-click="hearIt(comment)" class="btn heard heard_{{comment.heard}}" ng-if="comment.author != 'You'">heard!</button>
-        <h5>
-          <span ng-if="comment.author != 'You'" ng-bind="comment.author"></span>
-          <span ng-if="comment.author == 'You'">You</span>
-        </h5>
-        <p ng-bind="comment.text"></p>
-      </li>
-    </ul>
-    <form class="reply" ng-submit="addReply(newCommentText, instance.comments)">
-      <button class="btn inline" type="submit"><i class="icon-paper-plane"></i></button>
-      <input type="text" class="inline" name="new_comment" ng-model="newCommentText" />
-    </form>
-  </section>
+  <div class="form_response">
+    <div ng-include="&quot;partials/form_completed.html&quot;"></div>
+    <button ng-if="isExpandable" ng-click="expandReplies(instance)" class="btn icon right"><i ng-if="isExpandable" class="icon-down-open"></i><i class="icon-up-open"></i></button>
+  </div>
+  <div class="instance_tools">
+    <button class="btn share push_left">share!</button>
+    <button ng-class="{heard_true: instance.heard}" ng-click="hearIt(instance)" ng-if="instance.author != 'You'" class="btn heard">heard!</button>
+  </div>
+  <ul class="comments">
+    <li ng-repeat="comment in (instance.comments | limitTo:instance.cap)" ng-animate="'collapse'" ng-class="{you: comment.author == &quot;You&quot;}" class="comment">
+      <div ng-if="comment.author == &quot;You&quot;" class="comment_wrapper">
+        <div>
+          <div class="profile_pic jon_hamm"></div>
+        </div>
+        <div class="text">
+          <h4>You
+            <time>• 5 minutes ago</time>
+          </h4>
+          <p ng-bind="comment.text"></p>
+        </div>
+      </div>
+      <div ng-if="comment.author != &quot;You&quot;" class="comment_wrapper">
+        <button ng-class="{heard_true: comment.heard}" ng-click="hearIt(comment)" class="btn heard">heard!</button>
+        <div> 
+          <div class="profile_pic jon_hamm"></div>
+        </div>
+        <div class="text">
+          <h4><span ng-bind="comment.author">
+              <time>• {{comment.time}}</time></span></h4>
+          <p ng-bind="comment.text"></p>
+        </div>
+      </div>
+    </li>
+  </ul>
+  <form ng-submit="addReply(newCommentText, instance.comments)" class="reply">
+    <button type="submit" class="btn send_reply"><i class="icon-paper-plane"></i></button>
+    <input type="text" name="new_comment" ng-model="newCommentText" placeholder="add a reply"/>
+  </form>
 </article>

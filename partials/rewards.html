@@ -1,1 +1,20 @@
-<div class="animation_wrapper"><header class="app_header"><button ng-click="toggleSidebar('right')" class="btn icon left"><i class="icon-menu"></i></button><button ng-click="toggleEditMode()" ng-switch="ng-switch" on="edit_mode" class="btn right"><span ng-switch-when="false">edit</span><span ng-switch-when="true">done</span></button><h1 ng-bind="title"></h1></header><div class="scroller_wrapper with_header_padding"><section class="scroller"><ul class="object_list"><li ng-repeat="reward in rewardsList"><div ng-show="edit_mode == true"><button ng-click="deleteAnyListItems(reward, rewardsList)" class="btn right">delete</button></div><a href="#/rewards/{{reward.id}}"><h2 ng-bind="reward.title"></h2></a></li></ul></section></div></div>
+
+<div class="animation_wrapper">
+  <header class="app_header">
+    <button ng-click="toggleSidebar('right')" class="btn icon left"><i class="icon-menu"></i></button>
+    <button ng-click="toggleEditMode()" ng-switch="ng-switch" on="edit_mode" class="btn right"><span ng-switch-when="false">edit</span><span ng-switch-when="true">done</span></button>
+    <h1 ng-bind="title"></h1>
+  </header>
+  <div class="scroller_wrapper with_header_padding">
+    <section class="scroller">
+      <ul class="object_list">
+        <li ng-repeat="reward in rewardsList">
+          <div ng-show="edit_mode == true">
+            <button ng-click="deleteAnyListItems(reward, rewardsList)" class="btn right">delete</button>
+          </div><a href="#/rewards/{{reward.id}}">
+            <h2 ng-bind="reward.title"></h2></a>
+        </li>
+      </ul>
+    </section>
+  </div>
+</div>

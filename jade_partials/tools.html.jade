@@ -16,7 +16,7 @@ aside.tools_panel(ng-class='{visible: conversationDetailView == true}')
                 span.close_btn(ng-click='removeTag(tag, viewConversation.tags)') x
             form(ng-submit='addTopicTag(tag_to_submit, viewConversation)', name='topic_tag')
               input(type='text', ng-model='tag_to_submit')
-              button.btn(type='submit') save tag
+              button.right.btn(type='submit') save tag
           dt tagged users:
           dd
             ul.tag_list.inline
@@ -25,7 +25,7 @@ aside.tools_panel(ng-class='{visible: conversationDetailView == true}')
                 span.close_btn(ng-click='removeTag(user, viewConversation.tagged_users)') x
             form(ng-submit='addUserTag(user_to_submit, viewConversation)', name='user_tag')
               input(type='text', ng-model='user_to_submit')
-              button.btn(type='submit') save tag
+              button.right.btn(type='submit') save tag
           dt Notes:
           dd
             ul.notes
@@ -37,4 +37,4 @@ aside.tools_panel(ng-class='{visible: conversationDetailView == true}')
                   span(ng-bind='comment.author')
             form(ng-submit='addComment(comment_text, viewConversation.comments)', name='comment_form')
               input(type='text', ng-model='comment_text')
-              button.btn(type='submit') save comment
+              button.right.btn(type='submit') save comment

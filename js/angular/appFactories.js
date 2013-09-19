@@ -251,19 +251,19 @@ appmodule.factory('accountData', function() {
                   response: 33
                 }
               ],
-              heard: "false",
+              heard: false,
               comments: [
                 { commentId: 'fdsahy',
                   author: "You", 
                   time: "2013-02-13T01:15-05:00",
                   text: "This might be a response to the feedback.",
-                  heard: "false"
+                  heard: false
                 },
                 { commentId: 'asdfgtr',
                   author: "Franz Ferdinand", 
                   time: "2013-02-13T01:15-05:00",
                   text: "This might be you reply",
-                  heard: "false"
+                  heard: false
                 }
               ],
               reward: {
@@ -379,31 +379,31 @@ appmodule.factory('accountData', function() {
                   response: 33
                 }
               ],
-              heard: "false",
+              heard: false,
               comments: [
                 { commentId: 'asdf',
                   author: "You", 
                   time: "2013-02-13T01:15-05:00",
                   text: "Glad to hear from you. Anything else we can do for you?",
-                  heard: "false"
+                  heard: false
                 },
                 { commentId: 'fdsaf',
                   author: "Chad Grecko", 
                   time: "2013-02-13T01:15-05:00",
                   text: "The text on the menus is too small. Can you make it bigger?",
-                  heard: "false"
+                  heard: false
                 },
                 { commentId: 'fdsaf',
                   author: "You", 
                   time: "2013-02-13T01:15-05:00",
                   text: "Sure. Not a problem. I'll let you know when we reprint our menus, some time next month.",
-                  heard: "false"
+                  heard: false
                 },
                 { commentId: 'fdsaf',
                   author: "Chad Grecko", 
                   time: "2013-02-13T01:15-05:00",
                   text: "Ok, thanks! You guys are the best.",
-                  heard: "false"
+                  heard: false
                 }
               ],
               reward: {
@@ -586,19 +586,19 @@ appmodule.factory('accountData', function() {
                   response: 33
                 }
               ],
-              heard: "false",
+              heard: false,
               comments: [
                 { commentId: 'fdsahy',
                   author: "You", 
                   time: "2013-02-13T01:15-05:00",
                   text: "This might be a response to the feedback.",
-                  heard: "false"
+                  heard: false
                 },
                 { commentId: 'asdfgtr',
                   author: "Franz Ferdinand", 
                   time: "2013-02-13T01:15-05:00",
                   text: "This might be you reply",
-                  heard: "false"
+                  heard: false
                 }
               ],
               reward: {
@@ -713,31 +713,31 @@ appmodule.factory('accountData', function() {
                   response: 33
                 }
               ],
-              heard: "false",
+              heard: false,
               comments: [
                 { commentId: 'asdf',
                   author: "You", 
                   time: "2013-02-13T01:15-05:00",
                   text: "Glad to hear from you. Anything else we can do for you?",
-                  heard: "false"
+                  heard: false
                 },
                 { commentId: 'fdsaf',
                   author: "Chad Grecko", 
                   time: "2013-02-13T01:15-05:00",
                   text: "The text on the menus is too small. Can you make it bigger?",
-                  heard: "false"
+                  heard: false
                 },
                 { commentId: 'fdsaf',
                   author: "You", 
                   time: "2013-02-13T01:15-05:00",
                   text: "Sure. Not a problem. I'll let you know when we reprint our menus, some time next month.",
-                  heard: "false"
+                  heard: false
                 },
                 { commentId: 'fdsaf',
                   author: "Chad Grecko", 
                   time: "2013-02-13T01:15-05:00",
                   text: "Ok, thanks! You guys are the best.",
-                  heard: "false"
+                  heard: false
                 }
               ],
               reward: {
@@ -1012,19 +1012,19 @@ appmodule.factory('accountData', function() {
                   response: 33
                 }
               ],
-              heard: "false",
+              heard: false,
               comments: [
                 { commentId: 'fdsahy',
                   author: "You", 
                   time: "2013-02-13T01:15-05:00",
                   text: "This might be a response to the feedback.",
-                  heard: "false"
+                  heard: false
                 },
                 { commentId: 'asdfgtr',
                   author: "Franz Ferdinand", 
                   time: "2013-02-13T01:15-05:00",
                   text: "This might be you reply",
-                  heard: "false"
+                  heard: false
                 }
               ],
               reward: {
@@ -1139,31 +1139,31 @@ appmodule.factory('accountData', function() {
                   response: 33
                 }
               ],
-              heard: "false",
+              heard: false,
               comments: [
                 { commentId: 'asdf',
                   author: "You", 
                   time: "2013-02-13T01:15-05:00",
                   text: "Glad to hear from you. Anything else we can do for you?",
-                  heard: "false"
+                  heard: false
                 },
                 { commentId: 'fdsaf',
                   author: "Chad Grecko", 
                   time: "2013-02-13T01:15-05:00",
                   text: "The text on the menus is too small. Can you make it bigger?",
-                  heard: "false"
+                  heard: false
                 },
                 { commentId: 'fdsaf',
                   author: "You", 
                   time: "2013-02-13T01:15-05:00",
                   text: "Sure. Not a problem. I'll let you know when we reprint our menus, some time next month.",
-                  heard: "false"
+                  heard: false
                 },
                 { commentId: 'fdsaf',
                   author: "Chad Grecko", 
                   time: "2013-02-13T01:15-05:00",
                   text: "Ok, thanks! You guys are the best.",
-                  heard: "false"
+                  heard: false
                 }
               ],
               reward: {
@@ -1561,19 +1561,19 @@ appmodule.factory('userData', function() {
           response: 33
         }
       ],
-      heard: "false",
+      heard: false,
       comments: [
         { commentId: 'fdsahy',
           author: "Crepes & Things", 
           time: "2013-02-13T01:15-05:00",
           text: "This might be a response to the feedback.",
-          heard: "false"
+          heard: false
         },
         { commentId: 'asdfgtr',
           author: "You", 
           time: "2013-02-13T01:15-05:00",
           text: "This might be your reply",
-          heard: "false"
+          heard: false
         }
       ],
       reward: {
@@ -1677,31 +1677,31 @@ appmodule.factory('userData', function() {
           response: 33
         }
       ],
-      heard: "false",
+      heard: false,
       comments: [
         { commentId: 'asdf',
           author: "Crepes & Things", 
           time: "2013-02-13T01:15-05:00",
           text: "Glad to hear from you. Anything else we can do for you?",
-          heard: "false"
+          heard: false
         },
         { commentId: 'fdsaf',
           author: "You", 
           time: "2013-02-13T01:15-05:00",
           text: "The text on the menus is too small. Can you make it bigger?",
-          heard: "false"
+          heard: false
         },
         { commentId: 'fdsaf',
           author: "Crepes & Things", 
           time: "2013-02-13T01:15-05:00",
           text: "Sure. Not a problem. I'll let you know when we reprint our menus, some time next month.",
-          heard: "false"
+          heard: false
         },
         { commentId: 'fdsaf',
           author: "You", 
           time: "2013-02-13T01:15-05:00",
           text: "Ok, thanks! You guys are the best.",
-          heard: "false"
+          heard: false
         }
       ],
       reward: {

@@ -35,13 +35,16 @@
           input(type='text', name='temp_name', ng-model='temporary_duplicate.title', placeholder='Type a new name for this duplicated campaign.')
           button.btn(type='submit') save
           button.btn(type='reset', ng-click='duplicateMode(false, \'\')') cancel
-      ul#campaign_list.object_list
-        li(ng-repeat='campaign in campaignTitleList', ng-class='{selected : selected_campaigns.some(campaign.id)}')
-          .right.new_counter(ng-if='campaign.newCounter != 0', ng-hide='edit_mode', ng-bind='campaign.newCounter')
-          .left
+      ul#campaign_list.object-list
+        li.object-item(ng-repeat='campaign in campaignTitleList', ng-class='{selected : selected_campaigns.some(campaign.id)}')
+          .list-checkbox
             button.checkbox(ng-click='selectCampaign(\'{{campaign.id}}\', \'{{accountId}}\')')
-          a(href='#/account/{{accountId}}/campaign/{{campaign.id}}/conversations')
-            h2 {{campaign.title}}
+          hgroup
+            a(href='#/account/{{accountId}}/campaign/{{campaign.id}}/conversations')
+              h2 {{handle}}
+              h1 {{campaign.title}}
+          .object-alerts
+            .alert.new_counter(ng-if='campaign.newCounter != 0', ng-hide='edit_mode', ng-bind='campaign.newCounter')
       button.btn.fadded.full_width(ng-if='archiveExists', ng-click='toggleArchived()')
         span(ng-show='view_archived == true') hide archived
         span(ng-show='view_archived == false') view archived

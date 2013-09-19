@@ -1,25 +1,19 @@
-<article class="card" ng-init="instance.cap = -2">
-  <button class="btn right" ng-click="toggleFullFormView()">toggle view</button>
-  <h4>
-    <span ng-bind="instance.name"></span>
-    <span ng-bind="instance.handle"></span>
-  </h4>
+
+<article ng-init="instance.cap = -2" class="card">
+  <button ng-click="toggleFullFormView()" class="btn right">toggle view</button>
+  <h4><span ng-bind="instance.name"></span><span ng-bind="instance.handle"></span></h4>
   <time ng-bind="instance.time"></time>
   <p ng-bind="instance.text" ng-click="expandReplies(instance)"></p>
-  <div ng-include src="'partials/form_completed.html'"></div>
-  
+  <div ng-include="ng-include" src="'partials/form_completed.html'"></div>
   <h5>Conversation:</h5>
   <ul class="replies">
-    <li ng-repeat="comment in (instance.comments | limitTo:instance.cap)" class="reply" ng-animate="'collapse'">
-      <h6>
-        <span ui-if="comment.author != 'You'" ng-bind="comment.author"></span>
-        <span ui-if="comment.author == 'You'">You</span>
-      </h6>
+    <li ng-repeat="comment in (instance.comments | limitTo:instance.cap)" ng-animate="'collapse'" class="reply">
+      <h6><span ui-if="comment.author != 'You'" ng-bind="comment.author"></span><span ui-if="comment.author == 'You'">You</span></h6>
       <p ng-bind="comment.text"></p>
     </li>
   </ul>
-  <form class="reply" ng-submit="addReply(newCommentText, instance.comments)">
-    <button class="btn inline" type="submit">reply</button>
+  <form ng-submit="addReply(newCommentText, instance.comments)" class="reply">
+    <button type="submit" class="btn inline">reply</button>
     <input type="text" name="new_comment" ng-model="newCommentText" class="inline"/>
   </form>
 </article>

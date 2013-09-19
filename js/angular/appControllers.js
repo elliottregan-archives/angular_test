@@ -98,7 +98,7 @@ function controlPanelCtr($scope) {
           response: 33
         }
       ],
-      heard: "false",
+      heard: false,
       comments: [],
       reward: {
         id: "rwd1",
@@ -128,7 +128,7 @@ function controlPanelCtr($scope) {
 
 };
 
-function appCtr($scope, $stateParams, $state, $location, $route, $timeout, accountData) {
+function appCtr($scope, $stateParams, $state, $location, $timeout, accountData) {
   
   $scope.sortableOptions = {
     axis: 'y',
@@ -638,7 +638,7 @@ function campaignBuilderCtr($scope, $location, $stateParams, tempObjects, accoun
       first: first_input,
       last: last_input,
       email: email_input,
-      date_sent: getDate(),
+      date_sent: new Date().getTime(),
       level: level_input
     });
   };
@@ -856,7 +856,7 @@ function inboxCtr($scope, accountData) {
     
 };
 
-function conversationsCtr($rootScope, $scope, $route, $stateParams, $location, accountData) {
+function conversationsCtr($rootScope, $scope, $stateParams, $location, accountData) {
   console.log("initialize conversation controller");
     
   $scope.title = "Conversations";
@@ -903,7 +903,7 @@ function collabToolsCtr($scope, $stateParams) {
     comments.push({
       commentId: 1,
       author: "You",
-      time: getDate(),
+      time: new Date().getTime(),
       text: post,
       heard: false
     });
@@ -930,7 +930,7 @@ function instanceCtr($scope) {
   };
   
   $scope.hearIt = function(el) {
-    el.heard = "true";
+    el.heard = true;
   };
   
   $scope.expandReplies = function(convo) {
@@ -946,7 +946,7 @@ function instanceCtr($scope) {
     comments.push({
       commentId: 1,
       author: "You",
-      time: getDate(),
+      time: new Date().getTime(),
       text: post,
       heard: false
     });
