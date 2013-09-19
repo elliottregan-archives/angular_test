@@ -22,7 +22,6 @@
         </form>
       </div>
       <div class="toolbar">
-        <button ng-click="edit_mode || toggleNewMode()" ng-if="!new_mode" ng-hide="edit_mode" ng-class="{disabled: edit_mode}" class="btn primary full_width">+ New Campaign</button>
         <div ng-if="edit_mode" ng-animate="{enter: 'bounceIn-enter'}" class="animated"><a href="{{edit_link}}" ng-class="{disabled: disable_single_edit_buttons}" class="btn">edit</a><a href="{{view_link}}" ng-class="" class="btn">view</a>
           <button ng-class="{disabled: disable_single_edit_buttons}" ng-click="disable_single_edit_buttons || archiveListItem(selected_campaigns, campaignList)" class="btn">archive</button>
           <button ng-class="{disabled: disable_single_edit_buttons}" ng-click="disable_single_edit_buttons || duplicateMode(true, selected_campaigns)" class="btn">duplicate</button>
@@ -39,14 +38,14 @@
       </div>
       <ul id="campaign_list" class="object-list">
         <li ng-repeat="campaign in campaignTitleList" ng-class="{selected : selected_campaigns.some(campaign.id)}" class="object-item">
-          <div class="list-checkbox">
-            <button ng-click="selectCampaign('{{campaign.id}}', '{{accountId}}')" class="checkbox"></button>
-          </div>
           <hgroup><a href="#/account/{{accountId}}/campaign/{{campaign.id}}/conversations">
-              <h2>{{handle}}</h2>
+              <h2>@{{handle}}</h2>
               <h1>{{campaign.title}}</h1></a></hgroup>
           <div class="object-alerts">
             <div ng-if="campaign.newCounter != 0" ng-hide="edit_mode" ng-bind="campaign.newCounter" class="alert new_counter"></div>
+          </div>
+          <div class="list-checkbox">
+            <button ng-click="selectCampaign('{{campaign.id}}', '{{accountId}}')" class="checkbox"><i class="icon-ok"></i></button>
           </div>
         </li>
       </ul>
@@ -57,6 +56,7 @@
             <h2>{{campaign.title}}</h2></a>
         </li>
       </ul>
+      <button ng-click="edit_mode || toggleNewMode()" ng-if="!new_mode" ng-hide="edit_mode" ng-class="{disabled: edit_mode}" class="btn primary full_width">+ New Campaign</button>
     </section>
   </div>
 </div>

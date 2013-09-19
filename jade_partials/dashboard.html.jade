@@ -22,7 +22,6 @@
           button.btn(type='submit', ng-click='resetStep()') Continue
           button.btn(ng-click='toggleNewMode()', type='button') cancel
       .toolbar
-        button.btn.primary.full_width(ng-click='edit_mode || toggleNewMode()', ng-if='!new_mode', ng-hide='edit_mode', ng-class='{disabled: edit_mode}') + New Campaign
         .animated(ng-if='edit_mode', ng-animate='{enter: \'bounceIn-enter\'}')
           a.btn(href='{{edit_link}}', ng-class='{disabled: disable_single_edit_buttons}') edit
           a.btn(href='{{view_link}}', ng-class='') view
@@ -37,14 +36,15 @@
           button.btn(type='reset', ng-click='duplicateMode(false, \'\')') cancel
       ul#campaign_list.object-list
         li.object-item(ng-repeat='campaign in campaignTitleList', ng-class='{selected : selected_campaigns.some(campaign.id)}')
-          .list-checkbox
-            button.checkbox(ng-click='selectCampaign(\'{{campaign.id}}\', \'{{accountId}}\')')
           hgroup
             a(href='#/account/{{accountId}}/campaign/{{campaign.id}}/conversations')
-              h2 {{handle}}
+              h2 @{{handle}}
               h1 {{campaign.title}}
           .object-alerts
             .alert.new_counter(ng-if='campaign.newCounter != 0', ng-hide='edit_mode', ng-bind='campaign.newCounter')
+          .list-checkbox
+            button.checkbox(ng-click='selectCampaign(\'{{campaign.id}}\', \'{{accountId}}\')')
+              i.icon-ok
       button.btn.fadded.full_width(ng-if='archiveExists', ng-click='toggleArchived()')
         span(ng-show='view_archived == true') hide archived
         span(ng-show='view_archived == false') view archived
@@ -54,3 +54,5 @@
           a(href='#/campaign/{{campaign.id}}/conversations')
             small @{{campaign.handle}}
             h2 {{campaign.title}}
+      button.btn.primary.full_width(ng-click='edit_mode || toggleNewMode()', ng-if='!new_mode', ng-hide='edit_mode', ng-class='{disabled: edit_mode}') + New Campaign
+      

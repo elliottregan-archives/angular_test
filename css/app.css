@@ -281,23 +281,24 @@ opacity: 1;
   position: absolute;
   background-color: #ffffff;
   width: 100%;
-  height: 40px;
-  
+  display: table;
   z-index: 110;
   top: 0px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   color: #2d2d2d;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+
+.app_header > * {
+  display: table-cell;
 }
 
 header h1, header h2 {
-  text-align: center;
+  text-align: left;
   font-size: 1em;
   margin: 0px;
-  line-height: 20px; /*header is 40px tall. margin*2 + line-height = header*/
-color: #3e3e3e;
+  color: #3e3e3e;
 }
 
 header small {
@@ -881,7 +882,7 @@ fieldset.padded {
   border: none;
   padding: 2px 7px;
   box-shadow: none;
-  font-size: 1.4em;
+  font-size: 1em;
 }
 
 .btn.icon:active {
@@ -1101,47 +1102,6 @@ fieldset.padded {
   background-color: #eff0ef;
   border: 1px solid #989997;
   padding: 4px;
-}
-
-.toolbar {
-  height: 20px;
-}
-
-.new_counter {
-  background-color: #8cb0d9;
-  padding: 4px 8px;
-  border-radius: 2px;
-  color: rgba(255, 255, 255, 0.61);
-}
-
-.object_list li {
-  background-color: #ffffff;
-  margin: 0;
-  padding: 10px 0;
-}
-
-.object_list li.selected {
-  background-color: #ffffff;
-  color: #212121;
-}
-
-.object_list li .checkbox {
-  height: 30px;
-  width: 30px;
-  display: block;
-  background-color: #ffffff;
-  border: 2px solid #535453;
-  margin: 10px 10px 3px 0;
-  border-radius: 20px;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
-
-.object_list li.selected .checkbox {
-  background-color: #ffffff;
-  border-style: double;
-  border-width: 6px;
 }
 
 .campaign_info::after {
@@ -1688,7 +1648,7 @@ time {
 
 .object-list li {
   display: table;
-  padding: 16px;
+  padding: 1em;
   border-top: 1px solid #cbcdd0;
   width: 100%;
   -webkit-box-sizing: border-box;
@@ -1698,24 +1658,21 @@ time {
 
 .object-list h1 {
   font-weight: bold;
-  font-size: 1.5em;
+  font-size: 1.2em;
   margin: 0;
   color: #565e71;
 }
 
 .object-list h2 {
-  font-size: .9em;
+  font-size: .8em;
   color: #838076;
   margin: 0;
 }
 
 .object-item > * {
-  display: table-cell;
+  display: inline-block;
   vertical-align: top;
-}
-
-.list-checkbox {
-  width: 50px;
+  padding: 0 .1em;
 }
 
 .object-titles {
@@ -1723,34 +1680,23 @@ time {
 }
 
 .checkbox {
-  width: 1.5em;
-  height: 1.5em;
+  width: 2em;
+  height: 2em;
   margin-top: 10px;
-  border: 1px solid #b6b8be;
-  border-radius: 2px;
-  color: rgb(241, 242, 241);
-  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.13);
-  font-size: 1em;
-  text-align: center;
-  
-}
-
-.checkbox i {
-  vertical-align: middle;
+  border: 1px solid #e0e1e3;
+  border-radius: 2em;
+  color: rgba(255, 255, 255, 0);
+  font-size: .8em;
+  background-color: #ffffff;
+  padding: 0;
+  right: 2em;
+  position: absolute;
 }
 
 .selected .checkbox {
   background-color: #4bbf47;
-  border-color: rgba(0, 0, 0, 0.14);
-  color: #f1f2f1;
-  border-bottom-color: 0,;
-  border-bottom-width: 2px;
-  box-shadow: inset 0 1px rgba(255, 255, 255, 0.42);
-}
-
-.list-checkbox input {
-  position: absolute;
-  left: -2000px;
+  border: none;
+  color: #ffffff;
 }
 
 input.object-list-search {
