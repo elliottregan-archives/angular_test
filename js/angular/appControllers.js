@@ -863,7 +863,6 @@ function conversationsCtr($rootScope, $scope, $stateParams, $location, accountDa
   $scope.conversationDetailView = false;
     
   $scope.toggleToolPanel = function(conversation_object) {
-
     if (conversation_object) {
       $scope.conversationDetailView = true;
       $scope.viewConversation = conversation_object.collaboration;
@@ -879,6 +878,7 @@ function conversationsCtr($rootScope, $scope, $stateParams, $location, accountDa
 
 function collabToolsCtr($scope, $stateParams) {
   console.log("initialize tools controller");
+//  $scope.conversationDetailView = true;
   
   $scope.conversationId = $stateParams.conversationId;
   

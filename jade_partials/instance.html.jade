@@ -36,8 +36,8 @@ article(ng-init='instance.cap = -2')
             span(ng-bind='comment.author')
               time • {{comment.time}}
           p(ng-bind='comment.text')
-  form.reply(ng-submit='addReply(newCommentText, instance.comments)')
-    button.btn.send_reply(type='submit')
+  form.one_line(ng-submit='addReply(newCommentText, instance.comments)')
+    button.btn(type='submit')
       i.icon-paper-plane
     input(type='text', name='new_comment', ng-model='newCommentText', placeholder="add a reply")
     

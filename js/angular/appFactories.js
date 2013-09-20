@@ -170,7 +170,7 @@ appmodule.factory('accountData', function() {
             msg0: {
               id: 'msg0',
               author: "user4",
-              time: "2013-02-13T01:15-05:00",
+              time: "4/5/13",
               questionsList: [
                 {
                   id: 'asdf',
@@ -255,14 +255,14 @@ appmodule.factory('accountData', function() {
               comments: [
                 { commentId: 'fdsahy',
                   author: "You", 
-                  time: "2013-02-13T01:15-05:00",
-                  text: "This might be a response to the feedback.",
+                  time: "12/3/13",
+                  text: "This might be your reply.",
                   heard: false
                 },
                 { commentId: 'asdfgtr',
                   author: "Franz Ferdinand", 
-                  time: "2013-02-13T01:15-05:00",
-                  text: "This might be you reply",
+                  time: "12/3/13",
+                  text: "This might be a response to the feedback.",
                   heard: false
                 }
               ],
@@ -289,7 +289,7 @@ appmodule.factory('accountData', function() {
                   {
                     commentId: "cjioe3",
                     author: "user47",
-                    time: "2013-02-13T01:15-05:00",
+                    time: "4/5/13",
                     text: "Here is an internal comment about this conversation.",
                   }
                 ]
@@ -298,7 +298,7 @@ appmodule.factory('accountData', function() {
             msg1: {
               id: 'msg1',
               author: "user0",
-              time: "2013-02-13T01:15-05:00",
+              time: "4/5/13",
               questionsList: [
                 {
                   id: 'asdf',
@@ -383,25 +383,25 @@ appmodule.factory('accountData', function() {
               comments: [
                 { commentId: 'asdf',
                   author: "You", 
-                  time: "2013-02-13T01:15-05:00",
+                  time: "4/5/13",
                   text: "Glad to hear from you. Anything else we can do for you?",
                   heard: false
                 },
                 { commentId: 'fdsaf',
                   author: "Chad Grecko", 
-                  time: "2013-02-13T01:15-05:00",
+                  time: "4/5/13",
                   text: "The text on the menus is too small. Can you make it bigger?",
                   heard: false
                 },
                 { commentId: 'fdsaf',
                   author: "You", 
-                  time: "2013-02-13T01:15-05:00",
+                  time: "4/5/13",
                   text: "Sure. Not a problem. I'll let you know when we reprint our menus, some time next month.",
                   heard: false
                 },
                 { commentId: 'fdsaf',
                   author: "Chad Grecko", 
-                  time: "2013-02-13T01:15-05:00",
+                  time: "4/5/13",
                   text: "Ok, thanks! You guys are the best.",
                   heard: false
                 }
@@ -428,13 +428,13 @@ appmodule.factory('accountData', function() {
                   {
                     commentId: "cjfdsag4ioe3",
                     author: "user47",
-                    time: "2013-02-13T01:15-05:00",
+                    time: "4/5/13",
                     text: "Do you think that's wiiiiiise?",
                   },
                   {
                     commentId: "afes3",
                     author: "user87",
-                    time: "2013-02-13T01:15-05:00",
+                    time: "4/5/13",
                     text: "What?!",
                   }
                 ]
@@ -505,7 +505,7 @@ appmodule.factory('accountData', function() {
             msg2: {
               id: 'msg0',
               author: "user4",
-              time: "2013-02-13T01:15-05:00",
+              time: "4/5/13",
               questionsList: [
                 {
                   id: 'asdf',
@@ -590,13 +590,13 @@ appmodule.factory('accountData', function() {
               comments: [
                 { commentId: 'fdsahy',
                   author: "You", 
-                  time: "2013-02-13T01:15-05:00",
+                  time: "4/5/13",
                   text: "This might be a response to the feedback.",
                   heard: false
                 },
                 { commentId: 'asdfgtr',
                   author: "Franz Ferdinand", 
-                  time: "2013-02-13T01:15-05:00",
+                  time: "4/5/13",
                   text: "This might be you reply",
                   heard: false
                 }
@@ -623,7 +623,7 @@ appmodule.factory('accountData', function() {
                   {
                     commentId: "cjioe3",
                     author: "user47",
-                    time: "2013-02-13T01:15-05:00",
+                    time: "4/5/13",
                     text: "Here is an internal comment about this conversation.",
                   }
                 ]
@@ -632,7 +632,7 @@ appmodule.factory('accountData', function() {
             msg3: {
               id: 'msg1',
               author: "user0",
-              time: "2013-02-13T01:15-05:00",
+              time: "4/5/13",
               questionsList: [
                 {
                   id: 'asdf',
@@ -717,25 +717,25 @@ appmodule.factory('accountData', function() {
               comments: [
                 { commentId: 'asdf',
                   author: "You", 
-                  time: "2013-02-13T01:15-05:00",
+                  time: "4/5/13",
                   text: "Glad to hear from you. Anything else we can do for you?",
                   heard: false
                 },
                 { commentId: 'fdsaf',
                   author: "Chad Grecko", 
-                  time: "2013-02-13T01:15-05:00",
+                  time: "4/5/13",
                   text: "The text on the menus is too small. Can you make it bigger?",
                   heard: false
                 },
                 { commentId: 'fdsaf',
                   author: "You", 
-                  time: "2013-02-13T01:15-05:00",
+                  time: "4/5/13",
                   text: "Sure. Not a problem. I'll let you know when we reprint our menus, some time next month.",
                   heard: false
                 },
                 { commentId: 'fdsaf',
                   author: "Chad Grecko", 
-                  time: "2013-02-13T01:15-05:00",
+                  time: "4/5/13",
                   text: "Ok, thanks! You guys are the best.",
                   heard: false
                 }
@@ -762,13 +762,13 @@ appmodule.factory('accountData', function() {
                   {
                     commentId: "cjfdsag4ioe3",
                     author: "user47",
-                    time: "2013-02-13T01:15-05:00",
+                    time: "4/5/13",
                     text: "Do you think that's wiiiiiise?",
                   },
                   {
                     commentId: "afes3",
                     author: "user87",
-                    time: "2013-02-13T01:15-05:00",
+                    time: "4/5/13",
                     text: "What?!",
                   }
                 ]
@@ -931,7 +931,7 @@ appmodule.factory('accountData', function() {
             msg5: {
               id: 'msg0',
               author: "user4",
-              time: "2013-02-13T01:15-05:00",
+              time: "4/5/13",
               questionsList: [
                 {
                   id: 'asdf',
@@ -1016,13 +1016,13 @@ appmodule.factory('accountData', function() {
               comments: [
                 { commentId: 'fdsahy',
                   author: "You", 
-                  time: "2013-02-13T01:15-05:00",
+                  time: "4/5/13",
                   text: "This might be a response to the feedback.",
                   heard: false
                 },
                 { commentId: 'asdfgtr',
                   author: "Franz Ferdinand", 
-                  time: "2013-02-13T01:15-05:00",
+                  time: "4/5/13",
                   text: "This might be you reply",
                   heard: false
                 }
@@ -1049,7 +1049,7 @@ appmodule.factory('accountData', function() {
                   {
                     commentId: "cjioe3",
                     author: "user47",
-                    time: "2013-02-13T01:15-05:00",
+                    time: "4/5/13",
                     text: "Here is an internal comment about this conversation.",
                   }
                 ]
@@ -1058,7 +1058,7 @@ appmodule.factory('accountData', function() {
             msg6: {
               id: 'msg1',
               author: "user0",
-              time: "2013-02-13T01:15-05:00",
+              time: "4/5/13",
               questionsList: [
                 {
                   id: 'asdf',
@@ -1143,25 +1143,25 @@ appmodule.factory('accountData', function() {
               comments: [
                 { commentId: 'asdf',
                   author: "You", 
-                  time: "2013-02-13T01:15-05:00",
+                  time: "4/5/13",
                   text: "Glad to hear from you. Anything else we can do for you?",
                   heard: false
                 },
                 { commentId: 'fdsaf',
                   author: "Chad Grecko", 
-                  time: "2013-02-13T01:15-05:00",
+                  time: "4/5/13",
                   text: "The text on the menus is too small. Can you make it bigger?",
                   heard: false
                 },
                 { commentId: 'fdsaf',
                   author: "You", 
-                  time: "2013-02-13T01:15-05:00",
+                  time: "4/5/13",
                   text: "Sure. Not a problem. I'll let you know when we reprint our menus, some time next month.",
                   heard: false
                 },
                 { commentId: 'fdsaf',
                   author: "Chad Grecko", 
-                  time: "2013-02-13T01:15-05:00",
+                  time: "4/5/13",
                   text: "Ok, thanks! You guys are the best.",
                   heard: false
                 }
@@ -1188,13 +1188,13 @@ appmodule.factory('accountData', function() {
                   {
                     commentId: "cjfdsag4ioe3",
                     author: "user47",
-                    time: "2013-02-13T01:15-05:00",
+                    time: "4/5/13",
                     text: "Do you think that's wiiiiiise?",
                   },
                   {
                     commentId: "afes3",
                     author: "user87",
-                    time: "2013-02-13T01:15-05:00",
+                    time: "4/5/13",
                     text: "What?!",
                   }
                 ]
@@ -1480,7 +1480,7 @@ appmodule.factory('userData', function() {
       author: "You",
       name: "Crepes & Things",
       handle: '@crepesandthings',
-      time: "2013-02-13T01:15-05:00",
+      time: "4/5/13",
       questionsList: [
         {
           id: 'asdf',
@@ -1565,13 +1565,13 @@ appmodule.factory('userData', function() {
       comments: [
         { commentId: 'fdsahy',
           author: "Crepes & Things", 
-          time: "2013-02-13T01:15-05:00",
+          time: "4/5/13",
           text: "This might be a response to the feedback.",
           heard: false
         },
         { commentId: 'asdfgtr',
           author: "You", 
-          time: "2013-02-13T01:15-05:00",
+          time: "4/5/13",
           text: "This might be your reply",
           heard: false
         }
@@ -1597,7 +1597,7 @@ appmodule.factory('userData', function() {
       author: "You",
       name: "Crepes & Things",
       handle: '@crepesandthings',
-      time: "2013-02-13T01:15-05:00",
+      time: "4/5/13",
       questionsList: [
         {
           id: 'asdf',
@@ -1681,25 +1681,25 @@ appmodule.factory('userData', function() {
       comments: [
         { commentId: 'asdf',
           author: "Crepes & Things", 
-          time: "2013-02-13T01:15-05:00",
+          time: "4/5/13",
           text: "Glad to hear from you. Anything else we can do for you?",
           heard: false
         },
         { commentId: 'fdsaf',
           author: "You", 
-          time: "2013-02-13T01:15-05:00",
+          time: "4/5/13",
           text: "The text on the menus is too small. Can you make it bigger?",
           heard: false
         },
         { commentId: 'fdsaf',
           author: "Crepes & Things", 
-          time: "2013-02-13T01:15-05:00",
+          time: "4/5/13",
           text: "Sure. Not a problem. I'll let you know when we reprint our menus, some time next month.",
           heard: false
         },
         { commentId: 'fdsaf',
           author: "You", 
-          time: "2013-02-13T01:15-05:00",
+          time: "4/5/13",
           text: "Ok, thanks! You guys are the best.",
           heard: false
         }

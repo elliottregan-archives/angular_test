@@ -1,3 +1,4 @@
+.dimmer(ng-click='toggleToolPanel()', ng-class='{visible: conversationDetailView}') 
 aside.tools_panel(ng-class='{visible: conversationDetailView == true}')
     header.app_header
       button.left.icon.btn(ng-click='toggleToolPanel()')
@@ -10,22 +11,22 @@ aside.tools_panel(ng-class='{visible: conversationDetailView == true}')
           dd(ng-bind='viewConversation.importance')
           dt tags:
           dd
-            ul.tag_list.inline
+            ul.tag_list
               li.inline.tag(ng-repeat='tag in viewConversation.tags')
                 span(ng-bind='tag')
                 span.close_btn(ng-click='removeTag(tag, viewConversation.tags)') x
-            form(ng-submit='addTopicTag(tag_to_submit, viewConversation)', name='topic_tag')
+            form.one_line(ng-submit='addTopicTag(tag_to_submit, viewConversation)', name='topic_tag')
+              button.btn(type='submit') +tag
               input(type='text', ng-model='tag_to_submit')
-              button.right.btn(type='submit') save tag
           dt tagged users:
           dd
-            ul.tag_list.inline
+            ul.tag_list
               li.inline.tag(ng-repeat='user in viewConversation.tagged_users', ng-animate='\'collapse\'')
                 span(ng-bind='user')
                 span.close_btn(ng-click='removeTag(user, viewConversation.tagged_users)') x
-            form(ng-submit='addUserTag(user_to_submit, viewConversation)', name='user_tag')
+            form.one_line(ng-submit='addUserTag(user_to_submit, viewConversation)', name='user_tag')
+              button.btn(type='submit') +user
               input(type='text', ng-model='user_to_submit')
-              button.right.btn(type='submit') save tag
           dt Notes:
           dd
             ul.notes
@@ -35,6 +36,6 @@ aside.tools_panel(ng-class='{visible: conversationDetailView == true}')
                 small
                   | -
                   span(ng-bind='comment.author')
-            form(ng-submit='addComment(comment_text, viewConversation.comments)', name='comment_form')
+            form.one_line(ng-submit='addComment(comment_text, viewConversation.comments)', name='comment_form')
+              button.btn(type='submit') save comment
               input(type='text', ng-model='comment_text')
-              button.right.btn(type='submit') save comment
