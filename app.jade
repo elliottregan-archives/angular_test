@@ -46,10 +46,6 @@ html(lang='en', ng-app='appmodule', ng-controller='appCtr')
         ul
           li
             a(ng-click='togglePersonalPages()') Personal Pages
-          li
-            a(href='#')
-              | Inbox
-              small (doesn't work yet)
           li(ng-repeat='account in accountList')
             a(href='#/account/{{account.id}}/dashboard', ng-click='toggleSidebar()')
               | @

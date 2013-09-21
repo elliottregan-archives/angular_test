@@ -5,6 +5,7 @@
     h1
       | @
       span(ng-bind='handle')
+    button.btn.primary(ng-click='edit_mode || toggleNewMode()', ng-if='!new_mode', ng-hide='edit_mode', ng-class='{disabled: edit_mode}') +
   .scroller_wrapper.with_header_padding
     section.scroller
       div(ng-if='new_mode')
@@ -21,12 +22,6 @@
           input#campaign_text(type='text', name='new_campaign_title', placeholder='eg. \'Crepes & Things Feedback\'', ng-model='new_campaign_title')
           button.btn(type='submit', ng-click='resetStep()') Continue
           button.btn(ng-click='toggleNewMode()', type='button') cancel
-      .toolbar
-        .animated(ng-if='edit_mode', ng-animate='{enter: \'bounceIn-enter\'}')
-          a.btn(href='{{edit_link}}', ng-class='{disabled: disable_single_edit_buttons}') edit
-          a.btn(href='{{view_link}}', ng-class='') view
-          button.btn(ng-class='{disabled: disable_single_edit_buttons}', ng-click='disable_single_edit_buttons || archiveListItem(selected_campaigns, campaignList)') archive
-          button.btn(ng-class='{disabled: disable_single_edit_buttons}', ng-click='disable_single_edit_buttons || duplicateMode(true, selected_campaigns)') duplicate
       div(ng-show='duplicating_mode')
         form(ng-submit='duplicateCampaign(temp_name, temp_handle)')
           label(for='handle_select_duplicate') Choose a handle
@@ -54,5 +49,9 @@
           a(href='#/campaign/{{campaign.id}}/conversations')
             small @{{campaign.handle}}
             h2 {{campaign.title}}
-      button.btn.primary.full_width(ng-click='edit_mode || toggleNewMode()', ng-if='!new_mode', ng-hide='edit_mode', ng-class='{disabled: edit_mode}') + New Campaign
+      .dashboard_toolbar(ng-if='edit_mode')
+          //a.btn(href='{{edit_link}}', ng-class='{disabled: disable_single_edit_buttons}') edit
+          a.btn(href='{{view_link}}', ng-class='') view
+          button.btn(ng-class='{disabled: disable_single_edit_buttons}', ng-click='disable_single_edit_buttons || archiveListItem(selected_campaigns, campaignList)') archive
+          button.btn(ng-class='{disabled: disable_single_edit_buttons}', ng-click='disable_single_edit_buttons || duplicateMode(true, selected_campaigns)') duplicate
       

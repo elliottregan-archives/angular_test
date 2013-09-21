@@ -38,7 +38,6 @@
         </div>
         <ul>
           <li><a ng-click="togglePersonalPages()">Personal Pages</a></li>
-          <li><a href="#">Inbox<small>(doesn't work yet)</small></a></li>
           <li ng-repeat="account in accountList"><a href="#/account/{{account.id}}/dashboard" ng-click="toggleSidebar()">@<span ng-bind="account.handle"></span></a></li>
           <li><a href="#/account/all/dashboard" ng-click="toggleSidebar()">All Campaigns</a></li>
         </ul>
