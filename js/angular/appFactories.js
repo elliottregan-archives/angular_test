@@ -1251,7 +1251,8 @@ appmodule.factory('accountData', function() {
             id:campaign_id,
             account_id: accountId,
             title:campaignList[campaign_id].title, 
-            newCounter: campaignList[campaign_id].newCounter
+            newCounter: campaignList[campaign_id].newCounter,
+            handle: campaignList[campaign_id].handle
           };
         });
       }
@@ -1263,7 +1264,8 @@ appmodule.factory('accountData', function() {
               id:campaign_id,
               account_id: account.id,
               title:campaignList[campaign_id].title, 
-              newCounter: campaignList[campaign_id].newCounter
+              newCounter: campaignList[campaign_id].newCounter,
+              handle: campaignList[campaign_id].handle
             };
           });
         });

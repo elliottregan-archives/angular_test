@@ -1,47 +1,33 @@
-<header class="app_header">
-  <a href="#/campaign/{{campaignId}}/rewards" class="btn icon left"><i class="icon-left-open"></i>back</a>
-  <h1>{{title}}</h1>
-</header>
 
-<div class="scroller_wrapper  with_header_padding">
+<div class="scroller_wrapper with_header_padding">
   <section class="scroller">
     <h2 ng-bind="viewReward.title"></h2>
     <dl>
       <dt>Description:</dt>
       <dd ng-bind="viewReward.description"></dd>
-      
       <dt>Terms:</dt>
       <dd ng-bind="viewReward.terms"></dd>
-      
       <dt>Owner:</dt>
       <dd ng-bind="viewReward.owner"></dd>
-      
       <dt>Original Conversation:</dt>
       <dd><a href="#/campaign/{{campaignId}}/conversations/{{viewReward.instanceId}}" ng-bind="viewReward.instanceId"></a></dd>
-      
       <dt>Secret Code:</dt>
       <dd ng-bind="viewReward.passphrase"></dd>
-      
       <dt>Expires:</dt>
       <dd ng-bind="viewReward.exp_date"></dd>
-      
       <dt>Date Issued:</dt>
       <dd ng-bind="viewReward.date_issued"></dd>
-      
       <dt>Date Claimed:</dt>
       <dd ng-bind="viewReward.date_claimed"></dd>
-      
       <dt>Shared with:</dt>
       <dd>
         <ul>
           <li ng-repeat="user in viewReward.shared_with" ng-bind="user"></li>
         </ul>
       </dd>
-      
       <dt>Verified by:</dt>
       <dd ng-bind="viewReward.verified"></dd>
     </dl>
-        <button ng-click="claimReward(viewReward)" class="btn" ng-class="{claimed: viewReward.date_claimed != false}">claim</button>
-    
+    <button ng-click="claimReward(viewReward)" ng-class="{claimed: viewReward.date_claimed != false}" class="btn">claim</button>
   </section>
 </div>

@@ -253,9 +253,15 @@ function appCtr($scope, $stateParams, $state, $location, $timeout, accountData) 
   };
   
   $scope.advanceStep = function() {
-    
     if ($scope.currentStep < $scope.steps.length-1) {
       $scope.currentStep = $scope.currentStep+1;
+    };
+  };
+  
+  $scope.retreatStep = function() {
+    console.log($scope.currentStep)
+    if ($scope.currentStep > 0) {
+      $scope.currentStep = $scope.currentStep-1;
     };
   };
   
@@ -291,6 +297,8 @@ function accountCtr($scope, $stateParams, $location, tempObjects, accountData) {
   $scope.$on("MESSAGE_RECEIVED", function(event, campaignIndex, message, messageId) {
     console.log("message received by account controller");
     accountData.addMessage("account01", campaignIndex, messageId, message);
+    $scope.handle = accountData.getHandle(account_id);
+
     $scope.campaignTitleList[campaignIndex].newCounter = $scope.campaignTitleList[campaignIndex].newCounter + 1;
   });
    
@@ -299,8 +307,8 @@ function accountCtr($scope, $stateParams, $location, tempObjects, accountData) {
     $scope.accountId = $stateParams.accountId;
     $scope.array_of_account_ids = [];
     $scope.array_of_account_ids[0] = $scope.accountId;
-    $scope.handle = $scope.accounts[$scope.accountId].handle;
-    
+    $scope.campaignHandle = $scope.accounts[$scope.accountId].handle;
+    $scope.handle = accountData.getHandle($scope.accountId);
     
     $scope.campaignList = accountData.getActiveCampaigns($scope.accountId);
     $scope.campaignTitleList = accountData.getCampaignTitles($scope.accountId, true);
@@ -524,9 +532,8 @@ function campaignCtr($scope, $stateParams, $location, accountData) {
       if (accountData.checkIfCampaignExist($scope.array_of_account_ids,$stateParams.campaignId)) {
         console.log("one campaign and it exists in account"+$scope.array_of_account_ids)
         $scope.campaignId = $stateParams.campaignId;
-//        $scope.campaignTitle = $scope.campaignTitleList[$scope.campaignId].title;
-//        $scope.campaignHandle = $scope.campaignTitleList[$scope.campaignId].handle;
-        
+        $scope.campaignTitle = $scope.campaignTitleList[$scope.campaignId].title;
+        $scope.campaignHandle = $scope.campaignTitleList[$scope.campaignId].handle;
         setViewCampaign(arrayOfCampaignIds);
       }
       else {

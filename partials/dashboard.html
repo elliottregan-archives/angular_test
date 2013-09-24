@@ -1,27 +1,32 @@
 
 <div class="animation_wrapper layer0">
+  <div ng-if="new_mode" class="module_wrapper">
+    <div ng-click="toggleNewMode()" class="module_fader"></div>
+    <form ng-if="new_mode" ng-submit="createCampaign(new_campaign_title, handle_to_submit, is_local, new_campaign_locale, discoverable)" class="module">
+      <div class="content_wrapper">
+        <label for="handle_select">Choose a handle</label>
+        <button ng-click="toggle_new_handle = true" type="button" class="btn push_right">+ new handle</button>
+        <select id="handle_select" ng-model="handle_to_submit" ng-options="handleObj.handle as handleObj.handle for handleObj in handleList"></select>
+        <div ng-if="toggle_new_handle" ng-animate="'collapse'">
+          <label for="handle_text">New handle name:</label>
+          <input id="handle_text" type="text" name="new_handle" placeholder="Try your twitter handle!" ng-model="handle_to_submit" class="inline"/>
+        </div>
+        <label for="campaign_text">Name this campaign:<br/><small>(this is the public title for your feedback.)</small></label>
+        <input id="campaign_text" type="text" name="new_campaign_title" placeholder="eg. 'Crepes &amp; Things Feedback'" ng-model="new_campaign_title"/>
+      </div>
+      <div class="btnset two_btns">
+        <button ng-click="toggleNewMode()" type="button" class="btn">cancel</button>
+        <button type="submit" ng-click="resetStep()" class="btn positive">Continue</button>
+      </div>
+    </form>
+  </div>
   <header class="app_header">
     <button ng-click="toggleSidebar('right')" class="btn icon left"><i class="icon-menu"></i></button>
-    <h1>@<span ng-bind="handle"></span></h1>
-    <button ng-click="edit_mode || toggleNewMode()" ng-if="!new_mode" ng-hide="edit_mode" ng-class="{disabled: edit_mode}" class="btn primary">+</button>
+    <h1 class="center">@<span ng-bind="handle"></span></h1>
+    <button ng-click="edit_mode || toggleNewMode()" ng-if="!new_mode" ng-hide="edit_mode" ng-class="{disabled: edit_mode}" class="btn right icon">+</button>
   </header>
   <div class="scroller_wrapper with_header_padding">
     <section class="scroller">
-      <div ng-if="new_mode">
-        <form ng-submit="createCampaign(new_campaign_title, handle_to_submit, is_local, new_campaign_locale, discoverable)">
-          <label for="handle_select">Choose a handle</label>
-          <select id="handle_select" ng-model="handle_to_submit" ng-options="handleObj.handle as handleObj.handle for handleObj in handleList"></select>
-          <button ng-click="toggle_new_handle = true" type="button" class="btn">+ new handle</button>
-          <div ng-if="toggle_new_handle" ng-animate="'collapse'">
-            <label for="handle_text">New handle name:</label>
-            <input id="handle_text" type="text" name="new_handle" placeholder="Try your twitter handle!" ng-model="handle_to_submit" class="inline"/>
-          </div>
-          <label for="campaign_text">Name this campaign:<br/><small>(this is the public title for your feedback.)</small></label>
-          <input id="campaign_text" type="text" name="new_campaign_title" placeholder="eg. 'Crepes &amp; Things Feedback'" ng-model="new_campaign_title"/>
-          <button type="submit" ng-click="resetStep()" class="btn">Continue</button>
-          <button ng-click="toggleNewMode()" type="button" class="btn">cancel</button>
-        </form>
-      </div>
       <div ng-show="duplicating_mode">
         <form ng-submit="duplicateCampaign(temp_name, temp_handle)">
           <label for="handle_select_duplicate">Choose a handle</label>
@@ -52,9 +57,13 @@
         </li>
       </ul>
       <div ng-if="edit_mode" class="dashboard_toolbar">
-        <!--a.btn(href='{{edit_link}}', ng-class='{disabled: disable_single_edit_buttons}') edit--><a href="{{view_link}}" ng-class="" class="btn">view</a>
-        <button ng-class="{disabled: disable_single_edit_buttons}" ng-click="disable_single_edit_buttons || archiveListItem(selected_campaigns, campaignList)" class="btn">archive</button>
-        <button ng-class="{disabled: disable_single_edit_buttons}" ng-click="disable_single_edit_buttons || duplicateMode(true, selected_campaigns)" class="btn">duplicate</button>
+        <div class="button_item"><a href="{{view_link}}" ng-class="" class="btn">view</a></div>
+        <div class="button_item">
+          <button ng-class="{disabled: disable_single_edit_buttons}" ng-click="disable_single_edit_buttons || archiveListItem(selected_campaigns, campaignList)" class="btn">archive</button>
+        </div>
+        <div class="button_item">
+          <button ng-class="{disabled: disable_single_edit_buttons}" ng-click="disable_single_edit_buttons || duplicateMode(true, selected_campaigns)" class="btn">duplicate</button>
+        </div>
       </div>
     </section>
   </div>

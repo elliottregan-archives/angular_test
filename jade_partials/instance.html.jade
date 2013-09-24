@@ -16,7 +16,7 @@ article(ng-init='instance.cap = -2')
       i.icon-down-open(ng-if='isExpandable')
       i.icon-up-open
   div.instance_tools
-    button.btn.share.push_left share!
+    //button.btn.share.push_left share!
     button.btn.heard(ng-class='{heard_true: instance.heard}',ng-click='hearIt(instance)', ng-if='instance.author != \'You\'') heard!
   ul.comments
     li.comment(ng-repeat='comment in (instance.comments | limitTo:instance.cap)', ng-animate='\'collapse\'', ng-class='{you: comment.author == "You"}')
@@ -28,7 +28,7 @@ article(ng-init='instance.cap = -2')
             time • 5 minutes ago
           p(ng-bind='comment.text')
       div.comment_wrapper(ng-if='comment.author != "You"')
-        button.btn.heard(ng-class='{heard_true: comment.heard}',ng-click='hearIt(comment)') heard!
+        // button.btn.heard(ng-class='{heard_true: comment.heard}',ng-click='hearIt(comment)') heard!
         div 
           .profile_pic.jon_hamm
         div.text
@@ -37,7 +37,6 @@ article(ng-init='instance.cap = -2')
               time • {{comment.time}}
           p(ng-bind='comment.text')
   form.one_line(ng-submit='addReply(newCommentText, instance.comments)')
-    button.btn(type='submit')
-      i.icon-paper-plane
+    button.btn(type='submit') send
     input(type='text', name='new_comment', ng-model='newCommentText', placeholder="add a reply")
     

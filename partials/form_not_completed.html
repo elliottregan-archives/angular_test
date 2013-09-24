@@ -1,26 +1,23 @@
-<ol ui-sortable="sortableOptions">
-  <li ng-repeat="question in buildCampaign.questionsList">
-    
-    <div class="handle right"><i class="icon-menu"></i></div>
-    <div class="right">
-      <button ng-click="editQuestion($index)">edit</button>
-      <button ng-click="deleteQuestion($index)">delete</button>
+
+<ol ui-sortable="sortableOptions" class="questions">
+  <li ng-repeat="question in buildCampaign.questionsList" class="question">
+    <!-- .handle.right drag-->
+    <div class="push_right">
+      <button ng-click="editQuestion($index)" class="soft btn">edit</button>
+      <button ng-click="deleteQuestion($index)" class="soft btn">delete</button>
     </div>
-    
     <div ng-if="(question.type == 'binary') || (question.type == 'rating') || (question.type == 'multipleChoice')">
       <h3 ng-bind="question.text"></h3>
-      <ul class='answers'>
+      <ul class="answers">
         <li ng-repeat="answer in question.answers" class="inline">
           <div class="filled_answer"></div>
-          <label for="answer_{{question.id}}{{answer.id}}" ng-bind="answer.text"></label>
+          <label for="answer_{{question.id}}{{answer.id}}" ng-bind="answer.text" class="answer_label"></label>
         </li>
       </ul>
     </div>
-    
     <div ng-if="(question.type == 'freeText') || (question.type == 'number')">
       <h3 ng-bind="question.text"></h3>
       <div class="empty_textarea"></div>
     </div>
-    
   </li>
 </ol>

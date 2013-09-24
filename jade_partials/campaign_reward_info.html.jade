@@ -1,33 +1,28 @@
-header.app_header
-    a.btn.icon.left(href='#/campaign/{{campaignId}}/rewards')
-      i.icon-left-open
-      | back
-    h1 {{title}}
-  .scroller_wrapper.with_header_padding
-    section.scroller
-      h2(ng-bind='viewReward.title')
-      dl
-        dt Description:
-        dd(ng-bind='viewReward.description')
-        dt Terms:
-        dd(ng-bind='viewReward.terms')
-        dt Owner:
-        dd(ng-bind='viewReward.owner')
-        dt Original Conversation:
-        dd
-          a(href='#/campaign/{{campaignId}}/conversations/{{viewReward.instanceId}}', ng-bind='viewReward.instanceId')
-        dt Secret Code:
-        dd(ng-bind='viewReward.passphrase')
-        dt Expires:
-        dd(ng-bind='viewReward.exp_date')
-        dt Date Issued:
-        dd(ng-bind='viewReward.date_issued')
-        dt Date Claimed:
-        dd(ng-bind='viewReward.date_claimed')
-        dt Shared with:
-        dd
-          ul
-            li(ng-repeat='user in viewReward.shared_with', ng-bind='user')
-        dt Verified by:
-        dd(ng-bind='viewReward.verified')
-      button.btn(ng-click='claimReward(viewReward)', ng-class='{claimed: viewReward.date_claimed != false}') claim
+.scroller_wrapper.with_header_padding
+  section.scroller
+    h2(ng-bind='viewReward.title')
+    dl
+      dt Description:
+      dd(ng-bind='viewReward.description')
+      dt Terms:
+      dd(ng-bind='viewReward.terms')
+      dt Owner:
+      dd(ng-bind='viewReward.owner')
+      dt Original Conversation:
+      dd
+        a(href='#/campaign/{{campaignId}}/conversations/{{viewReward.instanceId}}', ng-bind='viewReward.instanceId')
+      dt Secret Code:
+      dd(ng-bind='viewReward.passphrase')
+      dt Expires:
+      dd(ng-bind='viewReward.exp_date')
+      dt Date Issued:
+      dd(ng-bind='viewReward.date_issued')
+      dt Date Claimed:
+      dd(ng-bind='viewReward.date_claimed')
+      dt Shared with:
+      dd
+        ul
+          li(ng-repeat='user in viewReward.shared_with', ng-bind='user')
+      dt Verified by:
+      dd(ng-bind='viewReward.verified')
+    button.btn(ng-click='claimReward(viewReward)', ng-class='{claimed: viewReward.date_claimed != false}') claim

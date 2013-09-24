@@ -3,10 +3,13 @@
 <div class="animation_wrapper layer1">
   <header class="app_header">
     <button ng-click="toggleSidebar('right')" class="btn icon left"><i class="icon-menu"></i></button>
-    <button ng-click="toggleNavbar()" class="btn icon right"> . . . </button><small ng-bind="campaignHandle"></small>
-    <h1 ng-bind="campaignTitle"></h1>
+    <hgroup class="center">
+      <h2>@<span ng-bind="campaignHandle"></span></h2>
+      <h1 ng-bind="campaignTitle"></h1>
+    </hgroup>
+    <button ng-click="toggleNavbar()" class="btn icon right"> . . . </button>
   </header>
-  <nav ng-if="campaignNav_true" ng-click="toggleNavbar()" class="campaign_nav dropdown">
+  <nav ng-class="{visible : campaignNav_true}" ng-click="toggleNavbar()" class="campaign_nav dropdown">
     <ul>
       <li><a href="#/account/{{accountId}}/campaign/{{campaignId}}/conversations">Conversation Feed<i class="icon-chat"></i></a></li>
       <li><a href="#/account/{{accountId}}/campaign/{{campaignId}}/analytics">Analytics<i class="icon-chart-bar"></i></a></li>

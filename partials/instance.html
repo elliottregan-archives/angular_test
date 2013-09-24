@@ -19,7 +19,7 @@
     <button ng-if="isExpandable" ng-click="expandReplies(instance)" class="btn icon right"><i ng-if="isExpandable" class="icon-down-open"></i><i class="icon-up-open"></i></button>
   </div>
   <div class="instance_tools">
-    <button class="btn share push_left">share!</button>
+    <!--button.btn.share.push_left share!-->
     <button ng-class="{heard_true: instance.heard}" ng-click="hearIt(instance)" ng-if="instance.author != 'You'" class="btn heard">heard!</button>
   </div>
   <ul class="comments">
@@ -36,7 +36,7 @@
         </div>
       </div>
       <div ng-if="comment.author != &quot;You&quot;" class="comment_wrapper">
-        <button ng-class="{heard_true: comment.heard}" ng-click="hearIt(comment)" class="btn heard">heard!</button>
+        <!-- button.btn.heard(ng-class='{heard_true: comment.heard}',ng-click='hearIt(comment)') heard!-->
         <div> 
           <div class="profile_pic jon_hamm"></div>
         </div>
@@ -49,7 +49,7 @@
     </li>
   </ul>
   <form ng-submit="addReply(newCommentText, instance.comments)" class="one_line">
-    <button type="submit" class="btn"><i class="icon-paper-plane"></i></button>
+    <button type="submit" class="btn">send</button>
     <input type="text" name="new_comment" ng-model="newCommentText" placeholder="add a reply"/>
   </form>
 </article>

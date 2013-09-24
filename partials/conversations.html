@@ -1,14 +1,12 @@
 
-<div class="animation_wrapper layer1">
-  <div class="scroller_wrapper with_header_padding">
-    <div class="scroller">
-      <p ng-if="viewCampaign.conversations.length == 0">No conversations here. :(<br/>
-        <button class="btn">Spread the word!</button>
-      </p>
-      <ul class="conversations">
-        <li ng-repeat="instance in viewCampaign.conversations" ng-controller="instanceCtr" ng-include src="'partials/instance.html'" class="instance"></li>
-      </ul>
-    </div>
+<div class="scroller_wrapper">
+  <div class="scroller">
+    <p ng-if="viewCampaign.conversations.length == 0">No conversations here. :(<br/>
+      <button class="btn">Spread the word!</button>
+    </p>
+    <ul class="conversations">
+      <li ng-repeat="instance in viewCampaign.conversations" ng-controller="instanceCtr" ng-include src="'partials/instance.html'" class="instance"></li>
+    </ul>
   </div>
-  <ui-view></ui-view>
 </div>
+<ui-view></ui-view>

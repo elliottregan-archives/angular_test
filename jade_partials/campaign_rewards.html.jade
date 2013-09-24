@@ -1,28 +1,23 @@
 .animation_wrapper
-    header.app_header
-      button.btn.icon.left(ng-click='toggleSidebar(\'right\')')
-        i.icon-menu
-      button.btn.icon.right(ng-click='toggleNavbar()')  . . . 
-      h1(ng-bind='title')
-    div(ng-include='ng-include', src='\'partials/campaign_nav.html\'')
-    .scroller_wrapper.with_header_padding
-      section.scroller
-        .btnset.three_btns
-          button.btn(ng-click='toggleRewardsList(\'open\')', ng-class='{selected: rewardsView == \'open\'}') Open
-          button.btn(ng-click='toggleRewardsList(\'redeemed\')', ng-class='{selected: rewardsView == \'redeemed\'}') Redeemed
-          button.btn(ng-click='toggleRewardsList(\'expired\')', ng-class='{selected: rewardsView == \'expired\'}') Expired
-        input(type='text', ng-model='search_query.$', placeholder='search names or secret codes')
-        ul.object_list
-          li(ng-repeat='reward in viewCampaign.rewards | filter:search_query')
-            button.btn(ng-click='claimReward(reward)', ng-class='{claimed: reward.date_claimed != false}') redeem
-            a(href='#/campaign/{{campaignId}}/rewards/{{reward.id}}')
-              h2(ng-bind='reward.title')
-              dl
-                dt Owner:
-                dd(ng-bind='reward.owner')
-                dt(ng-show='rewardsView == \'open\'') Issued:
-                dd(ng-show='rewardsView == \'open\'', ng-bind='reward.date_issued')
-                dt(ng-show='rewardsView == \'open\'') Secret Code:
-                dd(ng-show='rewardsView == \'open\'', ng-bind='reward.passphrase')
-                dt(ng-show='reward.date_claimed != false') Date Redeemed:
-                dd(ng-show='reward.date_claimed != false', ng-bind='reward.date_claimed')
+  div(ng-include, src='\'partials/campaign_nav.html\'')
+  .scroller_wrapper.with_header_padding
+    section.scroller
+      .btnset.three_btns
+        button.btn(ng-click='toggleRewardsList(\'open\')', ng-class='{selected: rewardsView == \'open\'}') Open
+        button.btn(ng-click='toggleRewardsList(\'redeemed\')', ng-class='{selected: rewardsView == \'redeemed\'}') Redeemed
+        button.btn(ng-click='toggleRewardsList(\'expired\')', ng-class='{selected: rewardsView == \'expired\'}') Expired
+      input(type='text', ng-model='search_query.$', placeholder='search names or secret codes')
+      ul.object_list
+        li(ng-repeat='reward in viewCampaign.rewards | filter:search_query')
+          button.btn(ng-click='claimReward(reward)', ng-class='{claimed: reward.date_claimed != false}') redeem
+          a(href='#/campaign/{{campaignId}}/rewards/{{reward.id}}')
+            h2(ng-bind='reward.title')
+            dl
+              dt Owner:
+              dd(ng-bind='reward.owner')
+              dt(ng-show='rewardsView == \'open\'') Issued:
+              dd(ng-show='rewardsView == \'open\'', ng-bind='reward.date_issued')
+              dt(ng-show='rewardsView == \'open\'') Secret Code:
+              dd(ng-show='rewardsView == \'open\'', ng-bind='reward.passphrase')
+              dt(ng-show='reward.date_claimed != false') Date Redeemed:
+              dd(ng-show='reward.date_claimed != false', ng-bind='reward.date_claimed')

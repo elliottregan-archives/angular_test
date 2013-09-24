@@ -1,25 +1,17 @@
+
 <div class="animation_wrapper">
-  <header class="app_header">
-    <button ng-click="toggleSidebar('right')" class="btn icon left"><i class="icon-menu"></i></button>
-    <button class="btn icon right" ng-click="toggleNavbar()"> . . . </button>
-    <h1 ng-bind="title"></h1>
-  </header>
-  
-  <div ng-include src="'partials/campaign_nav.html'"></div>
-  
+  <div ng-include="ng-include" src="'partials/campaign_nav.html'"></div>
   <div class="scroller_wrapper with_header_padding">
     <section class="scroller">
-      
       <div class="btnset three_btns">
-        <button class="btn" ng-click="toggleRewardsList('open')" ng-class="{selected: rewardsView == 'open'}">Open</button>
-        <button class="btn" ng-click="toggleRewardsList('redeemed')" ng-class="{selected: rewardsView == 'redeemed'}">Redeemed</button>
-        <button class="btn" ng-click="toggleRewardsList('expired')" ng-class="{selected: rewardsView == 'expired'}">Expired</button>
+        <button ng-click="toggleRewardsList('open')" ng-class="{selected: rewardsView == 'open'}" class="btn">Open</button>
+        <button ng-click="toggleRewardsList('redeemed')" ng-class="{selected: rewardsView == 'redeemed'}" class="btn">Redeemed</button>
+        <button ng-click="toggleRewardsList('expired')" ng-class="{selected: rewardsView == 'expired'}" class="btn">Expired</button>
       </div>
       <input type="text" ng-model="search_query.$" placeholder="search names or secret codes"/>
       <ul class="object_list">
         <li ng-repeat="reward in viewCampaign.rewards | filter:search_query">
-          <button class="btn right" ng-click="claimReward(reward)" class="btn" ng-class="{claimed: reward.date_claimed != false}">redeem</button>
-          <a href="#/campaign/{{campaignId}}/rewards/{{reward.id}}">
+          <button ng-click="claimReward(reward)" ng-class="{claimed: reward.date_claimed != false}" class="btn">redeem</button><a href="#/campaign/{{campaignId}}/rewards/{{reward.id}}">
             <h2 ng-bind="reward.title"></h2>
             <dl>
               <dt>Owner:</dt>
@@ -30,8 +22,7 @@
               <dd ng-show="rewardsView == 'open'" ng-bind="reward.passphrase"></dd>
               <dt ng-show="reward.date_claimed != false">Date Redeemed:</dt>
               <dd ng-show="reward.date_claimed != false" ng-bind="reward.date_claimed"></dd>
-            </dl>
-          </a>
+            </dl></a>
         </li>
       </ul>
     </section>

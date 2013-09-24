@@ -1,32 +1,29 @@
 aside#palette(view='panel')
-    div(ng-include='ng-include', src='\'partials/panel.html\'')
-  section#page_02.animation_wrapper
-    header.app_header
-      a.btn.icon.left(href='#/account/{{accountId}}/campaign/{{buildCampaign.id}}/conversations')
-        i.icon-left-open
-        | cancel
-      a(ng-click='advanceStep()', ng-hide='ng-hide', currentstep='currentStep')
-        | = (steps.length-1)' class="btn right"
-        | next
-        i.icon-right-open
-      button(ng-show='ng-show', currentstep='currentStep')
-        | = (steps.length-1)' class="btn right" ng-click="saveChanges()"
-        | Save Changes
-      h2 Edit {{buildCampaign.title}}: Step {{steps[currentStep]+1}}
-    .scroller_wrapper.with_header_padding.extra
-      nav
-        ol.breadcrumbs.five_btns.btnset
-          li.crumb.btn(ng-class='{selected: currentStep==n}', ng-repeat='n in steps', ng-click='changeStep(n)') {{n+1}}
+    div(ng-include src='"partials/panel.html"')
+  section.animation_wrapper
+    .scroller_wrapper.with_breadcrumb_padding
+      nav.breadcrumbs
+        a.btn.soft.left(href='#/account/{{accountId}}/campaign/{{buildCampaign.id}}/conversations', ng-show='currentStep==0')
+          i.icon-cancel
+        button.btn.soft.left(ng-click='retreatStep()', ng-show='currentStep>=1')
+          i.icon-left-open
+        h2 Step {{steps[currentStep]+1}}
+        ol.dots.right
+          li.dot(ng-class='{selected: currentStep==n}', ng-repeat='n in steps', ng-click='changeStep(n)')
+        button.btn.soft.right(ng-click='advanceStep()', ng-hide='currentStep== (steps.length-1)')
+          | next
+        button.btn.soft.right(ng-show='currentStep==(steps.length-1)', ng-click='saveChanges()')
+          | Save Changes
       .scroller
         .card
           h2(ng-bind='buildCampaign.title')
           h3(ng-bind='buildCampaign.handle')
-          section(ng-switch='ng-switch', on='currentStep')
+          section(ng-switch='currentStep')
             div(ng-switch-when='0')
-              label(for='image') Upload image:
-              input#image(type='file', name='image', accept='image/*')
-              div(ng-include='ng-include', src='\'partials/form_not_completed.html\'')
-              button.btn(ng-click='togglePanel(\'Create Question\')') + New Question
+              // label(for='image') Upload image:
+              // input#image(type='file', name='image', accept='image/*')
+              div(ng-include src='"partials/form_not_completed.html"')
+              button.middle.confirm.btn(ng-click='togglePanel(\'Create Question\')') + New Question
             div(ng-switch-when='1')
               form(method='post', action='')
                 h3 Reward details:

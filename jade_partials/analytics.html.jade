@@ -1,10 +1,5 @@
 .animation_wrapper
-    header.app_header
-      button.btn.icon.left(ng-click='toggleSidebar(\'right\')')
-        i.icon-menu
-      button.btn.icon.right(ng-click='toggleNavbar()')  . . . 
-      h1(ng-bind='title')
-    div(ng-include='ng-include', src='\'partials/campaign_nav.html\'')
+    div(ng-include src='\'partials/campaign_nav.html\'')
     .scroller_wrapper.with_header_padding
       section.scroller
         | Ah, but there is nothing here. C'est un traviste.

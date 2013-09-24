@@ -3,10 +3,12 @@
   header.app_header
     button.btn.icon.left(ng-click='toggleSidebar(\'right\')')
       i.icon-menu
+    hgroup.center
+      h2 @
+        span(ng-bind='campaignHandle')
+      h1(ng-bind='campaignTitle')
     button.btn.icon.right(ng-click='toggleNavbar()')  . . . 
-    small(ng-bind='campaignHandle')
-    h1(ng-bind='campaignTitle')
-  nav.campaign_nav.dropdown(ng-if='campaignNav_true', ng-click='toggleNavbar()')
+  nav.campaign_nav.dropdown(ng-class='{visible : campaignNav_true}', ng-click='toggleNavbar()')
     ul
       li
         a(href='#/account/{{accountId}}/campaign/{{campaignId}}/conversations')
