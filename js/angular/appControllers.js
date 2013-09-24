@@ -509,9 +509,8 @@ function dashboardCtr($scope, $stateParams, $location, tempObjects, accountData)
   
 };
 
-function campaignCtr($scope, $stateParams, $location, accountData) {
+function campaignCtr($scope, $state, $stateParams, $location, accountData) {
   console.log("initialize campaign controller")
-  
   
   init();
 
@@ -521,9 +520,13 @@ function campaignCtr($scope, $stateParams, $location, accountData) {
     $scope.viewCampaign.conversations = accountData.getConversations(["account01"], [campaignIndex]);
   });
   
+  $scope.$on("CAMPAIGN_PAGE_CHANGED", function() {
+  
+    $scope.currentPage = $state.current.url;
+ 
+  });
+    
   function init() {
-    
-    
     var arrayOfCampaignIds = [];
     arrayOfCampaignIds = $stateParams.campaignId.split("+");
     $scope.arrayOfCampaignIds = arrayOfCampaignIds;
@@ -585,6 +588,10 @@ function campaignBuilderCtr($scope, $location, $stateParams, tempObjects, accoun
   };
   
   function init() {
+    
+    $scope.$emit("CAMPAIGN_PAGE_CHANGED");
+    
+    console.log($scope.currentPage)
     var arrayOfCampaignIds = [];
     arrayOfCampaignIds = $stateParams.campaignId.split("+");
     $scope.buildCampaign = {};
@@ -770,7 +777,8 @@ function rewardsCtr($scope, $stateParams, $location, userData) {
   console.log("initialize user rewards controller");
   init();
   
-  function init() {    
+  function init() {
+    $scope.$emit("CAMPAIGN_PAGE_CHANGED");    
     $scope.rewardsList = userData.getRewards("open");
 
   };
@@ -791,7 +799,7 @@ function CampaignRewardsCtr($scope, $stateParams, $location, accountData) {
   $scope.title = 'Rewards';
   
   function init() {
-    
+    $scope.$emit("CAMPAIGN_PAGE_CHANGED");
     $scope.viewCampaign.rewards = accountData.getRewards($scope.array_of_account_ids, $scope.arrayOfCampaignIds, "open");
     
   };
@@ -865,7 +873,7 @@ function inboxCtr($scope, accountData) {
 
 function conversationsCtr($rootScope, $scope, $stateParams, $location, accountData) {
   console.log("initialize conversation controller");
-    
+  $scope.$emit("CAMPAIGN_PAGE_CHANGED");
   $scope.title = "Conversations";
   $scope.conversationDetailView = false;
     
@@ -973,11 +981,13 @@ function instanceCtr($scope) {
 function analyticsCtr($scope, $stateParams) {
   
   $scope.title = "Analytics";
-
+  $scope.$emit("CAMPAIGN_PAGE_CHANGED");
 };
 
 function campaignContactsCtr($scope, $stateParams, $location, accountData) {
   console.log("initialize contacts controller");
+  
+  $scope.$emit("CAMPAIGN_PAGE_CHANGED");
   $scope.title = "Contact Details";
   $scope.campaignId = $stateParams.campaignId;
   $scope.userId = $stateParams.userId;

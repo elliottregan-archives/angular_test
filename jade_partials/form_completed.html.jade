@@ -1,11 +1,9 @@
-ol
-  li(ng-repeat='question in instance.questionsList')
-    div(ng-if='(question.type == \'binary\') || (question.type == \'rating\') || (question.type == \'multipleChoice\')')
-      h4(ng-bind='question.text')
-      ul.answers
-        li.inline(ng-repeat='answer in question.answers', ng-show='full_form_view_on || (question.response == answer.id)')
-          .filled_answer(ng-show='full_form_view_on', ng-class='{checked: question.response == answer.id}')
-          label(for='answer_{{question.id}}{{answer.id}}', ng-bind='answer.text')
-    div(ng-if='(question.type == \'freeText\') || (question.type == \'number\')')
-      h4(ng-bind='question.text')
+ol.questions
+  li.question(ng-repeat='question in instance.questionsList')
+    h4(ng-bind='question.text')
+    ul.answers(ng-if='(question.type == \'binary\') || (question.type == \'rating\') || (question.type == \'multipleChoice\')')
+      li.inline(ng-repeat='answer in question.answers', ng-show='full_form_view_on || (question.response == answer.id)')
+        .filled_answer(ng-if='full_form_view_on', ng-class='{checked: question.response == answer.id}')
+        label(for='answer_{{question.id}}{{answer.id}}', ng-bind='answer.text')
+    div.answer(ng-if='(question.type == \'freeText\') || (question.type == \'number\')')
       p(ng-bind='question.response')

@@ -1,7 +1,7 @@
 
 <div class="animation_wrapper">
   <div ng-include="ng-include" src="'partials/campaign_nav.html'"></div>
-  <div class="scroller_wrapper with_header_padding">
+  <div class="scroller_wrapper">
     <section class="scroller">
       <div class="btnset three_btns">
         <button ng-click="toggleRewardsList('open')" ng-class="{selected: rewardsView == 'open'}" class="btn">Open</button>
@@ -9,10 +9,10 @@
         <button ng-click="toggleRewardsList('expired')" ng-class="{selected: rewardsView == 'expired'}" class="btn">Expired</button>
       </div>
       <input type="text" ng-model="search_query.$" placeholder="search names or secret codes"/>
-      <ul class="object_list">
-        <li ng-repeat="reward in viewCampaign.rewards | filter:search_query">
-          <button ng-click="claimReward(reward)" ng-class="{claimed: reward.date_claimed != false}" class="btn">redeem</button><a href="#/campaign/{{campaignId}}/rewards/{{reward.id}}">
-            <h2 ng-bind="reward.title"></h2>
+      <ul class="object-list">
+        <li ng-repeat="reward in viewCampaign.rewards | filter:search_query" class="object-item">
+          <button ng-click="claimReward(reward)" ng-class="{claimed: reward.date_claimed != false}" class="push_right btn">redeem</button><a href="#/campaign/{{campaignId}}/rewards/{{reward.id}}">
+            <h1 ng-bind="reward.title"></h1>
             <dl>
               <dt>Owner:</dt>
               <dd ng-bind="reward.owner"></dd>

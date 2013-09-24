@@ -46,12 +46,13 @@
       button.btn.fadded.full_width(ng-if='archiveExists', ng-click='toggleArchived()')
         span(ng-show='view_archived == true') hide archived
         span(ng-show='view_archived == false') view archived
-      ul.object_list(ng-show='view_archived == true')
+      ul.object-list(ng-show='view_archived == true')
         li(ng-repeat='campaign in archivedCampaignList')
           button.btn.right(ng-click='unarchiveListItem(campaign, campaignList)') unarchive
-          a(href='#/campaign/{{campaign.id}}/conversations')
-            small @{{campaign.handle}}
-            h2 {{campaign.title}}
+          hgroup
+            a(href='#/account/{{accountId}}/campaign/{{campaign.id}}/conversations')
+              h2 @{{handle}}
+              h1 {{campaign.title}}
       .dashboard_toolbar(ng-if='edit_mode')
           .button_item
             a.btn(href='{{view_link}}', ng-class='') view

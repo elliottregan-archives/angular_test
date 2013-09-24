@@ -1,20 +1,15 @@
-<ol>
-  <li ng-repeat="question in instance.questionsList">
 
-    <div ng-if="(question.type == 'binary') || (question.type == 'rating') || (question.type == 'multipleChoice')">
-      <h4 ng-bind="question.text"></h4>
-      <ul class='answers'>
-        <li ng-repeat="answer in question.answers" class="inline" ng-show="full_form_view_on || (question.response == answer.id)">
-          <div class="filled_answer" ng-show="full_form_view_on" ng-class="{checked: question.response == answer.id}"></div>
-          <label for="answer_{{question.id}}{{answer.id}}" ng-bind="answer.text"></label>
-        </li>
-      </ul>
-    </div>
-    
-    <div ng-if="(question.type == 'freeText') || (question.type == 'number')">
-      <h4 ng-bind="question.text"></h4>
+<ol class="questions">
+  <li ng-repeat="question in instance.questionsList" class="question">
+    <h4 ng-bind="question.text"></h4>
+    <ul ng-if="(question.type == 'binary') || (question.type == 'rating') || (question.type == 'multipleChoice')" class="answers">
+      <li ng-repeat="answer in question.answers" ng-show="full_form_view_on || (question.response == answer.id)" class="inline">
+        <div ng-if="full_form_view_on" ng-class="{checked: question.response == answer.id}" class="filled_answer"></div>
+        <label for="answer_{{question.id}}{{answer.id}}" ng-bind="answer.text"></label>
+      </li>
+    </ul>
+    <div ng-if="(question.type == 'freeText') || (question.type == 'number')" class="answer">
       <p ng-bind="question.response"></p>
     </div>
-    
   </li>
 </ol>

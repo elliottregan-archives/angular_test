@@ -289,10 +289,15 @@ opacity: 1;
   background-color: #ffffff;
   width: 100%;
   height: 3em;
-  z-index: 50;
+  z-index: 101;
   top: 0px;
   color: #83949e;
   border-bottom: 2px solid #51626c;
+  
+}
+
+.app_header.no_bottom {
+  border-bottom-color: #ffffff;
 }
 
 .app_header > * {
@@ -340,9 +345,14 @@ header small {
   color: #8c8c8c;
 }
 
+i.sup {
+  font-size: .5em;
+  padding: 0;
+  text-shadow: 0 1px 1px #ffffff;
+}
+
 .dropdown {
   overflow: hidden;
-  opacity: 1;
   -webkit-transition: all 200ms ease-in-out;
   -moz-transition: all 200ms ease-in-out;
   -ms-transition: all 200ms ease-in-out;
@@ -355,23 +365,22 @@ header small {
   position: absolute;
   top: 40px;
   z-index: 100;
-  opacity: 0;
-  -webkit-transform: translateY(-200%);
-  -moz-transform: translateY(-200%);
-  transform: translateY(-200%);
+  -webkit-transform: translateY(-100%);
+  -moz-transform: translateY(-100%);
+  transform: translateY(-100%);
   border-bottom: 2px solid #54616a;
+  text-align: right;
 }
 
 .dropdown.visible {
   -webkit-transform: translateY(0%);
   -moz-transform: translateY(0%);
   transform: translateY(0%);
-  opacity: 1;
 }
 
 .dropdown i {
-  float: left;
-  margin-right: 10px;
+  float: right;
+  margin: 0 10px;
 }
 
 /* @end */
@@ -887,7 +896,7 @@ fieldset.padded {
 }
 
 .question {
-  margin: 20px 0;
+  margin: 10px 0;
 }
 
 .question:first-of-type {
@@ -895,12 +904,11 @@ fieldset.padded {
 }
 
 .answers li {
-  margin: .5em;
+  margin: 0 1em;
   font-weight: 300;
-  font-size: .8em;
 }
 
-.answers li:first-of-type {
+.answers li {
   margin-left: 0;
 }
 
@@ -912,11 +920,16 @@ fieldset.padded {
   margin-left: 1em;
 }
 
+.answer p {
+  font-weight: 300;
+}
+
 .filled_answer {
   width: 2.2em;
   height: 2.2em;
   border-radius: 2.5em;
   border: 1px solid #8e8e8e;
+  margin: .5em 0;
 }
 
 .filled_answer.checked {
@@ -1229,6 +1242,11 @@ fieldset.padded {
   margin: .2em 0;
   font-size: 1.5em;
   line-height: 1.3rem;
+  -webkit-transition: all 200ms ease-in-out;
+  -moz-transition: all 200ms ease-in-out;
+  -ms-transition: all 200ms ease-in-out;
+  -o-transition: all 200ms ease-in-out;
+  transition: all 200ms ease-in-out;
 }
 
 .edit_header {
@@ -1240,7 +1258,7 @@ fieldset.padded {
 .breadcrumbs {
   width: 100%;
   display: block;
-  margin: 0;
+  margin: .3em 0;
   position: absolute;
   top: 0;
 }

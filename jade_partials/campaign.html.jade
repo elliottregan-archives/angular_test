@@ -1,32 +1,38 @@
 .dimmer(ng-click='toggleToolPanel()', ng-class='{visible: conversationDetailView == true}')
 .animation_wrapper.layer1
-  header.app_header
+  header.app_header(ng-class='{no_bottom : campaignNav_true}')
     button.btn.icon.left(ng-click='toggleSidebar(\'right\')')
       i.icon-menu
     hgroup.center
       h2 @
         span(ng-bind='campaignHandle')
       h1(ng-bind='campaignTitle')
-    button.btn.icon.right(ng-click='toggleNavbar()')  . . . 
+    button.btn.icon.right(ng-click='toggleNavbar()', ng-switch='currentPage')
+      i.icon-down-open.sup
+      i.icon-pencil(ng-switch-when='/edit')
+      i.icon-chat(ng-switch-when='/conversations')
+      i.icon-chart-bar(ng-switch-when='/analytics')
+      i.icon-trophy(ng-switch-when='/rewards')
+      i.icon-at(ng-switch-when='/contacts')
   nav.campaign_nav.dropdown(ng-class='{visible : campaignNav_true}', ng-click='toggleNavbar()')
     ul
-      li
+      li(ng-hide='currentPage == "/conversations"')
         a(href='#/account/{{accountId}}/campaign/{{campaignId}}/conversations')
           | Conversation Feed
           i.icon-chat
-      li
+      li(ng-hide='currentPage == "/analytics"')
         a(href='#/account/{{accountId}}/campaign/{{campaignId}}/analytics')
           | Analytics
           i.icon-chart-bar
-      li(ng-hide='multipleViewCampaigns')
+      li(ng-hide='multipleViewCampaigns || currentPage == "/edit"')
         a(href='#/account/{{accountId}}/campaign/{{campaignId}}/edit')
           | edit
           i.icon-pencil
-      li
+      li(ng-hide='currentPage == "/rewards"')
         a(href='#/account/{{accountId}}/campaign/{{campaignId}}/rewards')
           | rewards
           i.icon-trophy
-      li
+      li(ng-hide='currentPage == "/contacts"')
         a(href='#/account/{{accountId}}/campaign/{{campaignId}}/contacts')
           | contacts
           i.icon-at

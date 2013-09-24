@@ -1,8 +1,8 @@
 .animation_wrapper
-  .scroller_wrapper.with_header_padding
+  .scroller_wrapper
     section.scroller
       input(type='text', ng-model='search_query', placeholder='search names or seacret codes')
-      ul.object_list
-        li(ng-repeat='contact in contactList | filter:search_query')
+      ul.object-list
+        li.object-item(ng-repeat='contact in contactList | filter:search_query')
           a(href='#/account/{{accountId}}/campaign/{{campaignId}}/contacts/{{contact.id}}')
-            h2(ng-bind='contact.name')
+            h1(ng-bind='contact.name')
