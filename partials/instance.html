@@ -47,8 +47,8 @@
     </li>
   </ul>
   <form ng-submit="addReply(newCommentText, instance.comments)" class="one_line">
-    <button ng-if="heardConditions" class="btn">heard</button>
-    <button type="submit" ng-if="!heardConditions" class="btn">send</button>
-    <input type="text" name="new_comment" ng-model="newCommentText" placeholder="add a reply" ng-focus="heardConditions = false" ng-blur="heardConditions = true"/>
+    <button ng-if="instance.heardConditions" type="button" ng-click="addHeard()" class="btn active">heard</button>
+    <button ng-if="!instance.heardConditions" ng-class="{active : newCommentText &gt; 0}" type="submit" class="btn">send</button>
+    <input type="text" name="new_comment" ng-model="newCommentText" placeholder="add a reply" ng-focus="instance.heardConditions = false" ng-blur="checkHeardConditions(newCommentText)"/>
   </form>
 </article>

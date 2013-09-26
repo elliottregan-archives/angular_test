@@ -792,26 +792,26 @@ nav a {
   padding: 10px 0;
 }
 
-form.one_line {
+.one_line {
   padding: 0;
   border-top: 1px solid #e6e6e6;
   width: 100%;
   position: relative;
 }
 
-form.one_line input[type=text]::-moz-placeholder {
+.one_line input[type=text]::-moz-placeholder {
   color: #aeaeae;
 }
 
-form.one_line input[type=text]::-webkit-placeholder {
+.one_line input[type=text]::-webkit-placeholder {
   color: #e6e6e6;
 }
 
-form.one_line input[type=text]::placeholder {
+.one_line input[type=text]::placeholder {
   color: #e6e6e6;
 }
 
-form.one_line button.btn {
+.one_line .btn {
   width: 4em;
   border: none;
   box-shadow: none;
@@ -827,7 +827,12 @@ form.one_line button.btn {
   border-radius: 3px;
 }
 
-form.one_line input[type=text] {
+.one_line .btn.active {
+  background-color: #86939c;
+  color: #ffffff;
+}
+
+.one_line input[type=text] {
   border: none;
   margin: 0;
   margin-right: 4em;

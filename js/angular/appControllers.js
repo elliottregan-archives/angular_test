@@ -948,14 +948,30 @@ function instanceCtr($scope) {
     el.heard = true;
   };
   
-  $scope.checkHeardConditions = function() {
-    console.log($scope.instance.comments.last().author);
-    if ($scope.instance.comments.last().author != "You") {
-      $scope.heardConditions = true;
-    }    
-  };
+  $scope.instance.heardConditions = true;
   
-  $scope.checkHeardConditions();
+  $scope.checkHeardConditions = function(textInput) {
+
+    if (textInput) {
+      console.log($scope.instance.comments.last().author)
+      if ($scope.instance.comments.last().author == "You" || textInput.length > 0 ) {
+        $scope.instance.heardConditions = false;
+      }
+      else {
+        $scope.instance.heardConditions = true;
+      }
+    }else {
+      if ($scope.instance.comments.last().author == "You" ) {
+        $scope.instance.heardConditions = false;
+      }
+      else {
+        $scope.instance.heardConditions = true;
+      }
+    }
+    
+    
+    
+  };
   
   $scope.expandReplies = function(convo) {
     if ( convo.cap == -2) {
@@ -984,7 +1000,26 @@ function instanceCtr($scope) {
     else {
       $scope.isExpandable = false;
     };
+    $scope.checkHeardConditions();
+  };
+  
+  $scope.addHeard = function() {
+    $scope.instance.comments.push({
+      commentId: 1,
+      author: 'You',
+      time: new Date().getTime(),
+      text: 'Your word was herd. That\'s the bird.',
+      heard: true
+    });
+    this.newCommentText = '';
     
+    if ($scope.instance.comments.length >= 3) {
+      $scope.isExpandable = true;
+    }
+    else {
+      $scope.isExpandable = false;
+    };
+    $scope.checkHeardConditions();
   };
     
 };

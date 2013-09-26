@@ -1,12 +1,12 @@
 article(ng-init='instance.cap = -2')
   header.instance_header
-    div.left
+    .left
       .profile_pic.jon_hamm
-    div.middle
+    .middle
       h3
         a(href='#/campaign/{{viewCampaign.id}}/contacts/{{instance.author}}', ng-bind='instance.author')
       time(ng-bind='instance.time')
-    div.right
+    .right
       .header_tools
         button.btn.icon.right(ng-click='toggleToolPanel(instance)')
           i.icon-users
@@ -18,24 +18,24 @@ article(ng-init='instance.cap = -2')
       i.icon-up-open(ng-if='instance.isExpanded')
   ul.comments
     li.comment(ng-repeat='comment in (instance.comments | limitTo:instance.cap)', ng-animate='\'collapse\'', ng-class='{you: comment.author == "You"}')
-      div.comment_wrapper(ng-if='comment.author == "You"')
+      .comment_wrapper(ng-if='comment.author == "You"')
         div
           .profile_pic.jon_hamm
-        div.text
+        .text
           h4 You
             time • 5 minutes ago
           p(ng-bind='comment.text')
-      div.comment_wrapper(ng-if='comment.author != "You"')
+      .comment_wrapper(ng-if='comment.author != "You"')
         // button.btn.heard(ng-class='{heard_true: comment.heard}',ng-click='hearIt(comment)') heard!
         div 
           .profile_pic.jon_hamm
-        div.text
+        .text
           h4
             span(ng-bind='comment.author')
               time • {{comment.time}}
           p(ng-bind='comment.text')
   form.one_line(ng-submit='addReply(newCommentText, instance.comments)')
-    button.btn(ng-if='heardConditions') heard
-    button.btn(type='submit', ng-if='!heardConditions') send
-    input(type='text', name='new_comment', ng-model='newCommentText', placeholder="add a reply", ng-focus="heardConditions = false", ng-blur="heardConditions = true")
+    button.btn.active(ng-if='instance.heardConditions', type='button', ng-click='addHeard()') heard
+    button.btn(ng-if='!instance.heardConditions', ng-class="{active : newCommentText > 0}", type='submit') send
+    input(type='text', name='new_comment', ng-model='newCommentText', placeholder="add a reply", ng-focus="instance.heardConditions = false", ng-blur="checkHeardConditions(newCommentText)")
     
