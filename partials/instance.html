@@ -10,18 +10,14 @@
     </div>
     <div class="right">
       <div class="header_tools">
-        <button ng-click="toggleToolPanel(instance)" class="btn icon right"><i class="icon-cog"></i></button>
+        <button ng-click="toggleToolPanel(instance)" class="btn icon right"><i class="icon-users"></i></button>
       </div>
     </div>
   </header>
   <div class="form_response">
     <div ng-include="&quot;partials/form_completed.html&quot;"></div>
-    <button ng-if="isExpandable" ng-click="expandReplies(instance)" class="btn icon right"><i ng-if="isExpandable" class="icon-down-open"></i><i class="icon-up-open"></i></button>
   </div>
-  <div class="instance_tools">
-    <!--button.btn.share.push_left share!-->
-    <button ng-class="{heard_true: instance.heard}" ng-click="hearIt(instance)" ng-if="instance.author != 'You'" class="btn heard">heard!</button>
-  </div>
+  <button ng-if="isExpandable" ng-click="expandReplies(instance)" class="btn icon expand"><i ng-if="!instance.isExpanded" class="icon-down-open"></i><i ng-if="instance.isExpanded" class="icon-up-open"></i></button>
   <ul class="comments">
     <li ng-repeat="comment in (instance.comments | limitTo:instance.cap)" ng-animate="'collapse'" ng-class="{you: comment.author == &quot;You&quot;}" class="comment">
       <div ng-if="comment.author == &quot;You&quot;" class="comment_wrapper">
@@ -49,7 +45,8 @@
     </li>
   </ul>
   <form ng-submit="addReply(newCommentText, instance.comments)" class="one_line">
-    <button type="submit" class="btn">send</button>
-    <input type="text" name="new_comment" ng-model="newCommentText" placeholder="add a reply"/>
+    <button ng-if="heardConditions" class="btn">heard</button>
+    <button type="submit" ng-if="!heardConditions" class="btn">send</button>
+    <input type="text" name="new_comment" ng-model="newCommentText" placeholder="add a reply" ng-focus="heardConditions = false" ng-blur="heardConditions = true"/>
   </form>
 </article>

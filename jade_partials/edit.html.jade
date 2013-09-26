@@ -15,7 +15,7 @@ aside#palette(view='panel')
         button.btn.soft.right(ng-show='currentStep==(steps.length-1)', ng-click='saveChanges()')
           | Save Changes
       .scroller
-        .card
+        .card.padded
           h2(ng-bind='buildCampaign.title')
           h3(ng-bind='buildCampaign.handle')
           section(ng-switch='currentStep')
@@ -31,7 +31,6 @@ aside#palette(view='panel')
                 textarea#personal_message(placeholder='(optional)')
                 label(for='title') Title:
                 input(type='text', name='title', ng-model='buildCampaign.reward.title', placeholder='Gift Title')
-                input type="text" name="description" ng-model="buildCampaign.reward.description" placeholder="Description"/>
                 label(for='terms') Terms:
                 input(type='text', name='terms', ng-model='buildCampaign.reward.terms', placeholder='Terms and Conditions')
                 h3 Validity:

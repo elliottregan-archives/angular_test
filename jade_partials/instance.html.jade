@@ -9,15 +9,12 @@ article(ng-init='instance.cap = -2')
     div.right
       .header_tools
         button.btn.icon.right(ng-click='toggleToolPanel(instance)')
-          i.icon-cog
+          i.icon-users
   div.form_response
     div(ng-include='"partials/form_completed.html"')
-    button.btn.icon.right(ng-if='isExpandable', ng-click='expandReplies(instance)')
-      i.icon-down-open(ng-if='isExpandable')
-      i.icon-up-open
-  div.instance_tools
-    //button.btn.share.push_left share!
-    button.btn.heard(ng-class='{heard_true: instance.heard}',ng-click='hearIt(instance)', ng-if='instance.author != \'You\'') heard!
+  button.btn.icon.expand(ng-if='isExpandable', ng-click='expandReplies(instance)')
+    i.icon-down-open(ng-if='!instance.isExpanded')
+    i.icon-up-open(ng-if='instance.isExpanded')
   ul.comments
     li.comment(ng-repeat='comment in (instance.comments | limitTo:instance.cap)', ng-animate='\'collapse\'', ng-class='{you: comment.author == "You"}')
       div.comment_wrapper(ng-if='comment.author == "You"')
@@ -37,6 +34,7 @@ article(ng-init='instance.cap = -2')
               time • {{comment.time}}
           p(ng-bind='comment.text')
   form.one_line(ng-submit='addReply(newCommentText, instance.comments)')
-    button.btn(type='submit') send
-    input(type='text', name='new_comment', ng-model='newCommentText', placeholder="add a reply")
+    button.btn(ng-if='heardConditions') heard
+    button.btn(type='submit', ng-if='!heardConditions') send
+    input(type='text', name='new_comment', ng-model='newCommentText', placeholder="add a reply", ng-focus="heardConditions = false", ng-blur="heardConditions = true")
     

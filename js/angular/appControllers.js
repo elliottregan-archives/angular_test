@@ -948,12 +948,23 @@ function instanceCtr($scope) {
     el.heard = true;
   };
   
+  $scope.checkHeardConditions = function() {
+    console.log($scope.instance.comments.last().author);
+    if ($scope.instance.comments.last().author != "You") {
+      $scope.heardConditions = true;
+    }    
+  };
+  
+  $scope.checkHeardConditions();
+  
   $scope.expandReplies = function(convo) {
     if ( convo.cap == -2) {
       convo.cap = 8;
+      convo.isExpanded = true;
     }
     else {
       convo.cap = -2;
+      convo.isExpanded = false;
     }
   };
   

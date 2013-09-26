@@ -22,7 +22,7 @@
     h1.center
       | @
       span(ng-bind='handle')
-    button.btn.right.icon(ng-click='edit_mode || toggleNewMode()', ng-if='!new_mode', ng-hide='edit_mode', ng-class='{disabled: edit_mode}') +
+    button.btn.right.circled.icon(ng-click='edit_mode || toggleNewMode()', ng-if='!new_mode', ng-hide='edit_mode', ng-class='{disabled: edit_mode}') +
   .scroller_wrapper
     section.scroller
       div(ng-show='duplicating_mode')
