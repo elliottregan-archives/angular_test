@@ -10,11 +10,12 @@ article(ng-init='instance.cap = -2')
       .header_tools
         button.btn.icon.right(ng-click='toggleToolPanel(instance)')
           i.icon-users
-  div.form_response
+  .form_response
     div(ng-include='"partials/form_completed.html"')
-  button.btn.icon.expand(ng-if='isExpandable', ng-click='expandReplies(instance)')
-    i.icon-down-open(ng-if='!instance.isExpanded')
-    i.icon-up-open(ng-if='instance.isExpanded')
+  .expand_wrapper(ng-if='isExpandable')
+    button.btn.icon.expand(ng-click='expandReplies(instance)')
+      i.icon-down-open(ng-if='!instance.isExpanded')
+      i.icon-up-open(ng-if='instance.isExpanded')
   ul.comments
     li.comment(ng-repeat='comment in (instance.comments | limitTo:instance.cap)', ng-animate='\'collapse\'', ng-class='{you: comment.author == "You"}')
       div.comment_wrapper(ng-if='comment.author == "You"')

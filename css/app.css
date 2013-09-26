@@ -756,12 +756,20 @@ nav a {
   display: inline-block;
 }
 
+.expand_wrapper {
+  z-index: 100;
+  text-align: center;
+  height: 0;
+}
+
 .btn.icon.expand {
+  padding: .5em 4em;
+  font-size: .5em;
   margin: 0 auto;
-  display: block;
-  height: 2em;
-  width: 5em;
-  background-color: #e1e1e1;
+  
+  background-color: #ffffff;
+  border: 1px solid #e6e7e6;
+  border-top-style: none;
 }
 
 .replies {

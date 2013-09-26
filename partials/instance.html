@@ -17,7 +17,9 @@
   <div class="form_response">
     <div ng-include="&quot;partials/form_completed.html&quot;"></div>
   </div>
-  <button ng-if="isExpandable" ng-click="expandReplies(instance)" class="btn icon expand"><i ng-if="!instance.isExpanded" class="icon-down-open"></i><i ng-if="instance.isExpanded" class="icon-up-open"></i></button>
+  <div ng-if="isExpandable" class="expand_wrapper">
+    <button ng-click="expandReplies(instance)" class="btn icon expand"><i ng-if="!instance.isExpanded" class="icon-down-open"></i><i ng-if="instance.isExpanded" class="icon-up-open"></i></button>
+  </div>
   <ul class="comments">
     <li ng-repeat="comment in (instance.comments | limitTo:instance.cap)" ng-animate="'collapse'" ng-class="{you: comment.author == &quot;You&quot;}" class="comment">
       <div ng-if="comment.author == &quot;You&quot;" class="comment_wrapper">
