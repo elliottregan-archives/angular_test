@@ -225,30 +225,6 @@ appmodule.factory('accountData', function() {
                   text: "How old are you?",
                   answers: [],
                   response: 18
-                },
-                {
-                  id: 'asdf5',
-                  type: 'rating',
-                  text: "Rate your overall experience.",
-                  answers: [
-                    {
-                      id: 30,
-                      text: "poor"
-                    },
-                    {
-                      id: 32,
-                      text: "fair"
-                    },
-                    {
-                      id: 33,
-                      text: "good"
-                    },
-                    {
-                      id: 34,
-                      text: "great"
-                    },
-                  ],
-                  response: 33
                 }
               ],
               heard: false,
@@ -353,30 +329,6 @@ appmodule.factory('accountData', function() {
                   text: "How old are you?",
                   answers: [],
                   response: 18
-                },
-                {
-                  id: 'asdf5',
-                  type: 'rating',
-                  text: "Rate your overall experience.",
-                  answers: [
-                    {
-                      id: 30,
-                      text: "poor"
-                    },
-                    {
-                      id: 32,
-                      text: "fair"
-                    },
-                    {
-                      id: 33,
-                      text: "good"
-                    },
-                    {
-                      id: 34,
-                      text: "great"
-                    },
-                  ],
-                  response: 33
                 }
               ],
               heard: false,
@@ -560,30 +512,6 @@ appmodule.factory('accountData', function() {
                   text: "How old are you?",
                   answers: [],
                   response: 18
-                },
-                {
-                  id: 'asdf5',
-                  type: 'rating',
-                  text: "Rate your overall experience.",
-                  answers: [
-                    {
-                      id: 30,
-                      text: "poor"
-                    },
-                    {
-                      id: 32,
-                      text: "fair"
-                    },
-                    {
-                      id: 33,
-                      text: "good"
-                    },
-                    {
-                      id: 34,
-                      text: "great"
-                    },
-                  ],
-                  response: 33
                 }
               ],
               heard: false,
@@ -687,30 +615,6 @@ appmodule.factory('accountData', function() {
                   text: "How old are you?",
                   answers: [],
                   response: 18
-                },
-                {
-                  id: 'asdf5',
-                  type: 'rating',
-                  text: "Rate your overall experience.",
-                  answers: [
-                    {
-                      id: 30,
-                      text: "poor"
-                    },
-                    {
-                      id: 32,
-                      text: "fair"
-                    },
-                    {
-                      id: 33,
-                      text: "good"
-                    },
-                    {
-                      id: 34,
-                      text: "great"
-                    },
-                  ],
-                  response: 33
                 }
               ],
               heard: false,
@@ -986,30 +890,6 @@ appmodule.factory('accountData', function() {
                   text: "How old are you?",
                   answers: [],
                   response: 18
-                },
-                {
-                  id: 'asdf5',
-                  type: 'rating',
-                  text: "Rate your overall experience.",
-                  answers: [
-                    {
-                      id: 30,
-                      text: "poor"
-                    },
-                    {
-                      id: 32,
-                      text: "fair"
-                    },
-                    {
-                      id: 33,
-                      text: "good"
-                    },
-                    {
-                      id: 34,
-                      text: "great"
-                    },
-                  ],
-                  response: 33
                 }
               ],
               heard: false,
@@ -1113,30 +993,6 @@ appmodule.factory('accountData', function() {
                   text: "How old are you?",
                   answers: [],
                   response: 18
-                },
-                {
-                  id: 'asdf5',
-                  type: 'rating',
-                  text: "Rate your overall experience.",
-                  answers: [
-                    {
-                      id: 30,
-                      text: "poor"
-                    },
-                    {
-                      id: 32,
-                      text: "fair"
-                    },
-                    {
-                      id: 33,
-                      text: "good"
-                    },
-                    {
-                      id: 34,
-                      text: "great"
-                    },
-                  ],
-                  response: 33
                 }
               ],
               heard: false,

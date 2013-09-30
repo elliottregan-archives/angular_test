@@ -11,22 +11,26 @@ article(ng-init='instance.cap = -2')
         button.btn.icon.right(ng-click='toggleToolPanel(instance)')
           i.icon-users
   .form_response
-    div(ng-include='"partials/form_completed.html"')
+    .questions(ng-include='"partials/form_completed.html"')
+    .reward
+      h2 Reward:
+      dl 
+        dt {{instance.reward.title}}
+        dd claimed on {{instance.reward.date_claimed}}
   .expand_wrapper(ng-if='isExpandable')
     button.btn.icon.expand(ng-click='expandReplies(instance)')
-      i.icon-down-open(ng-if='!instance.isExpanded')
-      i.icon-up-open(ng-if='instance.isExpanded')
+      span(ng-if='!instance.isExpanded') view all {{instance.comments.length}} comments
+      span(ng-if='instance.isExpanded') hide older comments
   ul.comments
     li.comment(ng-repeat='comment in (instance.comments | limitTo:instance.cap)', ng-animate='\'collapse\'', ng-class='{you: comment.author == "You"}')
       .comment_wrapper(ng-if='comment.author == "You"')
         div
-          .profile_pic.jon_hamm
+          .profile_pic.john
         .text
-          h4 You
+          h4 @{{campaignHandle}}
             time • 5 minutes ago
           p(ng-bind='comment.text')
       .comment_wrapper(ng-if='comment.author != "You"')
-        // button.btn.heard(ng-class='{heard_true: comment.heard}',ng-click='hearIt(comment)') heard!
         div 
           .profile_pic.jon_hamm
         .text

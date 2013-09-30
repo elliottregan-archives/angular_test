@@ -1,4 +1,5 @@
 
+<div ng-click="toggleToolPanel()" ng-class="{visible: conversationDetailView}" class="dimmer"> </div>
 <div class="scroller_wrapper">
   <div class="scroller">
     <p ng-if="viewCampaign.conversations.length == 0">No conversations here. :(<br/>
@@ -9,4 +10,4 @@
     </ul>
   </div>
 </div>
-<ui-view></ui-view>
+<ui-view ng-class="{visible: conversationDetailView}" class="tools_panel conversation_view"></ui-view>

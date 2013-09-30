@@ -1,3 +1,4 @@
+.dimmer(ng-click='toggleToolPanel()', ng-class='{visible: conversationDetailView}') 
 .scroller_wrapper
   .scroller
     p(ng-if='viewCampaign.conversations.length == 0')
@@ -6,4 +7,4 @@
       button.btn Spread the word!
     ul.conversations
       li.instance.card(ng-repeat='instance in viewCampaign.conversations', ng-controller='instanceCtr', ng-include src="'partials/instance.html'")
-ui-view
+ui-view.tools_panel.conversation_view(ng-class='{visible: conversationDetailView}')

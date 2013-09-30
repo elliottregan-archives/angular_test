@@ -20,38 +20,38 @@ html(lang='en', ng-app='appmodule', ng-controller='appCtr')
     link(href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,200,600', rel='stylesheet', type='text/css')
     
   body(ng-controller='userCtr')
-    .control_panel(ng-controller='controlPanelCtr', jq-draggable='jq-draggable')
-      button(ng-click='receiveFdbk()') Receive Fdbk!
-    div
-      #main_view
-        ui-view
-        .dimmer(ng-click='toggleSidebar()', ng-class='{visible: sidebar_visible == true, in_frame: sidebar_inFrame == true}')
-      nav.main_nav.sidebar
-        div
-        .personal_pages.bounceInDown.animated(ng-class='{visible: personal_pages_visible == true}')
-          h3 ACCOUNT PAGES
-          ul
-            li(ng-click='togglePersonalPages()')
-              a(href='#/settings', ng-click='toggleSidebar()')
-                i.icon-cog
-                | My Settings
-            li(ng-click='togglePersonalPages()')
-              a(href='#/rewards', ng-click='toggleSidebar()')
-                i.icon-trophy
-                | My Rewards
-            li(ng-click='togglePersonalPages()')
-              a(href='#/history', ng-click='toggleSidebar()')
-                i.icon-chat
-                | My Conversations
+    // .control_panel(ng-controller='controlPanelCtr', jq-draggable='jq-draggable')
+    //   button(ng-click='receiveFdbk()') Receive Fdbk!
+    .dimmer(ng-click='toggleSidebar()', ng-class='{visible: sidebar_visible == true, in_frame: sidebar_inFrame == true}')
+    .main_wrapper
+      main.main_view(ng-class='{slide_right : sidebar_visible}', ui-view)
+    nav.main_nav.sidebar
+      .personal_pages.bounceInDown.animated(ng-class='{visible: personal_pages_visible == true}')
+        h3 ACCOUNT PAGES
         ul
-          li
-            a(ng-click='togglePersonalPages()') Personal Pages
-          li(ng-repeat='account in accountList')
-            a(href='#/account/{{account.id}}/dashboard', ng-click='toggleSidebar()')
-              | @
-              span(ng-bind='account.handle')
-          li
-            a(href='#/account/all/dashboard', ng-click='toggleSidebar()') All Campaigns
+          li(ng-click='togglePersonalPages()')
+            a(href='#/settings', ng-click='toggleSidebar()')
+              i.icon-cog
+              | My Settings
+          li(ng-click='togglePersonalPages()')
+            a(href='#/rewards', ng-click='toggleSidebar()')
+              i.icon-trophy
+              | My Rewards
+          li(ng-click='togglePersonalPages()')
+            a(href='#/history', ng-click='toggleSidebar()')
+              i.icon-chat
+              | My Conversations
+      ul(ng-click='toggleSidebar()')
+        li.personal
+          a(ng-click='togglePersonalPages()') Personal Pages
+        li.home
+          a(href='#/account/all/campaign/camp0+camp1+camp2/conversations') Home
+        li(ng-repeat='account in accountList')
+          a(href='#/account/{{account.id}}/dashboard')
+            | @
+            span(ng-bind='account.handle')
+        li
+          a(href='#/account/all/dashboard') All Campaigns
     // App libraries
     script(src='js/angular/app.js', type='text/javascript')
     script(src='js/angular/appControllers.js', type='text/javascript')

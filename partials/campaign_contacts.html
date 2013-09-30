@@ -1,12 +1,8 @@
 
-<div class="animation_wrapper">
-  <div class="scroller_wrapper">
-    <section class="scroller">
-      <input type="text" ng-model="search_query" placeholder="search names or seacret codes"/>
-      <ul class="object-list">
-        <li ng-repeat="contact in contactList | filter:search_query" class="object-item"><a href="#/account/{{accountId}}/campaign/{{campaignId}}/contacts/{{contact.id}}">
-            <h1 ng-bind="contact.name"></h1></a></li>
-      </ul>
-    </section>
-  </div>
+<div class="scroller">
+  <input type="text" ng-model="search_query" placeholder="search names or secret codes"/>
+  <ul class="object-list">
+    <li ng-repeat="contact in contactList | filter:search_query" class="object-item"><a href="#/account/{{accountId}}/campaign/{{campaignId}}/contacts/{{contact.id}}">
+        <h1 ng-bind="contact.name"></h1></a></li>
+  </ul>
 </div>
