@@ -21,7 +21,6 @@
     <!-- .control_panel(ng-controller='controlPanelCtr', jq-draggable='jq-draggable')-->
     <!--   button(ng-click='receiveFdbk()') Receive Fdbk!-->
     <div class="main_wrapper">
-      <div ng-click="toggleSidebar()" ng-if="sidebar_visible" class="dimmer main_dimmer"></div>
       <main ng-class="{slide_right : sidebar_visible}" ui-view class="main_view"></main>
     </div>
     <nav class="main_nav sidebar">

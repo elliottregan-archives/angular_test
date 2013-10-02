@@ -55,7 +55,7 @@ dd:after {
   
   z-index: 1000;
   top: 0;
-  left: 80%;
+  left: 0;
   background-color: rgba(0, 0, 0, 0.21);
 }
 
@@ -71,12 +71,10 @@ dd:after {
 .dimmer.ng-enter,
 .dimmer.ng-leave.ng-leave-active {
   opacity:0;
-  left: 0;
 }
 .dimmer.ng-leave,
 .dimmer.ng-enter.ng-enter-active {
   opacity:1;
-  left: 80%;
 }
 
 

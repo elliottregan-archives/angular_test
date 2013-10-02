@@ -23,7 +23,6 @@ html(lang='en', ng-app='appmodule', ng-controller='appCtr')
     // .control_panel(ng-controller='controlPanelCtr', jq-draggable='jq-draggable')
     //   button(ng-click='receiveFdbk()') Receive Fdbk!
     .main_wrapper
-      .dimmer.main_dimmer(ng-click='toggleSidebar()', ng-if='sidebar_visible')
       main.main_view(ng-class='{slide_right : sidebar_visible}', ui-view)
     nav.main_nav.sidebar
       .personal_pages.bounceInDown.animated(ng-class='{visible: personal_pages_visible == true}')
