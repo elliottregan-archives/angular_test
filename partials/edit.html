@@ -11,152 +11,154 @@
   <button ng-click="advanceStep()" ng-hide="currentStep== (steps.length-1)" class="btn soft right">next</button>
   <button ng-show="currentStep==(steps.length-1)" ng-click="saveChanges()" class="btn soft right">Save Changes</button>
 </nav>
-<div class="scroller">
-  <div class="card padded">
-    <h2 ng-bind="buildCampaign.title"></h2>
-    <h3 ng-bind="buildCampaign.handle"></h3>
-    <section ng-switch="currentStep">
-      <div ng-switch-when="0">
-        <!-- label(for='image') Upload image:-->
-        <!-- input#image(type='file', name='image', accept='image/*')-->
-        <div ng-include src="&quot;partials/form_not_completed.html&quot;"></div>
-        <button ng-click="togglePanel('Create Question')" class="middle confirm btn">+ New Question</button>
-      </div>
-      <div ng-switch-when="1">
-        <form method="post" action="">
-          <h3>Reward details:</h3>
-          <label for="personal_message" ng-model="buildCampaign.message">Create a personal message for the recipient:</label>
-          <textarea id="personal_message" placeholder="(optional)"></textarea>
-          <label for="title">Title:</label>
-          <input type="text" name="title" ng-model="buildCampaign.reward.title" placeholder="Gift Title"/>
-          <label for="terms">Terms:</label>
-          <input type="text" name="terms" ng-model="buildCampaign.reward.terms" placeholder="Terms and Conditions"/>
-          <h3>Validity:</h3>
-          <div>
-            <label for="title">Start Date:</label>
-            <input type="date" name="start_date" ng-model="buildCampaign.reward.start_date" placeholder=""/>
-            <label for="title">Start Time:</label>
-            <input type="time" name="start_time" ng-model="buildCampaign.reward.start_time" placeholder=""/>
-            <label for="title">End Date:</label>
-            <input type="date" name="end_date" ng-model="buildCampaign.reward.end_date" placeholder=""/>
-            <label for="title">End Time:</label>
-            <input type="time" name="end_time" ng-model="buildCampaign.reward.end_time" placeholder=""/>
-            <input id="delay" type="checkbox" name="delay" class="inline"/>
-            <label for="delay" class="inline">24-hour delay<small>(user must wait 24 hours before redeeming.)</small></label>
-          </div>
-          <h3>Sharability:</h3>
-          <div>
-            <fieldset>
-              <input id="not_sharable" ng-model="sharability" type="radio" name="sharability" ng-true-value="not_sharable" class="inline"/>
-              <label for="not_sharable" class="inline">not sharable </label>
-            </fieldset>
-            <fieldset>
-              <input id="sharable_three" ng-model="sharability" type="radio" name="sharability" ng-true-value="sharable_three" class="inline"/>
-              <label for="sharable_three" class="inline">three times<small>(User may share this reward with up to three (3) contacts.)</small></label>
-            </fieldset>
-            <fieldset>
-              <input id="sharable_any" ng-model="sharability" type="radio" name="sharability" ng-true-value="sharable_any" class="inline"/>
-              <label for="sharable_any" class="inline">openly sharable<small>(This reward can be shared freely through any means (blogs, social networks, email, etc.)</small></label>
-            </fieldset>
-          </div>
-        </form>
-      </div>
-      <div ng-switch-when="2">
-        <ul>
-          <li>Facebook Account<small class="status">connected</small></li>
-          <li>Twitter Account<small class="status">connected</small></li>
-        </ul>
-        <button ng-click="togglePanel('social_accounts')" class="btn">Add new media account</button>
-      </div>
-      <div ng-switch-when="3">
-        <form ng-submit="sendInvite(first, last, invite_email, level, buildCampaign.permissions.pending)">
-          <h3>Send email invitations to others to help manage this campaign.</h3>
-          <label for="name">Full Name:</label>
-          <input ng-model="name" type="text" name="name" placeholder="name"/>
-          <label for="email">Email:</label>
-          <input ng-model="invite_email" type="email" name="email" placeholder="email"/>
-          <label for="message">Message:</label>
-          <textarea placeholder="optional"></textarea>
-          <div>
-            <label>Permission level:</label>
-            <fieldset class="inline">
-              <input id="perm_respond" ng-model="perm_respond" type="checkbox" name="perm_respond" ng-true-value="respond"/>
-              <label for="perm_respond">view only</label>
-            </fieldset>
-            <fieldset class="inline">
-              <input id="perm_export" ng-model="perm_export" type="checkbox" name="perm_export" ng-true-value="export"/>
-              <label for="perm_export">respond</label>
-            </fieldset>
-            <fieldset class="inline">
-              <input id="perm_admin" ng-model="perm_admin" type="checkbox" name="perm_admin" ng-true-value="admin"/>
-              <label for="perm_admin">admin + export</label>
-            </fieldset>
-          </div>
-          <button class="new_invite btn">Send</button>
-        </form>
-        <hr/>
-        <h2>Permissions set:</h2>
-        <ul>
-          <li ng-repeat="person in buildCampaign.permissions.accepted">{{person.first}} {{person.last}}<small class="status">permission level: {{person.level}}</small>
-            <button ng-click="deleteListItem($index, buildCampaign.permissions.accepted)" class="btn right">revoke</button>
+<div class="scroller_wrapper with_breadcrumb_padding">
+  <div class="scroller">
+    <div class="card padded">
+      <h2 ng-bind="buildCampaign.title"></h2>
+      <h3 ng-bind="buildCampaign.handle"></h3>
+      <section ng-switch="currentStep">
+        <div ng-switch-when="0">
+          <!-- label(for='image') Upload image:-->
+          <!-- input#image(type='file', name='image', accept='image/*')-->
+          <div ng-include src="&quot;partials/form_not_completed.html&quot;"></div>
+          <button ng-click="togglePanel('Create Question')" class="middle confirm btn">+ New Question</button>
+        </div>
+        <div ng-switch-when="1">
+          <form method="post" action="">
+            <h3>Reward details:</h3>
+            <label for="personal_message" ng-model="buildCampaign.message">Create a personal message for the recipient:</label>
+            <textarea id="personal_message" placeholder="(optional)"></textarea>
+            <label for="title">Title:</label>
+            <input type="text" name="title" ng-model="buildCampaign.reward.title" placeholder="Gift Title"/>
+            <label for="terms">Terms:</label>
+            <input type="text" name="terms" ng-model="buildCampaign.reward.terms" placeholder="Terms and Conditions"/>
+            <h3>Validity:</h3>
             <div>
-              <label>change permissions:</label>
+              <label for="title">Start Date:</label>
+              <input type="date" name="start_date" ng-model="buildCampaign.reward.start_date" placeholder=""/>
+              <label for="title">Start Time:</label>
+              <input type="time" name="start_time" ng-model="buildCampaign.reward.start_time" placeholder=""/>
+              <label for="title">End Date:</label>
+              <input type="date" name="end_date" ng-model="buildCampaign.reward.end_date" placeholder=""/>
+              <label for="title">End Time:</label>
+              <input type="time" name="end_time" ng-model="buildCampaign.reward.end_time" placeholder=""/>
+              <input id="delay" type="checkbox" name="delay" class="inline"/>
+              <label for="delay" class="inline">24-hour delay<small>(user must wait 24 hours before redeeming.)</small></label>
+            </div>
+            <h3>Sharability:</h3>
+            <div>
+              <fieldset>
+                <input id="not_sharable" ng-model="sharability" type="radio" name="sharability" ng-true-value="not_sharable" class="inline"/>
+                <label for="not_sharable" class="inline">not sharable </label>
+              </fieldset>
+              <fieldset>
+                <input id="sharable_three" ng-model="sharability" type="radio" name="sharability" ng-true-value="sharable_three" class="inline"/>
+                <label for="sharable_three" class="inline">three times<small>(User may share this reward with up to three (3) contacts.)</small></label>
+              </fieldset>
+              <fieldset>
+                <input id="sharable_any" ng-model="sharability" type="radio" name="sharability" ng-true-value="sharable_any" class="inline"/>
+                <label for="sharable_any" class="inline">openly sharable<small>(This reward can be shared freely through any means (blogs, social networks, email, etc.)</small></label>
+              </fieldset>
+            </div>
+          </form>
+        </div>
+        <div ng-switch-when="2">
+          <ul>
+            <li>Facebook Account<small class="status">connected</small></li>
+            <li>Twitter Account<small class="status">connected</small></li>
+          </ul>
+          <button ng-click="togglePanel('social_accounts')" class="btn">Add new media account</button>
+        </div>
+        <div ng-switch-when="3">
+          <form ng-submit="sendInvite(first, last, invite_email, level, buildCampaign.permissions.pending)">
+            <h3>Send email invitations to others to help manage this campaign.</h3>
+            <label for="name">Full Name:</label>
+            <input ng-model="name" type="text" name="name" placeholder="name"/>
+            <label for="email">Email:</label>
+            <input ng-model="invite_email" type="email" name="email" placeholder="email"/>
+            <label for="message">Message:</label>
+            <textarea placeholder="optional"></textarea>
+            <div>
+              <label>Permission level:</label>
               <fieldset class="inline">
-                <input id="perm_respond" ng-model="person.level" type="checkbox" name="perm_respond" ng-true-value="respond"/>
+                <input id="perm_respond" ng-model="perm_respond" type="checkbox" name="perm_respond" ng-true-value="respond"/>
                 <label for="perm_respond">view only</label>
               </fieldset>
               <fieldset class="inline">
-                <input id="perm_export" ng-model="person.level" type="checkbox" name="perm_export" ng-true-value="respond"/>
+                <input id="perm_export" ng-model="perm_export" type="checkbox" name="perm_export" ng-true-value="export"/>
                 <label for="perm_export">respond</label>
               </fieldset>
               <fieldset class="inline">
-                <input id="perm_admin" ng-model="person.level" type="checkbox" name="perm_admin" ng-true-value="admin"/>
+                <input id="perm_admin" ng-model="perm_admin" type="checkbox" name="perm_admin" ng-true-value="admin"/>
                 <label for="perm_admin">admin + export</label>
               </fieldset>
             </div>
-          </li>
-        </ul>
-        <h2>Pending Invites:</h2>
-        <ul>
-          <li ng-repeat="person in buildCampaign.permissions.pending">{{person.first}} {{person.last}} ({{person.email}}, {{person.level}})<small class="status">pending...</small>
-            <button class="btn right clear">resend</button>
-            <button ng-click="deleteListItem($index, buildCampaign.permissions.pending)" class="btn right">cancel</button>
-          </li>
-        </ul>
-      </div>
-      <div ng-switch-when="4">
-        <div>
-          <h3>Security:</h3>
-          <fieldset class="inline">
-            <input type="checkbox"/>
-            <label>public</label>
-          </fieldset>
-          <fieldset class="inline">
-            <input type="checkbox"/>
-            <label>private</label>
-          </fieldset>
-          <fieldset class="inline">
-            <input type="checkbox"/>
-            <label>passphrase protected</label>
-          </fieldset>
-        </div>
-        <div>
-          <input id="discoverable" ng-model="buildCampaign.discoverable" type="checkbox" class="inline"/>
-          <label for="discoverable" class="inline">location discoverable?</label>
-        </div>
-        <div ng-show="buildCampaign.discoverable">
-          <ol>
-            <li ng-repeat="location in buildCampaign.locationsList">
-              <p ng-bind="location.text"></p>
-            </li>
-          </ol>
-          <form ng-submit="addLocation(addLocation_address.text, buildCampaign.locationsList)" ng-model="addLocation_form" name="addLocation_form">
-            <label for="url">Add an address to your campaign (optional):</label>
-            <input id="addLocation_address" ng-model="addLocation_address.text" type="text" name="addLocation_address" placeholder="1 Street Address, Whereverville, FL"/>
-            <button class="btn">+ location</button>
+            <button class="new_invite btn">Send</button>
           </form>
+          <hr/>
+          <h2>Permissions set:</h2>
+          <ul>
+            <li ng-repeat="person in buildCampaign.permissions.accepted">{{person.first}} {{person.last}}<small class="status">permission level: {{person.level}}</small>
+              <button ng-click="deleteListItem($index, buildCampaign.permissions.accepted)" class="btn right">revoke</button>
+              <div>
+                <label>change permissions:</label>
+                <fieldset class="inline">
+                  <input id="perm_respond" ng-model="person.level" type="checkbox" name="perm_respond" ng-true-value="respond"/>
+                  <label for="perm_respond">view only</label>
+                </fieldset>
+                <fieldset class="inline">
+                  <input id="perm_export" ng-model="person.level" type="checkbox" name="perm_export" ng-true-value="respond"/>
+                  <label for="perm_export">respond</label>
+                </fieldset>
+                <fieldset class="inline">
+                  <input id="perm_admin" ng-model="person.level" type="checkbox" name="perm_admin" ng-true-value="admin"/>
+                  <label for="perm_admin">admin + export</label>
+                </fieldset>
+              </div>
+            </li>
+          </ul>
+          <h2>Pending Invites:</h2>
+          <ul>
+            <li ng-repeat="person in buildCampaign.permissions.pending">{{person.first}} {{person.last}} ({{person.email}}, {{person.level}})<small class="status">pending...</small>
+              <button class="btn right clear">resend</button>
+              <button ng-click="deleteListItem($index, buildCampaign.permissions.pending)" class="btn right">cancel</button>
+            </li>
+          </ul>
         </div>
-      </div>
-    </section>
+        <div ng-switch-when="4">
+          <div>
+            <h3>Security:</h3>
+            <fieldset class="inline">
+              <input type="checkbox"/>
+              <label>public</label>
+            </fieldset>
+            <fieldset class="inline">
+              <input type="checkbox"/>
+              <label>private</label>
+            </fieldset>
+            <fieldset class="inline">
+              <input type="checkbox"/>
+              <label>passphrase protected</label>
+            </fieldset>
+          </div>
+          <div>
+            <input id="discoverable" ng-model="buildCampaign.discoverable" type="checkbox" class="inline"/>
+            <label for="discoverable" class="inline">location discoverable?</label>
+          </div>
+          <div ng-show="buildCampaign.discoverable">
+            <ol>
+              <li ng-repeat="location in buildCampaign.locationsList">
+                <p ng-bind="location.text"></p>
+              </li>
+            </ol>
+            <form ng-submit="addLocation(addLocation_address.text, buildCampaign.locationsList)" ng-model="addLocation_form" name="addLocation_form">
+              <label for="url">Add an address to your campaign (optional):</label>
+              <input id="addLocation_address" ng-model="addLocation_address.text" type="text" name="addLocation_address" placeholder="1 Street Address, Whereverville, FL"/>
+              <button class="btn">+ location</button>
+            </form>
+          </div>
+        </div>
+      </section>
+    </div>
   </div>
 </div>

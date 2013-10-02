@@ -311,7 +311,7 @@ function accountCtr($scope, $stateParams, $location, tempObjects, accountData) {
     $scope.handle = accountData.getHandle($scope.accountId);
     
     $scope.campaignList = accountData.getActiveCampaigns($scope.accountId);
-    $scope.campaignTitleList = accountData.getCampaignTitles($scope.accountId, true);
+    $scope.campaignTitleList = accountData.getCampaignTitles($scope.accountId, true, true);
     
     $scope.archivedCampaignList = accountData.getArchivedCampaigns($scope.accountList[$scope.accountId].id);    
   
@@ -480,30 +480,37 @@ function dashboardCtr($scope, $stateParams, $location, tempObjects, accountData)
     tempObjects.updateBuildCampaign($scope.campaignList[$stateParams.campaignId]);
     
     accountData.addCampaign($scope.accountId, temp_builder.id, temp_builder);
-    $scope.campaignTitleList = accountData.getCampaignTitles($scope.accountId, true);
-    
+    $scope.campaignTitleList = accountData.getCampaignTitles($scope.accountId, true, true);
     
     
     $location.path( '/account/'+$scope.accountId+'/campaign/'+datetimeId+'/edit' );
  
   };
   
-  $scope.duplicateCampaign = function(title, handle) {
+  $scope.duplicateCampaign = function(title, campaign_id) {
     
     var datetime = new Date().getTime();
     
-    $scope.temporary_duplicate.handle = handle;
-    $scope.temporary_duplicate.id = datetime;
-    $scope.temporary_duplicate.conversations = [];
     
+    var temporary_duplicate = {};
+    var temporary_duplicate = accountData.getMetaData($scope.accountId, campaign_id);
     
-    accountData.addCampaign($scope.accountId, datetime, angular.copy($scope.temporary_duplicate))
+    temporary_duplicate.title = title;
+    temporary_duplicate.id = datetime;
+    temporary_duplicate.handle = $scope.handle;
+    temporary_duplicate.archived =false;
+    
+    console.log(temporary_duplicate)
+    
+    accountData.addCampaign($scope.accountId, datetime, angular.copy(temporary_duplicate));
       
     $scope.campaignList = accountData.getActiveCampaigns($scope.accountId);
     
+    console.log($scope.campaignList)
+    
     $scope.duplicating_mode = false;
     
-    $scope.buildCampaign = angular.copy($scope.temporary_duplicate);
+    $scope.buildCampaign = angular.copy(temporary_duplicate);
     $location.path( '/account/'+$scope.accountId+'/campaign/'+$scope.campaignList[datetime].id+'/edit' );
   };
   
@@ -533,8 +540,11 @@ function campaignCtr($scope, $state, $stateParams, $location, accountData) {
     
     if (arrayOfCampaignIds.length == 1) {     
       if (accountData.checkIfCampaignExist($scope.array_of_account_ids,$stateParams.campaignId)) {
-        console.log("one campaign and it exists in account"+$scope.array_of_account_ids)
         $scope.campaignId = $stateParams.campaignId;
+        console.log("one campaign and it exists in account "+$scope.array_of_account_ids + $scope.campaignId);
+        
+        $scope.campaignTitleList = accountData.getCampaignTitles($scope.array_of_account_ids, true, false);
+        
         $scope.campaignTitle = $scope.campaignTitleList[$scope.campaignId].title;
         $scope.campaignHandle = $scope.campaignTitleList[$scope.campaignId].handle;
         setViewCampaign(arrayOfCampaignIds);

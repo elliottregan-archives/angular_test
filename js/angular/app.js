@@ -1,4 +1,4 @@
-var appmodule = angular.module('appmodule', ['ui.sortable', 'ui.router']).
+var appmodule = angular.module('appmodule', ['ui.sortable', 'ui.router', 'ngAnimate']).
   config(function($stateProvider, $urlRouterProvider) {
     
     $urlRouterProvider.otherwise("/account/account01/dashboard")

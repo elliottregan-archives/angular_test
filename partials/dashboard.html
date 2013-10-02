@@ -4,19 +4,20 @@
     <div ng-click="toggleNewMode()" class="module_fader"></div>
     <form ng-if="new_mode" ng-submit="createCampaign(new_campaign_title, handle_to_submit, is_local, new_campaign_locale, discoverable)" class="module">
       <div class="content_wrapper">
-        <label for="handle_select">Choose a handle</label>
-        <button ng-click="toggle_new_handle = true" type="button" class="btn push_right">+ new handle</button>
-        <select id="handle_select" ng-model="handle_to_submit" ng-options="handleObj.handle as handleObj.handle for handleObj in handleList"></select>
-        <div ng-if="toggle_new_handle" ng-animate="'collapse'">
-          <label for="handle_text">New handle name:</label>
-          <input id="handle_text" type="text" name="new_handle" placeholder="Try your twitter handle!" ng-model="handle_to_submit" class="inline"/>
+        <button type="button" ng-click="duplicate_mode = true">duplicate</button>
+        <button type="button" ng-click="duplicate_mode = false">scratch</button>
+        <div ng-show="!duplicate_mode" class="scratch"></div>
+        <div ng-show="duplicate_mode" class="duplicate">
+          <label>or duplicate an existing campaign:</label>
+          <select ng-model="campaign_to_duplicate" ng-options="campaign.id as campaign.title for campaign in campaignTitleList"></select>
         </div>
         <label for="campaign_text">Name this campaign:<br/><small>(this is the public title for your feedback.)</small></label>
         <input id="campaign_text" type="text" name="new_campaign_title" placeholder="eg. 'Crepes &amp; Things Feedback'" ng-model="new_campaign_title"/>
       </div>
       <div class="btnset two_btns">
         <button ng-click="toggleNewMode()" type="button" class="btn">cancel</button>
-        <button type="submit" ng-click="resetStep()" class="btn positive">Continue</button>
+        <button ng-if="!duplicate_mode" type="submit" ng-click="resetStep()" class="btn positive">Continue</button>
+        <button ng-if="duplicate_mode" type="button" ng-click="duplicateCampaign(new_campaign_title, campaign_to_duplicate)" class="btn positive">Duplicate </button>
       </div>
     </form>
   </div>
@@ -62,9 +63,6 @@
         <div class="button_item"><a href="{{view_link}}" ng-class="" class="btn">view</a></div>
         <div class="button_item">
           <button ng-class="{disabled: disable_single_edit_buttons}" ng-click="disable_single_edit_buttons || archiveListItem(selected_campaigns, campaignList)" class="btn">archive</button>
-        </div>
-        <div class="button_item">
-          <button ng-class="{disabled: disable_single_edit_buttons}" ng-click="disable_single_edit_buttons || duplicateMode(true, selected_campaigns)" class="btn">duplicate</button>
         </div>
       </div>
     </section>

@@ -3,19 +3,20 @@
     .module_fader(ng-click='toggleNewMode()')
     form.module(ng-if='new_mode', ng-submit='createCampaign(new_campaign_title, handle_to_submit, is_local, new_campaign_locale, discoverable)')
       div.content_wrapper
-        label(for='handle_select') Choose a handle
-        button.btn.push_right(ng-click='toggle_new_handle = true', type='button') + new handle
-        select#handle_select(ng-model='handle_to_submit', ng-options='handleObj.handle as handleObj.handle for handleObj in handleList')
-        div(ng-if='toggle_new_handle', ng-animate='\'collapse\'')
-          label(for='handle_text') New handle name:
-          input#handle_text.inline(type='text', name='new_handle', placeholder='Try your twitter handle!', ng-model='handle_to_submit')
+        button(type='button', ng-click='duplicate_mode = true') duplicate
+        button(type='button', ng-click='duplicate_mode = false') scratch
+        .scratch(ng-show="!duplicate_mode")
+        .duplicate(ng-show="duplicate_mode")
+          label or duplicate an existing campaign:
+          select(ng-model="campaign_to_duplicate", ng-options="campaign.id as campaign.title for campaign in campaignTitleList")
         label(for='campaign_text') Name this campaign:
           br
           small (this is the public title for your feedback.)
         input#campaign_text(type='text', name='new_campaign_title', placeholder='eg. \'Crepes & Things Feedback\'', ng-model='new_campaign_title')
       .btnset.two_btns
         button.btn(ng-click='toggleNewMode()', type='button') cancel
-        button.btn.positive(type='submit', ng-click='resetStep()') Continue
+        button.btn.positive(ng-if="!duplicate_mode", type='submit', ng-click='resetStep()') Continue
+        button.btn.positive(ng-if="duplicate_mode", type='button', ng-click='duplicateCampaign(new_campaign_title, campaign_to_duplicate)') Duplicate 
   header.app_header
     button.btn.icon.left(ng-click='toggleSidebar(\'right\')')
       i.icon-menu
@@ -58,6 +59,3 @@
             a.btn(href='{{view_link}}', ng-class='') view
           .button_item
             button.btn(ng-class='{disabled: disable_single_edit_buttons}', ng-click='disable_single_edit_buttons || archiveListItem(selected_campaigns, campaignList)') archive
-          .button_item
-            button.btn(ng-class='{disabled: disable_single_edit_buttons}', ng-click='disable_single_edit_buttons || duplicateMode(true, selected_campaigns)') duplicate
-      

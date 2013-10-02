@@ -16,4 +16,5 @@
     <li ng-hide="currentPage == &quot;/contacts&quot;"><a href="#/account/{{accountId}}/campaign/{{campaignId}}/contacts">contacts<i class="icon-at"></i></a></li>
   </ul>
 </nav>
+<div ng-click="toggleToolPanel()" ng-show="conversationDetailView" class="dimmer"> </div>
 <ui-view class="campaign_view"></ui-view>

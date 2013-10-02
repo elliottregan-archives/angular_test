@@ -1095,39 +1095,72 @@ appmodule.factory('accountData', function() {
     return campaignHandles;
   };
   
-  factory.getCampaignTitles = function(accountId, active_only) {
+  factory.getCampaignTitles = function(accountId, active_only, return_array) {
     var campaignList = {};
     var campaignTitles = {};
     
-    if (active_only) {
-      if (accountId) {
-        campaignList = factory.getActiveCampaigns(accountId);
-        Object.keys(campaignList).forEach( function(campaign_id) {
-          campaignTitles[campaign_id] = {
-            id:campaign_id,
-            account_id: accountId,
-            title:campaignList[campaign_id].title, 
-            newCounter: campaignList[campaign_id].newCounter,
-            handle: campaignList[campaign_id].handle
-          };
-        });
-      }
-      else {
-        Object.keys(accountData.getAccountList()).forEach(function(account) {
-          campaignList.push(factory.getActiveCampaigns());
+    if (!return_array) {
+      if (active_only) {
+        if (accountId) {
+          campaignList = factory.getActiveCampaigns(accountId);
           Object.keys(campaignList).forEach( function(campaign_id) {
             campaignTitles[campaign_id] = {
               id:campaign_id,
-              account_id: account.id,
+              account_id: accountId,
               title:campaignList[campaign_id].title, 
               newCounter: campaignList[campaign_id].newCounter,
               handle: campaignList[campaign_id].handle
             };
           });
-        });
+        }
+        else {
+          Object.keys(accountData.getAccountList()).forEach(function(account) {
+            campaignList.push(factory.getActiveCampaigns());
+            Object.keys(campaignList).forEach( function(campaign_id) {
+              campaignTitles[campaign_id] = {
+                id:campaign_id,
+                account_id: account.id,
+                title:campaignList[campaign_id].title, 
+                newCounter: campaignList[campaign_id].newCounter,
+                handle: campaignList[campaign_id].handle
+              };
+            });
+          });
+        }
       }
-      
     }
+    else {
+      campaignTitles = [];
+      if (active_only) {
+        if (accountId) {
+          campaignList = factory.getActiveCampaigns(accountId);
+          Object.keys(campaignList).forEach( function(campaign_id) {
+            campaignTitles = campaignTitles.add({
+              id:campaign_id,
+              account_id: accountId,
+              title:campaignList[campaign_id].title, 
+              newCounter: campaignList[campaign_id].newCounter,
+              handle: campaignList[campaign_id].handle
+            });
+          });
+        }
+        else {
+          Object.keys(accountData.getAccountList()).forEach(function(account) {
+            campaignList.push(factory.getActiveCampaigns());
+            Object.keys(campaignList).forEach( function(campaign_id) {
+              campaignTitles = campaignTitles.add({
+                id:campaign_id,
+                account_id: account.id,
+                title:campaignList[campaign_id].title, 
+                newCounter: campaignList[campaign_id].newCounter,
+                handle: campaignList[campaign_id].handle
+              });
+            });
+          });
+        } 
+      }
+    }
+    
     return campaignTitles;
   };
   
@@ -1140,6 +1173,7 @@ appmodule.factory('accountData', function() {
   };
   
   factory.getActiveCampaigns = function(accountId) {
+    
     var campaignList = accounts[accountId].campaigns;
     var campaignIds = Object.getOwnPropertyNames(campaignList);
     var activeCampaigns = {};
@@ -1263,8 +1297,23 @@ appmodule.factory('accountData', function() {
     };
     var campaignTitlesList = [];
     
+    //hacky fix to convert a single account string into a one element array
+    if (Object.isString(array_of_account_ids)) {
+      account_id_temp = array_of_account_ids;
+      array_of_account_ids = [];
+      array_of_account_ids[0] = account_id_temp;
+    };
+    
     Object.values(array_of_account_ids).forEach(function(account_id) {
+      
       campaignTitlesList = factory.getCampaignTitles(account_id, true);
+      
+      //hacky fix to convert a single account string into a one element array
+      if (Object.isString(array_of_campaign_ids)) {
+        account_id_temp = array_of_campaign_ids;
+        array_of_campaign_ids = [];
+        array_of_campaign_ids[0] = account_id_temp;
+      };
       
       array_of_campaign_ids.forEach(function(campaign_id) {
         if (factory.checkIfCampaignExist(account_id, campaign_id)) {

@@ -34,4 +34,5 @@ nav.campaign_nav.dropdown(ng-class='{visible : campaignNav_true}', ng-click='tog
       a(href='#/account/{{accountId}}/campaign/{{campaignId}}/contacts')
         | contacts
         i.icon-at
+.dimmer(ng-click='toggleToolPanel()', ng-show='conversationDetailView') 
 ui-view.campaign_view

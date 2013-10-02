@@ -12,130 +12,131 @@ nav.breadcrumbs
     | next
   button.btn.soft.right(ng-show='currentStep==(steps.length-1)', ng-click='saveChanges()')
     | Save Changes
-.scroller
-  .card.padded
-    h2(ng-bind='buildCampaign.title')
-    h3(ng-bind='buildCampaign.handle')
-    section(ng-switch='currentStep')
-      div(ng-switch-when='0')
-        // label(for='image') Upload image:
-        // input#image(type='file', name='image', accept='image/*')
-        div(ng-include src='"partials/form_not_completed.html"')
-        button.middle.confirm.btn(ng-click='togglePanel(\'Create Question\')') + New Question
-      div(ng-switch-when='1')
-        form(method='post', action='')
-          h3 Reward details:
-          label(for='personal_message', ng-model='buildCampaign.message') Create a personal message for the recipient:
-          textarea#personal_message(placeholder='(optional)')
-          label(for='title') Title:
-          input(type='text', name='title', ng-model='buildCampaign.reward.title', placeholder='Gift Title')
-          label(for='terms') Terms:
-          input(type='text', name='terms', ng-model='buildCampaign.reward.terms', placeholder='Terms and Conditions')
-          h3 Validity:
-          div
-            label(for='title') Start Date:
-            input(type='date', name='start_date', ng-model='buildCampaign.reward.start_date', placeholder='')
-            label(for='title') Start Time:
-            input(type='time', name='start_time', ng-model='buildCampaign.reward.start_time', placeholder='')
-            label(for='title') End Date:
-            input(type='date', name='end_date', ng-model='buildCampaign.reward.end_date', placeholder='')
-            label(for='title') End Time:
-            input(type='time', name='end_time', ng-model='buildCampaign.reward.end_time', placeholder='')
-            input#delay.inline(type='checkbox', name='delay')
-            label.inline(for='delay')
-              | 24-hour delay
-              small (user must wait 24 hours before redeeming.)
-          h3 Sharability:
-          div
-            fieldset
-              input#not_sharable.inline(ng-model='sharability', type='radio', name='sharability', ng-true-value='not_sharable')
-              label.inline(for='not_sharable') not sharable 
-            fieldset
-              input#sharable_three.inline(ng-model='sharability', type='radio', name='sharability', ng-true-value='sharable_three')
-              label.inline(for='sharable_three')
-                | three times
-                small (User may share this reward with up to three (3) contacts.)
-            fieldset
-              input#sharable_any.inline(ng-model='sharability', type='radio', name='sharability', ng-true-value='sharable_any')
-              label.inline(for='sharable_any')
-                | openly sharable
-                small
-                  | (This reward can be shared freely through any means (blogs, social networks, email, etc.)
-      div(ng-switch-when='2')
-        ul
-          li
-            | Facebook Account
-            small.status connected
-          li
-            | Twitter Account
-            small.status connected
-        button.btn(ng-click='togglePanel(\'social_accounts\')') Add new media account
-      div(ng-switch-when='3')
-        form(ng-submit='sendInvite(first, last, invite_email, level, buildCampaign.permissions.pending)')
-          h3 Send email invitations to others to help manage this campaign.
-          label(for='name') Full Name:
-          input(ng-model='name', type='text', name='name', placeholder='name')
-          label(for='email') Email:
-          input(ng-model='invite_email', type='email', name='email', placeholder='email')
-          label(for='message') Message:
-          textarea(placeholder='optional')
-          div
-            label Permission level:
-            fieldset.inline
-              input#perm_respond(ng-model='perm_respond', type='checkbox', name='perm_respond', ng-true-value='respond')
-              label(for='perm_respond') view only
-            fieldset.inline
-              input#perm_export(ng-model='perm_export', type='checkbox', name='perm_export', ng-true-value='export')
-              label(for='perm_export') respond
-            fieldset.inline
-              input#perm_admin(ng-model='perm_admin', type='checkbox', name='perm_admin', ng-true-value='admin')
-              label(for='perm_admin') admin + export
-          button.new_invite.btn Send
-        hr
-        h2 Permissions set:
-        ul
-          li(ng-repeat='person in buildCampaign.permissions.accepted')
-            | {{person.first}} {{person.last}}
-            small.status permission level: {{person.level}}
-            button.btn.right(ng-click='deleteListItem($index, buildCampaign.permissions.accepted)') revoke
+.scroller_wrapper.with_breadcrumb_padding
+  .scroller
+    .card.padded
+      h2(ng-bind='buildCampaign.title')
+      h3(ng-bind='buildCampaign.handle')
+      section(ng-switch='currentStep')
+        div(ng-switch-when='0')
+          // label(for='image') Upload image:
+          // input#image(type='file', name='image', accept='image/*')
+          div(ng-include src='"partials/form_not_completed.html"')
+          button.middle.confirm.btn(ng-click='togglePanel(\'Create Question\')') + New Question
+        div(ng-switch-when='1')
+          form(method='post', action='')
+            h3 Reward details:
+            label(for='personal_message', ng-model='buildCampaign.message') Create a personal message for the recipient:
+            textarea#personal_message(placeholder='(optional)')
+            label(for='title') Title:
+            input(type='text', name='title', ng-model='buildCampaign.reward.title', placeholder='Gift Title')
+            label(for='terms') Terms:
+            input(type='text', name='terms', ng-model='buildCampaign.reward.terms', placeholder='Terms and Conditions')
+            h3 Validity:
             div
-              label change permissions:
+              label(for='title') Start Date:
+              input(type='date', name='start_date', ng-model='buildCampaign.reward.start_date', placeholder='')
+              label(for='title') Start Time:
+              input(type='time', name='start_time', ng-model='buildCampaign.reward.start_time', placeholder='')
+              label(for='title') End Date:
+              input(type='date', name='end_date', ng-model='buildCampaign.reward.end_date', placeholder='')
+              label(for='title') End Time:
+              input(type='time', name='end_time', ng-model='buildCampaign.reward.end_time', placeholder='')
+              input#delay.inline(type='checkbox', name='delay')
+              label.inline(for='delay')
+                | 24-hour delay
+                small (user must wait 24 hours before redeeming.)
+            h3 Sharability:
+            div
+              fieldset
+                input#not_sharable.inline(ng-model='sharability', type='radio', name='sharability', ng-true-value='not_sharable')
+                label.inline(for='not_sharable') not sharable 
+              fieldset
+                input#sharable_three.inline(ng-model='sharability', type='radio', name='sharability', ng-true-value='sharable_three')
+                label.inline(for='sharable_three')
+                  | three times
+                  small (User may share this reward with up to three (3) contacts.)
+              fieldset
+                input#sharable_any.inline(ng-model='sharability', type='radio', name='sharability', ng-true-value='sharable_any')
+                label.inline(for='sharable_any')
+                  | openly sharable
+                  small
+                    | (This reward can be shared freely through any means (blogs, social networks, email, etc.)
+        div(ng-switch-when='2')
+          ul
+            li
+              | Facebook Account
+              small.status connected
+            li
+              | Twitter Account
+              small.status connected
+          button.btn(ng-click='togglePanel(\'social_accounts\')') Add new media account
+        div(ng-switch-when='3')
+          form(ng-submit='sendInvite(first, last, invite_email, level, buildCampaign.permissions.pending)')
+            h3 Send email invitations to others to help manage this campaign.
+            label(for='name') Full Name:
+            input(ng-model='name', type='text', name='name', placeholder='name')
+            label(for='email') Email:
+            input(ng-model='invite_email', type='email', name='email', placeholder='email')
+            label(for='message') Message:
+            textarea(placeholder='optional')
+            div
+              label Permission level:
               fieldset.inline
-                input#perm_respond(ng-model='person.level', type='checkbox', name='perm_respond', ng-true-value='respond')
+                input#perm_respond(ng-model='perm_respond', type='checkbox', name='perm_respond', ng-true-value='respond')
                 label(for='perm_respond') view only
               fieldset.inline
-                input#perm_export(ng-model='person.level', type='checkbox', name='perm_export', ng-true-value='respond')
+                input#perm_export(ng-model='perm_export', type='checkbox', name='perm_export', ng-true-value='export')
                 label(for='perm_export') respond
               fieldset.inline
-                input#perm_admin(ng-model='person.level', type='checkbox', name='perm_admin', ng-true-value='admin')
+                input#perm_admin(ng-model='perm_admin', type='checkbox', name='perm_admin', ng-true-value='admin')
                 label(for='perm_admin') admin + export
-        h2 Pending Invites:
-        ul
-          li(ng-repeat='person in buildCampaign.permissions.pending')
-            | {{person.first}} {{person.last}} ({{person.email}}, {{person.level}})
-            small.status pending...
-            button.btn.right.clear resend
-            button.btn.right(ng-click='deleteListItem($index, buildCampaign.permissions.pending)') cancel
-      div(ng-switch-when='4')
-        div
-          h3 Security:
-          fieldset.inline
-            input(type='checkbox')
-            label public
-          fieldset.inline
-            input(type='checkbox')
-            label private
-          fieldset.inline
-            input(type='checkbox')
-            label passphrase protected
-        div
-          input#discoverable.inline(ng-model='buildCampaign.discoverable', type='checkbox')
-          label.inline(for='discoverable') location discoverable?
-        div(ng-show='buildCampaign.discoverable')
-          ol
-            li(ng-repeat='location in buildCampaign.locationsList')
-              p(ng-bind='location.text')
-          form(ng-submit='addLocation(addLocation_address.text, buildCampaign.locationsList)', ng-model='addLocation_form', name='addLocation_form')
-            label(for='url') Add an address to your campaign (optional):
-            input#addLocation_address(ng-model='addLocation_address.text', type='text', name='addLocation_address', placeholder='1 Street Address, Whereverville, FL')
-            button.btn + location
+            button.new_invite.btn Send
+          hr
+          h2 Permissions set:
+          ul
+            li(ng-repeat='person in buildCampaign.permissions.accepted')
+              | {{person.first}} {{person.last}}
+              small.status permission level: {{person.level}}
+              button.btn.right(ng-click='deleteListItem($index, buildCampaign.permissions.accepted)') revoke
+              div
+                label change permissions:
+                fieldset.inline
+                  input#perm_respond(ng-model='person.level', type='checkbox', name='perm_respond', ng-true-value='respond')
+                  label(for='perm_respond') view only
+                fieldset.inline
+                  input#perm_export(ng-model='person.level', type='checkbox', name='perm_export', ng-true-value='respond')
+                  label(for='perm_export') respond
+                fieldset.inline
+                  input#perm_admin(ng-model='person.level', type='checkbox', name='perm_admin', ng-true-value='admin')
+                  label(for='perm_admin') admin + export
+          h2 Pending Invites:
+          ul
+            li(ng-repeat='person in buildCampaign.permissions.pending')
+              | {{person.first}} {{person.last}} ({{person.email}}, {{person.level}})
+              small.status pending...
+              button.btn.right.clear resend
+              button.btn.right(ng-click='deleteListItem($index, buildCampaign.permissions.pending)') cancel
+        div(ng-switch-when='4')
+          div
+            h3 Security:
+            fieldset.inline
+              input(type='checkbox')
+              label public
+            fieldset.inline
+              input(type='checkbox')
+              label private
+            fieldset.inline
+              input(type='checkbox')
+              label passphrase protected
+          div
+            input#discoverable.inline(ng-model='buildCampaign.discoverable', type='checkbox')
+            label.inline(for='discoverable') location discoverable?
+          div(ng-show='buildCampaign.discoverable')
+            ol
+              li(ng-repeat='location in buildCampaign.locationsList')
+                p(ng-bind='location.text')
+            form(ng-submit='addLocation(addLocation_address.text, buildCampaign.locationsList)', ng-model='addLocation_form', name='addLocation_form')
+              label(for='url') Add an address to your campaign (optional):
+              input#addLocation_address(ng-model='addLocation_address.text', type='text', name='addLocation_address', placeholder='1 Street Address, Whereverville, FL')
+              button.btn + location
