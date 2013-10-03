@@ -1,13 +1,13 @@
+
 <header class="app_header">
-  <button ng-click=toggleSidebar('right') class="btn icon left"><i class="icon-menu"></i></button>
-  <h1>Fdbk History</h1>
+  <button ng-click="toggleSidebar(&quot;right&quot;)" class="btn icon left hide_large"><i class="icon-menu"></i></button>
+  <h1 class="center">Fdbk History</h1>
 </header>
-<div class="scroller_wrapper  with_header_padding">
+<div class="scroller_wrapper with_header_padding">
   <div class="scroller">
     <p ng-show="userDetails.conversations == []">empty!</p>
     <ul class="conversations">
-      <li ng-repeat="conversation in conversations" class="instance" ng-controller="instanceCtr" ng-include src="'partials/instance_simple.html'"></li>
-      
+      <li ng-repeat="conversation in conversations" ng-controller="instanceCtr" ng-include="ng-include" src="&quot;partials/instance_simple.html&quot;" class="instance"></li>
     </ul>
   </div>
 </div>

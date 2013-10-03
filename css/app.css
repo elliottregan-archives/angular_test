@@ -1228,6 +1228,7 @@ fieldset.padded {
   border-radius: .6em;
   border: 1px solid #565e71;
   box-sizing: border-box;
+  padding: 0;
 }
 
 .dot.selected {
