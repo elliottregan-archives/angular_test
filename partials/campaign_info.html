@@ -1,3 +1,4 @@
+
 <header class="app_header">
   <button ng-click="toggleNavbar()" class="btn icon left"><i class="icon-menu"></i></button>
   <button ng-click="toggleSidebar('right')" class="btn right"> . . . </button>
@@ -11,8 +12,7 @@
     </ul>
   </div>
 </header>
-
-<div class="scroller_wrapper  with_header_padding">
+<div class="scroller_wrapper with_header_padding">
   <div class="scroller">
     <section>
       <h3>Notifications</h3>
@@ -24,14 +24,11 @@
     <section>
       <h3>RECENT MESSAGES</h3>
       <ul class="conversations">
-        <li ng-repeat="instance in editCampaign.conversations" class="instance">
-          <a href="#/campaign/{{editCampaign.id}}/instance/{{instance.id}}">
+        <li ng-repeat="instance in editCampaign.conversations" class="instance"><a href="#/campaign/{{editCampaign.id}}/instance/{{instance.id}}">
             <article>
               <h5 ng-bind="instance.comments[(instance.comments.length-1)].author"></h5>
               <p ng-bind="instance.comments[(instance.comments.length-1)].text"></p>
-            </article>
-          </a>
-        </li>
+            </article></a></li>
       </ul>
     </section>
     <section>

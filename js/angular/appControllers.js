@@ -569,8 +569,17 @@ function campaignCtr($scope, $state, $stateParams, $location, accountData) {
   };  
   
   $scope.campaignNav_true = false;
-  $scope.toggleNavbar = function() {
-    $scope.campaignNav_true = !$scope.campaignNav_true;
+  $scope.toggleNavbar = function(open) {
+
+    if (open == true) {
+      $scope.campaignNav_true = true;
+    }
+    else if (open == false) {
+      $scope.campaignNav_true = false;
+    }
+    else {
+      $scope.campaignNav_true = !$scope.campaignNav_true;
+    }
   };
   
   function splitCampaignIdsFromUrl() {

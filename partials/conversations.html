@@ -10,3 +10,4 @@
   </div>
 </div>
 <ui-view ng-class="{visible: conversationDetailView}" class="tools_panel conversation_view"></ui-view>
+<div ng-if="conversationDetailView || campaignNav_true" ng-click="toggleToolPanel();toggleNavbar(false)" ng-class="{dropdown_dimmer : campaignNav_true}" class="dimmer conversations_dimmer"></div>

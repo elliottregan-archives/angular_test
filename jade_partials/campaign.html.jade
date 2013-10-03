@@ -1,5 +1,5 @@
 header.app_header(ng-class='{no_bottom : campaignNav_true}')
-  button.btn.icon.left(ng-click='toggleSidebar(\'right\')')
+  button.btn.icon.left.hide_large(ng-click='toggleSidebar(\'right\')')
     i.icon-menu
   hgroup.center
     h2 @
@@ -12,7 +12,7 @@ header.app_header(ng-class='{no_bottom : campaignNav_true}')
     i.icon-chart-bar(ng-switch-when='/analytics')
     i.icon-trophy(ng-switch-when='/rewards')
     i.icon-at(ng-switch-when='/contacts')
-nav.campaign_nav.dropdown(ng-class='{visible : campaignNav_true}', ng-click='toggleNavbar()')
+nav.campaign_nav.dropdown.slide_down(ng-if='campaignNav_true', ng-click='toggleNavbar(true)')
   ul
     li(ng-hide='currentPage == "/conversations"')
       a(href='#/account/{{accountId}}/campaign/{{campaignId}}/conversations')
@@ -34,5 +34,5 @@ nav.campaign_nav.dropdown(ng-class='{visible : campaignNav_true}', ng-click='tog
       a(href='#/account/{{accountId}}/campaign/{{campaignId}}/contacts')
         | contacts
         i.icon-at
-.dimmer(ng-click='toggleToolPanel()', ng-show='conversationDetailView') 
+.dimmer(ng-click='toggleToolPanel(false)', ng-show='conversationDetailView') 
 ui-view.campaign_view

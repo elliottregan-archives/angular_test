@@ -1,24 +1,19 @@
 header.app_header
-  button.btn.icon.left(ng-click='toggleSidebar(\'right\')')
+  button.btn.icon.left.hide_large(ng-click='toggleSidebar(\'right\')')
     i.icon-menu
   h1.center(ng-bind='title')
 .scroller_wrapper.with_header_padding
   section.scroller
-    section.card.padded  
-      h2 Profile
-      fieldset
-        input(type='text', name='name', ng-model='userDetails.name')
-        input(type='email', name='email', ng-model='userDetails.email')
-        input(type='text', name='city', ng-model='userDetails.city')
-        textarea(ng-model='userDetails.bio')
-    section.card.padded
-      h2 Password
-      fieldset
+      fieldset.input_grid
+        input(type='text', name='name', ng-model='userDetails.name', placeholder='Full Name')
+        input(type='email', name='email', ng-model='userDetails.email', placeholder='Email Address')
+        input(type='text', name='city', ng-model='userDetails.city', placeholder='City')
+      fieldset.input_grid
+        textarea(ng-model='userDetails.bio', placeholder='bio')
+      fieldset.input_grid
         input(type='password', name='old_pass', placeholder='old password')
         input(type='password', name='new_pass', placeholder='new password')
         input(type='password', name='new_pass_conf', placeholder='confirm new password')
-    section.card.padded
-      h2 Notifications
-      fieldset
-        input#email_alert(type='checkbox', name='email_alert')
-        label(for='email_alert') I want to receive an email when someone sends me feedback.
+      fieldset.input_grid
+        input#email_alert.inline(type='checkbox', name='email_alert')
+        label.inline(for='email_alert') I want to receive an email when someone sends me feedback.

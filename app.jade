@@ -24,25 +24,23 @@ html(lang='en', ng-app='appmodule', ng-controller='appCtr')
     //   button(ng-click='receiveFdbk()') Receive Fdbk!
     .main_wrapper
       main.main_view(ng-class='{slide_right : sidebar_visible}', ui-view)
-    nav.main_nav.sidebar
-      .personal_pages.bounceInDown.animated(ng-class='{visible: personal_pages_visible == true}')
-        h3 ACCOUNT PAGES
-        ul
-          li(ng-click='togglePersonalPages()')
-            a(href='#/settings', ng-click='toggleSidebar()')
-              i.icon-cog
-              | My Settings
-          li(ng-click='togglePersonalPages()')
-            a(href='#/rewards', ng-click='toggleSidebar()')
-              i.icon-trophy
-              | My Rewards
-          li(ng-click='togglePersonalPages()')
-            a(href='#/history', ng-click='toggleSidebar()')
-              i.icon-chat
-              | My Conversations
+    nav.main_nav.sidebar        
       ul(ng-click='toggleSidebar()')
-        li.personal
+        li
           a(ng-click='togglePersonalPages()') Personal Pages
+          ul.slide_down(ng-if='personal_pages_visible')
+            li(ng-click='togglePersonalPages()')
+              a(href='#/settings', ng-click='toggleSidebar()')
+                i.icon-cog
+                | My Settings
+            li(ng-click='togglePersonalPages()')
+              a(href='#/rewards', ng-click='toggleSidebar()')
+                i.icon-trophy
+                | My Rewards
+            li(ng-click='togglePersonalPages()')
+              a(href='#/history', ng-click='toggleSidebar()')
+                i.icon-chat
+                | My Conversations
         li.home
           a(href='#/account/all/campaign/camp0+camp1+camp2/conversations') Home
         li(ng-repeat='account in accountList')

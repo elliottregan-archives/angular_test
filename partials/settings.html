@@ -1,33 +1,26 @@
 
 <header class="app_header">
-  <button ng-click="toggleSidebar('right')" class="btn icon left"><i class="icon-menu"></i></button>
+  <button ng-click="toggleSidebar('right')" class="btn icon left hide_large"><i class="icon-menu"></i></button>
   <h1 ng-bind="title" class="center"></h1>
 </header>
 <div class="scroller_wrapper with_header_padding">
   <section class="scroller">
-    <section class="card padded"> 
-      <h2>Profile</h2>
-      <fieldset>
-        <input type="text" name="name" ng-model="userDetails.name"/>
-        <input type="email" name="email" ng-model="userDetails.email"/>
-        <input type="text" name="city" ng-model="userDetails.city"/>
-        <textarea ng-model="userDetails.bio"></textarea>
-      </fieldset>
-    </section>
-    <section class="card padded">
-      <h2>Password</h2>
-      <fieldset>
-        <input type="password" name="old_pass" placeholder="old password"/>
-        <input type="password" name="new_pass" placeholder="new password"/>
-        <input type="password" name="new_pass_conf" placeholder="confirm new password"/>
-      </fieldset>
-    </section>
-    <section class="card padded">
-      <h2>Notifications</h2>
-      <fieldset>
-        <input id="email_alert" type="checkbox" name="email_alert"/>
-        <label for="email_alert">I want to receive an email when someone sends me feedback.</label>
-      </fieldset>
-    </section>
+    <fieldset class="input_grid">
+      <input type="text" name="name" ng-model="userDetails.name" placeholder="Full Name"/>
+      <input type="email" name="email" ng-model="userDetails.email" placeholder="Email Address"/>
+      <input type="text" name="city" ng-model="userDetails.city" placeholder="City"/>
+    </fieldset>
+    <fieldset class="input_grid">
+      <textarea ng-model="userDetails.bio" placeholder="bio"></textarea>
+    </fieldset>
+    <fieldset class="input_grid">
+      <input type="password" name="old_pass" placeholder="old password"/>
+      <input type="password" name="new_pass" placeholder="new password"/>
+      <input type="password" name="new_pass_conf" placeholder="confirm new password"/>
+    </fieldset>
+    <fieldset class="input_grid">
+      <input id="email_alert" type="checkbox" name="email_alert" class="inline"/>
+      <label for="email_alert" class="inline">I want to receive an email when someone sends me feedback.</label>
+    </fieldset>
   </section>
 </div>
