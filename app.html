@@ -23,19 +23,22 @@
     <div class="main_wrapper">
       <main ng-class="{slide_right : sidebar_visible}" ui-view class="main_view"></main>
     </div>
-    <nav class="main_nav sidebar">       
-      <ul ng-click="toggleSidebar()">
+    <nav class="main_nav sidebar">      
+      <ul>
         <li><a ng-click="togglePersonalPages()">Personal Pages</a>
-          <ul ng-if="personal_pages_visible" class="slide_down">
+          <ul ng-if="personal_pages_visible" class="expando slide_down">
             <li ng-click="togglePersonalPages()"><a href="#/settings" ng-click="toggleSidebar()"><i class="icon-cog"></i>My Settings</a></li>
             <li ng-click="togglePersonalPages()"><a href="#/rewards" ng-click="toggleSidebar()"><i class="icon-trophy"></i>My Rewards</a></li>
             <li ng-click="togglePersonalPages()"><a href="#/history" ng-click="toggleSidebar()"><i class="icon-chat"></i>My Conversations</a></li>
           </ul>
         </li>
-        <li class="home"><a href="#/account/all/campaign/camp0+camp1+camp2/conversations">Home</a></li>
-        <li ng-repeat="account in accountList"><a href="#/account/{{account.id}}/dashboard">@<span ng-bind="account.handle"></span></a></li>
+        <li class="home"><a href="#/account/all/campaign/camp0+camp1+camp2/conversations">Global Feed</a></li>
+        <li ng-repeat="account in accountList"><a href="#/account/{{account.id}}/dashboard"><span ng-bind="account.id"></span></a></li>
         <li><a href="#/account/all/dashboard">All Campaigns</a></li>
       </ul>
+      <div class="tools">
+        <button class="btn new_handle">Create new handle</button>
+      </div>
     </nav>
     <!-- App libraries-->
     <script src="js/angular/app.js" type="text/javascript"></script>

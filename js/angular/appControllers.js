@@ -162,7 +162,7 @@ function appCtr($scope, $stateParams, $state, $location, $timeout, accountData) 
       $scope.multipleViewCampaigns = arrayOfCampaignIds.length > 1;
     }
     
-    if ( (!$scope.sidebar_visible) && (direction != undefined) ) {
+    if ( !$scope.sidebar_visible ) {
       
       $scope.sidebar_in_frame = true;
       $scope.sidebar_visible = true;
@@ -170,18 +170,12 @@ function appCtr($scope, $stateParams, $state, $location, $timeout, accountData) 
       $('.main_nav').toggleClass('visible');
       
       if (direction == 'left') {
-        $('#main_view').toggleClass('slide_left');
         $('.main_nav').addClass("invisible");
         $('.main_nav').removeClass("visible");
-        $('.second_nav').addClass("visible");
-        $('.second_nav').removeClass("invisible");
       }
       else if (direction == 'right') {
-        $('#main_view').toggleClass('slide_right');
         $('.main_nav').addClass("visible");
         $('.main_nav').removeClass("invisible");
-        $('.second_nav').addClass("invisible");
-        $('.second_nav').removeClass("visible");
         
       }
       
@@ -189,10 +183,7 @@ function appCtr($scope, $stateParams, $state, $location, $timeout, accountData) 
     else {
       $('.main_nav').removeClass('visible');
       $scope.sidebar_visible = false;
-      $('#main_view').removeClass('slide_right');
-      $('#main_view').removeClass('slide_left');
       $scope.sidebar_in_frame = false;
-      $scope.sidebar_visible = false;
     }
 
   };
@@ -279,7 +270,7 @@ function userCtr($scope, userData, accountData) {
     
     $scope.accounts = accountData.getAccount();
     $scope.accountList = accountData.getAccountList();
-    $scope.handleList = [];
+    console.log($scope.accountList);
 
     Object.keys($scope.accountList).forEach(function(account_id) {
       $scope.accountList[account_id].handle = (accountData.getHandle(account_id));
@@ -307,12 +298,10 @@ function accountCtr($scope, $stateParams, $location, tempObjects, accountData) {
     $scope.accountId = $stateParams.accountId;
     $scope.array_of_account_ids = [];
     $scope.array_of_account_ids[0] = $scope.accountId;
-    $scope.campaignHandle = $scope.accounts[$scope.accountId].handle;
-    $scope.handle = accountData.getHandle($scope.accountId);
     
     $scope.campaignList = accountData.getActiveCampaigns($scope.accountId);
     $scope.campaignTitleList = accountData.getCampaignTitles($scope.accountId, true, true);
-    
+    console.log($scope.campaignTitleList)
     $scope.archivedCampaignList = accountData.getArchivedCampaigns($scope.accountList[$scope.accountId].id);    
   
   };
@@ -341,7 +330,6 @@ function dashboardCtr($scope, $stateParams, $location, tempObjects, accountData)
   $scope.new_mode = false;
   
   $scope.selected_campaigns = [];
-  $scope.handleList = accountData.getHandle();
   
   $scope.archiveListItem = function(clicked_list_item, parent_object) {
     $scope.toggleEditMode();
@@ -546,7 +534,7 @@ function campaignCtr($scope, $state, $stateParams, $location, accountData) {
         $scope.campaignTitleList = accountData.getCampaignTitles($scope.array_of_account_ids, true, false);
         
         $scope.campaignTitle = $scope.campaignTitleList[$scope.campaignId].title;
-        $scope.campaignHandle = $scope.campaignTitleList[$scope.campaignId].handle;
+        $scope.campaignHandle = $scope.campaignTitleList[$scope.campaignId].handleList;
         setViewCampaign(arrayOfCampaignIds);
       }
       else {

@@ -20,9 +20,7 @@
   header.app_header
     button.btn.icon.left(ng-click='toggleSidebar(\'right\')')
       i.icon-menu
-    h1.center
-      | @
-      span(ng-bind='handle')
+    h1.center(ng-bind='accountId')
     button.btn.right.circled.icon(ng-click='edit_mode || toggleNewMode()', ng-if='!new_mode', ng-hide='edit_mode', ng-class='{disabled: edit_mode}') +
   .scroller_wrapper
     section.scroller
@@ -37,7 +35,7 @@
         li.object-item(ng-repeat='campaign in campaignTitleList', ng-class='{selected : selected_campaigns.some(campaign.id)}')
           hgroup
             a(href='#/account/{{accountId}}/campaign/{{campaign.id}}/conversations')
-              h2 @{{handle}}
+              h2 @{{campaign.handle}}
               h1 {{campaign.title}}
           .object-alerts
             .alert.new_counter(ng-if='campaign.newCounter != 0', ng-hide='edit_mode', ng-bind='campaign.newCounter')
@@ -52,7 +50,7 @@
           button.btn.right(ng-click='unarchiveListItem(campaign, campaignList)') unarchive
           hgroup
             a(href='#/account/{{accountId}}/campaign/{{campaign.id}}/conversations')
-              h2 @{{handle}}
+              h2 @{{campaign.handle}}
               h1 {{campaign.title}}
       .dashboard_toolbar(ng-if='edit_mode')
           .button_item

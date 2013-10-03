@@ -24,11 +24,11 @@ html(lang='en', ng-app='appmodule', ng-controller='appCtr')
     //   button(ng-click='receiveFdbk()') Receive Fdbk!
     .main_wrapper
       main.main_view(ng-class='{slide_right : sidebar_visible}', ui-view)
-    nav.main_nav.sidebar        
-      ul(ng-click='toggleSidebar()')
+    nav.main_nav.sidebar       
+      ul
         li
           a(ng-click='togglePersonalPages()') Personal Pages
-          ul.slide_down(ng-if='personal_pages_visible')
+          ul.expando.slide_down(ng-if='personal_pages_visible')
             li(ng-click='togglePersonalPages()')
               a(href='#/settings', ng-click='toggleSidebar()')
                 i.icon-cog
@@ -42,13 +42,14 @@ html(lang='en', ng-app='appmodule', ng-controller='appCtr')
                 i.icon-chat
                 | My Conversations
         li.home
-          a(href='#/account/all/campaign/camp0+camp1+camp2/conversations') Home
+          a(href='#/account/all/campaign/camp0+camp1+camp2/conversations') Global Feed
         li(ng-repeat='account in accountList')
           a(href='#/account/{{account.id}}/dashboard')
-            | @
-            span(ng-bind='account.handle')
+            span(ng-bind='account.id')
         li
           a(href='#/account/all/dashboard') All Campaigns
+      .tools
+        button.btn.new_handle Create new handle
     // App libraries
     script(src='js/angular/app.js', type='text/javascript')
     script(src='js/angular/appControllers.js', type='text/javascript')

@@ -20,6 +20,16 @@ appmodule.factory('accountData', function() {
     account01 : {
       id : "account01",
       handle : "thecinema",
+      handleList : [
+        {
+          id : 01,
+          text : "thecinema"
+        },
+        {
+          id : 02,
+          text : "thecinemapromos"
+        }
+      ],
       questions : {
         q0001 : {
           id : "q0001",
@@ -111,7 +121,7 @@ appmodule.factory('accountData', function() {
           id: 'camp0',
           archived: false,
           newCounter: 0,
-          handle: "thecinema",
+          handle: 01,
           description: 'Our main feedback portal.',
           title: 'Movie Questions',
           message: 'We value your input. Thanks for sharing with us!',
@@ -398,7 +408,7 @@ appmodule.factory('accountData', function() {
           id: 'camp1',
           archived: false,
           newCounter: 0,
-          handle: "thecinema",
+          handle: 02,
           description: 'Our main feedback portal.',
           title: 'How was the service?',
           message: 'We value your input. Thanks for sharing with us!',
@@ -1075,9 +1085,14 @@ appmodule.factory('accountData', function() {
   
   factory.getAccountList = function() {
     var accountList = {}
-    Object.keys(accounts).forEach(function(account_id) {
-      accountList[account_id] = {id: account_id};
+    
+    Object.extended(accounts).each(function(account_id, account_keys) {
+      accountList[account_id] = {
+        id: account_id,
+        handleList : account_keys.handleList
+      };
     });
+    
     return accountList;
   };
   
@@ -1099,17 +1114,27 @@ appmodule.factory('accountData', function() {
     var campaignList = {};
     var campaignTitles = {};
     
+    var handleList = factory.getAccountList()[accountId];
+    
+    var getHandleText = function(handle_id) {
+      return factory.getAccountList()[accountId].handleList.find(function(key) {
+        console.log(key.id == handle_id)
+        return key.id == handle_id;
+      }).text;
+    };
+        
     if (!return_array) {
       if (active_only) {
         if (accountId) {
           campaignList = factory.getActiveCampaigns(accountId);
           Object.keys(campaignList).forEach( function(campaign_id) {
+            console.log(getHandleText(campaignList[campaign_id].handle))
             campaignTitles[campaign_id] = {
               id:campaign_id,
               account_id: accountId,
               title:campaignList[campaign_id].title, 
               newCounter: campaignList[campaign_id].newCounter,
-              handle: campaignList[campaign_id].handle
+              handle: getHandleText(campaignList[campaign_id].handle)
             };
           });
         }
@@ -1117,12 +1142,13 @@ appmodule.factory('accountData', function() {
           Object.keys(accountData.getAccountList()).forEach(function(account) {
             campaignList.push(factory.getActiveCampaigns());
             Object.keys(campaignList).forEach( function(campaign_id) {
+              console.log(getHandleText(campaignList[campaign_id].handle))
               campaignTitles[campaign_id] = {
                 id:campaign_id,
                 account_id: account.id,
                 title:campaignList[campaign_id].title, 
                 newCounter: campaignList[campaign_id].newCounter,
-                handle: campaignList[campaign_id].handle
+                handle: getHandleText(campaignList[campaign_id].handle)
               };
             });
           });
@@ -1135,12 +1161,13 @@ appmodule.factory('accountData', function() {
         if (accountId) {
           campaignList = factory.getActiveCampaigns(accountId);
           Object.keys(campaignList).forEach( function(campaign_id) {
+              console.log(getHandleText(campaignList[campaign_id].handle))
             campaignTitles = campaignTitles.add({
               id:campaign_id,
               account_id: accountId,
               title:campaignList[campaign_id].title, 
               newCounter: campaignList[campaign_id].newCounter,
-              handle: campaignList[campaign_id].handle
+              handle: getHandleText(campaignList[campaign_id].handle)
             });
           });
         }
@@ -1148,12 +1175,13 @@ appmodule.factory('accountData', function() {
           Object.keys(accountData.getAccountList()).forEach(function(account) {
             campaignList.push(factory.getActiveCampaigns());
             Object.keys(campaignList).forEach( function(campaign_id) {
+              console.log(getHandleText(campaignList[campaign_id].handle))
               campaignTitles = campaignTitles.add({
                 id:campaign_id,
                 account_id: account.id,
                 title:campaignList[campaign_id].title, 
                 newCounter: campaignList[campaign_id].newCounter,
-                handle: campaignList[campaign_id].handle
+                handle: getHandleText(campaignList[campaign_id].handle)
               });
             });
           });
