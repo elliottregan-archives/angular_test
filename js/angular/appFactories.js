@@ -695,6 +695,12 @@ appmodule.factory('accountData', function() {
     account02 : {
       id : "account02",
       handle : "elliottregan",
+      handleList : [
+        {
+          id : 03,
+          text : "elliottregan"
+        }
+      ],
       questions : {
         q0001 : {
           id : "q0001",
@@ -786,7 +792,7 @@ appmodule.factory('accountData', function() {
           id: 'camp2',
           archived: false,
           newCounter: 0,
-          handle: "elliottregan",
+          handle: 03,
           description: 'Our main feedback portal.',
           title: 'What do you think of this?',
           message: 'We value your input. Thanks for sharing with us!',
@@ -1117,9 +1123,8 @@ appmodule.factory('accountData', function() {
     var handleList = factory.getAccountList()[accountId];
     
     var getHandleText = function(handle_id) {
-      return factory.getAccountList()[accountId].handleList.find(function(key) {
-        console.log(key.id == handle_id)
-        return key.id == handle_id;
+      return factory.getAccountList()[accountId].handleList.find(function(handle_object) {
+        return handle_object.id == handle_id;
       }).text;
     };
         
@@ -1127,8 +1132,8 @@ appmodule.factory('accountData', function() {
       if (active_only) {
         if (accountId) {
           campaignList = factory.getActiveCampaigns(accountId);
+          console.log(accountId)
           Object.keys(campaignList).forEach( function(campaign_id) {
-            console.log(getHandleText(campaignList[campaign_id].handle))
             campaignTitles[campaign_id] = {
               id:campaign_id,
               account_id: accountId,
@@ -1142,7 +1147,6 @@ appmodule.factory('accountData', function() {
           Object.keys(accountData.getAccountList()).forEach(function(account) {
             campaignList.push(factory.getActiveCampaigns());
             Object.keys(campaignList).forEach( function(campaign_id) {
-              console.log(getHandleText(campaignList[campaign_id].handle))
               campaignTitles[campaign_id] = {
                 id:campaign_id,
                 account_id: account.id,
@@ -1161,7 +1165,7 @@ appmodule.factory('accountData', function() {
         if (accountId) {
           campaignList = factory.getActiveCampaigns(accountId);
           Object.keys(campaignList).forEach( function(campaign_id) {
-              console.log(getHandleText(campaignList[campaign_id].handle))
+            console.log(getHandleText(campaignList[campaign_id].handle))
             campaignTitles = campaignTitles.add({
               id:campaign_id,
               account_id: accountId,
@@ -1175,7 +1179,6 @@ appmodule.factory('accountData', function() {
           Object.keys(accountData.getAccountList()).forEach(function(account) {
             campaignList.push(factory.getActiveCampaigns());
             Object.keys(campaignList).forEach( function(campaign_id) {
-              console.log(getHandleText(campaignList[campaign_id].handle))
               campaignTitles = campaignTitles.add({
                 id:campaign_id,
                 account_id: account.id,
