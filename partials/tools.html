@@ -1,45 +1,47 @@
 
-<header class="app_header">
-  <button ng-click="toggleToolPanel()" class="left icon btn"><i class="icon-cancel"></i></button>
-  <h1 class="center">Internal Tools</h1>
-</header>
-<div class="scroller_wrapper with_header_padding">
-  <div class="scroller">
-    <div class="tools_list">
-      <section>
-        <h3>importance:</h3>
-        <p ng-bind="viewConversation.importance"></p>
-      </section>
-      <section> 
-        <h3>tags:</h3>
-        <ul class="tag_list">
-          <li ng-repeat="tag in viewConversation.tags" class="inline tag"><span ng-bind="tag"></span><span ng-click="removeTag(tag, viewConversation.tags)" class="close_btn">x</span></li>
-        </ul>
-        <form ng-submit="addTopicTag(tag_to_submit, viewConversation)" name="topic_tag" class="one_line">
-          <button type="submit" class="btn">tag</button>
-          <input type="text" ng-model="tag_to_submit"/>
-        </form>
-      </section>
-      <section> 
-        <h3>assigned users:</h3>
-        <ul class="tag_list">
-          <li ng-repeat="user in viewConversation.tagged_users" ng-animate="'collapse'" class="inline tag"><span ng-bind="user"></span><span ng-click="removeTag(user, viewConversation.tagged_users)" class="close_btn">x</span></li>
-        </ul>
-        <form ng-submit="addUserTag(user_to_submit, viewConversation)" name="user_tag" class="one_line">
-          <button type="submit" class="btn">assign</button>
-          <input type="text" ng-model="user_to_submit"/>
-        </form>
-      </section>
-      <section>
-        <h3>Notes:</h3>
-        <ul class="notes">
-          <li ng-repeat="comment in viewConversation.comments" ng-animate="'collapse'" class="note"><span ng-bind="comment.text"></span><br/><small>-<span ng-bind="comment.author"></span></small></li>
-        </ul>
-        <form ng-submit="addComment(comment_text, viewConversation.comments)" name="comment_form" class="one_line">
-          <button type="submit" class="btn">comment</button>
-          <input type="text" ng-model="comment_text"/>
-        </form>
-      </section>
+<aside ng-class="{visible: conversationDetailView}" class="tools_panel conversation_view">
+  <header class="app_header">
+    <button ng-click="toggleToolPanel()" class="left icon btn"><i class="icon-cancel"></i></button>
+    <h1 class="center">Internal Tools</h1>
+  </header>
+  <div class="scroller_wrapper with_header_padding">
+    <div class="scroller">
+      <div class="tools_list">
+        <section>
+          <h3>importance:</h3>
+          <p ng-bind="viewConversation.importance"></p>
+        </section>
+        <section> 
+          <h3>tags:</h3>
+          <ul class="tag_list">
+            <li ng-repeat="tag in viewConversation.tags" class="inline tag"><span ng-bind="tag"></span><span ng-click="removeTag(tag, viewConversation.tags)" class="close_btn">x</span></li>
+          </ul>
+          <form ng-submit="addTopicTag(tag_to_submit, viewConversation)" name="topic_tag" class="one_line">
+            <button type="submit" class="btn">tag</button>
+            <input type="text" ng-model="tag_to_submit"/>
+          </form>
+        </section>
+        <section> 
+          <h3>assigned users:</h3>
+          <ul class="tag_list">
+            <li ng-repeat="user in viewConversation.tagged_users" ng-animate="'collapse'" class="inline tag"><span ng-bind="user"></span><span ng-click="removeTag(user, viewConversation.tagged_users)" class="close_btn">x</span></li>
+          </ul>
+          <form ng-submit="addUserTag(user_to_submit, viewConversation)" name="user_tag" class="one_line">
+            <button type="submit" class="btn">assign</button>
+            <input type="text" ng-model="user_to_submit"/>
+          </form>
+        </section>
+        <section>
+          <h3>Notes:</h3>
+          <ul class="notes">
+            <li ng-repeat="comment in viewConversation.comments" ng-animate="'collapse'" class="note"><span ng-bind="comment.text"></span><br/><small>-<span ng-bind="comment.author"></span></small></li>
+          </ul>
+          <form ng-submit="addComment(comment_text, viewConversation.comments)" name="comment_form" class="one_line">
+            <button type="submit" class="btn">comment</button>
+            <input type="text" ng-model="comment_text"/>
+          </form>
+        </section>
+      </div>
     </div>
   </div>
-</div>
+</aside>

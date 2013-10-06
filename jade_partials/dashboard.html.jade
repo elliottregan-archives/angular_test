@@ -1,63 +1,56 @@
-.animation_wrapper.layer0
-  .module_wrapper(ng-if='new_mode')
-    .module_fader(ng-click='toggleNewMode()')
-    form.module(ng-if='new_mode', ng-submit='createCampaign(new_campaign_title, handle_to_use, is_local, new_campaign_locale, discoverable)')
-      .btnset.two_btns
-        a.btn(type='button', ng-click='duplicate_mode = true', ng-class='{selected: duplicate_mode}') duplicate
-        a.btn(type='button', ng-click='duplicate_mode = false', ng-class='{selected: !duplicate_mode}') scratch
-      div.content_wrapper
-        .scratch(ng-show="!duplicate_mode")
-        .duplicate(ng-show="duplicate_mode")
-          label or duplicate an existing campaign:
-          select(ng-model="campaign_to_duplicate", ng-options="campaign.id as campaign.title for campaign in campaignTitleList")
-        select(ng-model='handle_to_use', ng-options="handle.id as handle.text for handle in handleList")
-        label(for='campaign_text') Name this campaign:
-          br
-          small (this is the public title for your feedback.)
-        input#campaign_text(type='text', name='new_campaign_title', placeholder='eg. \'Crepes & Things Feedback\'', ng-model='new_campaign_title')
-      .btnset.two_btns(ng-if="!duplicate_mode")
-        button.btn(ng-click='toggleNewMode()', type='button') cancel
-        button.btn.positive(ng-if="!duplicate_mode", type='submit', ng-click='resetStep()') Continue
-      .btnset.two_btns(ng-if="duplicate_mode")
-        button.btn(ng-click='toggleNewMode()', type='button') cancel
-        button.btn.positive(ng-if="duplicate_mode", type='button', ng-click='duplicateCampaign(new_campaign_title, campaign_to_duplicate, handle_to_use)') Duplicate 
-  header.app_header
-    button.btn.icon.left(ng-click='toggleSidebar(\'right\')')
-      i.icon-menu
-    h1.center(ng-bind='accountId')
-    button.btn.right.circled.icon(ng-click='edit_mode || toggleNewMode()', ng-if='!new_mode', ng-hide='edit_mode', ng-class='{disabled: edit_mode}') +
-  .scroller_wrapper
-    section.scroller
-      div(ng-show='duplicating_mode')
-        form(ng-submit='duplicateCampaign(temp_name, temp_handle)')
-          label(for='handle_select_duplicate') Choose a handle
-          select#handle_select_duplicate(ng-model='handle_to_submit', ng-options='handleObj.handle as handleObj.handle for handleObj in handleList')
-          input(type='text', name='temp_name', ng-model='temporary_duplicate.title', placeholder='Type a new name for this duplicated campaign.')
-          button.btn(type='submit') save
-          button.btn(type='reset', ng-click='duplicateMode(false, \'\')') cancel
-      ul#campaign_list.object-list
-        li.object-item(ng-repeat='campaign in campaignTitleList', ng-class='{selected : selected_campaigns.some(campaign.id)}')
-          hgroup
-            a(href='#/account/{{accountId}}/campaign/{{campaign.id}}/conversations')
-              h2 @{{campaign.handle}}
-              h1 {{campaign.title}}
-          .object-alerts
-            .alert.new_counter(ng-if='campaign.newCounter != 0', ng-hide='edit_mode', ng-bind='campaign.newCounter')
-          .list-checkbox
-            button.checkbox(ng-click='selectCampaign(\'{{campaign.id}}\', \'{{accountId}}\')')
-              i.icon-ok
-      button.btn.fadded.full_width(ng-if='archiveExists', ng-click='toggleArchived()')
-        span(ng-show='view_archived == true') hide archived
-        span(ng-show='view_archived == false') view archived
-      ul.object-list(ng-show='view_archived == true')
-        li(ng-repeat='campaign in archivedCampaignList')
-          button.btn.right(ng-click='unarchiveListItem(campaign, campaignList)') unarchive
-          hgroup
-            a(href='#/account/{{accountId}}/campaign/{{campaign.id}}/conversations')
-              h2 @{{campaign.handle}}
-              h1 {{campaign.title}}
-      .dashboard_toolbar(ng-if='edit_mode')
-          .button_item
-            a.btn(href='{{view_link}}', ng-class='') view
-          .button_item
-            button.btn(ng-class='{disabled: disable_single_edit_buttons}', ng-click='disable_single_edit_buttons || archiveListItem(selected_campaigns, campaignList)') archive
+.module_wrapper.fade(ng-if='new_mode')
+  .module_fader(ng-click='toggleNewMode()')
+  form.module.slide_down(ng-if='new_mode', ng-submit='createCampaign(new_campaign_title, handle_to_use, is_local, new_campaign_locale, discoverable)')
+    header
+      h1 Create new campaign
+      button.soft.btn.push_right duplicate
+      button.btn(type='button', ng-click='duplicate_mode = !duplicate_mode', ng-class='{selected: duplicate_mode}') duplicate
+    div.content_wrapper
+      label(for='campaign_text') Name this campaign:
+      input#campaign_text(type='text', name='new_campaign_title', placeholder='eg. \'Crepes & Things Feedback\'', ng-model='new_campaign_title')
+      small (this is the public title for your feedback.)
+      .duplicate(ng-if="duplicate_mode")
+        label or duplicate an existing campaign:
+        select(ng-model="campaign_to_duplicate", ng-options="campaign.id as campaign.title for campaign in campaignTitleList")
+      label(for='handle_to_use') Choose a handle to share this campaign from:
+      select(id='handle_to_use',ng-model='handle_to_use', ng-options="handle.id as handle.text for handle in handleList")
+      
+    .btnset.two_btns(ng-if="!duplicate_mode")
+      button.btn(ng-click='toggleNewMode()', type='button') cancel
+      button.btn.positive(type='submit', ng-click='resetStep()') Continue
+    .btnset.two_btns(ng-if="duplicate_mode")
+      button.btn(ng-click='toggleNewMode()', type='button') cancel
+      button.btn.positive(type='button', ng-click='duplicateCampaign(new_campaign_title, campaign_to_duplicate, handle_to_use)') Duplicate 
+header.app_header
+  button.btn.icon.left.hide_large(ng-click='toggleSidebar(\'right\')')
+    i.icon-menu
+  h1.center(ng-bind='accountId')
+  button.btn.right.circled.icon(ng-click='edit_mode || toggleNewMode()', ng-if='!new_mode', ng-hide='edit_mode', ng-class='{disabled: edit_mode}') +
+.scroller_wrapper
+  section.scroller
+    ul#campaign_list.object-list
+      li.object-item(ng-repeat='campaign in campaignTitleList', ng-class='{selected : selected_campaigns.some(campaign.id)}')
+        hgroup
+          a(href='#/account/{{accountId}}/campaign/{{campaign.id}}/conversations')
+            h2 @{{campaign.handle}}
+            h1 {{campaign.title}}
+        .object-alerts
+          .alert.new_counter(ng-if='campaign.newCounter != 0', ng-hide='edit_mode', ng-bind='campaign.newCounter')
+        .list-checkbox
+          button.checkbox(ng-click='selectCampaign(\'{{campaign.id}}\', \'{{accountId}}\')')
+            i.icon-ok
+    button.btn.fadded.full_width(ng-if='archiveExists', ng-click='toggleArchived()')
+      span(ng-show='view_archived == true') hide archived
+      span(ng-show='view_archived == false') view archived
+    ul.object-list(ng-show='view_archived == true')
+      li(ng-repeat='campaign in archivedCampaignList')
+        button.btn.right(ng-click='unarchiveListItem(campaign, campaignList)') unarchive
+        hgroup
+          a(href='#/account/{{accountId}}/campaign/{{campaign.id}}/conversations')
+            h2 @{{campaign.handle}}
+            h1 {{campaign.title}}
+    .dashboard_toolbar(ng-if='edit_mode')
+        .button_item
+          a.btn(href='{{view_link}}', ng-class='') view
+        .button_item
+          button.btn(ng-class='{disabled: disable_single_edit_buttons}', ng-click='disable_single_edit_buttons || archiveListItem(selected_campaigns, campaignList)') archive

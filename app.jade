@@ -23,7 +23,8 @@ html(lang='en', ng-app='appmodule', ng-controller='appCtr')
     // .control_panel(ng-controller='controlPanelCtr', jq-draggable='jq-draggable')
     //   button(ng-click='receiveFdbk()') Receive Fdbk!
     .main_wrapper
-      main.main_view(ng-class='{slide_right : sidebar_visible}', ui-view)
+      main.main_view(ng-class='{slide_right : sidebar_visible}')
+        ui-view.fade
     nav.main_nav.sidebar       
       ul
         li
@@ -42,9 +43,9 @@ html(lang='en', ng-app='appmodule', ng-controller='appCtr')
                 i.icon-chat
                 | Conversations
         li.home
-          a(href='#/account/all/campaign/camp0+camp1+camp2/conversations') Global Feed
+          a(href='#/account/all/campaign/camp0+camp1+camp2/conversations', ng-click='toggleSidebar()') Global Feed
         li(ng-repeat='account in accountList', ng-class='{selected : accountId == account.id}')
-          a(href='#/account/{{account.id}}/dashboard')
+          a(href='#/account/{{account.id}}/dashboard', ng-click='toggleSidebar()')
             span(ng-bind='account.id')
       .tools
         button.btn.soft.new_handle + Create new account
@@ -55,4 +56,4 @@ html(lang='en', ng-app='appmodule', ng-controller='appCtr')
     script(src='js/angular/appFactories.js', type='text/javascript')
     script(src='js/angular/directives/angular-animate.js', type='text/javascript')
     script(src='js/angular/directives/ui-sortable.js', type='text/javascript')
-    script(src='js/angular/directives/ui-router_0.2.js', type='text/javascript')
+    script(src='js/angular/directives/angular-ui-router_for-1.2-animations.js', type='text/javascript')

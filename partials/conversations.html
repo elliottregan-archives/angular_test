@@ -5,9 +5,9 @@
       <button class="btn">Spread the word!</button>
     </p>
     <ul class="conversations">
-      <li ng-repeat="instance in viewCampaign.conversations" ng-controller="instanceCtr" ng-include src="'partials/instance.html'" class="instance card"></li>
+      <li ng-repeat="instance in viewCampaign.conversations" ng-controller="instanceCtr" ng-include src="&quot;partials/instance.html&quot;" class="instance card"></li>
     </ul>
   </div>
 </div>
-<ui-view ng-class="{visible: conversationDetailView}" class="tools_panel conversation_view"></ui-view>
+<ng-include src="&quot;partials/tools.html&quot;" class="tools_panel_wrapper"></ng-include>
 <div ng-if="conversationDetailView" ng-click="toggleToolPanel()" class="dimmer conversations_dimmer"></div>
