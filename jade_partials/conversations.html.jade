@@ -7,4 +7,4 @@
     ul.conversations
       li.instance.card(ng-repeat='instance in viewCampaign.conversations', ng-controller='instanceCtr', ng-include src="'partials/instance.html'")
 ui-view.tools_panel.conversation_view(ng-class='{visible: conversationDetailView}')
-.dimmer.conversations_dimmer(ng-if='conversationDetailView || campaignNav_true',ng-click='toggleToolPanel();toggleNavbar(false)', ng-class='{dropdown_dimmer : campaignNav_true}')
+.dimmer.conversations_dimmer(ng-if='conversationDetailView',ng-click='toggleToolPanel()')

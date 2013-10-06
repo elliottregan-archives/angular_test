@@ -260,7 +260,7 @@ function appCtr($scope, $stateParams, $state, $location, $timeout, accountData) 
   
 };
 
-function userCtr($scope, userData, accountData) {
+function userCtr($scope, userData, $stateParams, accountData) {
   console.log("initialize user controller");
   init();
   
@@ -270,7 +270,7 @@ function userCtr($scope, userData, accountData) {
     
     $scope.accounts = accountData.getAccount();
     $scope.accountList = accountData.getAccountList();
-    console.log($scope.accountList);
+    
 
     Object.keys($scope.accountList).forEach(function(account_id) {
       $scope.accountList[account_id].handle = (accountData.getHandle(account_id));
@@ -278,6 +278,10 @@ function userCtr($scope, userData, accountData) {
 
     $scope.title = 'Settings';
   };
+  
+  $scope.$on('ACCOUNT_CHANGED', function() {
+    $scope.accountId = $stateParams.accountId
+  })
 
 };
 
@@ -288,22 +292,21 @@ function accountCtr($scope, $stateParams, $location, tempObjects, accountData) {
   $scope.$on("MESSAGE_RECEIVED", function(event, campaignIndex, message, messageId) {
     console.log("message received by account controller");
     accountData.addMessage("account01", campaignIndex, messageId, message);
-    $scope.handle = accountData.getHandle(account_id);
-
     $scope.campaignTitleList[campaignIndex].newCounter = $scope.campaignTitleList[campaignIndex].newCounter + 1;
   });
    
   function init() {
     
+    $scope.$emit("ACCOUNT_CHANGED", $stateParams.accountId)
+    
     $scope.accountId = $stateParams.accountId;
     $scope.array_of_account_ids = [];
     $scope.array_of_account_ids[0] = $scope.accountId;
-    
+    $scope.handleList = accountData.getHandle($scope.accountId);
     $scope.campaignList = accountData.getActiveCampaigns($scope.accountId);
     $scope.campaignTitleList = accountData.getCampaignTitles($scope.accountId, true, true);
     console.log($scope.campaignTitleList)
     $scope.archivedCampaignList = accountData.getArchivedCampaigns($scope.accountList[$scope.accountId].id);    
-  
   };
 };
 
@@ -475,7 +478,7 @@ function dashboardCtr($scope, $stateParams, $location, tempObjects, accountData)
  
   };
   
-  $scope.duplicateCampaign = function(title, campaign_id) {
+  $scope.duplicateCampaign = function(title, campaign_id, handle_id_to_use) {
     
     var datetime = new Date().getTime();
     
@@ -485,7 +488,7 @@ function dashboardCtr($scope, $stateParams, $location, tempObjects, accountData)
     
     temporary_duplicate.title = title;
     temporary_duplicate.id = datetime;
-    temporary_duplicate.handle = $scope.handle;
+    temporary_duplicate.handle = handle_id_to_use;
     temporary_duplicate.archived =false;
     
     console.log(temporary_duplicate)
@@ -534,7 +537,8 @@ function campaignCtr($scope, $state, $stateParams, $location, accountData) {
         $scope.campaignTitleList = accountData.getCampaignTitles($scope.array_of_account_ids, true, false);
         
         $scope.campaignTitle = $scope.campaignTitleList[$scope.campaignId].title;
-        $scope.campaignHandle = $scope.campaignTitleList[$scope.campaignId].handleList;
+        $scope.campaignHandle = $scope.campaignTitleList[$scope.campaignId].handle;
+        console.log($scope.campaignTitleList[$scope.campaignId])
         setViewCampaign(arrayOfCampaignIds);
       }
       else {
@@ -602,8 +606,6 @@ function campaignBuilderCtr($scope, $location, $stateParams, tempObjects, accoun
     var arrayOfCampaignIds = [];
     arrayOfCampaignIds = $stateParams.campaignId.split("+");
     $scope.buildCampaign = {};
-//    tempObjects.updateBuildCampaign($scope.campaignList[$stateParams.campaignId]);
-//    $scope.buildCampaign = angular.copy($scope.viewCampaign);
     
     var metaData = accountData.getMetaData($scope.array_of_account_ids, arrayOfCampaignIds);
     $scope.buildCampaign.questionsList = metaData.questionsList;

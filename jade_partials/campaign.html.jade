@@ -12,6 +12,7 @@ header.app_header(ng-class='{no_bottom : campaignNav_true}')
     i.icon-chart-bar(ng-switch-when='/analytics')
     i.icon-trophy(ng-switch-when='/rewards')
     i.icon-at(ng-switch-when='/contacts')
+.dimmer(ng-if='campaignNav_true',ng-click='toggleNavbar(false)', ng-class='{dropdown_dimmer : campaignNav_true}')
 nav.campaign_nav.dropdown(ng-if='campaignNav_true', ng-click='toggleNavbar()')
   ul
     li(ng-hide='currentPage == "/conversations"')
@@ -34,5 +35,4 @@ nav.campaign_nav.dropdown(ng-if='campaignNav_true', ng-click='toggleNavbar()')
       a(href='#/account/{{accountId}}/campaign/{{campaignId}}/contacts')
         | contacts
         i.icon-at
-.dimmer(ng-click='toggleToolPanel(false)', ng-show='conversationDetailView') 
 ui-view.campaign_view

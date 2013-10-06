@@ -1107,12 +1107,13 @@ appmodule.factory('accountData', function() {
     
     if (accountId == undefined) {
       Object.keys(accounts).forEach( function(account_id) {
-        campaignHandles.push({handle:accounts[account_id].handle, accountId:account_id});
+        campaignHandles.push({handle:accounts[account_id].handleList, accountId:account_id});
       });
     }
     else {
-      campaignHandles = accounts[accountId].handle;
+      campaignHandles = accounts[accountId].handleList;
     }
+    console.log(campaignHandles)
     return campaignHandles;
   };
   

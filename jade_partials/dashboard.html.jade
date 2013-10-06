@@ -1,22 +1,26 @@
 .animation_wrapper.layer0
   .module_wrapper(ng-if='new_mode')
     .module_fader(ng-click='toggleNewMode()')
-    form.module(ng-if='new_mode', ng-submit='createCampaign(new_campaign_title, handle_to_submit, is_local, new_campaign_locale, discoverable)')
+    form.module(ng-if='new_mode', ng-submit='createCampaign(new_campaign_title, handle_to_use, is_local, new_campaign_locale, discoverable)')
+      .btnset.two_btns
+        a.btn(type='button', ng-click='duplicate_mode = true', ng-class='{selected: duplicate_mode}') duplicate
+        a.btn(type='button', ng-click='duplicate_mode = false', ng-class='{selected: !duplicate_mode}') scratch
       div.content_wrapper
-        button(type='button', ng-click='duplicate_mode = true') duplicate
-        button(type='button', ng-click='duplicate_mode = false') scratch
         .scratch(ng-show="!duplicate_mode")
         .duplicate(ng-show="duplicate_mode")
           label or duplicate an existing campaign:
           select(ng-model="campaign_to_duplicate", ng-options="campaign.id as campaign.title for campaign in campaignTitleList")
+        select(ng-model='handle_to_use', ng-options="handle.id as handle.text for handle in handleList")
         label(for='campaign_text') Name this campaign:
           br
           small (this is the public title for your feedback.)
         input#campaign_text(type='text', name='new_campaign_title', placeholder='eg. \'Crepes & Things Feedback\'', ng-model='new_campaign_title')
-      .btnset.two_btns
+      .btnset.two_btns(ng-if="!duplicate_mode")
         button.btn(ng-click='toggleNewMode()', type='button') cancel
         button.btn.positive(ng-if="!duplicate_mode", type='submit', ng-click='resetStep()') Continue
-        button.btn.positive(ng-if="duplicate_mode", type='button', ng-click='duplicateCampaign(new_campaign_title, campaign_to_duplicate)') Duplicate 
+      .btnset.two_btns(ng-if="duplicate_mode")
+        button.btn(ng-click='toggleNewMode()', type='button') cancel
+        button.btn.positive(ng-if="duplicate_mode", type='button', ng-click='duplicateCampaign(new_campaign_title, campaign_to_duplicate, handle_to_use)') Duplicate 
   header.app_header
     button.btn.icon.left(ng-click='toggleSidebar(\'right\')')
       i.icon-menu

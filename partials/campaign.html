@@ -7,6 +7,7 @@
   </hgroup>
   <button ng-click="toggleNavbar()" ng-switch="currentPage" class="btn icon right"><i class="icon-down-open sup"></i><i ng-switch-when="/edit" class="icon-pencil"></i><i ng-switch-when="/conversations" class="icon-chat"></i><i ng-switch-when="/analytics" class="icon-chart-bar"></i><i ng-switch-when="/rewards" class="icon-trophy"></i><i ng-switch-when="/contacts" class="icon-at"></i></button>
 </header>
+<div ng-if="campaignNav_true" ng-click="toggleNavbar(false)" ng-class="{dropdown_dimmer : campaignNav_true}" class="dimmer"></div>
 <nav ng-if="campaignNav_true" ng-click="toggleNavbar()" class="campaign_nav dropdown">
   <ul>
     <li ng-hide="currentPage == &quot;/conversations&quot;"><a href="#/account/{{accountId}}/campaign/{{campaignId}}/conversations">Conversation Feed<i class="icon-chat"></i></a></li>
@@ -16,5 +17,4 @@
     <li ng-hide="currentPage == &quot;/contacts&quot;"><a href="#/account/{{accountId}}/campaign/{{campaignId}}/contacts">contacts<i class="icon-at"></i></a></li>
   </ul>
 </nav>
-<div ng-click="toggleToolPanel(false)" ng-show="conversationDetailView" class="dimmer"> </div>
 <ui-view class="campaign_view"></ui-view>
