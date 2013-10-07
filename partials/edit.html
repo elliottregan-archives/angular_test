@@ -1,6 +1,7 @@
 
-<aside id="palette" view="panel">
-  <div ng-include src="&quot;partials/panel.html&quot;"></div>
+<aside id="palette" ng-if="palette_visible" class="module_wrapper zoom_fade">
+  <div ng-click="togglePanel()" class="module_fader"></div>
+  <div ng-include src="&quot;partials/panel.html&quot;" class="module editor"></div>
 </aside>
 <nav class="breadcrumbs"><a href="#/account/{{accountId}}/campaign/{{buildCampaign.id}}/conversations" ng-show="currentStep==0" class="btn soft left"><i class="icon-cancel"></i></a>
   <button ng-click="retreatStep()" ng-show="currentStep&gt;=1" class="btn soft left"><i class="icon-left-open"></i></button>
@@ -18,8 +19,6 @@
       <h3 ng-bind="buildCampaign.handle"></h3>
       <section ng-switch="currentStep">
         <div ng-switch-when="0">
-          <!-- label(for='image') Upload image:-->
-          <!-- input#image(type='file', name='image', accept='image/*')-->
           <div ng-include src="&quot;partials/form_not_completed.html&quot;"></div>
           <button ng-click="togglePanel('Create Question')" class="middle confirm btn">+ New Question</button>
         </div>

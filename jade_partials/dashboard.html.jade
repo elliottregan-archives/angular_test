@@ -1,18 +1,15 @@
-.module_wrapper.fade(ng-if='new_mode')
-  .module_fader(ng-click='toggleNewMode()')
+.module_wrapper.zoom_fade(ng-if='new_mode')
+  .module_fader.dimmer(ng-click='toggleNewMode()')
   form.module.slide_down(ng-if='new_mode', ng-submit='createCampaign(new_campaign_title, handle_to_use, is_local, new_campaign_locale, discoverable)')
     header
       h1 Create new campaign
-      button.soft.btn.push_right duplicate
-      button.btn(type='button', ng-click='duplicate_mode = !duplicate_mode', ng-class='{selected: duplicate_mode}') duplicate
-    div.content_wrapper
-      label(for='campaign_text') Name this campaign:
-      input#campaign_text(type='text', name='new_campaign_title', placeholder='eg. \'Crepes & Things Feedback\'', ng-model='new_campaign_title')
-      small (this is the public title for your feedback.)
+    .content_wrapper
+      label(for='campaign_text')
+      input#campaign_text(type='text', name='new_campaign_title', placeholder='Campaign Title', ng-model='new_campaign_title')
       .duplicate(ng-if="duplicate_mode")
         label or duplicate an existing campaign:
         select(ng-model="campaign_to_duplicate", ng-options="campaign.id as campaign.title for campaign in campaignTitleList")
-      label(for='handle_to_use') Choose a handle to share this campaign from:
+      label(for='handle_to_use') Choose a handle:
       select(id='handle_to_use',ng-model='handle_to_use', ng-options="handle.id as handle.text for handle in handleList")
       
     .btnset.two_btns(ng-if="!duplicate_mode")
@@ -22,8 +19,8 @@
       button.btn(ng-click='toggleNewMode()', type='button') cancel
       button.btn.positive(type='button', ng-click='duplicateCampaign(new_campaign_title, campaign_to_duplicate, handle_to_use)') Duplicate 
 header.app_header
-  button.btn.icon.left.hide_large(ng-click='toggleSidebar(\'right\')')
-    i.icon-menu
+  a.left.icon.navicon-button.larr(ng-class='{open : sidebar_visible}', ng-click='toggleSidebar(\'right\')')
+    .navicon
   h1.center(ng-bind='accountId')
   button.btn.right.circled.icon(ng-click='edit_mode || toggleNewMode()', ng-if='!new_mode', ng-hide='edit_mode', ng-class='{disabled: edit_mode}') +
 .scroller_wrapper

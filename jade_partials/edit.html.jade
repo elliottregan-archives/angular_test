@@ -1,5 +1,6 @@
-aside#palette(view='panel')
-  div(ng-include src='"partials/panel.html"')
+aside#palette.module_wrapper.zoom_fade(ng-if='palette_visible')
+  .module_fader(ng-click='togglePanel()')
+  .module.editor(ng-include src='"partials/panel.html"')
 nav.breadcrumbs
   a.btn.soft.left(href='#/account/{{accountId}}/campaign/{{buildCampaign.id}}/conversations', ng-show='currentStep==0')
     i.icon-cancel
@@ -19,8 +20,6 @@ nav.breadcrumbs
       h3(ng-bind='buildCampaign.handle')
       section(ng-switch='currentStep')
         div(ng-switch-when='0')
-          // label(for='image') Upload image:
-          // input#image(type='file', name='image', accept='image/*')
           div(ng-include src='"partials/form_not_completed.html"')
           button.middle.confirm.btn(ng-click='togglePanel(\'Create Question\')') + New Question
         div(ng-switch-when='1')

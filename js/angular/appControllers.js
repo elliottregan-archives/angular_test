@@ -194,20 +194,6 @@ function appCtr($scope, $stateParams, $state, $location, $timeout, accountData) 
     $scope.personal_pages_visible = !$scope.personal_pages_visible;
   };
   
-  $scope.togglePanel = function(panelName) {
-    $('aside').toggleClass('visible');
-    $scope.panel=panelName;
-    
-    $scope.buildQuestion = {
-        id: "",
-        type: "",
-        text: "",
-        answers: []
-    };
-    
-    $scope.editing_question = false;
-  };
-  
   function Campaign(id, handle, title, local, location, discoverable) {
     
     this.id = id,
@@ -686,8 +672,9 @@ function campaignBuilderCtr($scope, $location, $stateParams, tempObjects, accoun
   
   $scope.togglePanel = function(panelName) {  //this function is also in here because of different scoped buildQuestions. I'm tired. bad note. we just need separate functions for the individual panels. :/
   
-    $('aside').toggleClass('visible');  //why are we using jQuery here? come on!
     $scope.panel=panelName;
+    
+    $scope.palette_visible = !$scope.palette_visible;
     
     $scope.buildQuestion = {
         id: "",
