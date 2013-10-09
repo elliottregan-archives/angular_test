@@ -12,32 +12,31 @@ article(ng-init='instance.cap = -2')
           i.icon-users
   .form_response
     .questions(ng-include='"partials/form_completed.html"')
-    .reward
-      h2 Reward:
-      dl 
-        dt {{instance.reward.title}}
-        dd claimed on {{instance.reward.date_claimed}}
+    dl 
+      dt Reward:
+      dd {{instance.reward.title}}
+        br
+        small claimed on {{instance.reward.date_claimed}}
   .expand_wrapper(ng-if='isExpandable')
     button.btn.icon.expand(ng-click='expandReplies(instance)')
       span(ng-if='!instance.isExpanded') view all {{instance.comments.length}} comments
       span(ng-if='instance.isExpanded') hide older comments
   ul.comments
-    li.comment(ng-repeat='comment in (instance.comments | limitTo:instance.cap)', ng-animate='\'collapse\'', ng-class='{you: comment.author == "You"}')
+    li.comment.fade(ng-repeat='comment in (instance.comments | limitTo:instance.cap)', ng-animate='\'collapse\'', ng-class='{you: comment.author == "You"}')
       .comment_wrapper(ng-if='comment.author == "You"')
         div
           .profile_pic.john
         .text
           h4 @{{campaignHandle}}
-            time • 5 minutes ago
           p(ng-bind='comment.text')
+          time 5m ago
       .comment_wrapper(ng-if='comment.author != "You"')
         div 
           .profile_pic.jon_hamm
         .text
-          h4
-            span(ng-bind='comment.author')
-              time • {{comment.time}}
+          h4(ng-bind='comment.author')
           p(ng-bind='comment.text')
+          time 5m ago
   form.one_line(ng-submit='addReply(newCommentText, instance.comments)')
     button.btn.active(ng-if='instance.heardConditions', type='button', ng-click='addHeard()') heard
     button.btn(ng-if='!instance.heardConditions', ng-class="{active : newCommentText > 0}", type='submit') send

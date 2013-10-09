@@ -16,28 +16,24 @@
   </header>
   <div class="form_response">
     <div ng-include="&quot;partials/form_completed.html&quot;" class="questions"></div>
-    <div class="reward">
-      <h2>Reward:</h2>
-      <dl> 
-        <dt>{{instance.reward.title}}</dt>
-        <dd>claimed on {{instance.reward.date_claimed}}</dd>
-      </dl>
-    </div>
+    <dl> 
+      <dt>Reward:</dt>
+      <dd>{{instance.reward.title}}<br/><small>claimed on {{instance.reward.date_claimed}}</small></dd>
+    </dl>
   </div>
   <div ng-if="isExpandable" class="expand_wrapper">
     <button ng-click="expandReplies(instance)" class="btn icon expand"><span ng-if="!instance.isExpanded">view all {{instance.comments.length}} comments</span><span ng-if="instance.isExpanded">hide older comments</span></button>
   </div>
   <ul class="comments">
-    <li ng-repeat="comment in (instance.comments | limitTo:instance.cap)" ng-animate="'collapse'" ng-class="{you: comment.author == &quot;You&quot;}" class="comment">
+    <li ng-repeat="comment in (instance.comments | limitTo:instance.cap)" ng-animate="'collapse'" ng-class="{you: comment.author == &quot;You&quot;}" class="comment fade">
       <div ng-if="comment.author == &quot;You&quot;" class="comment_wrapper">
         <div>
           <div class="profile_pic john"></div>
         </div>
         <div class="text">
-          <h4>@{{campaignHandle}}
-            <time>• 5 minutes ago</time>
-          </h4>
+          <h4>@{{campaignHandle}}</h4>
           <p ng-bind="comment.text"></p>
+          <time>5m ago</time>
         </div>
       </div>
       <div ng-if="comment.author != &quot;You&quot;" class="comment_wrapper">
@@ -45,9 +41,9 @@
           <div class="profile_pic jon_hamm"></div>
         </div>
         <div class="text">
-          <h4><span ng-bind="comment.author">
-              <time>• {{comment.time}}</time></span></h4>
+          <h4 ng-bind="comment.author"></h4>
           <p ng-bind="comment.text"></p>
+          <time>5m ago</time>
         </div>
       </div>
     </li>

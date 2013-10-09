@@ -2,6 +2,9 @@
   "name": "",
   "css_prefix_text": "icon-",
   "css_use_suffix": false,
+  "hinting": true,
+  "units_per_em": 1000,
+  "ascent": 850,
   "glyphs": [
     {
       "uid": "b392c847bf41826598f12c02be842253",
@@ -133,6 +136,12 @@
       "uid": "dcbef4ff6ce6ffc7599d23e0c2b029af",
       "css": "inbox",
       "code": 59400,
+      "src": "mfglabs"
+    },
+    {
+      "uid": "77928c849ac2ae6e77d4eae9f2927c00",
+      "css": "flash",
+      "code": 59418,
       "src": "mfglabs"
     },
     {

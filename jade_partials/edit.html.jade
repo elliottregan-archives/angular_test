@@ -1,6 +1,6 @@
 aside#palette.module_wrapper.zoom_fade(ng-if='palette_visible')
   .module_fader(ng-click='togglePanel()')
-  .module.editor(ng-include src='"partials/panel.html"')
+  .module.editor(ng-include='"partials/panel.html"')
 nav.breadcrumbs
   a.btn.soft.left(href='#/account/{{accountId}}/campaign/{{buildCampaign.id}}/conversations', ng-show='currentStep==0')
     i.icon-cancel

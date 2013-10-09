@@ -312,7 +312,6 @@ function multiAccountsCtr($scope, $stateParams, $location, tempObjects, accountD
 function dashboardCtr($scope, $stateParams, $location, tempObjects, accountData) {
   console.log("initialize dashboard controller");
 
-//  $scope.buildCampaign = tempObjects.getBuildCampaign();
   checkForArchived();
   $scope.view_archived = false;
   $scope.edit_mode = false;
@@ -334,6 +333,30 @@ function dashboardCtr($scope, $stateParams, $location, tempObjects, accountData)
     $scope.campaignList[clicked_list_item.id] = angular.copy($scope.archivedCampaignList[clicked_list_item.id]);
     $scope.archivedCampaignList = Object.reject($scope.archivedCampaignList, clicked_list_item.id);
     checkForArchived();
+  };
+
+  $scope.step_one = true;
+  $scope.new_campaign_title = '';
+  
+  $scope.selectCampaignToDuplicate = function(campaign_object) {
+    $scope.campaign_to_duplicate = campaign_object;
+  };
+  
+  $scope.chooseToDuplicate = function(choice) {
+    $scope.duplicate_mode = choice;
+    $scope.new_mode_step = 'two';
+  };
+  
+  $scope.toggleCampaignSelector = function() {
+    $scope.show_campaign_options = !$scope.show_campaign_options;
+  };
+  
+  $scope.selectHandleToUse = function(handle_object) {
+    $scope.handle_to_use = handle_object;
+  };
+  
+  $scope.toggleHandleSelector = function() {
+    $scope.show_handle_options = !$scope.show_handle_options;
   };
   
   function checkForArchived() {
@@ -416,6 +439,16 @@ function dashboardCtr($scope, $stateParams, $location, tempObjects, accountData)
   
   $scope.toggleNewMode = function() {
     $scope.new_mode = !$scope.new_mode;
+    $scope.duplicate_mode = false;
+    $scope.show_handle_options = false;
+    $scope.show_campaign_options = false;
+    
+    if ($scope.new_mode) {
+      $scope.new_mode_step = 'one';
+    }
+    else {
+      $scope.new_mode_step = 'two';
+    }
   };
   
   $scope.deleteAnyListItems = function(checked_items, parent_object) { //deletes any item from an ng-repeat list
@@ -450,6 +483,7 @@ function dashboardCtr($scope, $stateParams, $location, tempObjects, accountData)
   };
   
   $scope.createCampaign = function(new_campaign_title, handle, is_local, new_campaign_locale, discoverable) {
+    console.log(new_campaign_title)
     var datetimeId = Date.now();
         
     var temp_builder = new Campaign(datetimeId, handle, new_campaign_title, is_local, new_campaign_locale, discoverable);

@@ -1,34 +1,57 @@
 
 <div ng-if="new_mode" class="module_wrapper zoom_fade">
   <div ng-click="toggleNewMode()" class="module_fader dimmer"></div>
-  <form ng-if="new_mode" ng-submit="createCampaign(new_campaign_title, handle_to_use, is_local, new_campaign_locale, discoverable)" class="module slide_down">
+  <div ng-if="new_mode" class="module">
     <header>
       <h1>Create new campaign</h1>
     </header>
-    <div class="content_wrapper">
-      <label for="campaign_text"></label>
-      <input id="campaign_text" type="text" name="new_campaign_title" placeholder="Campaign Title" ng-model="new_campaign_title"/>
-      <div ng-if="duplicate_mode" class="duplicate">
-        <label>or duplicate an existing campaign:</label>
-        <select ng-model="campaign_to_duplicate" ng-options="campaign.id as campaign.title for campaign in campaignTitleList"></select>
+    <div ng-switch on="new_mode_step" class="content_wrapper">
+      <div ng-switch-when="one" class="step_one">
+        <ul class="select">
+          <li ng-click="chooseToDuplicate(false)" class="option"><i class="icon-spinner2 bg green"></i>Create New</li>
+          <li ng-click="chooseToDuplicate(true); duplicate_mode = true" class="option"><i class="icon-flash bg orange"></i>Duplicate Existing </li>
+        </ul>
       </div>
-      <label for="handle_to_use">Choose a handle:</label>
-      <select id="handle_to_use" ng-model="handle_to_use" ng-options="handle.id as handle.text for handle in handleList"></select>
+      <div ng-switch-when="two" class="step_two fade"> 
+        <fieldset ng-if="duplicate_mode" class="duplicate">
+          <div ng-click="toggleCampaignSelector()" class="select expandable">
+            <div class="status push_right"><i ng-show="!show_campaign_options" class="icon-down-open"></i><i ng-show="show_campaign_options" class="icon-up-open"></i></div>
+            <div ng-class="{highlighted : show_campaign_options, pristine : !campaign_to_duplicate}" class="selection"><i class="icon-ok"></i><span ng-if="campaign_to_duplicate" ng-bind="campaign_to_duplicate.title"></span><span ng-if="!campaign_to_duplicate">Choose a campaign</span></div>
+            <ul ng-if="show_campaign_options" class="options select_dropdown">
+              <li ng-repeat="campaign in campaignTitleList" ng-click="selectCampaignToDuplicate(campaign)" ng-class="{selected : campaign_to_duplicate.id == campaign.id}" class="option"><i class="icon-ok"></i><span ng-bind="campaign.title"></span></li>
+            </ul>
+          </div>
+        </fieldset>
+        <fieldset>
+          <input type="text" placeholder="Type a title for the new campaign" ng-model="new_campaign_title"/>
+        </fieldset>
+        <fieldset> 
+          <div ng-click="toggleHandleSelector()" class="select expandable">
+            <div class="status push_right"><i ng-show="!show_handle_options" class="icon-down-open"></i><i ng-show="show_handle_options" class="icon-up-open"></i></div>
+            <div ng-class="{highlighted : show_handle_options, pristine : !handle_to_use}" class="selection"><i class="icon-ok"></i><span ng-if="handle_to_use" ng-bind="handle_to_use.text"></span><span ng-if="!handle_to_use.text">Choose a handle</span></div>
+            <ul ng-if="show_handle_options" class="options select_dropdown">
+              <li ng-repeat="handle in handleList" ng-click="selectHandleToUse(handle)" ng-class="{selected : handle_to_use.id == handle.id}" class="option"><i class="icon-ok"></i><span ng-bind="handle.text"></span></li>
+            </ul>
+          </div>
+        </fieldset>
+        <div ng-if="!duplicate_mode" class="btnset action two_btns">
+          <button ng-click="toggleNewMode()" type="button" class="btn">cancel</button>
+          <button type="submit" ng-click="createCampaign(new_campaign_title, handle_to_use.id, is_local, new_campaign_locale, discoverable)" class="btn positive">Continue</button>
+        </div>
+        <div ng-if="duplicate_mode" class="btnset action two_btns">
+          <button ng-click="toggleNewMode()" type="button" class="btn">cancel</button>
+          <button type="button" ng-click="duplicateCampaign(new_campaign_title, campaign_to_duplicate.id, handle_to_use.id)" class="btn positive">Duplicate </button>
+        </div>
+      </div>
     </div>
-    <div ng-if="!duplicate_mode" class="btnset two_btns">
-      <button ng-click="toggleNewMode()" type="button" class="btn">cancel</button>
-      <button type="submit" ng-click="resetStep()" class="btn positive">Continue</button>
-    </div>
-    <div ng-if="duplicate_mode" class="btnset two_btns">
-      <button ng-click="toggleNewMode()" type="button" class="btn">cancel</button>
-      <button type="button" ng-click="duplicateCampaign(new_campaign_title, campaign_to_duplicate, handle_to_use)" class="btn positive">Duplicate </button>
-    </div>
-  </form>
+  </div>
 </div>
-<header class="app_header"><a ng-class="{open : sidebar_visible}" ng-click="toggleSidebar('right')" class="left icon navicon-button larr">
-    <div class="navicon"></div></a>
+<header class="app_header">
+  <button ng-click="toggleSidebar('right')" class="btn icon left hide_large"><i class="icon-menu"></i></button>
   <h1 ng-bind="accountId" class="center"></h1>
-  <button ng-click="edit_mode || toggleNewMode()" ng-if="!new_mode" ng-hide="edit_mode" ng-class="{disabled: edit_mode}" class="btn right circled icon">+</button>
+  <button ng-click="edit_mode || toggleNewMode()" ng-if="!new_mode" ng-hide="edit_mode" ng-class="{disabled: edit_mode}" class="btn right icon">
+    <div class="icon-plus"></div>
+  </button>
 </header>
 <div class="scroller_wrapper">
   <section class="scroller">
