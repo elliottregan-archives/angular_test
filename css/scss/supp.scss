@@ -1,0 +1,113 @@
+$size : 100%;
+$transition: .4s;
+$toggled-size : .75;
+
+$bodybg : #449a88;
+$navbg : #2a2a2a;
+$pagebg : darkgrey;
+
+
+.navicon-button {
+  display: inline-block;
+  padding: 1.3em 1em;
+  transition: $transition;
+  cursor: pointer;
+  user-select: none;
+  opacity: .8;
+  
+  &:hover {
+    opacity: 1;
+    
+    .navicon:before, .navicon:after {
+      transition: $transition/2;
+    }
+    
+  }
+}
+
+.navicon {
+  position: relative;
+  width: 1.4em;
+  height: .18em;
+  background: $pagebg;
+  transition: $transition;
+  border-radius: 2.5rem;
+  
+  &:after, &:before {
+    display: block;
+    content: "";
+    height: .18em;
+    width: 1.4rem;
+    background: $pagebg;
+    position: absolute;
+    z-index: -1;
+    transition: $transition ($transition/2);
+    border-radius: 1rem;
+  }
+
+  &:after { top: -.35em; }
+  &:before { top: .35em; }
+}
+
+.open:not(.steps) .navicon:before,
+.open:not(.steps) .navicon:after {
+  top: 0 !important;
+}
+
+.open .navicon:before,
+.open .navicon:after {
+  transition: $transition;
+}
+
+/* Minus */
+.open { transform: scale($toggled-size); }
+
+/* Arrows */
+.open.larr .navicon,
+.open.uarr .navicon {   
+    &:before, &:after {
+      width: 1.5rem;
+    }
+    
+    &:before { transform: rotate(35deg); transform-origin: left top; }
+    &:after { transform: rotate(-35deg); transform-origin: left bottom; }
+}
+.open.uarr { transform: scale($toggled-size) rotate(90deg); }
+
+/* x and + */
+.open.plus,
+.open.x {
+  .navicon {
+    background: transparent;
+    
+    &:after { transform: rotate(45deg); }  
+    &:before { transform: rotate(-45deg); }  
+  }
+}
+.open.plus { transform: scale($toggled-size) rotate(45deg) }
+
+.open.steps {
+  .navicon {
+    &:before { transform: translateX(.5rem); }
+    &:after { transform: translateX(-.5rem); }
+  }
+}
+
+.loading .navicon {
+  color: dodgerblue;
+  box-shadow: inset 0 0;
+  transition: $transition, box-shadow 0;
+}
+
+.open.loading {
+  transform: none;
+  height: 1rem;
+
+  .navicon {
+    box-shadow: inset 2.5rem 0;
+    transition: $transition, box-shadow $transition*5;
+
+    
+    &:before, &:after { opacity: 0; }
+  }
+}

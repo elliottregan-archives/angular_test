@@ -1,19 +1,3 @@
-appmodule.factory('tempObjects', function() {
-
-  var buildCampaign = undefined;
-
-  var factory = {};
-  factory.getBuildCampaign = function() {
-    return buildCampaign;
-  };
-  factory.updateBuildCampaign = function(incoming_campaign) {
-    buildCampaign = incoming_campaign;
-  };
-  
-  return factory;
-
-});
-
 appmodule.factory('accountData', function() {
 
   var accounts = {
@@ -1102,7 +1086,7 @@ appmodule.factory('accountData', function() {
     return accountList;
   };
   
-  factory.getHandle = function(accountId) {
+  factory.getAccountHandles = function(accountId) {
     var campaignHandles = [];
     
     if (accountId == undefined) {
@@ -1133,7 +1117,6 @@ appmodule.factory('accountData', function() {
       if (active_only) {
         if (accountId) {
           campaignList = factory.getActiveCampaigns(accountId);
-          console.log(accountId)
           Object.keys(campaignList).forEach( function(campaign_id) {
             campaignTitles[campaign_id] = {
               id:campaign_id,
@@ -1166,7 +1149,6 @@ appmodule.factory('accountData', function() {
         if (accountId) {
           campaignList = factory.getActiveCampaigns(accountId);
           Object.keys(campaignList).forEach( function(campaign_id) {
-            console.log(getHandleText(campaignList[campaign_id].handle))
             campaignTitles = campaignTitles.add({
               id:campaign_id,
               account_id: accountId,
@@ -1199,7 +1181,7 @@ appmodule.factory('accountData', function() {
   factory.getMultiAccountCampaignTitles = function() {
     var campaignTitleList = {};
     Object.keys(factory.getAccountList()).forEach(function(account) {
-      campaignTitleList = Object.merge(campaignTitleList,factory.getCampaignTitles(account, true));
+      campaignTitleList = Object.merge(campaignTitleList,factory.getCampaignTitles(account, false));
     });
     return campaignTitleList;
   };
@@ -1254,6 +1236,9 @@ appmodule.factory('accountData', function() {
   };
   
   factory.checkIfCampaignExist = function(check_against_account_ids, campaign_id) {
+    
+    console.log(check_against_account_ids, campaign_id);
+    
     var outcomes = [];
     i = 0;
     //hacky thing to convert a single account string into a one element array
@@ -1265,8 +1250,7 @@ appmodule.factory('accountData', function() {
     
     Object.values(check_against_account_ids).forEach(function(account_id) {
       
-      var search_in_campaigns = factory.getCampaignTitles(account_id, true);
-      
+      var search_in_campaigns = factory.getCampaignTitles(account_id, true, false);
       Object.keys(search_in_campaigns, function(campaign_id_key, campaign_value) {
         outcomes[i] = Object.any(campaign_value,campaign_id);
         i = i+1;

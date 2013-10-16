@@ -1,0 +1,95 @@
+.navicon-button {
+  display: inline-block;
+  padding: 1.3em 1em;
+  transition: 0.4s;
+  cursor: pointer;
+  user-select: none;
+  opacity: .8; }
+  .navicon-button:hover {
+    opacity: 1; }
+    .navicon-button:hover .navicon:before, .navicon-button:hover .navicon:after {
+      transition: 0.2s; }
+
+.navicon {
+  position: relative;
+  width: 1.4em;
+  height: .18em;
+  background: darkgrey;
+  transition: 0.4s;
+  border-radius: 2.5rem; }
+  .navicon:after, .navicon:before {
+    display: block;
+    content: "";
+    height: .18em;
+    width: 1.4rem;
+    background: darkgrey;
+    position: absolute;
+    z-index: -1;
+    transition: 0.4s 0.2s;
+    border-radius: 1rem; }
+  .navicon:after {
+    top: -.35em; }
+  .navicon:before {
+    top: .35em; }
+
+.open:not(.steps) .navicon:before,
+.open:not(.steps) .navicon:after {
+  top: 0 !important; }
+
+.open .navicon:before,
+.open .navicon:after {
+  transition: 0.4s; }
+
+/* Minus */
+.open {
+  transform: scale(0.75); }
+
+/* Arrows */
+.open.larr .navicon:before, .open.larr .navicon:after,
+.open.uarr .navicon:before,
+.open.uarr .navicon:after {
+  width: 1.5rem; }
+.open.larr .navicon:before,
+.open.uarr .navicon:before {
+  transform: rotate(35deg);
+  transform-origin: left top; }
+.open.larr .navicon:after,
+.open.uarr .navicon:after {
+  transform: rotate(-35deg);
+  transform-origin: left bottom; }
+
+.open.uarr {
+  transform: scale(0.75) rotate(90deg); }
+
+/* x and + */
+.open.plus .navicon,
+.open.x .navicon {
+  background: transparent; }
+  .open.plus .navicon:after,
+  .open.x .navicon:after {
+    transform: rotate(45deg); }
+  .open.plus .navicon:before,
+  .open.x .navicon:before {
+    transform: rotate(-45deg); }
+
+.open.plus {
+  transform: scale(0.75) rotate(45deg); }
+
+.open.steps .navicon:before {
+  transform: translateX(0.5rem); }
+.open.steps .navicon:after {
+  transform: translateX(-0.5rem); }
+
+.loading .navicon {
+  color: dodgerblue;
+  box-shadow: inset 0 0;
+  transition: 0.4s, box-shadow 0; }
+
+.open.loading {
+  transform: none;
+  height: 1rem; }
+  .open.loading .navicon {
+    box-shadow: inset 2.5rem 0;
+    transition: 0.4s, box-shadow 2s; }
+    .open.loading .navicon:before, .open.loading .navicon:after {
+      opacity: 0; }

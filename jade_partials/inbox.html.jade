@@ -4,7 +4,7 @@ header.app_header
     h1(ng-bind='title')
   .scroller_wrapper.with_header_padding
     .scroller
-      ul.conversations(ng-repeat='campaign in campaignList')
+      ul.conversations(ng-repeat='campaign in campaignTitleList')
         li.instance(ng-repeat='conversation in campaign.conversations')
           aside.btn_set.vert
             button.btn !

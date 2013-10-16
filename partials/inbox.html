@@ -1,43 +1,44 @@
+
 <header class="app_header">
   <button ng-click="toggleSidebar('right')" class="btn icon left"><i class="icon-menu"></i></button>
   <h1 ng-bind="title"></h1>
 </header>
-<div class="scroller_wrapper  with_header_padding">
+<div class="scroller_wrapper with_header_padding">
   <div class="scroller">
-    <ul class="conversations" ng-repeat="campaign in campaignList">
+    <ul ng-repeat="campaign in campaignTitleList" class="conversations">
       <li ng-repeat="conversation in campaign.conversations" class="instance">
         <aside class="btn_set vert">
           <button class="btn">!</button>
         </aside>
         <article class="card">
-          <button ng-click="hearIt(instance)" class="btn heard heard_{{instance.heard}}" ui-if="instance.author != 'You'">heard!</button>
+          <button class="btn heard heard_">{{instance.heard}}(ng-click='hearIt(instance)', ui-if='instance.author != \'You\'') heard!</button>
           <h4 ng-bind="instance.author"></h4>
           <time ng-bind="instance.time"></time>
           <p ng-bind="instance.text" ng-click="expandReplies($index)"></p>
-          <ul class="replies" ng-show="isExpanded($index) && instance.comments[2]">
+          <ul ng-show="isExpanded($index) &amp;&amp; instance.comments[2]" class="replies">
             <li ng-repeat="comment in instance.comments | limitTo:(instance.comments.length-2)" class="reply">
-              length: 
+              length:
               {{$last}}
-              <button ng-click="hearIt(comment)" class="btn heard heard_{{comment.heard}}" ui-if="comment.author != 'You'">heard!</button>
+              <button class="btn heard heard_">{{comment.heard}}(ng-click='hearIt(comment)', ui-if='comment.author != \'You\'') heard!</button>
               <h5 ng-bind="comment.author"></h5>
               <p ng-bind="comment.text"></p>
             </li>
           </ul>
           <ul class="replies">
-            <li class="reply" ng-show="instance.comments[(instance.comments.length-2)]">
-              <button ng-click="hearIt(instance.comments[(instance.comments.length-2)])" class="btn heard heard_{{instance.comments[(instance.comments.length-2)].heard}}" ui-if="instance.comments[(instance.comments.length-2)].author != 'You'">heard!</button>
+            <li ng-show="instance.comments[(instance.comments.length-2)]" class="reply">
+              <button class="btn heard heard_">{{instance.comments[(instance.comments.length-2)].heard}}(ng-click='hearIt(instance.comments[(instance.comments.length-2)])', ui-if='instance.comments[(instance.comments.length-2)].author != \'You\'') heard!</button>
               <h5 ng-bind="instance.comments[(instance.comments.length-2)].author"></h5>
               <p ng-bind="instance.comments[(instance.comments.length-2)].text"></p>
             </li>
-            <li class="reply" ng-show="instance.comments[(instance.comments.length-1)]">
-              <button ng-click="hearIt(instance.comments[(instance.comments.length-1)])" class="btn heard heard_{{instance.comments[(instance.comments.length-1)].heard}}" ui-if="instance.comments[(instance.comments.length-1)].author != 'You'">heard!</button>
+            <li ng-show="instance.comments[(instance.comments.length-1)]" class="reply">
+              <button class="btn heard heard_">{{instance.comments[(instance.comments.length-1)].heard}}(ng-click='hearIt(instance.comments[(instance.comments.length-1)])', ui-if='instance.comments[(instance.comments.length-1)].author != \'You\'') heard!</button>
               <h5 ng-bind="instance.comments[(instance.comments.length-1)].author"></h5>
               <p ng-bind="instance.comments[(instance.comments.length-1)].text"></p>
             </li>
           </ul>
-          <form class="reply" ng-submit="addReply(newCommentText, instance.comments)">
-            <input type="text" name="new_comment" ng-model="newCommentText" />
-            <button class="btn"type="submit">reply</button>
+          <form ng-submit="addReply(newCommentText, instance.comments)" class="reply">
+            <input type="text" name="new_comment" ng-model="newCommentText"/>
+            <button type="submit" class="btn">reply</button>
           </form>
         </article>
       </li>

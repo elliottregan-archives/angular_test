@@ -12,35 +12,13 @@
           li.option(ng-click='chooseToDuplicate(true); duplicate_mode = true')
             i.icon-flash.bg.orange
             | Duplicate Existing 
-      .step_two.fade(ng-switch-when='two')  
-        fieldset.duplicate(ng-if='duplicate_mode')
-          .select.expandable(ng-click='toggleCampaignSelector()')
-            .status.push_right
-              i.icon-down-open(ng-show='!show_campaign_options')
-              i.icon-up-open(ng-show='show_campaign_options')
-            .selection(ng-class='{highlighted : show_campaign_options, pristine : !campaign_to_duplicate}')
-              i.icon-ok
-              span(ng-if='campaign_to_duplicate', ng-bind='campaign_to_duplicate.title')
-              span(ng-if='!campaign_to_duplicate') Choose a campaign
-            ul.options.select_dropdown(ng-if='show_campaign_options')
-              li.option(ng-repeat='campaign in campaignTitleList', ng-click='selectCampaignToDuplicate(campaign)', ng-class='{selected : campaign_to_duplicate.id == campaign.id}')
-                i.icon-ok
-                span(ng-bind='campaign.title')
+      .step_two.fade(ng-switch-when='two') 
+        fieldset.duplicate(ng-show='duplicate_mode')
+          custom-select(options='campaignTitleList', placeholder='Choose a campaign', returnValue='campaign_to_duplicate') 
         fieldset
           input(type='text', placeholder='Type a title for the new campaign', ng-model='new_campaign_title')
-        fieldset  
-          .select.expandable(ng-click='toggleHandleSelector()')
-            .status.push_right
-              i.icon-down-open(ng-show='!show_handle_options')
-              i.icon-up-open(ng-show='show_handle_options')
-            .selection(ng-class='{highlighted : show_handle_options, pristine : !handle_to_use}')
-              i.icon-ok
-              span(ng-if='handle_to_use', ng-bind='handle_to_use.text')
-              span(ng-if='!handle_to_use.text') Choose a handle
-            ul.options.select_dropdown(ng-if='show_handle_options')
-              li.option(ng-repeat='handle in handleList', ng-click='selectHandleToUse(handle)', ng-class='{selected : handle_to_use.id == handle.id}')
-                i.icon-ok
-                span(ng-bind='handle.text')
+        fieldset
+          custom-select(options='handleList', placeholder='Choose a handle', returnValue='handle_to_use')
         .btnset.action.two_btns(ng-if="!duplicate_mode")
           button.btn(ng-click='toggleNewMode()', type='button') cancel
           button.btn.positive(type='submit', ng-click='createCampaign(new_campaign_title, handle_to_use.id, is_local, new_campaign_locale, discoverable)') Continue
@@ -67,11 +45,11 @@ header.app_header
           button.checkbox(ng-click='selectCampaign(\'{{campaign.id}}\', \'{{accountId}}\')')
             i.icon-ok
     button.btn.fadded.full_width(ng-if='archiveExists', ng-click='toggleArchived()')
-      span(ng-show='view_archived == true') hide archived
-      span(ng-show='view_archived == false') view archived
-    ul.object-list(ng-show='view_archived == true')
+      span(ng-show='view_archived') hide archived
+      span(ng-show='!view_archived') view archived
+    ul.object-list(ng-if='view_archived')
       li(ng-repeat='campaign in archivedCampaignList')
-        button.btn.right(ng-click='unarchiveListItem(campaign, campaignList)') unarchive
+        button.btn.right(ng-click='unarchiveListItem(campaign.id)') unarchive
         hgroup
           a(href='#/account/{{accountId}}/campaign/{{campaign.id}}/conversations')
             h2 @{{campaign.handle}}
@@ -80,4 +58,4 @@ header.app_header
         .button_item
           a.btn(href='{{view_link}}', ng-class='') view
         .button_item
-          button.btn(ng-class='{disabled: disable_single_edit_buttons}', ng-click='disable_single_edit_buttons || archiveListItem(selected_campaigns, campaignList)') archive
+          button.btn(ng-class='{disabled: disable_single_edit_buttons}', ng-click='disable_single_edit_buttons || archiveListItem(selected_campaigns)') archive

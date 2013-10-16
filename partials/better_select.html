@@ -1,0 +1,8 @@
+
+<div ng-click="toggleSelector()" class="select expandable">
+  <div class="status push_right"><i ng-show="!show_options" class="icon-down-open"></i><i ng-show="show_options" class="icon-up-open"></i></div>
+  <div ng-class="{highlighted : show_options, pristine : !selected}" class="selection"><i class="icon-ok"></i><span ng-if="returnvalue" ng-bind="returnvalue.text || returnvalue.title"></span><span ng-if="!returnvalue" ng-bind="placeholder"></span></div>
+  <ul ng-if="show_options" class="options select_dropdown">
+    <li ng-repeat="option in options" ng-click="selectOption(option)" ng-class="{selected : returnvalue.id == option.id}" class="option"><i class="icon-ok"></i><span ng-bind="option.text || option.title"></span></li>
+  </ul>
+</div>

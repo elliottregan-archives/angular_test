@@ -259,7 +259,7 @@ function userCtr($scope, userData, $stateParams, accountData) {
     
 
     Object.keys($scope.accountList).forEach(function(account_id) {
-      $scope.accountList[account_id].handle = (accountData.getHandle(account_id));
+      $scope.accountList[account_id].handle = (accountData.getAccountHandles(account_id));
     });
 
     $scope.title = 'Settings';
@@ -271,7 +271,7 @@ function userCtr($scope, userData, $stateParams, accountData) {
 
 };
 
-function accountCtr($scope, $stateParams, $location, tempObjects, accountData) {
+function accountCtr($scope, $stateParams, $location, accountData) {
   console.log("initialize account controller");
   init(); 
   
@@ -288,15 +288,11 @@ function accountCtr($scope, $stateParams, $location, tempObjects, accountData) {
     $scope.accountId = $stateParams.accountId;
     $scope.array_of_account_ids = [];
     $scope.array_of_account_ids[0] = $scope.accountId;
-    $scope.handleList = accountData.getHandle($scope.accountId);
-    $scope.campaignList = accountData.getActiveCampaigns($scope.accountId);
-    $scope.campaignTitleList = accountData.getCampaignTitles($scope.accountId, true, true);
-    console.log($scope.campaignTitleList)
-    $scope.archivedCampaignList = accountData.getArchivedCampaigns($scope.accountList[$scope.accountId].id);    
+    $scope.handleList = accountData.getAccountHandles($scope.accountId);
   };
 };
 
-function multiAccountsCtr($scope, $stateParams, $location, tempObjects, accountData) {
+function multiAccountsCtr($scope, $stateParams, $location, accountData) {
   console.log("initialize all accounts controller");
   init();  
   function init() {
@@ -309,54 +305,55 @@ function multiAccountsCtr($scope, $stateParams, $location, tempObjects, accountD
   };
 };
 
-function dashboardCtr($scope, $stateParams, $location, tempObjects, accountData) {
+function dashboardCtr($scope, $stateParams, $location, accountData) {
   console.log("initialize dashboard controller");
-
+  $scope.campaignTitleList = accountData.getCampaignTitles($scope.accountId, true, true);
+  $scope.archivedCampaignList = accountData.getArchivedCampaigns($scope.accountList[$scope.accountId].id);    
+  
+  console.log($scope.campaignTitleList)
+  
   checkForArchived();
+  
   $scope.view_archived = false;
   $scope.edit_mode = false;
   $scope.new_mode = false;
-  
   $scope.selected_campaigns = [];
   
-  $scope.archiveListItem = function(clicked_list_item, parent_object) {
+  $scope.archiveListItem = function(clicked_campaign_id) {
     $scope.toggleEditMode();
-    $scope.campaignList[clicked_list_item].archived = true;
-    $scope.archivedCampaignList[clicked_list_item] = angular.copy($scope.campaignList[clicked_list_item]);
-    $scope.campaignList = Object.reject($scope.campaignList, clicked_list_item);    
     
+    temp_updated_campaign = {
+      archived : true
+    }
+        
+    accountData.updateCampaign($scope.accountId, clicked_campaign_id, temp_updated_campaign);
+    
+    $scope.archivedCampaignList = accountData.getArchivedCampaigns($scope.accountList[$scope.accountId].id);    
+    $scope.campaignTitleList = accountData.getCampaignTitles($scope.accountId, true, true); 
+
     checkForArchived();
   };
   
-  $scope.unarchiveListItem = function(clicked_list_item, relocate_to_object) {
-    $scope.archivedCampaignList[clicked_list_item.id].archived = false;
-    $scope.campaignList[clicked_list_item.id] = angular.copy($scope.archivedCampaignList[clicked_list_item.id]);
-    $scope.archivedCampaignList = Object.reject($scope.archivedCampaignList, clicked_list_item.id);
+  $scope.unarchiveListItem = function(clicked_campaign_id) {
+    
+    temp_updated_campaign = {
+      archived : false
+    }
+        
+    accountData.updateCampaign($scope.accountId, clicked_campaign_id, temp_updated_campaign);
+    
+    $scope.archivedCampaignList = accountData.getArchivedCampaigns($scope.accountList[$scope.accountId].id);    
+    $scope.campaignTitleList = accountData.getCampaignTitles($scope.accountId, true, true); 
+
     checkForArchived();
   };
 
   $scope.step_one = true;
   $scope.new_campaign_title = '';
   
-  $scope.selectCampaignToDuplicate = function(campaign_object) {
-    $scope.campaign_to_duplicate = campaign_object;
-  };
-  
   $scope.chooseToDuplicate = function(choice) {
     $scope.duplicate_mode = choice;
     $scope.new_mode_step = 'two';
-  };
-  
-  $scope.toggleCampaignSelector = function() {
-    $scope.show_campaign_options = !$scope.show_campaign_options;
-  };
-  
-  $scope.selectHandleToUse = function(handle_object) {
-    $scope.handle_to_use = handle_object;
-  };
-  
-  $scope.toggleHandleSelector = function() {
-    $scope.show_handle_options = !$scope.show_handle_options;
   };
   
   function checkForArchived() {
@@ -416,20 +413,6 @@ function dashboardCtr($scope, $stateParams, $location, tempObjects, accountData)
     
   };
   
-  $scope.duplicateMode = function(state, clicked_campaign) {
-    $scope.duplicating_mode = state;
-    
-    if (clicked_campaign != '') {
-      $scope.temporary_duplicate = angular.copy($scope.campaignList[clicked_campaign]);
-      $scope.temp_handle = $scope.temporary_duplicate.handle; 
-    }
-    else {
-      $scope.temporary_duplicate = '';
-      $scope.temp_handle = ''; 
-    }
-    $scope.toggleEditMode();
-  };
-  
   $scope.toggleEditMode = function() {
     $scope.edit_mode = !$scope.edit_mode;
     $scope.new_mode = false;
@@ -454,7 +437,7 @@ function dashboardCtr($scope, $stateParams, $location, tempObjects, accountData)
   $scope.deleteAnyListItems = function(checked_items, parent_object) { //deletes any item from an ng-repeat list
       var shortened_list = Object.reject(parent_object, checked_items);
       $scope.toggleEditMode();
-      $scope.campaignList = shortened_list;
+      parent_object = shortened_list;
   };
   
   function Campaign(id, handle, title, local, location, discoverable) {
@@ -487,8 +470,6 @@ function dashboardCtr($scope, $stateParams, $location, tempObjects, accountData)
     var datetimeId = Date.now();
         
     var temp_builder = new Campaign(datetimeId, handle, new_campaign_title, is_local, new_campaign_locale, discoverable);
-    tempObjects.updateBuildCampaign(temp_builder);
-    tempObjects.updateBuildCampaign($scope.campaignList[$stateParams.campaignId]);
     
     accountData.addCampaign($scope.accountId, temp_builder.id, temp_builder);
     $scope.campaignTitleList = accountData.getCampaignTitles($scope.accountId, true, true);
@@ -504,25 +485,23 @@ function dashboardCtr($scope, $stateParams, $location, tempObjects, accountData)
     
     
     var temporary_duplicate = {};
+    console.log($scope.accountId, campaign_id)
     var temporary_duplicate = accountData.getMetaData($scope.accountId, campaign_id);
     
     temporary_duplicate.title = title;
     temporary_duplicate.id = datetime;
     temporary_duplicate.handle = handle_id_to_use;
     temporary_duplicate.archived =false;
-    
-    console.log(temporary_duplicate)
-    
+        
     accountData.addCampaign($scope.accountId, datetime, angular.copy(temporary_duplicate));
-      
-    $scope.campaignList = accountData.getActiveCampaigns($scope.accountId);
-    
-    console.log($scope.campaignList)
-    
+    $scope.campaignTitleList = accountData.getCampaignTitles($scope.accountId, true, true); 
+          
+    console.log($scope.campaignTitleList)
+          
     $scope.duplicating_mode = false;
     
     $scope.buildCampaign = angular.copy(temporary_duplicate);
-    $location.path( '/account/'+$scope.accountId+'/campaign/'+$scope.campaignList[datetime].id+'/edit' );
+    $location.path( '/account/'+$scope.accountId+'/campaign/'+temporary_duplicate.id+'/edit' );
   };
   
 };
@@ -534,7 +513,6 @@ function campaignCtr($scope, $state, $stateParams, $location, accountData) {
 
   $scope.$on("MESSAGE_RECEIVED", function(event, campaignIndex, message, messageId) {
     console.log("message received by campaign controller");
-    console.log($scope.viewCampaign.conversations)
     $scope.viewCampaign.conversations = accountData.getConversations(["account01"], [campaignIndex]);
   });
   
@@ -610,7 +588,7 @@ function campaignCtr($scope, $state, $stateParams, $location, accountData) {
     
 };
 
-function campaignBuilderCtr($scope, $location, $stateParams, tempObjects, accountData) {
+function campaignBuilderCtr($scope, $location, $stateParams, accountData) {
   console.log("initialize builder controller");  
   init();
   

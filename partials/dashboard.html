@@ -13,26 +13,14 @@
         </ul>
       </div>
       <div ng-switch-when="two" class="step_two fade"> 
-        <fieldset ng-if="duplicate_mode" class="duplicate">
-          <div ng-click="toggleCampaignSelector()" class="select expandable">
-            <div class="status push_right"><i ng-show="!show_campaign_options" class="icon-down-open"></i><i ng-show="show_campaign_options" class="icon-up-open"></i></div>
-            <div ng-class="{highlighted : show_campaign_options, pristine : !campaign_to_duplicate}" class="selection"><i class="icon-ok"></i><span ng-if="campaign_to_duplicate" ng-bind="campaign_to_duplicate.title"></span><span ng-if="!campaign_to_duplicate">Choose a campaign</span></div>
-            <ul ng-if="show_campaign_options" class="options select_dropdown">
-              <li ng-repeat="campaign in campaignTitleList" ng-click="selectCampaignToDuplicate(campaign)" ng-class="{selected : campaign_to_duplicate.id == campaign.id}" class="option"><i class="icon-ok"></i><span ng-bind="campaign.title"></span></li>
-            </ul>
-          </div>
+        <fieldset ng-show="duplicate_mode" class="duplicate">
+          <custom-select options="campaignTitleList" placeholder="Choose a campaign" returnValue="campaign_to_duplicate"> </custom-select>
         </fieldset>
         <fieldset>
           <input type="text" placeholder="Type a title for the new campaign" ng-model="new_campaign_title"/>
         </fieldset>
-        <fieldset> 
-          <div ng-click="toggleHandleSelector()" class="select expandable">
-            <div class="status push_right"><i ng-show="!show_handle_options" class="icon-down-open"></i><i ng-show="show_handle_options" class="icon-up-open"></i></div>
-            <div ng-class="{highlighted : show_handle_options, pristine : !handle_to_use}" class="selection"><i class="icon-ok"></i><span ng-if="handle_to_use" ng-bind="handle_to_use.text"></span><span ng-if="!handle_to_use.text">Choose a handle</span></div>
-            <ul ng-if="show_handle_options" class="options select_dropdown">
-              <li ng-repeat="handle in handleList" ng-click="selectHandleToUse(handle)" ng-class="{selected : handle_to_use.id == handle.id}" class="option"><i class="icon-ok"></i><span ng-bind="handle.text"></span></li>
-            </ul>
-          </div>
+        <fieldset>
+          <custom-select options="handleList" placeholder="Choose a handle" returnValue="handle_to_use"></custom-select>
         </fieldset>
         <div ng-if="!duplicate_mode" class="btnset action two_btns">
           <button ng-click="toggleNewMode()" type="button" class="btn">cancel</button>
@@ -68,10 +56,10 @@
         </div>
       </li>
     </ul>
-    <button ng-if="archiveExists" ng-click="toggleArchived()" class="btn fadded full_width"><span ng-show="view_archived == true">hide archived</span><span ng-show="view_archived == false">view archived</span></button>
-    <ul ng-show="view_archived == true" class="object-list">
+    <button ng-if="archiveExists" ng-click="toggleArchived()" class="btn fadded full_width"><span ng-show="view_archived">hide archived</span><span ng-show="!view_archived">view archived</span></button>
+    <ul ng-if="view_archived" class="object-list">
       <li ng-repeat="campaign in archivedCampaignList">
-        <button ng-click="unarchiveListItem(campaign, campaignList)" class="btn right">unarchive</button>
+        <button ng-click="unarchiveListItem(campaign.id)" class="btn right">unarchive</button>
         <hgroup><a href="#/account/{{accountId}}/campaign/{{campaign.id}}/conversations">
             <h2>@{{campaign.handle}}</h2>
             <h1>{{campaign.title}}</h1></a></hgroup>
@@ -80,7 +68,7 @@
     <div ng-if="edit_mode" class="dashboard_toolbar">
       <div class="button_item"><a href="{{view_link}}" ng-class="" class="btn">view</a></div>
       <div class="button_item">
-        <button ng-class="{disabled: disable_single_edit_buttons}" ng-click="disable_single_edit_buttons || archiveListItem(selected_campaigns, campaignList)" class="btn">archive</button>
+        <button ng-class="{disabled: disable_single_edit_buttons}" ng-click="disable_single_edit_buttons || archiveListItem(selected_campaigns)" class="btn">archive</button>
       </div>
     </div>
   </section>
