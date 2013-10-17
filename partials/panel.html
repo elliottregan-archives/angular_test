@@ -34,7 +34,7 @@
     <button type="submit" ng-show="panel=='Create Question'" ng-click="saveQuestion()" ui-event="{click : 'togglePanel()'}" class="btn positive"><span ng-if="!editing_question">add question</span><span ng-if="editing_question">save changes</span></button>
   </div>
   <div ng-show="panel=='share'">
-    <label for="share_email">Enter a friend's email to share your reward with them:</label>
+    <label for="share_email">Enter a friend's email to share your bonus with them:</label>
     <input type="email" name="share_email" placeholder="friend@email.com"/>
     <button ng-click="togglePanel()" class="btn">send!</button>
   </div>

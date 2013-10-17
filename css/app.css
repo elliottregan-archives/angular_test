@@ -31,7 +31,7 @@ a:focus {
   outline: none;
 }
 
-input {
+input, textarea {
   -webkit-appearance: none;
 }
 
@@ -1300,6 +1300,7 @@ fieldset.padded {
   z-index: 100;
   background-color: #ffffff;
   border-bottom: 1px solid #cbcccb;
+  text-align: center;
 }
 
 .breadcrumbs > * {

@@ -25,14 +25,14 @@ nav.campaign_nav.dropdown(ng-if='campaignNav_true', ng-click='toggleNavbar()')
         i.icon-chart-bar
     li(ng-hide='multipleViewCampaigns || currentPage == "/edit"')
       a(href='#/account/{{accountId}}/campaign/{{campaignId}}/edit')
-        | edit
+        | Edit
         i.icon-pencil
     li(ng-hide='currentPage == "/rewards"')
       a(href='#/account/{{accountId}}/campaign/{{campaignId}}/rewards')
-        | rewards
+        | Bonuses
         i.icon-trophy
     li(ng-hide='currentPage == "/contacts"')
       a(href='#/account/{{accountId}}/campaign/{{campaignId}}/contacts')
-        | contacts
+        | Contacts
         i.icon-at
 ui-view.campaign_view.fade

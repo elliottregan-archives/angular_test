@@ -3,9 +3,8 @@
   <div ng-click="togglePanel()" class="module_fader"></div>
   <div ng-include="&quot;partials/panel.html&quot;" class="module editor"></div>
 </aside>
-<nav class="breadcrumbs"><a href="#/account/{{accountId}}/campaign/{{buildCampaign.id}}/conversations" ng-show="currentStep==0" class="btn soft left"><i class="icon-cancel"></i></a>
-  <button ng-click="retreatStep()" ng-show="currentStep&gt;=1" class="btn soft left"><i class="icon-left-open"></i></button>
-  <h2>Step {{steps[currentStep]+1}}</h2>
+<nav class="breadcrumbs"><a href="#/account/{{accountId}}/campaign/{{buildCampaign.id}}/conversations" ng-show="currentStep==0" class="btn soft push_left"><i class="icon-cancel"></i></a>
+  <button ng-click="retreatStep()" ng-show="currentStep&gt;=1" class="btn soft push_left"><i class="icon-left-open"></i></button>
   <ol class="dots right">
     <li ng-class="{selected: currentStep==n}" ng-repeat="n in steps" ng-click="changeStep(n)" class="dot"></li>
   </ol>
@@ -24,7 +23,7 @@
         </div>
         <div ng-switch-when="1">
           <form method="post" action="">
-            <h3>Reward details:</h3>
+            <h3>Bonus details:</h3>
             <label for="personal_message" ng-model="buildCampaign.message">Create a personal message for the recipient:</label>
             <textarea id="personal_message" placeholder="(optional)"></textarea>
             <label for="title">Title:</label>
@@ -52,11 +51,11 @@
               </fieldset>
               <fieldset>
                 <input id="sharable_three" ng-model="sharability" type="radio" name="sharability" ng-true-value="sharable_three" class="inline"/>
-                <label for="sharable_three" class="inline">three times<small>(User may share this reward with up to three (3) contacts.)</small></label>
+                <label for="sharable_three" class="inline">three times<small>(User may share this bonus with up to three (3) contacts.)</small></label>
               </fieldset>
               <fieldset>
                 <input id="sharable_any" ng-model="sharability" type="radio" name="sharability" ng-true-value="sharable_any" class="inline"/>
-                <label for="sharable_any" class="inline">openly sharable<small>(This reward can be shared freely through any means (blogs, social networks, email, etc.)</small></label>
+                <label for="sharable_any" class="inline">openly sharable<small>(This bonus can be shared freely through any means (blogs, social networks, email, etc.)</small></label>
               </fieldset>
             </div>
           </form>

@@ -32,7 +32,7 @@ header
       span(ng-if='!editing_question') add question
       span(ng-if='editing_question') save changes
   div(ng-show='panel==\'share\'')
-    label(for='share_email') Enter a friend's email to share your reward with them:
+    label(for='share_email') Enter a friend's email to share your bonus with them:
     input(type='email', name='share_email', placeholder='friend@email.com')
     button.btn(ng-click='togglePanel()') send!
   div(ng-show='panel==\'social_accounts\'') This is where you would find a list of your connected social accounts.
