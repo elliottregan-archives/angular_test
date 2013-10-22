@@ -1,7 +1,7 @@
 ol.questions(ui-sortable='sortableOptions')
   li.question(ng-repeat='question in buildCampaign.questionsList')
     // .handle.right drag
-    .push_right
+    .push_right.edit_tools
       button.soft.btn(ng-click='editQuestion($index)') edit
       button.soft.btn(ng-click='deleteQuestion($index)') delete
     div(ng-if='(question.type == \'binary\') || (question.type == \'rating\') || (question.type == \'multipleChoice\')')

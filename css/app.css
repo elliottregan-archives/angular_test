@@ -283,7 +283,6 @@ dd:after {
 i.sup {
   font-size: .5em;
   padding: 0;
-  text-shadow: 0 1px 1px #ffffff;
 }
 
 .dropdown {
@@ -639,10 +638,10 @@ nav {
 
 .tag {
   padding: 0 1.8em 0 .8em;
-  border: 1px solid #dbdbdb;
-  border-radius: .4em;
+  border: 2px solid #bdbdbd;
+  border-radius: .5em;
   margin: 0 4px 0 0;
-  background-color: #f0f0f0;
+  background-color: #ffffff;
   position: relative;
   
   height: 26px;
@@ -688,7 +687,6 @@ nav {
 }
 
 .form_response {
-  background-color: #ffffff;
   padding: 20px;
   margin: 0;
   border-top: 1px none #e7e7e7;
@@ -697,11 +695,11 @@ nav {
 
 .conversations {
   padding: 0 0 10px 0;
-  background: #ababab;
+  background: #d5d5d5;
 }
 
 .instance.card {
-  margin: 10px 0px 10px;
+  margin: 10px 6px 10px;
   background-color: #ffffff;
   border: none;
   border-radius: 0;
@@ -883,6 +881,35 @@ input[type="text"].inline {
 
 /* @group Form Stuff */
 
+.form {
+  margin: ;
+}
+
+.form h1 {
+  font-weight: 400;
+  font-size: 1.2em;
+  margin: 0;
+  color: #565e71;
+  text-transform: uppercase;
+}
+
+.form h2 {
+  font-size: .8em;
+  color: #838076;
+  margin: 0;
+  font-weight: 300;
+}
+
+h1.step_title {
+  margin: 0 10px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.form hgroup {
+  margin-bottom: 20px;
+}
+
 form h3 {
   margin: .5em 0;
 }
@@ -891,16 +918,21 @@ form li:first-of-type h3 {
   margin-top: 1em;
 }
 
+.edit_tools .btn.soft {
+  color: #959595;
+  text-transform: uppercase;
+}
+
 fieldset.padded {
   padding: 20px 0;
 }
 
 .question {
-  margin: 10px 0;
+  margin: 40px 0;
 }
 
 .question:first-of-type {
-  margin-top: 0;
+  margin-top: 20px;
 }
 
 .answers li {
@@ -1065,9 +1097,7 @@ fieldset.padded {
   background: none;
   color: #83949e;
   box-shadow: none;
-  display: table-cell;
   margin: 0;
-  height: 3em;
   font-size: 1.2em;
   padding: .6em 1em;
   border-radius: 0;
@@ -1825,7 +1855,7 @@ textarea {
   border-radius: 6px;
 }
 
-.card.padded {
+.padded {
   padding: 10px;
   margin: 10px;
 }
@@ -2045,3 +2075,139 @@ input.object-list-search:focus {
   }
 
 }
+
+/*/* @group Colored Theme 1 *!/
+
+.app_header {
+  background-color: #677580;
+  color: #dad8d2;
+  border-bottom: 2px solid #414a51;
+}
+
+.conversations {
+  background-color: #a2a9ae;
+}
+
+.app_header h1 {
+  color: #e6e6e6;
+}
+
+.instance .header_tools .btn {
+  margin: .5em;
+  padding: .6em;
+  height: auto;
+  line-height: 1em;
+}
+
+.instance i {
+  font-size: 1.3em;
+}
+
+.tools_panel .app_header {
+  background-color: #796686;
+}
+
+.tools_panel .btn {
+  color: #fbfbfb;
+  border-color: #756984;
+  border-width: 2px;
+  background-color: #756984;
+}
+
+/* @end *!/
+
+/* @group Color Theme 2 *!/
+
+
+.app_header {
+  background-color: #4f4971;
+}
+
+.conversations {
+  background: url(../images/01.png) #a2a9ae;
+}
+
+/* @end *!/*/
+
+/* @group Untitled Group */
+
+.app_header {
+  background-color: rgb(60, 62, 70);
+  border-bottom: 1px solid #303338;
+  color: #777c8d;
+}
+
+.app_header h2 {
+  color: #777c8d;
+}
+
+.conversations {
+  background: url(none) #3c3e47;
+}
+
+.instance.card {
+  background-color: #5a5f70;
+  color: #d6d6d6;
+}
+
+.instance_header {
+  box-shadow: none;
+  border-bottom-style: none;
+}
+
+.question {
+  margin: .5em 0;
+  border-left: 4px solid #a6555a;
+  padding-left: 1em;
+  margin-left: -.5em;
+}
+
+.question:nth-of-type(even) {
+  border-left-color: #339a7f;
+}
+
+.question:nth-of-type(3) {
+  border-left-color: #989a31;
+}
+
+
+.form_response {
+  border-bottom: none;
+}
+
+.instance .one_line {
+  border-top: none;
+}
+
+.comments {
+  background-color: #555a69;
+  border-top: none;
+}
+
+.btn.icon.expand {
+  background-color: #555a69;
+  border: none;
+}
+
+.tools_panel .app_header {
+  background-color: #716686;
+}
+
+.tools_panel h1 {
+  color: #ebebeb;
+}
+
+.tools_panel .scroller, .tools_panel .tools_list section, .tools_panel .notes {
+  background-color: #84809b;
+  color: #e2e2e2;
+  border: none;
+}
+
+.tools_panel .btn {
+  color: #fbfbfb;
+  border-color: #756984;
+  border-width: 2px;
+  background-color: #756984;
+}
+
+/* @end */

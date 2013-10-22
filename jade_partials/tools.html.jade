@@ -7,17 +7,18 @@ aside.tools_panel.conversation_view(ng-class='{visible: conversationDetailView}'
     .scroller
       .tools_list
         section
-          h3 importance:
-          p(ng-bind='viewConversation.importance')
-        section  
-          h3 tags:
-          ul.tag_list
-            li.inline.tag(ng-repeat='tag in viewConversation.tags')
-              span(ng-bind='tag')
-              span.close_btn(ng-click='removeTag(tag, viewConversation.tags)') x
-          form.one_line(ng-submit='addTopicTag(tag_to_submit, viewConversation)', name='topic_tag')
-            button.btn(type='submit') tag
-            input(type='text', ng-model='tag_to_submit')
+          fieldset.inline
+            input(type="checkbox", ng-model='viewConversation.importance')
+            label important
+        //- section  
+        //-   h3 tags:
+        //-   ul.tag_list
+        //-     li.inline.tag(ng-repeat='tag in viewConversation.tags')
+        //-       span(ng-bind='tag')
+        //-       span.close_btn(ng-click='removeTag(tag, viewConversation.tags)') x
+        //-   form.one_line(ng-submit='addTopicTag(tag_to_submit, viewConversation)', name='topic_tag')
+        //-     button.btn(type='submit') tag
+        //-     input(type='text', ng-model='tag_to_submit')
         section 
           h3 assigned users:
           ul.tag_list

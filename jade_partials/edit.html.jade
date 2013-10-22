@@ -14,11 +14,10 @@ nav.breadcrumbs
     | Save Changes
 .scroller_wrapper.with_breadcrumb_padding
   .scroller
-    .card.padded
-      h2(ng-bind='buildCampaign.title')
-      h3(ng-bind='buildCampaign.handle')
-      section(ng-switch='currentStep')
+    .form
+      section.card.padded(ng-switch='currentStep')
         div(ng-switch-when='0')
+          h1(type='text', ng-bind='campaignTitle')
           div(ng-include src='"partials/form_not_completed.html"')
           button.middle.confirm.btn(ng-click='togglePanel(\'Create Question\')') + New Question
         div(ng-switch-when='1')
@@ -61,6 +60,7 @@ nav.breadcrumbs
                   small
                     | (This bonus can be shared freely through any means (blogs, social networks, email, etc.)
         div(ng-switch-when='2')
+          h3 Connect Social Accounts:
           ul
             li
               | Facebook Account
@@ -71,7 +71,7 @@ nav.breadcrumbs
           button.btn(ng-click='togglePanel(\'social_accounts\')') Add new media account
         div(ng-switch-when='3')
           form(ng-submit='sendInvite(first, last, invite_email, level, buildCampaign.permissions.pending)')
-            h3 Send email invitations to others to help manage this campaign.
+            h3 Add Team:
             label(for='name') Full Name:
             input(ng-model='name', type='text', name='name', placeholder='name')
             label(for='email') Email:

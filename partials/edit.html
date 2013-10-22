@@ -13,11 +13,10 @@
 </nav>
 <div class="scroller_wrapper with_breadcrumb_padding">
   <div class="scroller">
-    <div class="card padded">
-      <h2 ng-bind="buildCampaign.title"></h2>
-      <h3 ng-bind="buildCampaign.handle"></h3>
-      <section ng-switch="currentStep">
+    <div class="form">
+      <section ng-switch="currentStep" class="card padded">
         <div ng-switch-when="0">
+          <h1 type="text" ng-bind="campaignTitle"></h1>
           <div ng-include src="&quot;partials/form_not_completed.html&quot;"></div>
           <button ng-click="togglePanel('Create Question')" class="middle confirm btn">+ New Question</button>
         </div>
@@ -61,6 +60,7 @@
           </form>
         </div>
         <div ng-switch-when="2">
+          <h3>Connect Social Accounts:</h3>
           <ul>
             <li>Facebook Account<small class="status">connected</small></li>
             <li>Twitter Account<small class="status">connected</small></li>
@@ -69,7 +69,7 @@
         </div>
         <div ng-switch-when="3">
           <form ng-submit="sendInvite(first, last, invite_email, level, buildCampaign.permissions.pending)">
-            <h3>Send email invitations to others to help manage this campaign.</h3>
+            <h3>Add Team:</h3>
             <label for="name">Full Name:</label>
             <input ng-model="name" type="text" name="name" placeholder="name"/>
             <label for="email">Email:</label>

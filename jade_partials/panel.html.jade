@@ -1,31 +1,19 @@
 header
   h1.center(ng-bind='panel')
 .content_wrapper
-  .card.padded(ng-show='panel==\'Create Question\'')
-    h3 Choose Question Type:
-    ul.btnset.five_btns.options
-      li.btn(ng-click='SelectQuestionType(\'binary\', buildQuestion)', ng-class='{selected: buildQuestion.type == \'binary\'}')
-        | Yes/No
-      li.btn(ng-click='SelectQuestionType(\'rating\', buildQuestion)', ng-class='{selected: buildQuestion.type == \'rating\'}')
-        | Rating
-      li.btn(ng-click='SelectQuestionType(\'freeText\', buildQuestion)', ng-class='{selected: buildQuestion.type == \'freeText\'}')
-        | Text
-      li.btn(ng-click='SelectQuestionType(\'multipleChoice\', buildQuestion)', ng-class='{selected: buildQuestion.type == \'multipleChoice\'}')
-        | Choice
-      li.btn(ng-click='SelectQuestionType(\'number\', buildQuestion)', ng-class='{selected: buildQuestion.type == \'number\'}')
-        | Number
-    input(type='text', name='question_{{question.id}}', ng-model='buildQuestion.text', placeholder='Enter your question here.')
+  div(ng-show='panel==\'Create Question\'')
+    fieldset
+      custom-select(options='questionTypeOptions', placeholder='Choose a question type', returnValue='buildQuestion.type')
+    fieldset
+      input(type='text', name='question_{{question.id}}', ng-model='buildQuestion.text', placeholder='Enter your question here.')
     .options
-      div(ng-show='buildQuestion.type == \'binary\'')
-      div(ng-show='buildQuestion.type == \'rating\'')
-      div(ng-show='buildQuestion.type == \'freeText\'')
-      div(ng-show='buildQuestion.type == \'multipleChoice\'')
+      div(ng-show='buildQuestion.type.id == \'multipleChoice\'')
         input#limit.inline(type='checkbox', name='limit')
         label.inline(for='limit') Limit to one one response.
-        ul.answers(ng-show='buildQuestion.type == \'multipleChoice\'')
+        ul.answers
           li(ng-repeat='answer in buildQuestion.answers')
             input(type='text', ng-model='answer.text', placeholder='add an answer here.')
-        button.btn(ng-click='addAnswer(\'\',buildQuestion.answers)') + Answer
+        button.btn.soft(ng-click='addAnswer(\'\',buildQuestion.answers)') + Answer
   .btnset.two_btns.action(ng-if="!duplicate_mode")
     button.btn(ng-click='togglePanel()', type='button') cancel
     button.btn.positive(type='submit',ng-show='panel==\'Create Question\'', ng-click='saveQuestion()', ui-event='{click : \'togglePanel()\'}')

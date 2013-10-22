@@ -16,15 +16,9 @@ angular.module('customSelect',[]).directive('customSelect', function() {
 			  $scope.returnvalue = choice;
 			};
 			
-			
-			
 		  $scope.toggleSelector = function() {
 		    $scope.show_options = !$scope.show_options;
-		    console.debug($scope);
-		    console.log(attr)
 		  };
-		  
-		  console.debug($scope);
 		}
 	};
 });

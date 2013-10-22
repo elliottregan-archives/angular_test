@@ -2,7 +2,7 @@
 <ol ui-sortable="sortableOptions" class="questions">
   <li ng-repeat="question in buildCampaign.questionsList" class="question">
     <!-- .handle.right drag-->
-    <div class="push_right">
+    <div class="push_right edit_tools">
       <button ng-click="editQuestion($index)" class="soft btn">edit</button>
       <button ng-click="deleteQuestion($index)" class="soft btn">delete</button>
     </div>

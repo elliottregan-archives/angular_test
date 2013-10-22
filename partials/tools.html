@@ -8,18 +8,10 @@
     <div class="scroller">
       <div class="tools_list">
         <section>
-          <h3>importance:</h3>
-          <p ng-bind="viewConversation.importance"></p>
-        </section>
-        <section> 
-          <h3>tags:</h3>
-          <ul class="tag_list">
-            <li ng-repeat="tag in viewConversation.tags" class="inline tag"><span ng-bind="tag"></span><span ng-click="removeTag(tag, viewConversation.tags)" class="close_btn">x</span></li>
-          </ul>
-          <form ng-submit="addTopicTag(tag_to_submit, viewConversation)" name="topic_tag" class="one_line">
-            <button type="submit" class="btn">tag</button>
-            <input type="text" ng-model="tag_to_submit"/>
-          </form>
+          <fieldset class="inline">
+            <input type="checkbox" ng-model="viewConversation.importance"/>
+            <label>important</label>
+          </fieldset>
         </section>
         <section> 
           <h3>assigned users:</h3>

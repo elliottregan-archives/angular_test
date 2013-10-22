@@ -617,6 +617,29 @@ function campaignBuilderCtr($scope, $location, $stateParams, accountData) {
     
   };
   
+  $scope.questionTypeOptions = [
+    {
+      id: 'binary',
+      text: "Yes/No"
+    },
+    {
+      id: 'rating',
+      text: "Rating"
+    },
+    {
+      id: 'freeText',
+      text: "Text"
+    },
+    {
+      id: 'multipleChoice',
+      text: "Choice"
+    },
+    {
+      id: 'number',
+      text: "Number"
+    }
+  ];
+  
   var selectedQType = '';
   
   $scope.buildQuestion = {
@@ -704,6 +727,14 @@ function campaignBuilderCtr($scope, $location, $stateParams, accountData) {
     
     $scope.togglePanel('Create Question');
     $scope.buildQuestion = angular.copy(original_question);
+    
+    
+    //hacky thing that makes the saved question type work with the custom select element. ugh.
+    $scope.buildQuestion.type = $scope.questionTypeOptions.find(function(option) {
+      return option['id'] == $scope.buildQuestion.type
+    });
+    console.log($scope.buildQuestion.type)
+    
     $scope.editing_question = true;
   };
   
@@ -716,6 +747,10 @@ function campaignBuilderCtr($scope, $location, $stateParams, accountData) {
   };
   
   $scope.saveQuestion = function() {
+    
+    //hacky thing because the custom-select directive needs to be reworked when I have time.
+    $scope.buildQuestion.type = $scope.buildQuestion.type.id;
+    
     if ($scope.buildQuestion.type == 'rating') {
       $scope.buildQuestion.answers = [
         {

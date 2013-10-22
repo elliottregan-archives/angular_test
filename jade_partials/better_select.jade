@@ -5,7 +5,7 @@
   .selection(ng-class='{highlighted : show_options, pristine : !selected}')
     i.icon-ok
     span(ng-if='returnvalue', ng-bind='returnvalue.text || returnvalue.title')
-    span(ng-if='!returnvalue', ng-bind='placeholder')
+    span(ng-if='!returnvalue || returnvalue == ""', ng-bind='placeholder') test
   ul.options.select_dropdown(ng-if='show_options')
     li.option(ng-repeat='option in options', ng-click='selectOption(option)', ng-class='{selected : returnvalue.id == option.id}')
       i.icon-ok
