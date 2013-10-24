@@ -45,14 +45,14 @@
   <section class="scroller">
     <ul id="campaign_list" class="object-list">
       <li ng-repeat="campaign in campaignTitleList" ng-class="{selected : selected_campaigns.some(campaign.id)}" class="object-item">
-        <hgroup><a href="#/account/{{accountId}}/campaign/{{campaign.id}}/conversations">
+        <div class="list-checkbox">
+          <button ng-click="selectCampaign('{{campaign.id}}', '{{accountId}}')" class="checkbox"><i class="icon-ok"></i></button>
+        </div>
+        <hgroup class="object-titles"><a href="#/account/{{accountId}}/campaign/{{campaign.id}}/conversations">
             <h2>@{{campaign.handle}}</h2>
             <h1>{{campaign.title}}</h1></a></hgroup>
         <div class="object-alerts">
           <div ng-if="campaign.newCounter != 0" ng-hide="edit_mode" ng-bind="campaign.newCounter" class="alert new_counter"></div>
-        </div>
-        <div class="list-checkbox">
-          <button ng-click="selectCampaign('{{campaign.id}}', '{{accountId}}')" class="checkbox"><i class="icon-ok"></i></button>
         </div>
       </li>
     </ul>
@@ -67,6 +67,7 @@
     </ul>
     <div ng-if="edit_mode" class="dashboard_toolbar">
       <div class="button_item"><a href="{{view_link}}" ng-class="" class="btn">view</a></div>
+      <div class="button_item"><a href="{{edit_link}}" class="btn">edit</a></div>
       <div class="button_item">
         <button ng-class="{disabled: disable_single_edit_buttons}" ng-click="disable_single_edit_buttons || archiveListItem(selected_campaigns)" class="btn">archive</button>
       </div>

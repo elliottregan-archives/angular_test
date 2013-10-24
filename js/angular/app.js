@@ -76,7 +76,7 @@ var appmodule = angular.module('appmodule', ['ui.sortable', 'ui.router', 'ngAnim
       state('user_reward_detail', {
         url: '/rewards/"rewardId',
         templateUrl: 'partials/reward_info.html',
-        controller: rewardsCtr
+        controller: userRewardsCtr
       }).
       state('account.campaign.rewards', {
         url: '/rewards',
@@ -106,14 +106,16 @@ var appmodule = angular.module('appmodule', ['ui.sortable', 'ui.router', 'ngAnim
       state('user_rewards', {
         url: '/rewards',
         templateUrl: 'partials/rewards.html',
-        controller: rewardsCtr
+        controller: userRewardsCtr
       }).
       state('settings', {
         url: '/settings',
         templateUrl: 'partials/settings.html',
+        controller: userSettingsCtr
       }).
       state('history', {
         url: '/history',
         templateUrl: 'partials/history.html',
+        controller: userHistoryCtr
       });
 });

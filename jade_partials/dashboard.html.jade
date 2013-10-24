@@ -35,15 +35,15 @@ header.app_header
   section.scroller
     ul#campaign_list.object-list
       li.object-item(ng-repeat='campaign in campaignTitleList', ng-class='{selected : selected_campaigns.some(campaign.id)}')
-        hgroup
+        .list-checkbox
+          button.checkbox(ng-click='selectCampaign(\'{{campaign.id}}\', \'{{accountId}}\')')
+            i.icon-ok
+        hgroup.object-titles
           a(href='#/account/{{accountId}}/campaign/{{campaign.id}}/conversations')
             h2 @{{campaign.handle}}
             h1 {{campaign.title}}
         .object-alerts
           .alert.new_counter(ng-if='campaign.newCounter != 0', ng-hide='edit_mode', ng-bind='campaign.newCounter')
-        .list-checkbox
-          button.checkbox(ng-click='selectCampaign(\'{{campaign.id}}\', \'{{accountId}}\')')
-            i.icon-ok
     button.btn.fadded.full_width(ng-if='archiveExists', ng-click='toggleArchived()')
       span(ng-show='view_archived') hide archived
       span(ng-show='!view_archived') view archived
@@ -57,5 +57,7 @@ header.app_header
     .dashboard_toolbar(ng-if='edit_mode')
         .button_item
           a.btn(href='{{view_link}}', ng-class='') view
+        .button_item
+          a.btn(href='{{edit_link}}') edit
         .button_item
           button.btn(ng-class='{disabled: disable_single_edit_buttons}', ng-click='disable_single_edit_buttons || archiveListItem(selected_campaigns)') archive

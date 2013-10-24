@@ -27,22 +27,22 @@ html(lang='en', ng-app='appmodule', ng-controller='appCtr')
         ui-view.fade
     nav.main_nav.sidebar       
       ul
-        li
+        li.personal
           a(ng-click='togglePersonalPages()') Elliott Regan
           ul.expando.slide_down(ng-if='personal_pages_visible')
-            li(ng-click='togglePersonalPages()')
+            li(ng-class='{selected : current_page == "user_settings"}')
               a(href='#/settings', ng-click='toggleSidebar()')
                 i.icon-cog
                 | Settings
-            li(ng-click='togglePersonalPages()')
+            li(ng-class='{selected : current_page == "user_bonuses"}')
               a(href='#/rewards', ng-click='toggleSidebar()')
                 i.icon-trophy
                 | Bonuses
-            li(ng-click='togglePersonalPages()')
+            li(ng-class='{selected : current_page == "user_history"}')
               a(href='#/history', ng-click='toggleSidebar()')
                 i.icon-chat
                 | Conversations
-        li.home
+        li.home(ng-class='{selected : accountId == "all"}')
           a(href='#/account/all/campaign/camp0+camp1+camp2/conversations', ng-click='toggleSidebar()') Global Feed
         li(ng-repeat='account in accountList', ng-class='{selected : accountId == account.id}')
           a(href='#/account/{{account.id}}/dashboard', ng-click='toggleSidebar()')

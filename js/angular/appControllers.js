@@ -190,10 +190,6 @@ function appCtr($scope, $stateParams, $state, $location, $timeout, accountData) 
   
   $scope.personal_pages_visible = false;
   
-  $scope.togglePersonalPages = function() {
-    $scope.personal_pages_visible = !$scope.personal_pages_visible;
-  };
-  
   function Campaign(id, handle, title, local, location, discoverable) {
     
     this.id = id,
@@ -251,7 +247,7 @@ function userCtr($scope, userData, $stateParams, accountData) {
   init();
   
   function init() {
-    
+    $scope.$emit("ACCOUNT_CHANGED", "none", "user_settings");
     $scope.userDetails = userData.getUserDetails();
     
     $scope.accounts = accountData.getAccount();
@@ -264,9 +260,22 @@ function userCtr($scope, userData, $stateParams, accountData) {
 
     $scope.title = 'Settings';
   };
+
+  $scope.togglePersonalPages = function() {
+    $scope.personal_pages_visible = !$scope.personal_pages_visible;
+  };
   
-  $scope.$on('ACCOUNT_CHANGED', function() {
-    $scope.accountId = $stateParams.accountId
+  $scope.$on('ACCOUNT_CHANGED', function(event, account_id, user_page) {
+    $scope.accountId = account_id;
+    if (user_page) {
+      $scope.personal_pages_visible = true;
+      $scope.current_page = user_page;
+    }
+    else {
+      $scope.current_page = undefined;
+      $scope.personal_pages_visible = false;
+    }
+    console.log(user_page, $scope.current_page)
   })
 
 };
@@ -284,8 +293,9 @@ function accountCtr($scope, $stateParams, $location, accountData) {
   function init() {
     
     $scope.$emit("ACCOUNT_CHANGED", $stateParams.accountId)
-    
+
     $scope.accountId = $stateParams.accountId;
+
     $scope.array_of_account_ids = [];
     $scope.array_of_account_ids[0] = $scope.accountId;
     $scope.handleList = accountData.getAccountHandles($scope.accountId);
@@ -296,12 +306,13 @@ function multiAccountsCtr($scope, $stateParams, $location, accountData) {
   console.log("initialize all accounts controller");
   init();  
   function init() {
+    $scope.$emit("ACCOUNT_CHANGED", "all");
+    console.log($scope.accountId)
     $scope.campaignTitleList = {};
-    $scope.handle = "All Campaigns"
+    $scope.handle = "All Campaigns";
     $scope.campaignTitleList = accountData.getMultiAccountCampaignTitles();
     $scope.archivedCampaignList = {};
     $scope.array_of_account_ids = ["account01", "account02"];  
-    $scope.accountId = "all";
   };
 };
 
@@ -309,9 +320,7 @@ function dashboardCtr($scope, $stateParams, $location, accountData) {
   console.log("initialize dashboard controller");
   $scope.campaignTitleList = accountData.getCampaignTitles($scope.accountId, true, true);
   $scope.archivedCampaignList = accountData.getArchivedCampaigns($scope.accountList[$scope.accountId].id);    
-  
-  console.log($scope.campaignTitleList)
-  
+    
   checkForArchived();
   
   $scope.view_archived = false;
@@ -526,7 +535,9 @@ function campaignCtr($scope, $state, $stateParams, $location, accountData) {
     var arrayOfCampaignIds = [];
     arrayOfCampaignIds = $stateParams.campaignId.split("+");
     $scope.arrayOfCampaignIds = arrayOfCampaignIds;
-    
+    $scope.currentPage = $state.current.url;
+    console.log($scope.currentPage)
+
     if (arrayOfCampaignIds.length == 1) {     
       if (accountData.checkIfCampaignExist($scope.array_of_account_ids,$stateParams.campaignId)) {
         $scope.campaignId = $stateParams.campaignId;
@@ -536,7 +547,6 @@ function campaignCtr($scope, $state, $stateParams, $location, accountData) {
         
         $scope.campaignTitle = $scope.campaignTitleList[$scope.campaignId].title;
         $scope.campaignHandle = $scope.campaignTitleList[$scope.campaignId].handle;
-        console.log($scope.campaignTitleList[$scope.campaignId])
         setViewCampaign(arrayOfCampaignIds);
       }
       else {
@@ -600,7 +610,6 @@ function campaignBuilderCtr($scope, $location, $stateParams, accountData) {
     
     $scope.$emit("CAMPAIGN_PAGE_CHANGED");
     
-    console.log($scope.currentPage)
     var arrayOfCampaignIds = [];
     arrayOfCampaignIds = $stateParams.campaignId.split("+");
     $scope.buildCampaign = {};
@@ -816,12 +825,28 @@ function campaignBuilderCtr($scope, $location, $stateParams, accountData) {
   
 };
 
-function rewardsCtr($scope, $stateParams, $location, userData) {
+function userSettingsCtr($scope) {
+  init();
+
+  function init() {
+    $scope.$emit("ACCOUNT_CHANGED", "none", "user_settings");
+  }
+}
+
+function userHistoryCtr($scope) {
+  init();
+
+  function init() {
+    $scope.$emit("ACCOUNT_CHANGED", "none", "user_history");
+  }
+}
+
+function userRewardsCtr($scope, $stateParams, $location, userData) {
   console.log("initialize user rewards controller");
   init();
   
   function init() {
-    $scope.$emit("CAMPAIGN_PAGE_CHANGED");    
+    $scope.$emit("ACCOUNT_CHANGED", "none", "user_bonuses");  
     $scope.rewardsList = userData.getRewards("open");
 
   };

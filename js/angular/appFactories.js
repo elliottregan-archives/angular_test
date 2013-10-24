@@ -1097,7 +1097,6 @@ appmodule.factory('accountData', function() {
     else {
       campaignHandles = accounts[accountId].handleList;
     }
-    console.log(campaignHandles)
     return campaignHandles;
   };
   
@@ -1236,9 +1235,7 @@ appmodule.factory('accountData', function() {
   };
   
   factory.checkIfCampaignExist = function(check_against_account_ids, campaign_id) {
-    
-    console.log(check_against_account_ids, campaign_id);
-    
+        
     var outcomes = [];
     i = 0;
     //hacky thing to convert a single account string into a one element array

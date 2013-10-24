@@ -190,14 +190,14 @@ dd:after {
 }
 
 .scroller_wrapper {
-  position: absolute;
-  top: 0;
-  padding-bottom: 0;
+  padding-bottom: 3em;
   -webkit-overflow-scrolling: touch;
   height: 100%;
   width: 100%;
-  overflow-y: scroll;
-  overflow-x: hidden;
+  overflow: hidden;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 .scroller {
@@ -205,8 +205,10 @@ dd:after {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   background-color: #ffffff;
-  padding-top: 3em;
   height: 100%;
+  width: 100%;
+  overflow: scroll;
+  margin-top: 3em;
 }
 
 .scroller > * {
@@ -491,7 +493,7 @@ header .btn.right {
 }
 
 .sidebar li.personal {
-  margin-bottom: .5em;
+  margin-bottom: .1em;
 }
 
 .sidebar.visible li {
@@ -694,24 +696,16 @@ nav {
 }
 
 .conversations {
-  padding: 0 0 10px 0;
+  padding: .1em 0;
   background: #d5d5d5;
 }
 
 .instance.card {
-  margin: 10px 6px 10px;
+  margin: 10px 8px 10px;
   background-color: #ffffff;
   border: none;
   border-radius: 0;
   box-shadow: 0 3px 1px -1px rgba(0, 0, 0, 0.18);
-}
-
-.instance.card:first-of-type {
-  margin-top: 0;
-}
-
-.instance.card:last-of-type {
-  margin-bottom: 0;
 }
 
 .instance h3 {
@@ -1139,8 +1133,7 @@ fieldset.padded {
 .comments {
   list-style: none;
   font-size: .9em;
-  background-color: #f9f9f9;
-  padding: 10px;
+  padding: 1em;
 }
 
 .comment_wrapper > * {
@@ -1183,15 +1176,15 @@ fieldset.padded {
 
 .comment {
   position: relative;
-  margin: 20px 0;
+  margin: 1em 0;
 }
 
 .comment:first-of-type {
-  margin-top: 10px;
+  margin-top: .5em;
 }
 
 .comment:last-of-type {
-  margin-bottom: 10px;
+  margin-bottom: .5em;
 }
 
 .comment .btn.heard {
@@ -1908,8 +1901,6 @@ time {
 }
 
 .object-list li {
-  display: table;
-  padding: 1em 0;
   border-top: 1px solid #ecedee;
   width: 100%;
   -webkit-box-sizing: border-box;
@@ -1934,28 +1925,30 @@ time {
 .object-item > * {
   display: inline-block;
   vertical-align: top;
-  padding: 0 .1em;
+  padding: 1em .1em;
 }
 
 .object-titles {
-
+  height: 100%;
 }
 
-.checkbox {
+.list-checkbox {
+  position: relative;
+  left: -.5em;
+  top: .5em;
+}
+
+.object-list .checkbox {
   width: 2em;
   height: 2em;
-  margin-top: 10px;
-  border: 1px solid #e0e1e3;
+  border: 1px solid #bec0c5;
   border-radius: 2em;
   color: rgba(255, 255, 255, 0);
   font-size: .8em;
   background-color: #ffffff;
-  padding: 0;
-  right: 2em;
-  position: absolute;
 }
 
-.selected .checkbox {
+.object-list .selected .checkbox {
   background-color: #4bbf47;
   border: none;
   color: #ffffff;
@@ -2012,7 +2005,7 @@ input.object-list-search:focus {
     box-sizing: border-box;
     position: relative;
     width: 100%;
-    
+    background-color: #fff;
   }
   
   .main_wrapper {
@@ -2048,21 +2041,54 @@ input.object-list-search:focus {
     opacity: 1;
   }
   
+  .main_nav i {
+    position: static;
+    margin-right: 10px;
+  }
+  
   .aligner {
     padding-right: 200px;
   }
   
   .conversations {
-    padding-top: 20px;
+    padding: 30px 40px;
   }
   
   .instance.card {
-    padding: 1em 1.5em;
-    margin: 2em;
+    padding: 1em 2em 2em;
   }
   
   .instance.card:first-of-type {
     margin-top: 1em;
+  }
+  
+  .instance_header {
+    padding: 0;
+  }
+  
+  .instance_header .middle time {
+    margin-top: -.3em;
+    display: block;
+  }
+  
+  .comments {
+    padding: 1em 0;
+  }
+  
+  .comments li .profile_pic {
+    margin-left: 0;
+  }
+  
+  .comment {
+    margin: 1em 0;
+  }
+  
+  .profile_pic {
+    margin-left: 0;
+  }
+  
+  .form_response {
+    padding: 0 0em;
   }
   
 }
@@ -2129,7 +2155,7 @@ input.object-list-search:focus {
 
 /* @end *!/*/
 
-/* @group Untitled Group */
+/*/* @group Color Theme 3 *!/
 
 .app_header {
   background-color: rgb(60, 62, 70);
@@ -2210,4 +2236,288 @@ input.object-list-search:focus {
   background-color: #756984;
 }
 
+/* @end *!/*/
+
+/*/* @group Color Theme 4 *!/
+
+.app_header {
+  background-color: rgb(238, 238, 238);
+  border-bottom: 1px solid #c8c9c8;
+  color: #8d8276;
+}
+
+.app_header h2 {
+  color: #777c8d;
+}
+
+.conversations {
+  background: url(none) #d2ccc5;
+}
+
+.instance.card {
+  background-color: #f1f1f1;
+  color: #564d4d;
+  padding: 1em;
+}
+
+.instance_header {
+  box-shadow: none;
+  border-bottom-style: none;
+}
+
+.question {
+  margin: .5em 0;
+  border-left: 3px solid #a6555a;
+  padding-left: 1em;
+  margin-left: -1em;
+}
+
+.one_line .btn {
+  color: #bf6a4b;
+  border-color: #bf6a4b;
+  background-color: #fcfcfc;
+}
+
+.one_line .btn.active {
+  background-color: #bf6a4b;
+}
+
+.one_line input {
+  background-color: #fcfcfc;
+  border: 2px solid #1b1b1b;
+}
+
+.form_response {
+  border-bottom: none;
+}
+
+.instance .one_line {
+  border-top: none;
+}
+
+.comments {
+  background-color: rgba(0, 0, 0, 0.03);
+  border-top: none;
+}
+
+.expand_wrapper {
+  margin: 0;
+  height: auto;
+  background-color: transparent;
+}
+
+.btn.icon.expand {
+  border: 1px solid #d7d7d7;
+  color: #9f9f9f;
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 2px;
+  width: 100%;
+  margin: 0;
+}
+
+.tools_panel .app_header {
+  background-color: #565d74;
+}
+
+.tools_panel h1 {
+  color: #ebebeb;
+}
+
+.tools_panel .scroller, .tools_panel .tools_list section, .tools_panel .notes {
+  background-color: #eeeeee;
+  color: inherit;
+  border: none;
+}
+
+.tools_panel .btn {
+  color: #fbfbfb;
+  border-color: #756984;
+  border-width: 2px;
+  background-color: #565d74;
+}
+
+/* @end *!/*/
+
+/* @group Color Theme 5 */
+
+.main_view {
+  border: none;
+}
+
+.app_header {
+  background-color: #fff;
+  border-bottom: 1px solid #d4d5d4;
+  color: #8d8276;
+  box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.05);
+}
+
+.app_header .btn {
+  color: #777c8d;
+}
+
+.app_header h2 {
+  color: #777c8d;
+}
+
+.sidebar {
+  background-color: #1b2124;
+  color: #636f74;
+}
+
+.sidebar li {
+  color: inherit;
+  border: none;
+  font-weight: 400;
+}
+
+.sidebar li.selected {
+  background-color: #fff;
+  color: #1c2023;
+  font-weight: bold;
+  border: none;
+}
+
+.conversations {
+  background: #fff;
+}
+
+.instance.card {
+  background-color: #fff;
+  border: 1px solid #d5d5d5;
+  border-radius: 1px;
+  color: #564d4d;
+  box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.05);
+}
+
+.instance_header {
+  box-shadow: none;
+  border-bottom-style: none;
+}
+
+.question {
+  margin: .5em 0;
+}
+
+.one_line .btn {
+  color: #bf6a4b;
+  border-color: #bf6a4b;
+  background-color: #fcfcfc;
+}
+
+.one_line .btn.active {
+  background-color: #bf6a4b;
+}
+
+.one_line input[type=text] {
+  background-color: #fcfcfc;
+  border: 2px solid #d4d5d4;
+  border-radius: 3px;
+}
+
+.form_response {
+  border-bottom: none;
+}
+
+.instance .one_line {
+  border-top: none;
+}
+
+.comments {
+  background-color: transparent;
+  border-top: none;
+  padding-top: 0;
+}
+
+.comment {
+}
+
+.expand_wrapper {
+  margin: 1em 0;
+  height: auto;
+  background-color: transparent;
+}
+
+.btn.icon.expand {
+  border: 1px solid #d7d7d7;
+  color: #9f9f9f;
+  background-color: transparent;
+  border-radius: 2px;
+  width: 100%;
+  margin: 0;
+}
+
+.tools_panel .app_header {
+  background-color: #565d74;
+}
+
+.tools_panel h1 {
+  color: #ebebeb;
+}
+
+.tools_panel .scroller, .tools_panel .tools_list section, .tools_panel .notes {
+  background-color: #eeeeee;
+  color: inherit;
+  border: none;
+}
+
+.tools_panel .btn {
+  color: #fbfbfb;
+  border-color: #756984;
+  border-width: 2px;
+  background-color: #565d74;
+}
+
 /* @end */
+
+/* @group Colored Campaign Nav */
+
+.edit {
+  color: #24c213;
+}
+
+.analytics {
+  color: #6b18e0;
+}
+
+.feed {
+  color: #186fe0;
+}
+
+.bonuses {
+  color: #e08e18;
+}
+
+.contacts {
+  color: #e01830;
+}
+
+/* @end */
+
+/*/* @group Colored Campaign Nav background *!/
+
+.campaign_nav .edit {
+  background-color: #24c213;
+  color: #ffffff;
+}
+
+.campaign_nav .analytics {
+  background-color: #6b18e0;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.campaign_nav .feed {
+  background-color: #186fe0;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.campaign_nav .bonuses {
+  background-color: #e08e18;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.campaign_nav .contacts {
+  background-color: #e01830;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* @end *!/*/

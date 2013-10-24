@@ -15,23 +15,23 @@ header.app_header(ng-class='{no_bottom : campaignNav_true}')
 .dimmer(ng-if='campaignNav_true',ng-click='toggleNavbar(false)', ng-class='{dropdown_dimmer : campaignNav_true}')
 nav.campaign_nav.dropdown(ng-if='campaignNav_true', ng-click='toggleNavbar()')
   ul
-    li(ng-hide='currentPage == "/conversations"')
+    li.feed(ng-hide='currentPage == "/conversations"')
       a(href='#/account/{{accountId}}/campaign/{{campaignId}}/conversations')
         | Conversation Feed
         i.icon-chat
-    li(ng-hide='currentPage == "/analytics"')
+    li.analytics(ng-hide='currentPage == "/analytics"')
       a(href='#/account/{{accountId}}/campaign/{{campaignId}}/analytics')
         | Analytics
         i.icon-chart-bar
-    li(ng-hide='multipleViewCampaigns || currentPage == "/edit"')
+    li.edit(ng-hide='multipleViewCampaigns || currentPage == "/edit"')
       a(href='#/account/{{accountId}}/campaign/{{campaignId}}/edit')
         | Edit
         i.icon-pencil
-    li(ng-hide='currentPage == "/rewards"')
+    li.bonuses(ng-hide='currentPage == "/rewards"')
       a(href='#/account/{{accountId}}/campaign/{{campaignId}}/rewards')
         | Bonuses
         i.icon-trophy
-    li(ng-hide='currentPage == "/contacts"')
+    li.contacts(ng-hide='currentPage == "/contacts"')
       a(href='#/account/{{accountId}}/campaign/{{campaignId}}/contacts')
         | Contacts
         i.icon-at
