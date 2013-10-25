@@ -1,7 +1,8 @@
 .scroller
-  .card.padded 
-    nvd3-stacked-area-chart(id="exampleId", data="dailyData", xaxistickformat="xAxisTickFormat()")
-      svg.chart
-  .card.padded
-    nvd3-pie-chart(id="exampleId2", data="catData", showlabels="true", x="xFunction()", y="yFunction()",  )
+  nvd3-stacked-area-chart(id="exampleId", data="dailyData", xaxistickformat="xAxisTickFormat()")
+    svg.chart
+  div.two_column
+    nvd3-pie-chart.col(id="exampleId2", data="catData", showlabels="true", x="xFunction()", y="yFunction()",  )
       svg.pie.chart
+    nvd3-multi-bar-chart.col(id="exampleId3",data="dailyData", xaxistickformat="xAxisTickFormat()")
+      svg.chart

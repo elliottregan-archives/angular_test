@@ -1,13 +1,14 @@
 
 <div class="scroller">
-  <div class="card padded"> 
-    <nvd3-stacked-area-chart id="exampleId" data="dailyData" xaxistickformat="xAxisTickFormat()">
-      <svg class="chart"></svg>
-    </nvd3-stacked-area-chart>
-  </div>
-  <div class="card padded">
-    <nvd3-pie-chart id="exampleId2" data="catData" showlabels="true" x="xFunction()" y="yFunction()">
+  <nvd3-stacked-area-chart id="exampleId" data="dailyData" xaxistickformat="xAxisTickFormat()">
+    <svg class="chart"></svg>
+  </nvd3-stacked-area-chart>
+  <div class="two_column">
+    <nvd3-pie-chart id="exampleId2" data="catData" showlabels="true" x="xFunction()" y="yFunction()" class="col">
       <svg class="pie chart"></svg>
     </nvd3-pie-chart>
+    <nvd3-multi-bar-chart id="exampleId3" data="dailyData" xaxistickformat="xAxisTickFormat()" class="col">
+      <svg class="chart"></svg>
+    </nvd3-multi-bar-chart>
   </div>
 </div>

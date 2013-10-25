@@ -18,6 +18,14 @@ body {
   -ms-text-size-adjust: 100%;
   text-size-adjust: 100%;
   -webkit-touch-callout: none;
+  background-color: #1b2024;
+}
+
+.everything_wrapper {
+  margin: 0 auto;
+  max-width: 960px;
+  position: relative;
+  height: 100%;
 }
 
 a {
@@ -198,6 +206,7 @@ dd:after {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+  background-color: white;
 }
 
 .scroller {
@@ -493,7 +502,7 @@ header .btn.right {
 }
 
 .sidebar li.personal {
-  margin-bottom: .1em;
+  margin-bottom: 1em;
 }
 
 .sidebar.visible li {
@@ -929,16 +938,16 @@ fieldset.padded {
   margin-top: 20px;
 }
 
-.answers li {
+.answers li.inline {
   margin: 0 1em;
   font-weight: 300;
 }
 
-.answers li {
+.answers li.inline {
   margin-left: 0;
 }
 
-.answers li:last-of-type {
+.answers li.inline:last-of-type {
   margin-right: 0;
 }
 
@@ -948,6 +957,14 @@ fieldset.padded {
 
 .answer p {
   font-weight: 300;
+}
+
+.answers li input {
+  border-bottom-style: none;
+}
+
+.answers li:last-of-type input {
+  border-bottom-style: solid;
 }
 
 .filled_answer {
@@ -1005,12 +1022,12 @@ fieldset.padded {
   border-style: none;
 }
 
-.btn.middle {
-  border: 1px solid #575757;
+.btn.outline {
   background-color: transparent;
   color: #575757;
   border-radius: 3px;
   padding: .6em 1em;
+  border: 1px solid #575757;
 }
 
 .btn.confirm {
@@ -1468,8 +1485,19 @@ fieldset.padded {
   transition: all 500ms ease-in-out;
 }
 
+.module .btn.outline {
+  margin: 1em 1em 0;
+}
+
 .start_new input[type=text] {
   font-size: .8em;
+}
+
+.module .scroller_wrapper {
+  height: 300px;
+}
+
+.module .scroller {
 }
 
 /* @end */
@@ -1520,6 +1548,10 @@ input[type=text], input[type=email], input[type=number], input[type=date], input
 
 .module fieldset {
   margin: .5em 0;
+}
+
+.module fieldset.padded {
+  padding: 1em;
 }
 
 .module .btnset.action {
@@ -1609,8 +1641,10 @@ input[type=text], input[type=email], input[type=number], input[type=date], input
 
 .select.expandable .options {
   position: absolute;
-  left: -5%;
-  width: 110%;
+  left: 0%;
+  width: 100%;
+  max-height: 200px;
+  overflow: scroll;
   z-index: 30;
   box-shadow: 0 0 20px #ffffff;
   opacity: 1;
@@ -2008,6 +2042,14 @@ input.object-list-search:focus {
 .pie {
 }
 
+.two_column .col {
+  width: 50%;
+  float: left;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
 @media (min-width: 600px) {
   .main_view {
     box-shadow: none;
@@ -2085,7 +2127,8 @@ input.object-list-search:focus {
   }
   
   .comments {
-    padding: 1em 0;
+    padding: 2em 0;
+    margin-top: 2em;
   }
   
   .comments li .profile_pic {
@@ -2425,6 +2468,14 @@ input.object-list-search:focus {
   background-color: #fcfcfc;
   border: 2px solid #d4d5d4;
   border-radius: 3px;
+}
+
+@media (max-width: 600px) {
+  
+  .instance.card {
+    padding: 10px;
+  }
+  
 }
 
 .form_response {

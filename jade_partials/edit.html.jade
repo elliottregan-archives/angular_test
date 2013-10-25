@@ -19,7 +19,7 @@ nav.breadcrumbs
         div(ng-switch-when='0')
           h1(type='text', ng-bind='campaignTitle')
           div(ng-include src='"partials/form_not_completed.html"')
-          button.middle.confirm.btn(ng-click='togglePanel(\'Create Question\')') + New Question
+          button.outline.confirm.btn(ng-click='togglePanel(\'Create Question\')') + New Question
         div(ng-switch-when='1')
           form(method='post', action='')
             h3 Bonus details:

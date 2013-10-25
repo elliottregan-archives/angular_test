@@ -3,24 +3,26 @@
   <h1 ng-bind="panel" class="center"></h1>
 </header>
 <div class="content_wrapper">
-  <div ng-show="panel=='Create Question'">
-    <fieldset>
-      <custom-select options="questionTypeOptions" placeholder="Choose a question type" returnValue="buildQuestion.type"></custom-select>
-    </fieldset>
-    <fieldset>
-      <input type="text" name="question_{{question.id}}" ng-model="buildQuestion.text" placeholder="Enter your question here."/>
-    </fieldset>
-    <div class="options">
-      <div ng-show="buildQuestion.type.id == 'multipleChoice'">
-        <input id="limit" type="checkbox" name="limit" class="inline"/>
-        <label for="limit" class="inline">Limit to one one response.</label>
-        <ul class="answers">
-          <li ng-repeat="answer in buildQuestion.answers">
-            <input type="text" ng-model="answer.text" placeholder="add an answer here."/>
-          </li>
-        </ul>
-        <button ng-click="addAnswer('',buildQuestion.answers)" class="btn soft">+ Answer</button>
-      </div>
+  <div ng-show="panel=='Create Question'" class="scroller_wrapper">
+    <div class="scroller">
+      <fieldset>
+        <custom-select options="questionTypeOptions" placeholder="Choose a question type" returnValue="buildQuestion.type"></custom-select>
+      </fieldset>
+      <fieldset>
+        <input type="text" name="question_{{question.id}}" ng-model="buildQuestion.text" placeholder="Enter your question here."/>
+      </fieldset>
+      <fieldset class="options">
+        <div ng-show="buildQuestion.type.id == 'multipleChoice'">
+          <ul class="answers">
+            <li ng-repeat="answer in buildQuestion.answers">
+              <input type="text" ng-model="answer.text" placeholder="add an answer here."/>
+            </li>
+          </ul>
+          <button ng-click="addAnswer('',buildQuestion.answers)" class="btn outline soft">+ Answer</button>
+          <input id="limit" type="checkbox" name="limit" class="inline"/>
+          <label for="limit" class="inline">Limit to one one response.        </label>
+        </div>
+      </fieldset>
     </div>
   </div>
   <div ng-if="!duplicate_mode" class="btnset two_btns action">

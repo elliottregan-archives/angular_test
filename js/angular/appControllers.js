@@ -162,7 +162,7 @@ function appCtr($scope, $stateParams, $state, $location, $timeout, accountData) 
       $scope.multipleViewCampaigns = arrayOfCampaignIds.length > 1;
     }
     
-    if ( !$scope.sidebar_visible ) {
+    if ( !$scope.sidebar_visible && ($(window).width() < 600) ) {
       
       $scope.sidebar_in_frame = true;
       $scope.sidebar_visible = true;

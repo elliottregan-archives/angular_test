@@ -1,19 +1,20 @@
 header
   h1.center(ng-bind='panel')
 .content_wrapper
-  div(ng-show='panel==\'Create Question\'')
-    fieldset
-      custom-select(options='questionTypeOptions', placeholder='Choose a question type', returnValue='buildQuestion.type')
-    fieldset
-      input(type='text', name='question_{{question.id}}', ng-model='buildQuestion.text', placeholder='Enter your question here.')
-    .options
-      div(ng-show='buildQuestion.type.id == \'multipleChoice\'')
-        input#limit.inline(type='checkbox', name='limit')
-        label.inline(for='limit') Limit to one one response.
-        ul.answers
-          li(ng-repeat='answer in buildQuestion.answers')
-            input(type='text', ng-model='answer.text', placeholder='add an answer here.')
-        button.btn.soft(ng-click='addAnswer(\'\',buildQuestion.answers)') + Answer
+  div.scroller_wrapper(ng-show='panel==\'Create Question\'')
+    .scroller
+      fieldset
+        custom-select(options='questionTypeOptions', placeholder='Choose a question type', returnValue='buildQuestion.type')
+      fieldset
+        input(type='text', name='question_{{question.id}}', ng-model='buildQuestion.text', placeholder='Enter your question here.')
+      fieldset.options
+        div(ng-show='buildQuestion.type.id == \'multipleChoice\'')
+          ul.answers
+            li(ng-repeat='answer in buildQuestion.answers')
+              input(type='text', ng-model='answer.text', placeholder='add an answer here.')
+          button.btn.outline.soft(ng-click='addAnswer(\'\',buildQuestion.answers)') + Answer
+          input#limit.inline(type='checkbox', name='limit')
+          label.inline(for='limit') Limit to one one response.        
   .btnset.two_btns.action(ng-if="!duplicate_mode")
     button.btn(ng-click='togglePanel()', type='button') cancel
     button.btn.positive(type='submit',ng-show='panel==\'Create Question\'', ng-click='saveQuestion()', ui-event='{click : \'togglePanel()\'}')

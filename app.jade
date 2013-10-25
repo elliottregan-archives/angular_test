@@ -22,33 +22,34 @@ html(lang='en', ng-app='appmodule', ng-controller='appCtr')
   body(ng-controller='userCtr')
     // .control_panel(ng-controller='controlPanelCtr', jq-draggable='jq-draggable')
     //   button(ng-click='receiveFdbk()') Receive Fdbk!
-    .main_wrapper
-      main.main_view(ng-class='{slide_right : sidebar_visible}')
-        ui-view.fade
-    nav.main_nav.sidebar       
-      ul
-        li.personal
-          a(ng-click='togglePersonalPages()') Elliott Regan
-          ul.expando.slide_down(ng-if='personal_pages_visible')
-            li(ng-class='{selected : current_page == "user_settings"}')
-              a(href='#/settings', ng-click='toggleSidebar()')
-                i.icon-cog
-                | Settings
-            li(ng-class='{selected : current_page == "user_bonuses"}')
-              a(href='#/rewards', ng-click='toggleSidebar()')
-                i.icon-trophy
-                | Bonuses
-            li(ng-class='{selected : current_page == "user_history"}')
-              a(href='#/history', ng-click='toggleSidebar()')
-                i.icon-chat
-                | Conversations
-        li.home(ng-class='{selected : accountId == "all"}')
-          a(href='#/account/all/campaign/camp0+camp1+camp2/conversations', ng-click='toggleSidebar()') Global Feed
-        li(ng-repeat='account in accountList', ng-class='{selected : accountId == account.id}')
-          a(href='#/account/{{account.id}}/dashboard', ng-click='toggleSidebar()')
-            span(ng-bind='account.id')
-      .tools
-        button.btn.soft.new_handle + Create new account
+    .everything_wrapper
+      .main_wrapper
+        main.main_view(ng-class='{slide_right : sidebar_visible}')
+          ui-view.fade
+      nav.main_nav.sidebar       
+        ul
+          li.personal
+            a(ng-click='togglePersonalPages()') Elliott Regan
+            ul.expando.slide_down(ng-if='personal_pages_visible')
+              li(ng-class='{selected : current_page == "user_settings"}')
+                a(href='#/settings', ng-click='toggleSidebar()')
+                  i.icon-cog
+                  | Settings
+              li(ng-class='{selected : current_page == "user_bonuses"}')
+                a(href='#/rewards', ng-click='toggleSidebar()')
+                  i.icon-trophy
+                  | Bonuses
+              li(ng-class='{selected : current_page == "user_history"}')
+                a(href='#/history', ng-click='toggleSidebar()')
+                  i.icon-chat
+                  | Conversations
+          li.home(ng-class='{selected : accountId == "all"}')
+            a(href='#/account/all/campaign/camp0+camp1+camp2/conversations', ng-click='toggleSidebar()') Global Feed
+          li(ng-repeat='account in accountList', ng-class='{selected : accountId == account.id}')
+            a(href='#/account/{{account.id}}/dashboard', ng-click='toggleSidebar()')
+              span(ng-bind='account.id')
+        .tools
+          button.btn.soft.new_handle + Create new account
     // App libraries
     script(src='js/angular/app.js')
     script(src='js/angular/appControllers.js')
@@ -59,6 +60,6 @@ html(lang='en', ng-app='appmodule', ng-controller='appCtr')
     script(src='js/angular/directives/select.js')
     script(src='js/d3.js')
     script(src='js/nvd3/nv.d3.js')
-    link(src='js/nvd3/nv.d3.css')
+    link(rel='stylesheet', href='js/nvd3/nv.d3.css')
     script(src='js/angularjs-nvd3/dist/angularjs-nvd3-directives.js')
     script(src='js/angular/directives/angular-ui-router_for-1.2-animations.js')
