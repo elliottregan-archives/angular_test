@@ -1096,6 +1096,57 @@ function analyticsCtr($scope, $stateParams) {
   
   $scope.title = "Analytics";
   $scope.$emit("CAMPAIGN_PAGE_CHANGED");
+
+  $scope.xAxisTickFormat = function(){
+     return function(d){
+        return d3.time.format('%b %d')(new Date(d));
+     }
+  }
+
+  $scope.dailyData =  [
+    {
+      "key": "Series 1",
+      "values": [[ 1025409600000 , 2.5] , [ 1026088000000 , 3] , [ 1028088000000 , 3] , [ 1029088000000 , 3] , [ 1030766400000 , 1]]
+    },
+    {
+      "key": "Series 2",
+      "values": [[ 1025409600000 , 1] , [ 1026088000000 , 3] , [ 1028088000000 , 4] , [ 1029088000000 , 3] , [ 1030766400000 , 7]] 
+    }
+  ];
+
+  $scope.xFunction = function(){
+    return function(d) {
+        return d.key;
+    };
+  }
+  $scope.yFunction = function(){
+    return function(d) {
+        return d.y;
+    };
+  }
+
+  $scope.catData = [
+    {
+      key: "Great!",
+      y: 4
+    },
+    {
+      key: "Good",
+      y: 2
+    },
+    {
+      key: "Ok",
+      y: 2
+    },
+    {
+      key: "Poor",
+      y: 1
+    },
+    {
+      key: "Bad",
+      y: 1
+    }
+  ]
 };
 
 function campaignContactsCtr($scope, $stateParams, $location, accountData) {

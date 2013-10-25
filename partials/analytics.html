@@ -1,6 +1,13 @@
 
 <div class="scroller">
   <div class="card padded"> 
-    <p>Ah, but there is nothing here. C'est un traviste.</p>
+    <nvd3-stacked-area-chart id="exampleId" data="dailyData" xaxistickformat="xAxisTickFormat()">
+      <svg class="chart"></svg>
+    </nvd3-stacked-area-chart>
+  </div>
+  <div class="card padded">
+    <nvd3-pie-chart id="exampleId2" data="catData" showlabels="true" x="xFunction()" y="yFunction()">
+      <svg class="pie chart"></svg>
+    </nvd3-pie-chart>
   </div>
 </div>

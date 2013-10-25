@@ -1,3 +1,7 @@
 .scroller
   .card.padded 
-    p Ah, but there is nothing here. C'est un traviste.
+    nvd3-stacked-area-chart(id="exampleId", data="dailyData", xaxistickformat="xAxisTickFormat()")
+      svg.chart
+  .card.padded
+    nvd3-pie-chart(id="exampleId2", data="catData", showlabels="true", x="xFunction()", y="yFunction()",  )
+      svg.pie.chart
