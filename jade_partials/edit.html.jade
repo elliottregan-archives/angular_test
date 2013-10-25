@@ -15,13 +15,18 @@ nav.breadcrumbs
 .scroller_wrapper.with_breadcrumb_padding
   .scroller
     .form
-      section.card.padded(ng-switch='currentStep')
+      .padded(ng-switch='currentStep')
         div(ng-switch-when='0')
-          h1(type='text', ng-bind='campaignTitle')
-          div(ng-include src='"partials/form_not_completed.html"')
-          button.outline.confirm.btn(ng-click='togglePanel(\'Create Question\')') + New Question
+          h1 Set of Questions:
+          p A smaller number is better. Have fun with it!
+          div.card.padded
+            h1(type='text', ng-bind='campaignTitle')
+            div(ng-include src='"partials/form_not_completed.html"')
+            button.outline.confirm.btn(ng-click='togglePanel(\'Create Question\')') + New Question
         div(ng-switch-when='1')
-          form(method='post', action='')
+          h1 Bonus:
+          p Create a bonus as a "thank you".
+          form.card.padded(method='post', action='')
             h3 Bonus details:
             label(for='personal_message', ng-model='buildCampaign.message') Create a personal message for the recipient:
             textarea#personal_message(placeholder='(optional)')
@@ -60,17 +65,21 @@ nav.breadcrumbs
                   small
                     | (This bonus can be shared freely through any means (blogs, social networks, email, etc.)
         div(ng-switch-when='2')
-          h3 Connect Social Accounts:
-          ul
-            li
-              | Facebook Account
-              small.status connected
-            li
-              | Twitter Account
-              small.status connected
-          button.btn(ng-click='togglePanel(\'social_accounts\')') Add new media account
+          h1 Get social!
+          p Connect social media accounts to share your feedback with.
+          div.card.padded
+            ul
+              li
+                | Facebook Account
+                small.status connected
+              li
+                | Twitter Account
+                small.status connected
+            button.btn(ng-click='togglePanel(\'social_accounts\')') Add new media account
         div(ng-switch-when='3')
-          form(ng-submit='sendInvite(first, last, invite_email, level, buildCampaign.permissions.pending)')
+          h1 Build a team:
+          p Invite others to manage this campaign with you.
+          form.card.padded(ng-submit='sendInvite(first, last, invite_email, level, buildCampaign.permissions.pending)')
             h3 Add Team:
             label(for='name') Full Name:
             input(ng-model='name', type='text', name='name', placeholder='name')
@@ -90,33 +99,34 @@ nav.breadcrumbs
                 input#perm_admin(ng-model='perm_admin', type='checkbox', name='perm_admin', ng-true-value='admin')
                 label(for='perm_admin') admin + export
             button.new_invite.btn Send
-          hr
-          h2 Permissions set:
-          ul
-            li(ng-repeat='person in buildCampaign.permissions.accepted')
-              | {{person.first}} {{person.last}}
-              small.status permission level: {{person.level}}
-              button.btn.right(ng-click='deleteListItem($index, buildCampaign.permissions.accepted)') revoke
-              div
-                label change permissions:
-                fieldset.inline
-                  input#perm_respond(ng-model='person.level', type='checkbox', name='perm_respond', ng-true-value='respond')
-                  label(for='perm_respond') view only
-                fieldset.inline
-                  input#perm_export(ng-model='person.level', type='checkbox', name='perm_export', ng-true-value='respond')
-                  label(for='perm_export') respond
-                fieldset.inline
-                  input#perm_admin(ng-model='person.level', type='checkbox', name='perm_admin', ng-true-value='admin')
-                  label(for='perm_admin') admin + export
-          h2 Pending Invites:
-          ul
-            li(ng-repeat='person in buildCampaign.permissions.pending')
-              | {{person.first}} {{person.last}} ({{person.email}}, {{person.level}})
-              small.status pending...
-              button.btn.right.clear resend
-              button.btn.right(ng-click='deleteListItem($index, buildCampaign.permissions.pending)') cancel
+          .card.padded
+            h2 Permissions set:
+            ul
+              li(ng-repeat='person in buildCampaign.permissions.accepted')
+                | {{person.first}} {{person.last}}
+                small.status permission level: {{person.level}}
+                button.btn.right(ng-click='deleteListItem($index, buildCampaign.permissions.accepted)') revoke
+                div
+                  label change permissions:
+                  fieldset.inline
+                    input#perm_respond(ng-model='person.level', type='checkbox', name='perm_respond', ng-true-value='respond')
+                    label(for='perm_respond') view only
+                  fieldset.inline
+                    input#perm_export(ng-model='person.level', type='checkbox', name='perm_export', ng-true-value='respond')
+                    label(for='perm_export') respond
+                  fieldset.inline
+                    input#perm_admin(ng-model='person.level', type='checkbox', name='perm_admin', ng-true-value='admin')
+                    label(for='perm_admin') admin + export
+            h2 Pending Invites:
+            ul
+              li(ng-repeat='person in buildCampaign.permissions.pending')
+                | {{person.first}} {{person.last}} ({{person.email}}, {{person.level}})
+                small.status pending...
+                button.btn.right.clear resend
+                button.btn.right(ng-click='deleteListItem($index, buildCampaign.permissions.pending)') cancel
         div(ng-switch-when='4')
-          div
+          h1 This step needs to be removed.
+          div.card.padded
             h3 Security:
             fieldset.inline
               input(type='checkbox')

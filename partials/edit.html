@@ -14,14 +14,20 @@
 <div class="scroller_wrapper with_breadcrumb_padding">
   <div class="scroller">
     <div class="form">
-      <section ng-switch="currentStep" class="card padded">
+      <div ng-switch="currentStep" class="padded">
         <div ng-switch-when="0">
-          <h1 type="text" ng-bind="campaignTitle"></h1>
-          <div ng-include src="&quot;partials/form_not_completed.html&quot;"></div>
-          <button ng-click="togglePanel('Create Question')" class="outline confirm btn">+ New Question</button>
+          <h1>Set of Questions:</h1>
+          <p>A smaller number is better. Have fun with it!</p>
+          <div class="card padded">
+            <h1 type="text" ng-bind="campaignTitle"></h1>
+            <div ng-include src="&quot;partials/form_not_completed.html&quot;"></div>
+            <button ng-click="togglePanel('Create Question')" class="outline confirm btn">+ New Question</button>
+          </div>
         </div>
         <div ng-switch-when="1">
-          <form method="post" action="">
+          <h1>Bonus:</h1>
+          <p>Create a bonus as a "thank you".</p>
+          <form method="post" action="" class="card padded">
             <h3>Bonus details:</h3>
             <label for="personal_message" ng-model="buildCampaign.message">Create a personal message for the recipient:</label>
             <textarea id="personal_message" placeholder="(optional)"></textarea>
@@ -60,15 +66,20 @@
           </form>
         </div>
         <div ng-switch-when="2">
-          <h3>Connect Social Accounts:</h3>
-          <ul>
-            <li>Facebook Account<small class="status">connected</small></li>
-            <li>Twitter Account<small class="status">connected</small></li>
-          </ul>
-          <button ng-click="togglePanel('social_accounts')" class="btn">Add new media account</button>
+          <h1>Get social!</h1>
+          <p>Connect social media accounts to share your feedback with.</p>
+          <div class="card padded">
+            <ul>
+              <li>Facebook Account<small class="status">connected</small></li>
+              <li>Twitter Account<small class="status">connected</small></li>
+            </ul>
+            <button ng-click="togglePanel('social_accounts')" class="btn">Add new media account</button>
+          </div>
         </div>
         <div ng-switch-when="3">
-          <form ng-submit="sendInvite(first, last, invite_email, level, buildCampaign.permissions.pending)">
+          <h1>Build a team:</h1>
+          <p>Invite others to manage this campaign with you.</p>
+          <form ng-submit="sendInvite(first, last, invite_email, level, buildCampaign.permissions.pending)" class="card padded">
             <h3>Add Team:</h3>
             <label for="name">Full Name:</label>
             <input ng-model="name" type="text" name="name" placeholder="name"/>
@@ -93,38 +104,40 @@
             </div>
             <button class="new_invite btn">Send</button>
           </form>
-          <hr/>
-          <h2>Permissions set:</h2>
-          <ul>
-            <li ng-repeat="person in buildCampaign.permissions.accepted">{{person.first}} {{person.last}}<small class="status">permission level: {{person.level}}</small>
-              <button ng-click="deleteListItem($index, buildCampaign.permissions.accepted)" class="btn right">revoke</button>
-              <div>
-                <label>change permissions:</label>
-                <fieldset class="inline">
-                  <input id="perm_respond" ng-model="person.level" type="checkbox" name="perm_respond" ng-true-value="respond"/>
-                  <label for="perm_respond">view only</label>
-                </fieldset>
-                <fieldset class="inline">
-                  <input id="perm_export" ng-model="person.level" type="checkbox" name="perm_export" ng-true-value="respond"/>
-                  <label for="perm_export">respond</label>
-                </fieldset>
-                <fieldset class="inline">
-                  <input id="perm_admin" ng-model="person.level" type="checkbox" name="perm_admin" ng-true-value="admin"/>
-                  <label for="perm_admin">admin + export</label>
-                </fieldset>
-              </div>
-            </li>
-          </ul>
-          <h2>Pending Invites:</h2>
-          <ul>
-            <li ng-repeat="person in buildCampaign.permissions.pending">{{person.first}} {{person.last}} ({{person.email}}, {{person.level}})<small class="status">pending...</small>
-              <button class="btn right clear">resend</button>
-              <button ng-click="deleteListItem($index, buildCampaign.permissions.pending)" class="btn right">cancel</button>
-            </li>
-          </ul>
+          <div class="card padded">
+            <h2>Permissions set:</h2>
+            <ul>
+              <li ng-repeat="person in buildCampaign.permissions.accepted">{{person.first}} {{person.last}}<small class="status">permission level: {{person.level}}</small>
+                <button ng-click="deleteListItem($index, buildCampaign.permissions.accepted)" class="btn right">revoke</button>
+                <div>
+                  <label>change permissions:</label>
+                  <fieldset class="inline">
+                    <input id="perm_respond" ng-model="person.level" type="checkbox" name="perm_respond" ng-true-value="respond"/>
+                    <label for="perm_respond">view only</label>
+                  </fieldset>
+                  <fieldset class="inline">
+                    <input id="perm_export" ng-model="person.level" type="checkbox" name="perm_export" ng-true-value="respond"/>
+                    <label for="perm_export">respond</label>
+                  </fieldset>
+                  <fieldset class="inline">
+                    <input id="perm_admin" ng-model="person.level" type="checkbox" name="perm_admin" ng-true-value="admin"/>
+                    <label for="perm_admin">admin + export</label>
+                  </fieldset>
+                </div>
+              </li>
+            </ul>
+            <h2>Pending Invites:</h2>
+            <ul>
+              <li ng-repeat="person in buildCampaign.permissions.pending">{{person.first}} {{person.last}} ({{person.email}}, {{person.level}})<small class="status">pending...</small>
+                <button class="btn right clear">resend</button>
+                <button ng-click="deleteListItem($index, buildCampaign.permissions.pending)" class="btn right">cancel</button>
+              </li>
+            </ul>
+          </div>
         </div>
         <div ng-switch-when="4">
-          <div>
+          <h1>This step needs to be removed.</h1>
+          <div class="card padded">
             <h3>Security:</h3>
             <fieldset class="inline">
               <input type="checkbox"/>
@@ -156,7 +169,7 @@
             </form>
           </div>
         </div>
-      </section>
+      </div>
     </div>
   </div>
 </div>

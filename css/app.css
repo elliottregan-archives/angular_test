@@ -149,8 +149,7 @@ dd:after {
 /* @end */
 
 .scroller_wrapper.with_breadcrumb_padding {
-  padding-top: 3em;
-  padding-bottom: 0em;
+  padding-top: 2em;
 }
 
 .main_view {
