@@ -48,16 +48,6 @@ var appmodule = angular.module('appmodule', ['ui.sortable', 'ui.router', 'ngAnim
         templateUrl: 'partials/conversations.html',
         controller: conversationsCtr
       }).
-      state('all_accounts.campaign.conversations.tools', {
-        url: '/:conversationId',
-        templateUrl: 'partials/tools.html',
-        controller: collabToolsCtr
-      }).
-      state('account.campaign.conversations.tools', {
-        url: '/:conversationId',
-        templateUrl: 'partials/tools.html',
-        controller: collabToolsCtr
-      }).
       state('all_accounts.campaign.edit', {
         url: '/edit',
         templateUrl: 'partials/edit.html',

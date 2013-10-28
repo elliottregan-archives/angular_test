@@ -1,56 +1,96 @@
 
-<article ng-init="instance.cap = -2">
-  <header class="instance_header">
-    <div class="left">
-      <div class="profile_pic jon_hamm"></div>
-    </div>
-    <div class="middle">
-      <h3><a href="#/campaign/{{viewCampaign.id}}/contacts/{{instance.author}}" ng-bind="instance.author"></a></h3>
-      <time ng-bind="instance.time"></time>
-    </div>
-    <div class="right">
-      <div class="header_tools">
-        <button ng-click="toggleToolPanel(instance)" class="btn icon right"><i class="icon-info-circled-alt"></i></button>
+<div class="instance_wrapper">
+  <div ng-if="conversationDetailView" class="tools_panel_wrapper slideIn_right">
+    <aside class="tools_panel conversation_view">
+      <header class="app_header">
+        <button ng-click="toggleInstanceTools()" class="left icon btn"><i class="icon-cancel"></i></button>
+        <h1 class="center">Internal Tools</h1>
+      </header>
+      <div class="scroller_wrapper with_header_padding">
+        <div class="scroller tools_list">
+          <section>
+            <fieldset class="inline">
+              <input type="checkbox" ng-model="instance.collaboration.importance" class="inline"/>
+              <label class="inline">important</label>
+            </fieldset>
+          </section>
+          <section> 
+            <ul class="general-list">
+              <li ng-repeat="user in viewConversation.tagged_users" ng-animate="'collapse'"><span ng-bind="user"></span><span ng-click="removeTag(user, viewConversation.tagged_users)" class="close_btn">x</span></li>
+            </ul>
+            <form ng-submit="addUserTag(user_to_submit, viewConversation)" name="user_tag" class="one_line">
+              <button ng-class="{active : focus_status}" type="submit" class="btn">assign</button>
+              <input type="text" ng-model="user_to_submit" placeholder="assign a team member" ng-focus="textInputFocus(false)"/>{{focus_status}}
+            </form>
+          </section>
+          <section>
+            <h3>Notes:</h3>
+            <ul class="notes">
+              <li ng-repeat="comment in viewConversation.comments" ng-animate="'collapse'" class="note"><span ng-bind="comment.text"></span><br/><small>-<span ng-bind="comment.author"></span></small></li>
+            </ul>
+            <form ng-submit="addComment(comment_text, viewConversation.comments)" name="comment_form" class="one_line">
+              <button type="submit" class="btn">comment</button>
+              <input type="text" ng-model="comment_text"/>
+            </form>
+          </section>
+        </div>
       </div>
-    </div>
-  </header>
-  <div class="form_response">
-    <div ng-include="&quot;partials/form_completed.html&quot;" class="questions"></div>
-    <dl class="bonus">
-      <dt>Bonus:</dt>
-      <dd>{{instance.reward.title}}<br/><small>claimed on {{instance.reward.date_claimed}}</small></dd>
-    </dl>
+    </aside>
   </div>
-  <div ng-if="isExpandable" class="expand_wrapper">
-    <button ng-click="expandReplies(instance)" class="btn icon expand"><span ng-if="!instance.isExpanded">view all {{instance.comments.length}} comments</span><span ng-if="instance.isExpanded">hide older comments</span></button>
-  </div>
-  <ul class="comments">
-    <li ng-repeat="comment in (instance.comments | limitTo:instance.cap)" ng-animate="'collapse'" ng-class="{you: comment.author == &quot;You&quot;}" class="comment fade">
-      <div ng-if="comment.author == &quot;You&quot;" class="comment_wrapper">
-        <div>
-          <div class="profile_pic john"></div>
-        </div>
-        <div class="text">
-          <h4>@{{campaignHandle}}</h4>
-          <p ng-bind="comment.text"></p>
-          <time>5m ago</time>
+  <div ng-if="conversationDetailView" ng-click="toggleInstanceTools()" class="dimmer conversations_dimmer"></div>
+  <article ng-init="instance.cap = -2" class="instance_content">
+    <header class="instance_header">
+      <div class="left">
+        <div class="profile_pic jon_hamm"></div>
+      </div>
+      <div class="middle">
+        <h3><a href="#/campaign/{{viewCampaign.id}}/contacts/{{instance.author}}" ng-bind="instance.author"></a></h3>
+        <time ng-bind="instance.time"></time>
+      </div>
+      <div class="right">
+        <div class="header_tools">
+          <button ng-click="toggleInstanceTools(instance)" class="btn icon right"><i class="icon-info-circled-alt"></i></button>
         </div>
       </div>
-      <div ng-if="comment.author != &quot;You&quot;" class="comment_wrapper">
-        <div> 
-          <div class="profile_pic jon_hamm"></div>
+    </header>
+    <div class="form_response">
+      <div ng-include="&quot;partials/form_completed.html&quot;" class="questions"></div>
+      <dl class="bonus">
+        <dt>Bonus:</dt>
+        <dd>{{instance.reward.title}}<br/><small>claimed on {{instance.reward.date_claimed}}</small></dd>
+      </dl>
+    </div>
+    <div ng-if="isExpandable" class="expand_wrapper">
+      <button ng-click="expandReplies(instance)" class="btn icon expand"><span ng-if="!instance.isExpanded">view all {{instance.comments.length}} comments</span><span ng-if="instance.isExpanded">hide older comments</span></button>
+    </div>
+    <ul class="comments">
+      <li ng-repeat="comment in (instance.comments | limitTo:instance.cap)" ng-animate="'collapse'" ng-class="{you: comment.author == &quot;You&quot;}" class="comment fade">
+        <div ng-if="comment.author == &quot;You&quot;" class="comment_wrapper">
+          <div>
+            <div class="profile_pic john"></div>
+          </div>
+          <div class="text">
+            <h4>@{{campaignHandle}}</h4>
+            <p ng-bind="comment.text"></p>
+            <time>5m ago</time>
+          </div>
         </div>
-        <div class="text">
-          <h4 ng-bind="comment.author"></h4>
-          <p ng-bind="comment.text"></p>
-          <time>5m ago</time>
+        <div ng-if="comment.author != &quot;You&quot;" class="comment_wrapper">
+          <div> 
+            <div class="profile_pic jon_hamm"></div>
+          </div>
+          <div class="text">
+            <h4 ng-bind="comment.author"></h4>
+            <p ng-bind="comment.text"></p>
+            <time>5m ago</time>
+          </div>
         </div>
-      </div>
-    </li>
-  </ul>
-  <form ng-submit="addReply(newCommentText, instance.comments)" class="one_line">
-    <button ng-if="instance.heardConditions" type="button" ng-click="addHeard()" class="btn active">heard</button>
-    <button ng-if="!instance.heardConditions" ng-class="{active : newCommentText &gt; 0}" type="submit" class="btn">send</button>
-    <input type="text" name="new_comment" ng-model="newCommentText" placeholder="add a reply" ng-focus="instance.heardConditions = false" ng-blur="checkHeardConditions(newCommentText)"/>
-  </form>
-</article>
+      </li>
+    </ul>
+    <form ng-submit="addReply(newCommentText, instance.comments)" class="one_line">
+      <button ng-if="instance.heardConditions" type="button" ng-click="addHeard()" class="btn active">heard</button>
+      <button ng-if="!instance.heardConditions" ng-class="{active : newCommentText &gt; 0}" type="submit" class="btn">send</button>
+      <input type="text" name="new_comment" ng-model="newCommentText" placeholder="add a reply" ng-focus="instance.heardConditions = false" ng-blur="checkHeardConditions(newCommentText)"/>
+    </form>
+  </article>
+</div>

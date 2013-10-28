@@ -1,39 +1,36 @@
 
-<aside ng-class="{visible: conversationDetailView}" class="tools_panel conversation_view">
+<aside class="tools_panel conversation_view visible">
   <header class="app_header">
-    <button ng-click="toggleToolPanel()" class="left icon btn"><i class="icon-cancel"></i></button>
+    <button ng-click="toggleInstanceTools()" class="left icon btn"><i class="icon-cancel"></i></button>
     <h1 class="center">Internal Tools</h1>
   </header>
   <div class="scroller_wrapper with_header_padding">
-    <div class="scroller">
-      <div class="tools_list">
-        <section>
-          <fieldset class="inline">
-            <input type="checkbox" ng-model="viewConversation.importance"/>
-            <label>important</label>
-          </fieldset>
-        </section>
-        <section> 
-          <h3>assigned users:</h3>
-          <ul class="tag_list">
-            <li ng-repeat="user in viewConversation.tagged_users" ng-animate="'collapse'" class="inline tag"><span ng-bind="user"></span><span ng-click="removeTag(user, viewConversation.tagged_users)" class="close_btn">x</span></li>
-          </ul>
-          <form ng-submit="addUserTag(user_to_submit, viewConversation)" name="user_tag" class="one_line">
-            <button type="submit" class="btn">assign</button>
-            <input type="text" ng-model="user_to_submit"/>
-          </form>
-        </section>
-        <section>
-          <h3>Notes:</h3>
-          <ul class="notes">
-            <li ng-repeat="comment in viewConversation.comments" ng-animate="'collapse'" class="note"><span ng-bind="comment.text"></span><br/><small>-<span ng-bind="comment.author"></span></small></li>
-          </ul>
-          <form ng-submit="addComment(comment_text, viewConversation.comments)" name="comment_form" class="one_line">
-            <button type="submit" class="btn">comment</button>
-            <input type="text" ng-model="comment_text"/>
-          </form>
-        </section>
-      </div>
+    <div class="scroller tools_list">
+      <section>{{conversationDetailView}}
+        <fieldset class="inline">
+          <input type="checkbox" ng-model="instance.collaboration.importance" class="inline"/>
+          <label class="inline">important</label>
+        </fieldset>
+      </section>
+      <section> 
+        <ul class="general-list">
+          <li ng-repeat="user in viewConversation.tagged_users" ng-animate="'collapse'"><span ng-bind="user"></span><span ng-click="removeTag(user, viewConversation.tagged_users)" class="close_btn">x</span></li>
+        </ul>
+        <form ng-submit="addUserTag(user_to_submit, viewConversation)" name="user_tag" class="one_line">
+          <button ng-class="{active : focus_status}" type="submit" class="btn">assign</button>
+          <input type="text" ng-model="user_to_submit" placeholder="assign a team member" ng-focus="textInputFocus(false)"/>{{focus_status}}
+        </form>
+      </section>
+      <section>
+        <h3>Notes:</h3>
+        <ul class="notes">
+          <li ng-repeat="comment in viewConversation.comments" ng-animate="'collapse'" class="note"><span ng-bind="comment.text"></span><br/><small>-<span ng-bind="comment.author"></span></small></li>
+        </ul>
+        <form ng-submit="addComment(comment_text, viewConversation.comments)" name="comment_form" class="one_line">
+          <button type="submit" class="btn">comment</button>
+          <input type="text" ng-model="comment_text"/>
+        </form>
+      </section>
     </div>
   </div>
 </aside>

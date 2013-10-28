@@ -14,7 +14,7 @@ header
               input(type='text', ng-model='answer.text', placeholder='add an answer here.')
           button.btn.outline.soft(ng-click='addAnswer(\'\',buildQuestion.answers)') + Answer
           input#limit.inline(type='checkbox', name='limit')
-          label.inline(for='limit') Limit to one one response.        
+          label.inline(for='limit') Limit to one response.        
   .btnset.two_btns.action(ng-if="!duplicate_mode")
     button.btn(ng-click='togglePanel()', type='button') cancel
     button.btn.positive(type='submit',ng-show='panel==\'Create Question\'', ng-click='saveQuestion()', ui-event='{click : \'togglePanel()\'}')

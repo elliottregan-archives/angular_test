@@ -939,31 +939,11 @@ function inboxCtr($scope, accountData) {
     
 };
 
-function conversationsCtr($rootScope, $scope, $stateParams, $location, accountData) {
+function conversationsCtr($scope, $state, $stateParams, $location) {
   console.log("initialize conversation controller");
   $scope.$emit("CAMPAIGN_PAGE_CHANGED");
   $scope.title = "Conversations";
   $scope.conversationDetailView = false;
-    
-  $scope.toggleToolPanel = function(conversation_object) {
-    if (conversation_object) {
-      $scope.conversationDetailView = true;
-      $scope.viewConversation = conversation_object.collaboration;
-      $location.path("/account/"+$scope.accountId+"/campaign/"+$scope.campaignId+"/conversations/"+conversation_object.id);
-    }
-    else {
-      $scope.conversationDetailView = false;
-      $location.path("/account/"+$scope.accountId+"/campaign/"+$stateParams.campaignId+"/conversations/");
-    }
-  };
-  
-};
-
-function collabToolsCtr($scope, $stateParams) {
-  console.log("initialize tools controller");
-//  $scope.conversationDetailView = true;
-  
-  $scope.conversationId = $stateParams.conversationId;
   
   $scope.addTopicTag = function(submitted_tag, conversationAttributes) {
     conversationAttributes.tags.push(submitted_tag);
@@ -995,9 +975,30 @@ function collabToolsCtr($scope, $stateParams) {
     $scope.comment_form.$setPristine();
   };
 
+  $scope.focused = false;
+  $scope.textInputFocus = function (focus_status) {
+    $scope.focused = focus_status;
+  };
+
 };
 
 function instanceCtr($scope) {
+
+  $scope.toggleInstanceTools = function(conversation_object) {
+
+    if (conversation_object) {
+      $scope.conversationDetailView = true;
+      $scope.viewConversation = conversation_object.collaboration;
+      //$location.path("/account/"+$scope.accountId+"/campaign/"+$scope.campaignId+"/conversations/"+conversation_object.id);
+      
+    }
+    else {
+      console.log("false")
+      $scope.conversationDetailView = false;
+      $scope.viewConversation = {};
+      //$location.path("/account/"+$scope.accountId+"/campaign/"+$stateParams.campaignId+"/conversations/");
+    }
+  };
 
   $scope.full_form_view_on = false;
 

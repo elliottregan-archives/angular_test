@@ -1,44 +1,78 @@
-article(ng-init='instance.cap = -2')
-  header.instance_header
-    .left
-      .profile_pic.jon_hamm
-    .middle
-      h3
-        a(href='#/campaign/{{viewCampaign.id}}/contacts/{{instance.author}}', ng-bind='instance.author')
-      time(ng-bind='instance.time')
-    .right
-      .header_tools
-        button.btn.icon.right(ng-click='toggleToolPanel(instance)')
-          i.icon-info-circled-alt
-  .form_response
-    .questions(ng-include='"partials/form_completed.html"')
-    dl.bonus
-      dt Bonus:
-      dd {{instance.reward.title}}
-        br
-        small claimed on {{instance.reward.date_claimed}}
-  .expand_wrapper(ng-if='isExpandable')
-    button.btn.icon.expand(ng-click='expandReplies(instance)')
-      span(ng-if='!instance.isExpanded') view all {{instance.comments.length}} comments
-      span(ng-if='instance.isExpanded') hide older comments
-  ul.comments
-    li.comment.fade(ng-repeat='comment in (instance.comments | limitTo:instance.cap)', ng-animate='\'collapse\'', ng-class='{you: comment.author == "You"}')
-      .comment_wrapper(ng-if='comment.author == "You"')
-        div
-          .profile_pic.john
-        .text
-          h4 @{{campaignHandle}}
-          p(ng-bind='comment.text')
-          time 5m ago
-      .comment_wrapper(ng-if='comment.author != "You"')
-        div 
-          .profile_pic.jon_hamm
-        .text
-          h4(ng-bind='comment.author')
-          p(ng-bind='comment.text')
-          time 5m ago
-  form.one_line(ng-submit='addReply(newCommentText, instance.comments)')
-    button.btn.active(ng-if='instance.heardConditions', type='button', ng-click='addHeard()') heard
-    button.btn(ng-if='!instance.heardConditions', ng-class="{active : newCommentText > 0}", type='submit') send
-    input(type='text', name='new_comment', ng-model='newCommentText', placeholder="add a reply", ng-focus="instance.heardConditions = false", ng-blur="checkHeardConditions(newCommentText)")
-    
+.instance_wrapper
+  .tools_panel_wrapper.slideIn_right(ng-if='conversationDetailView')
+    aside.tools_panel.conversation_view
+      header.app_header
+        button.left.icon.btn(ng-click='toggleInstanceTools()')
+          i.icon-cancel
+        h1.center Internal Tools
+      .scroller_wrapper.with_header_padding
+        .scroller.tools_list
+          section
+            fieldset.inline
+              input.inline(type="checkbox", ng-model='instance.collaboration.importance')
+              label.inline important
+          section 
+            ul.general-list
+              li(ng-repeat='user in viewConversation.tagged_users', ng-animate='\'collapse\'')
+                span(ng-bind='user')
+                span.close_btn(ng-click='removeTag(user, viewConversation.tagged_users)') x
+            form.one_line(ng-submit='addUserTag(user_to_submit, viewConversation)', name='user_tag')
+              button.btn( ng-class="{active : focus_status}",type='submit') assign
+              input(type='text', ng-model='user_to_submit', placeholder='assign a team member', ng-focus='textInputFocus(true)', ng-focus='textInputFocus(false)')
+              {{focus_status}}
+          section
+            h3 Notes:
+            ul.notes
+              li.note(ng-repeat='comment in viewConversation.comments', ng-animate='\'collapse\'')
+                span(ng-bind='comment.text')
+                br
+                small
+                  | -
+                  span(ng-bind='comment.author')
+            form.one_line(ng-submit='addComment(comment_text, viewConversation.comments)', name='comment_form')
+              button.btn(type='submit') comment
+              input(type='text', ng-model='comment_text')
+  .dimmer.conversations_dimmer(ng-if='conversationDetailView',ng-click='toggleInstanceTools()')
+  article.instance_content(ng-init='instance.cap = -2')
+    header.instance_header
+      .left
+        .profile_pic.jon_hamm
+      .middle
+        h3
+          a(href='#/campaign/{{viewCampaign.id}}/contacts/{{instance.author}}', ng-bind='instance.author')
+        time(ng-bind='instance.time')
+      .right
+        .header_tools
+          button.btn.icon.right(ng-click='toggleInstanceTools(instance)')
+            i.icon-info-circled-alt
+    .form_response
+      .questions(ng-include='"partials/form_completed.html"')
+      dl.bonus
+        dt Bonus:
+        dd {{instance.reward.title}}
+          br
+          small claimed on {{instance.reward.date_claimed}}
+    .expand_wrapper(ng-if='isExpandable')
+      button.btn.icon.expand(ng-click='expandReplies(instance)')
+        span(ng-if='!instance.isExpanded') view all {{instance.comments.length}} comments
+        span(ng-if='instance.isExpanded') hide older comments
+    ul.comments
+      li.comment.fade(ng-repeat='comment in (instance.comments | limitTo:instance.cap)', ng-animate='\'collapse\'', ng-class='{you: comment.author == "You"}')
+        .comment_wrapper(ng-if='comment.author == "You"')
+          div
+            .profile_pic.john
+          .text
+            h4 @{{campaignHandle}}
+            p(ng-bind='comment.text')
+            time 5m ago
+        .comment_wrapper(ng-if='comment.author != "You"')
+          div 
+            .profile_pic.jon_hamm
+          .text
+            h4(ng-bind='comment.author')
+            p(ng-bind='comment.text')
+            time 5m ago
+    form.one_line(ng-submit='addReply(newCommentText, instance.comments)')
+      button.btn.active(ng-if='instance.heardConditions', type='button', ng-click='addHeard()') heard
+      button.btn(ng-if='!instance.heardConditions', ng-class="{active : newCommentText > 0}", type='submit') send
+      input(type='text', name='new_comment', ng-model='newCommentText', placeholder="add a reply", ng-focus="instance.heardConditions = false", ng-blur="checkHeardConditions(newCommentText)")

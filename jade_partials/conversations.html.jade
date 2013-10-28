@@ -6,5 +6,3 @@
       button.btn Spread the word!
     ul.conversations
       li.instance.card(ng-repeat='instance in viewCampaign.conversations', ng-controller='instanceCtr', ng-include src='"partials/instance.html"')
-ng-include.tools_panel_wrapper(src='"partials/tools.html"')
-.dimmer.conversations_dimmer(ng-if='conversationDetailView',ng-click='toggleToolPanel()')
