@@ -14,13 +14,13 @@
 <div class="scroller_wrapper with_breadcrumb_padding">
   <div class="scroller">
     <div class="form">
-      <div ng-switch="currentStep">
+      <div ng-switch="currentStep" class="creator_steps">
         <div ng-switch-when="0">
           <div class="padded">
             <h1>Ask Questions</h1>
             <p>A smaller number is better. Have fun with it!</p>
           </div>
-          <div class="card padded">
+          <div class="mockup-form card padded">
             <h1 type="text" ng-bind="campaignTitle"></h1>
             <div ng-include src="&quot;partials/form_not_completed.html&quot;"></div>
             <button ng-click="togglePanel('Create Question')" class="outline confirm btn">+ New Question</button>
@@ -36,21 +36,21 @@
               <h3>Bonus Details</h3>
               <label for="personal_message" ng-model="buildCampaign.message">Create a personal message for the recipient:</label>
               <textarea id="personal_message" placeholder="(optional)"></textarea>
-              <label for="title">Title:</label>
+              <label for="title">Title</label>
               <input type="text" name="title" ng-model="buildCampaign.reward.title" placeholder="Gift Title"/>
-              <label for="terms">Terms:</label>
+              <label for="terms">Terms</label>
               <input type="text" name="terms" ng-model="buildCampaign.reward.terms" placeholder="Terms and Conditions"/>
             </div>
             <div class="card padded"> 
               <h3>Validity</h3>
               <div>
-                <label for="title">Start Date:</label>
+                <label for="title">Start Date</label>
                 <input type="date" name="start_date" ng-model="buildCampaign.reward.start_date" placeholder=""/>
-                <label for="title">Start Time:</label>
+                <label for="title">Start Time</label>
                 <input type="time" name="start_time" ng-model="buildCampaign.reward.start_time" placeholder=""/>
-                <label for="title">End Date:</label>
+                <label for="title">Expiration Date</label>
                 <input type="date" name="end_date" ng-model="buildCampaign.reward.end_date" placeholder=""/>
-                <label for="title">End Time:</label>
+                <label for="title">Expiration Time</label>
                 <input type="time" name="end_time" ng-model="buildCampaign.reward.end_time" placeholder=""/>
                 <input id="delay" type="checkbox" name="delay" class="inline"/>
                 <label for="delay" class="inline">24-hour delay<small>(user must wait 24 hours before redeeming.)</small></label>
@@ -78,13 +78,12 @@
         <div ng-switch-when="2">
           <div class="padded">
             <h1>Get social</h1>
-            <p>Add social media accounts so that people can share good feedback about you.</p>
+            <p>Add social media accounts. Let people share positive feedback.</p>
           </div>
           <div class="card padded">
-            <ul>
-              <li>Facebook Account<small class="status">connected</small></li>
-              <li>Twitter Account<small class="status">connected</small></li>
-            </ul>
+            <button class="btn fb">Connect with Facebook</button><br/>
+            <button class="btn tw">Connect with Twitter</button><br/>
+            <button class="btn gp">Connect with Google+</button>
           </div>
         </div>
         <div ng-switch-when="3">
@@ -94,11 +93,11 @@
           </div>
           <form ng-submit="sendInvite(first, last, invite_email, level, buildCampaign.permissions.pending)" class="card padded">
             <h3>Invite Teammate</h3>
-            <label for="name">Full Name:</label>
+            <label for="name">Full Name</label>
             <input ng-model="name" type="text" name="name" placeholder="name"/>
-            <label for="email">Email:</label>
+            <label for="email">Email</label>
             <input ng-model="invite_email" type="email" name="email" placeholder="email"/>
-            <label for="message">Message:</label>
+            <label for="message">Message</label>
             <textarea placeholder="optional"></textarea>
             <div>
               <label>Permission level</label>

@@ -38,14 +38,14 @@
       .left
         .profile_pic.jon_hamm
       .middle
-        h3
-          a(href='#/campaign/{{viewCampaign.id}}/contacts/{{instance.author}}', ng-bind='instance.author')
+        h3(ng-bind='instance.author')
         time(ng-bind='instance.time')
       .right
         .header_tools
           button.btn.icon.right(ng-click='toggleInstanceTools(instance)')
             i.icon-info-circled-alt
     .form_response
+      h2(ng-bind='instance.campaign')
       .questions(ng-include='"partials/form_completed.html"')
       dl.bonus
         dt Bonus:
@@ -76,3 +76,8 @@
       button.btn.active(ng-if='instance.heardConditions', type='button', ng-click='addHeard()') heard
       button.btn(ng-if='!instance.heardConditions', ng-class="{active : newCommentText > 0}", type='submit') send
       input(type='text', name='new_comment', ng-model='newCommentText', placeholder="add a reply", ng-focus="instance.heardConditions = false", ng-blur="checkHeardConditions(newCommentText)")
+  section.internal_overview
+    .grid.three-by-one
+      hgroup
+        h3(ng-bind-template="{{instance.campaign}} (@{{instance.handle}}) {{instance.id}}")
+

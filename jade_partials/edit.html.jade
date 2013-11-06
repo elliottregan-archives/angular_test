@@ -15,12 +15,12 @@ nav.breadcrumbs
 .scroller_wrapper.with_breadcrumb_padding
   .scroller
     .form
-      div(ng-switch='currentStep')
+      .creator_steps(ng-switch='currentStep')
         div(ng-switch-when='0')
           .padded
             h1 Ask Questions
             p A smaller number is better. Have fun with it!
-          div.card.padded
+          .mockup-form.card.padded
             h1(type='text', ng-bind='campaignTitle')
             div(ng-include src='"partials/form_not_completed.html"')
             button.outline.confirm.btn(ng-click='togglePanel(\'Create Question\')') + New Question
@@ -33,20 +33,20 @@ nav.breadcrumbs
               h3 Bonus Details
               label(for='personal_message', ng-model='buildCampaign.message') Create a personal message for the recipient:
               textarea#personal_message(placeholder='(optional)')
-              label(for='title') Title:
+              label(for='title') Title
               input(type='text', name='title', ng-model='buildCampaign.reward.title', placeholder='Gift Title')
-              label(for='terms') Terms:
+              label(for='terms') Terms
               input(type='text', name='terms', ng-model='buildCampaign.reward.terms', placeholder='Terms and Conditions')
             .card.padded  
               h3 Validity
               div
-                label(for='title') Start Date:
+                label(for='title') Start Date
                 input(type='date', name='start_date', ng-model='buildCampaign.reward.start_date', placeholder='')
-                label(for='title') Start Time:
+                label(for='title') Start Time
                 input(type='time', name='start_time', ng-model='buildCampaign.reward.start_time', placeholder='')
-                label(for='title') End Date:
+                label(for='title') Expiration Date
                 input(type='date', name='end_date', ng-model='buildCampaign.reward.end_date', placeholder='')
-                label(for='title') End Time:
+                label(for='title') Expiration Time
                 input(type='time', name='end_time', ng-model='buildCampaign.reward.end_time', placeholder='')
                 input#delay.inline(type='checkbox', name='delay')
                 label.inline(for='delay')
@@ -67,26 +67,24 @@ nav.breadcrumbs
         div(ng-switch-when='2')
           .padded
             h1 Get social
-            p Add social media accounts so that people can share good feedback about you.
+            p Add social media accounts. Let people share positive feedback.
           div.card.padded
-            ul
-              li
-                | Facebook Account
-                small.status connected
-              li
-                | Twitter Account
-                small.status connected
+            button.btn.fb Connect with Facebook
+            br
+            button.btn.tw Connect with Twitter
+            br
+            button.btn.gp Connect with Google+
         div(ng-switch-when='3')
           .padded
             h1 Add Permissions
             p Get your team involved.
           form.card.padded(ng-submit='sendInvite(first, last, invite_email, level, buildCampaign.permissions.pending)')
             h3 Invite Teammate
-            label(for='name') Full Name:
+            label(for='name') Full Name
             input(ng-model='name', type='text', name='name', placeholder='name')
-            label(for='email') Email:
+            label(for='email') Email
             input(ng-model='invite_email', type='email', name='email', placeholder='email')
-            label(for='message') Message:
+            label(for='message') Message
             textarea(placeholder='optional')
             div
               label Permission level

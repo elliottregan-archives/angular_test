@@ -44,7 +44,7 @@
         <div class="profile_pic jon_hamm"></div>
       </div>
       <div class="middle">
-        <h3><a href="#/campaign/{{viewCampaign.id}}/contacts/{{instance.author}}" ng-bind="instance.author"></a></h3>
+        <h3 ng-bind="instance.author"></h3>
         <time ng-bind="instance.time"></time>
       </div>
       <div class="right">
@@ -54,6 +54,7 @@
       </div>
     </header>
     <div class="form_response">
+      <h2 ng-bind="instance.campaign"></h2>
       <div ng-include="&quot;partials/form_completed.html&quot;" class="questions"></div>
       <dl class="bonus">
         <dt>Bonus:</dt>
@@ -93,4 +94,11 @@
       <input type="text" name="new_comment" ng-model="newCommentText" placeholder="add a reply" ng-focus="instance.heardConditions = false" ng-blur="checkHeardConditions(newCommentText)"/>
     </form>
   </article>
+  <section class="internal_overview">
+    <div class="grid three-by-one">
+      <hgroup>
+        <h3 ng-bind-template="{{instance.campaign}} (@{{instance.handle}}) {{instance.id}}"></h3>
+      </hgroup>
+    </div>
+  </section>
 </div>

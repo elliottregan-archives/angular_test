@@ -2,7 +2,7 @@
 <html lang="en" ng-app="appmodule" ng-controller="appCtr">
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" user-scalable="0">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <title>Fdbk</title><!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
@@ -30,7 +30,7 @@
         <ul>
           <li class="personal"><a ng-click="togglePersonalPages()">Elliott Regan</a>
             <ul ng-if="personal_pages_visible" class="expando slide_down">
-              <li ng-class="{selected : current_page == &quot;user_settings&quot;}"><a href="#/settings" ng-click="toggleSidebar()"><i class="icon-cog"></i>Settings</a></li>
+              <li ng-class="{selected : current_page == &quot;user_settings&quot;}"><a href="#/settings" ng-click="toggleSidebar()"><i class="icon-cog"></i>Profile</a></li>
               <li ng-class="{selected : current_page == &quot;user_bonuses&quot;}"><a href="#/rewards" ng-click="toggleSidebar()"><i class="icon-trophy"></i>Bonuses</a></li>
               <li ng-class="{selected : current_page == &quot;user_history&quot;}"><a href="#/history" ng-click="toggleSidebar()"><i class="icon-chat"></i>Conversations</a></li>
             </ul>

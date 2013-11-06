@@ -169,16 +169,6 @@ function appCtr($scope, $stateParams, $state, $location, $timeout, accountData) 
       
       $('.main_nav').toggleClass('visible');
       
-      if (direction == 'left') {
-        $('.main_nav').addClass("invisible");
-        $('.main_nav').removeClass("visible");
-      }
-      else if (direction == 'right') {
-        $('.main_nav').addClass("visible");
-        $('.main_nav').removeClass("invisible");
-        
-      }
-      
     }
     else {
       $('.main_nav').removeClass('visible');
@@ -309,7 +299,7 @@ function multiAccountsCtr($scope, $stateParams, $location, accountData) {
     $scope.$emit("ACCOUNT_CHANGED", "all");
     console.log($scope.accountId)
     $scope.campaignTitleList = {};
-    $scope.handle = "All Campaigns";
+    $scope.handle = "All Handles";
     $scope.campaignTitleList = accountData.getMultiAccountCampaignTitles();
     $scope.archivedCampaignList = {};
     $scope.array_of_account_ids = ["account01", "account02"];  
@@ -848,11 +838,9 @@ function userRewardsCtr($scope, $stateParams, $location, userData) {
   function init() {
     $scope.$emit("ACCOUNT_CHANGED", "none", "user_bonuses");  
     $scope.rewardsList = userData.getRewards("open");
+    $scope.title = 'Rewards';
 
   };
-
-  $scope.title = 'Rewards';
-  
 
   $scope.claimReward = function (el) {
     el.claimed = new Date();

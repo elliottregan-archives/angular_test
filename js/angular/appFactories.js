@@ -161,64 +161,17 @@ appmodule.factory('accountData', function() {
               pending: []
             },
           conversations : {
-            msg0: {
-              id: 'msg0',
+            msg1: {
+              id: 'msg1',
               author: "user4",
               time: "4/5/13",
               questionsList: [
                 {
                   id: 'asdf',
-                  type: 'multipleChoice',
-                  text: "How was your service today?",
-                  answers: [
-                    {
-                      id: 0,
-                      text: "ass"
-                    },
-                    {
-                      id: 2,
-                      text: "mehhhhh..."
-                    },
-                    {
-                      id: 3,
-                      text: "better than not"
-                    },
-                    {
-                      id: 4,
-                      text: "fabul-fucking-tastic!"
-                    }
-                  ],
-                  response: 4
-                },
-                {
-                  id: 'asdf2',
-                  type: 'binary',
-                  text: "Yes or no?",
-                  answers: [
-                    {
-                      id: 50,
-                      text: "yes"
-                    },
-                    {
-                      id: 52,
-                      text: "no"
-                    }
-                  ],
-                  response: 50
-                },
-                {
-                  id: 'asdf3',
                   type: 'freeText',
-                  text: "Tell us about something you like.",
+                  text: "How one does not think they like which more as?",
                   answers: [],
-                  response: "I like turtles."
-                },
-                {
-                  id: 'asdf4',
-                  type: 'number',
-                  text: "How old are you?",
-                  answers: [],
-                  response: 18
+                  response: "They don't think it be like it is, but they do."
                 }
               ],
               heard: false,
@@ -265,8 +218,8 @@ appmodule.factory('accountData', function() {
                 ]
               }
             },
-            msg1: {
-              id: 'msg1',
+            msg8: {
+              id: 'msg8',
               author: "user0",
               time: "4/5/13",
               questionsList: [
@@ -449,7 +402,7 @@ appmodule.factory('accountData', function() {
             },
           conversations : {
             msg2: {
-              id: 'msg0',
+              id: 'msg2',
               author: "user4",
               time: "4/5/13",
               questionsList: [
@@ -552,7 +505,7 @@ appmodule.factory('accountData', function() {
               }
             },
             msg3: {
-              id: 'msg1',
+              id: 'msg3',
               author: "user0",
               time: "4/5/13",
               questionsList: [
@@ -833,7 +786,7 @@ appmodule.factory('accountData', function() {
             },
           conversations : {
             msg5: {
-              id: 'msg0',
+              id: 'msg5',
               author: "user4",
               time: "4/5/13",
               questionsList: [
@@ -859,7 +812,7 @@ appmodule.factory('accountData', function() {
                       text: "fabul-fucking-tastic!"
                     }
                   ],
-                  response: 4
+                  response: 0
                 },
                 {
                   id: 'asdf2',
@@ -936,7 +889,7 @@ appmodule.factory('accountData', function() {
               }
             },
             msg6: {
-              id: 'msg1',
+              id: 'msg6',
               author: "user0",
               time: "4/5/13",
               questionsList: [
@@ -1257,6 +1210,20 @@ appmodule.factory('accountData', function() {
     return outcomes.some(true);    
   };
   
+  factory.getCampaignTitleText = function(accountId, campaignId) {
+    var campaignList = {};
+    campaignList = factory.getCampaignTitles(accountId, true);
+    var title = ""
+    title = campaignList[campaignId].title
+    return title
+  };
+
+  factory.getHandleText = function(handle_id, account_id) {
+    return factory.getAccountList()[account_id].handleList.find(function(handle_object) {
+      return handle_object.id == handle_id;
+    }).text;
+  };
+  
   factory.getConversations = function(array_of_account_ids, array_of_campaign_ids) {
     var conversationsList = {};
     var campaignTitlesList = [];
@@ -1266,17 +1233,29 @@ appmodule.factory('accountData', function() {
       array_of_account_ids = [];
       array_of_account_ids[0] = account_id_temp;
     };
-    
+    campaignTitlesList = {};
     Object.values(array_of_account_ids).forEach(function(account_id) {
-      campaignTitlesList = factory.getCampaignTitles(account_id, true);
+      campaignTitlesList = Object.merge(campaignTitlesList, factory.getCampaignTitles(account_id, true));
       
       array_of_campaign_ids.forEach(function(campaign_id) {
         if (factory.checkIfCampaignExist(account_id, campaign_id)) {
+          thisCampaignMessages = {};
+          thisCampaignMessages = accounts[account_id].campaigns[campaign_id].conversations;
+
+          Object.keys(thisCampaignMessages, function(message_id) {
+            
+            messageCampaignTitle = factory.getCampaignTitleText(account_id, campaign_id)
+            messageHandleText = factory.getHandleText(accounts[account_id].campaigns[campaign_id].handle, account_id)
+            thisCampaignMessages[message_id].campaign = messageCampaignTitle;
+            thisCampaignMessages[message_id].handle = messageHandleText;
+            thisCampaignMessages[message_id].account = account_id;
+          })
+
           conversationsList = Object.merge(conversationsList,accounts[account_id].campaigns[campaign_id].conversations);
         }
       });
-    });
-    
+    });    
+    console.log(conversationsList)
     return conversationsList;
   };
   
@@ -1298,7 +1277,6 @@ appmodule.factory('accountData', function() {
         
     return rewardsList;
   };
-  
   
   
   factory.getMetaData = function(array_of_account_ids, array_of_campaign_ids) {
