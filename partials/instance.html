@@ -1,42 +1,5 @@
 
 <div class="instance_wrapper">
-  <div ng-if="conversationDetailView" class="tools_panel_wrapper slideIn_right">
-    <aside class="tools_panel conversation_view">
-      <header class="app_header">
-        <button ng-click="toggleInstanceTools()" class="left icon btn"><i class="icon-cancel"></i></button>
-        <h1 class="center">Internal Tools</h1>
-      </header>
-      <div class="scroller_wrapper with_header_padding">
-        <div class="scroller tools_list">
-          <section>
-            <fieldset class="inline">
-              <input type="checkbox" ng-model="instance.collaboration.importance" class="inline"/>
-              <label class="inline">important</label>
-            </fieldset>
-          </section>
-          <section> 
-            <ul class="general-list">
-              <li ng-repeat="user in viewConversation.tagged_users" ng-animate="'collapse'"><span ng-bind="user"></span><span ng-click="removeTag(user, viewConversation.tagged_users)" class="close_btn">x</span></li>
-            </ul>
-            <form ng-submit="addUserTag(user_to_submit, viewConversation)" name="user_tag" class="one_line">
-              <button ng-class="{active : focus_status}" type="submit" class="btn">assign</button>
-              <input type="text" ng-model="user_to_submit" placeholder="assign a team member" ng-focus="textInputFocus(false)"/>{{focus_status}}
-            </form>
-          </section>
-          <section>
-            <h3>Notes:</h3>
-            <ul class="notes">
-              <li ng-repeat="comment in viewConversation.comments" ng-animate="'collapse'" class="note"><span ng-bind="comment.text"></span><br/><small>-<span ng-bind="comment.author"></span></small></li>
-            </ul>
-            <form ng-submit="addComment(comment_text, viewConversation.comments)" name="comment_form" class="one_line">
-              <button type="submit" class="btn">comment</button>
-              <input type="text" ng-model="comment_text"/>
-            </form>
-          </section>
-        </div>
-      </div>
-    </aside>
-  </div>
   <div ng-if="conversationDetailView" ng-click="toggleInstanceTools()" class="dimmer conversations_dimmer"></div>
   <article ng-init="instance.cap = -2" class="instance_content">
     <header class="instance_header">
@@ -48,9 +11,7 @@
         <time ng-bind="instance.time"></time>
       </div>
       <div class="right">
-        <div class="header_tools">
-          <button ng-click="toggleInstanceTools(instance)" class="btn icon right"><i class="icon-info-circled-alt"></i></button>
-        </div>
+        <div class="header_tools"></div>
       </div>
     </header>
     <div class="form_response">
@@ -58,7 +19,7 @@
       <div ng-include="&quot;partials/form_completed.html&quot;" class="questions"></div>
       <dl class="bonus">
         <dt>Bonus:</dt>
-        <dd>{{instance.reward.title}}<br/><small>claimed on {{instance.reward.date_claimed}}</small></dd>
+        <dd>{{instance.reward.title}}<br/><small>unclaimed</small></dd>
       </dl>
     </div>
     <div ng-if="isExpandable" class="expand_wrapper">
@@ -97,8 +58,48 @@
   <section class="internal_overview">
     <div class="grid three-by-one">
       <hgroup>
-        <h3 ng-bind-template="{{instance.campaign}} (@{{instance.handle}}) {{instance.id}}"></h3>
+        <h1 ng-bind-template="{{instance.account}} (@{{instance.handle}})"></h1>
+        <h2 ng-bind="instance.campaign"></h2>
       </hgroup>
+      <p ng-bind-template="{{instance.collaboration.comments.length}} internal notes"></p>
+      <div ng-click="toggleInstanceTools(instance)">more...</div>
     </div>
   </section>
+  <div ng-if="conversationDetailView" class="tools_panel_wrapper slideIn_right">
+    <aside class="tools_panel conversation_view">
+      <header class="app_header">
+        <button ng-click="toggleInstanceTools()" class="left icon btn"><i class="icon-cancel"></i></button>
+        <h1 class="center">Internal Tools</h1>
+      </header>
+      <div class="scroller_wrapper with_header_padding">
+        <div class="scroller tools_list">
+          <section>
+            <fieldset class="inline">
+              <input type="checkbox" ng-model="instance.collaboration.importance" class="inline"/>
+              <label class="inline">important</label>
+            </fieldset>
+          </section>
+          <section> 
+            <ul class="general-list">
+              <li ng-repeat="user in viewConversation.tagged_users" ng-animate="'collapse'"><span ng-bind="user"></span><span ng-click="removeTag(user, viewConversation.tagged_users)" class="close_btn">x</span></li>
+            </ul>
+            <form ng-submit="addUserTag(user_to_submit, viewConversation)" name="user_tag" class="one_line">
+              <button ng-class="{active : focus_status}" type="submit" class="btn">assign</button>
+              <input type="text" ng-model="user_to_submit" placeholder="assign a team member" ng-focus="textInputFocus(false)"/>{{focus_status}}
+            </form>
+          </section>
+          <section>
+            <h3>Notes:</h3>
+            <ul class="general-list">
+              <li ng-repeat="comment in viewConversation.comments" ng-animate="'collapse'" class="note"><span ng-bind="comment.text"></span><br/><small>-<span ng-bind="comment.author"></span></small></li>
+            </ul>
+            <form ng-submit="addComment(comment_text, viewConversation.comments)" name="comment_form" class="one_line">
+              <button type="submit" class="btn">comment</button>
+              <input type="text" ng-model="comment_text"/>
+            </form>
+          </section>
+        </div>
+      </div>
+    </aside>
+  </div>
 </div>

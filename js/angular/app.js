@@ -1,7 +1,7 @@
 var appmodule = angular.module('appmodule', ['ui.sortable', 'ui.router', 'ngAnimate', 'customSelect', 'nvd3ChartDirectives']).
   config(function($stateProvider, $urlRouterProvider) {
     
-    $urlRouterProvider.otherwise("/account/all/campaign/camp0+camp1+camp2/conversations")
+    $urlRouterProvider.otherwise("/account/Barclays/dashboard")
     
     $stateProvider.
       state('form', {

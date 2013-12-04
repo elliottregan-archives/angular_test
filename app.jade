@@ -43,8 +43,6 @@ html(lang='en', ng-app='appmodule', ng-controller='appCtr')
                 a(href='#/history', ng-click='toggleSidebar()')
                   i.icon-chat
                   | Conversations
-          li.home(ng-class='{selected : accountId == "all"}')
-            a(href='#/account/all/campaign/camp0+camp1+camp2/conversations', ng-click='toggleSidebar()') Global Conversations
           li(ng-repeat='account in accountList', ng-class='{selected : accountId == account.id}')
             a(href='#/account/{{account.id}}/dashboard', ng-click='toggleSidebar()')
               span(ng-bind='account.id')

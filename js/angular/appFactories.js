@@ -1,17 +1,17 @@
 appmodule.factory('accountData', function() {
 
   var accounts = {
-    account01 : {
-      id : "account01",
-      handle : "thecinema",
+    Barclays : {
+      id : "Barclays",
+      handle : "barclays",
       handleList : [
         {
           id : 01,
-          text : "thecinema"
+          text : "barclays"
         },
         {
           id : 02,
-          text : "thecinemapromos"
+          text : "barclaysinternalfeedback"
         }
       ],
       questions : {
@@ -107,7 +107,7 @@ appmodule.factory('accountData', function() {
           newCounter: 0,
           handle: 01,
           description: 'Our main feedback portal.',
-          title: 'Movie Questions',
+          title: 'How was the concert?',
           message: 'We value your input. Thanks for sharing with us!',
           local: false,
           locationsList: [
@@ -163,16 +163,30 @@ appmodule.factory('accountData', function() {
           conversations : {
             msg1: {
               id: 'msg1',
-              author: "user4",
+              author: "John Smith",
               time: "4/5/13",
               questionsList: [
                 {
                   id: 'asdf',
                   type: 'freeText',
-                  text: "How one does not think they like which more as?",
+                  text: "How was the sound quality?",
                   answers: [],
-                  response: "They don't think it be like it is, but they do."
-                }
+                  response: "Awesome. My ears are still ringing."
+                },
+                {
+                  id: 'asdf',
+                  type: 'freeText',
+                  text: "Any interest in Bieber next Thursday?",
+                  answers: [],
+                  response: "No."
+                },
+                {
+                  id: 'asdf',
+                  type: 'freeText',
+                  text: "Could we have done anything better?",
+                  answers: [],
+                  response: "The beer was watery."
+                },
               ],
               heard: false,
               comments: [
@@ -183,7 +197,7 @@ appmodule.factory('accountData', function() {
                   heard: false
                 },
                 { commentId: 'asdfgtr',
-                  author: "Franz Ferdinand", 
+                  author: "John Smith", 
                   time: "12/3/13",
                   text: "This might be a response to the feedback.",
                   heard: false
@@ -191,15 +205,15 @@ appmodule.factory('accountData', function() {
               ],
               reward: {
                 id: "rwd2",
-                title: 'Free Burrito!',
+                title: 'Free fountain drink.',
                 description: 'This is an offer for a free coffee.',
                 creator: "Crepes & Things",
                 terms: "This would be a long, possibly very long paragraph of terms. It may even have more than one paragraph, although this one does not.",
                 exp_date: "4/1/2014",
                 status: "redeemed",
-                date_claimed: "4/12/2013",
+                date_claimed: "",
                 verified: "Me",
-                owner: "user4",
+                owner: "John Smith",
                 passphrase: "starseed",
                 date_issued: "1/2/1013",
                 shared_with: ["Joe", "Mark", "Ruby"]
@@ -207,11 +221,11 @@ appmodule.factory('accountData', function() {
               collaboration: {
                 importance: true,
                 tags: ["kitchen", "service"],
-                tagged_users: ["user1", "user45"],
+                tagged_users: ["user1", "John Smith5"],
                 comments: [
                   {
                     commentId: "cjioe3",
-                    author: "user47",
+                    author: "John Smith7",
                     time: "4/5/13",
                     text: "Here is an internal comment about this conversation.",
                   }
@@ -220,7 +234,7 @@ appmodule.factory('accountData', function() {
             },
             msg8: {
               id: 'msg8',
-              author: "user0",
+              author: "Chad Grecko",
               time: "4/5/13",
               questionsList: [
                 {
@@ -307,7 +321,7 @@ appmodule.factory('accountData', function() {
               ],
               reward: {
                 id: "rwd3",
-                title: 'City Key!',
+                title: 'Free ticket',
                 description: 'Trade this in for the key to the city.',
                 creator: "Mayor Bumsted",
                 terms: "May not be used in Missouri. Sorry.",
@@ -322,11 +336,11 @@ appmodule.factory('accountData', function() {
               collaboration: {
                 importance: false,
                 tags: ["tagged", "another tag!"],
-                tagged_users: ["user1", "user45"],
+                tagged_users: ["user1", "John Smith5"],
                 comments: [
                   {
                     commentId: "cjfdsag4ioe3",
-                    author: "user47",
+                    author: "John Smith7",
                     time: "4/5/13",
                     text: "Do you think that's wiiiiiise?",
                   },
@@ -347,7 +361,7 @@ appmodule.factory('accountData', function() {
           newCounter: 0,
           handle: 02,
           description: 'Our main feedback portal.',
-          title: 'How was the service?',
+          title: 'How are we doing?',
           message: 'We value your input. Thanks for sharing with us!',
           local: false,
           locationsList: [
@@ -403,7 +417,7 @@ appmodule.factory('accountData', function() {
           conversations : {
             msg2: {
               id: 'msg2',
-              author: "user4",
+              author: "John Smith",
               time: "4/5/13",
               questionsList: [
                 {
@@ -485,7 +499,7 @@ appmodule.factory('accountData', function() {
                 exp_date: "4/1/2014",
                 date_claimed: "4/12/2013",
                 verified: "Me",
-                owner: "user4",
+                owner: "John Smith",
                 passphrase: "starseed",
                 date_issued: "1/2/1013",
                 shared_with: ["Joe", "Mark", "Ruby"]
@@ -493,11 +507,11 @@ appmodule.factory('accountData', function() {
               collaboration: {
                 importance: true,
                 tags: ["kitchen", "service"],
-                tagged_users: ["user1", "user45"],
+                tagged_users: ["user1", "John Smith5"],
                 comments: [
                   {
                     commentId: "cjioe3",
-                    author: "user47",
+                    author: "John Smith7",
                     time: "4/5/13",
                     text: "Here is an internal comment about this conversation.",
                   }
@@ -608,11 +622,11 @@ appmodule.factory('accountData', function() {
               collaboration: {
                 importance: false,
                 tags: ["tagged", "another tag!"],
-                tagged_users: ["user1", "user45"],
+                tagged_users: ["user1", "John Smith5"],
                 comments: [
                   {
                     commentId: "cjfdsag4ioe3",
-                    author: "user47",
+                    author: "John Smith7",
                     time: "4/5/13",
                     text: "Do you think that's wiiiiiise?",
                   },
@@ -629,13 +643,13 @@ appmodule.factory('accountData', function() {
         }
       }
     },
-    account02 : {
-      id : "account02",
-      handle : "elliottregan",
+    Nets : {
+      id : "Nets",
+      handle : "thenets",
       handleList : [
         {
           id : 03,
-          text : "elliottregan"
+          text : "thenets"
         }
       ],
       questions : {
@@ -787,7 +801,7 @@ appmodule.factory('accountData', function() {
           conversations : {
             msg5: {
               id: 'msg5',
-              author: "user4",
+              author: "John Smith",
               time: "4/5/13",
               questionsList: [
                 {
@@ -869,7 +883,7 @@ appmodule.factory('accountData', function() {
                 exp_date: "4/1/2014",
                 date_claimed: "4/12/2013",
                 verified: "Me",
-                owner: "user4",
+                owner: "John Smith",
                 passphrase: "starseed",
                 date_issued: "1/2/1013",
                 shared_with: ["Joe", "Mark", "Ruby"]
@@ -877,11 +891,11 @@ appmodule.factory('accountData', function() {
               collaboration: {
                 importance: true,
                 tags: ["kitchen", "service"],
-                tagged_users: ["user1", "user45"],
+                tagged_users: ["user1", "John Smith5"],
                 comments: [
                   {
                     commentId: "cjioe3",
-                    author: "user47",
+                    author: "John Smith7",
                     time: "4/5/13",
                     text: "Here is an internal comment about this conversation.",
                   }
@@ -992,11 +1006,11 @@ appmodule.factory('accountData', function() {
               collaboration: {
                 importance: false,
                 tags: ["tagged", "another tag!"],
-                tagged_users: ["user1", "user45"],
+                tagged_users: ["user1", "John Smith5"],
                 comments: [
                   {
                     commentId: "cjfdsag4ioe3",
-                    author: "user47",
+                    author: "John Smith7",
                     time: "4/5/13",
                     text: "Do you think that's wiiiiiise?",
                   },
@@ -1361,12 +1375,12 @@ appmodule.factory('userData', function() {
     city: "Brooklyn, NY",
     bio: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
     accounts : {
-      account01 : {
-        id : "account01",
+      Barclays : {
+        id : "Barclays",
         permissions : "admin"
       },
-      account02 : {
-        id : "account02",
+      Nets : {
+        id : "Nets",
         permissions : "admin"
       }
     }
@@ -1484,7 +1498,7 @@ appmodule.factory('userData', function() {
         status: "redeemed",
         date_claimed: "4/12/2013",
         verified: "Me",
-        owner: "user4",
+        owner: "John Smith",
         passphrase: "starseed",
         date_issued: "1/2/1013",
         status : "open"
@@ -1612,7 +1626,7 @@ appmodule.factory('userData', function() {
         status: "redeemed",
         date_claimed: "4/12/2013",
         verified: "Me",
-        owner: "user4",
+        owner: "John Smith",
         passphrase: "starseed",
         date_issued: "1/2/1013",
         status : "open"

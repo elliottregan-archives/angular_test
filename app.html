@@ -35,7 +35,6 @@
               <li ng-class="{selected : current_page == &quot;user_history&quot;}"><a href="#/history" ng-click="toggleSidebar()"><i class="icon-chat"></i>Conversations</a></li>
             </ul>
           </li>
-          <li ng-class="{selected : accountId == &quot;all&quot;}" class="home"><a href="#/account/all/campaign/camp0+camp1+camp2/conversations" ng-click="toggleSidebar()">Global Conversations</a></li>
           <li ng-repeat="account in accountList" ng-class="{selected : accountId == account.id}"><a href="#/account/{{account.id}}/dashboard" ng-click="toggleSidebar()"><span ng-bind="account.id"></span></a></li>
         </ul>
         <div class="tools">

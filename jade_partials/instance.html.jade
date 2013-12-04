@@ -1,37 +1,4 @@
 .instance_wrapper
-  .tools_panel_wrapper.slideIn_right(ng-if='conversationDetailView')
-    aside.tools_panel.conversation_view
-      header.app_header
-        button.left.icon.btn(ng-click='toggleInstanceTools()')
-          i.icon-cancel
-        h1.center Internal Tools
-      .scroller_wrapper.with_header_padding
-        .scroller.tools_list
-          section
-            fieldset.inline
-              input.inline(type="checkbox", ng-model='instance.collaboration.importance')
-              label.inline important
-          section 
-            ul.general-list
-              li(ng-repeat='user in viewConversation.tagged_users', ng-animate='\'collapse\'')
-                span(ng-bind='user')
-                span.close_btn(ng-click='removeTag(user, viewConversation.tagged_users)') x
-            form.one_line(ng-submit='addUserTag(user_to_submit, viewConversation)', name='user_tag')
-              button.btn( ng-class="{active : focus_status}",type='submit') assign
-              input(type='text', ng-model='user_to_submit', placeholder='assign a team member', ng-focus='textInputFocus(true)', ng-focus='textInputFocus(false)')
-              {{focus_status}}
-          section
-            h3 Notes:
-            ul.notes
-              li.note(ng-repeat='comment in viewConversation.comments', ng-animate='\'collapse\'')
-                span(ng-bind='comment.text')
-                br
-                small
-                  | -
-                  span(ng-bind='comment.author')
-            form.one_line(ng-submit='addComment(comment_text, viewConversation.comments)', name='comment_form')
-              button.btn(type='submit') comment
-              input(type='text', ng-model='comment_text')
   .dimmer.conversations_dimmer(ng-if='conversationDetailView',ng-click='toggleInstanceTools()')
   article.instance_content(ng-init='instance.cap = -2')
     header.instance_header
@@ -42,8 +9,6 @@
         time(ng-bind='instance.time')
       .right
         .header_tools
-          button.btn.icon.right(ng-click='toggleInstanceTools(instance)')
-            i.icon-info-circled-alt
     .form_response
       h2(ng-bind='instance.campaign')
       .questions(ng-include='"partials/form_completed.html"')
@@ -51,7 +16,7 @@
         dt Bonus:
         dd {{instance.reward.title}}
           br
-          small claimed on {{instance.reward.date_claimed}}
+          small unclaimed
     .expand_wrapper(ng-if='isExpandable')
       button.btn.icon.expand(ng-click='expandReplies(instance)')
         span(ng-if='!instance.isExpanded') view all {{instance.comments.length}} comments
@@ -79,5 +44,40 @@
   section.internal_overview
     .grid.three-by-one
       hgroup
-        h3(ng-bind-template="{{instance.campaign}} (@{{instance.handle}}) {{instance.id}}")
-
+        h1(ng-bind-template="{{instance.account}} (@{{instance.handle}})")
+        h2(ng-bind="instance.campaign")
+      p(ng-bind-template="{{instance.collaboration.comments.length}} internal notes")
+      div(ng-click='toggleInstanceTools(instance)') more...
+  .tools_panel_wrapper.slideIn_right(ng-if='conversationDetailView')
+    aside.tools_panel.conversation_view
+      header.app_header
+        button.left.icon.btn(ng-click='toggleInstanceTools()')
+          i.icon-cancel
+        h1.center Internal Tools
+      .scroller_wrapper.with_header_padding
+        .scroller.tools_list
+          section
+            fieldset.inline
+              input.inline(type="checkbox", ng-model='instance.collaboration.importance')
+              label.inline important
+          section 
+            ul.general-list
+              li(ng-repeat='user in viewConversation.tagged_users', ng-animate='\'collapse\'')
+                span(ng-bind='user')
+                span.close_btn(ng-click='removeTag(user, viewConversation.tagged_users)') x
+            form.one_line(ng-submit='addUserTag(user_to_submit, viewConversation)', name='user_tag')
+              button.btn( ng-class="{active : focus_status}",type='submit') assign
+              input(type='text', ng-model='user_to_submit', placeholder='assign a team member', ng-focus='textInputFocus(true)', ng-focus='textInputFocus(false)')
+              {{focus_status}}
+          section
+            h3 Notes:
+            ul.general-list
+              li.note(ng-repeat='comment in viewConversation.comments', ng-animate='\'collapse\'')
+                span(ng-bind='comment.text')
+                br
+                small
+                  | -
+                  span(ng-bind='comment.author')
+            form.one_line(ng-submit='addComment(comment_text, viewConversation.comments)', name='comment_form')
+              button.btn(type='submit') comment
+              input(type='text', ng-model='comment_text')

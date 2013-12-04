@@ -51,9 +51,6 @@
         <hgroup class="object-titles"><a href="#/account/{{accountId}}/campaign/{{campaign.id}}/conversations">
             <h2>@{{campaign.handle}}</h2>
             <h1>{{campaign.title}}</h1></a></hgroup>
-        <div class="object-alerts">
-          <div ng-if="campaign.newCounter != 0" ng-hide="edit_mode" ng-bind="campaign.newCounter" class="alert new_counter"></div>
-        </div>
       </li>
     </ul>
     <button ng-if="archiveExists" ng-click="toggleArchived()" class="btn fadded full_width"><span ng-show="view_archived">hide archived</span><span ng-show="!view_archived">view archived</span></button>

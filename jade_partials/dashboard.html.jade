@@ -42,8 +42,6 @@ header.app_header
           a(href='#/account/{{accountId}}/campaign/{{campaign.id}}/conversations')
             h2 @{{campaign.handle}}
             h1 {{campaign.title}}
-        .object-alerts
-          .alert.new_counter(ng-if='campaign.newCounter != 0', ng-hide='edit_mode', ng-bind='campaign.newCounter')
     button.btn.fadded.full_width(ng-if='archiveExists', ng-click='toggleArchived()')
       span(ng-show='view_archived') hide archived
       span(ng-show='!view_archived') view archived

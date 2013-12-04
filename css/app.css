@@ -312,6 +312,8 @@ i.sup {
   z-index: 900;
   top: 3em;
   text-align: right;
+  font-size: 1.3em;
+  font-weight: 400;
   
   -webkit-transition: all 500ms cubic-bezier(0.230, 1.000, 0.320, 1.000);
   -moz-transition: all 500ms cubic-bezier(0.230, 1.000, 0.320, 1.000);
@@ -646,6 +648,48 @@ nav {
   position: relative;
 }
 
+.grid.three-by-one {
+  display: table;
+  width: 100%;
+  padding: 2rem;
+  table-layout: fixed;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  background-color: #e4e4e4;
+  color: #9c9c9c;
+  border-top: 1px solid #e0e0e0;
+}
+
+.grid.three-by-one h1 {
+  font-size: .8em;
+  margin-bottom: -.5em;
+}
+
+.grid.three-by-one > * {
+  display: table-cell;
+  text-align: left;
+  max-width: 33%;
+  vertical-align: middle;
+}
+
+.grid.three-by-one > :nth-last-child(1) {
+  width: 5em;
+  background-color: rgba(0, 0, 0, 0.08);
+  text-align: center;
+}
+
+@media (max-width: 900px) {
+  .grid.three-by-one {
+    font-size: .8em;
+    padding: .6rem;
+  }
+  
+  .grid.three-by-one > :nth-last-child(2) {
+    display: none;
+  }
+}
+
 .tools_panel_wrapper {
   position: absolute;
   top: 0;
@@ -656,13 +700,15 @@ nav {
 
 .tools_panel {
   position: absolute;
-  top: 0;
+  bottom: 0;
   z-index: 800;
-  width: 90%;
+  width: 100%;
   right: 0;
   border-left: 1px solid rgba(0, 0, 0, 0.16);
-  background-color: #f8f9f8;
+  background-color: #e3e4e3;
 }
+
+
 
 .slideIn_right.ng-enter,
 .slideIn_right.ng-leave {
@@ -675,11 +721,11 @@ nav {
 
 .slideIn_right.ng-enter,
 .slideIn_right.ng-leave.ng-leave-active {
-  transform: translateX(90%);
+  transform: translateY(100%);
 }
 .slideIn_right.ng-leave,
 .slideIn_right.ng-enter.ng-enter-active {
-  transform: translateX(0);
+  transform: translateY(0);
   z-index: 800;
 }
 
@@ -688,7 +734,6 @@ nav {
 }
 
 .notes {
-  background-color: #ffffff;
   padding: 8px;
 }
 
@@ -703,7 +748,7 @@ nav {
 
 .form_response {
   padding: 20px;
-  margin: 20px 0 0;
+  margin: 20px 0 0 4em;
 }
 
 .form_response h2 {
@@ -853,14 +898,13 @@ nav {
 }
 
 .tools_list section {
-  background-color: #ffffff;
   border-bottom: 1px solid #e4e4e4;
   margin: 10px;
   padding-top: 10px;
 }
 
-.general-list {
-  background-color: #ffffff;
+.tools_list li {
+  background-color: #f5f5f5;
 }
 
 .general-list li {
@@ -897,7 +941,9 @@ input[type="text"].inline {
 /* @group Form Stuff */
 
 .form .creator_steps h1 {
-  font-size: 1.4em;
+  font-size: 1.8em;
+  font-weight: 600;
+  color: #343434;
 }
 
 .form .creator_steps p {
@@ -1359,6 +1405,16 @@ fieldset.padded {
   color: inherit;
 }
 
+.app_header .btn.icon.right {
+  color: #6e8a40;
+  background-color: #9dc36a;
+  padding: 0 .4em;
+  height: 2em;
+  margin: .4em;
+  border-radius: 4px;
+  border-bottom: 2px solid #7ca04e;
+}
+
 .edit_header {
   margin-top: 3em;
 }
@@ -1445,6 +1501,7 @@ fieldset.padded {
   min-width: 33.3%;
   padding: 1em 2em;
   margin: 0;
+  font-weight: 400;
   line-height: 1em;
   text-transform: none;
   -webkit-box-sizing: border-box;
@@ -1950,12 +2007,12 @@ textarea {
 }
 
 .profile_pic.jon_hamm {
-  background: url(../images/jon.jpg) center -6px;
-  background-size: 100%;
+  background: url(../images/john.jpg) center -6px / 200%;
+  background-size: 200%;
 }
 
 .profile_pic.john {
-  background: url(../images/john.jpg) center -6px / 200%;
+  background: url(../images/barclays-logo.jpg) -15px 3px / 200%;
   -moz-background-size: 200%;
 }
 
@@ -1971,6 +2028,10 @@ time {
   list-style: none;
   padding: 0 1em;
   margin: 0;
+  width: 100%;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
   background-color: #ffffff;
 }
 
@@ -1980,6 +2041,7 @@ time {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+  display: table;
 }
 
 .object-list h1 {
@@ -1997,19 +2059,24 @@ time {
 }
 
 .object-item > * {
-  display: inline-block;
+  display: table-cell;
   vertical-align: top;
   padding: 1em .1em;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 .object-titles {
   height: 100%;
+  
 }
 
 .list-checkbox {
   position: relative;
   left: -.5em;
   top: .5em;
+  width: 2.5em;
 }
 
 .object-list .checkbox {
@@ -2023,7 +2090,7 @@ time {
 }
 
 .object-list .selected .checkbox {
-  background-color: #4bbf47;
+  background-color: #9ec35e;
   border: none;
   color: #ffffff;
 }
@@ -2321,7 +2388,7 @@ input.object-list-search:focus {
 }
 
 .tools_panel .scroller, .tools_panel .tools_list section, .tools_panel .notes {
-  background-color: #ececec;
+  background-color: transparent;
   color: inherit;
   border: none;
 }
@@ -2341,11 +2408,11 @@ input.object-list-search:focus {
 /* @group Colored Campaign Nav */
 
 .edit {
-  color: #24c213;
+  color: #e01830;
 }
 
 .analytics {
-  color: #6b18e0;
+  color: #24c213;
 }
 
 .feed {
@@ -2357,7 +2424,7 @@ input.object-list-search:focus {
 }
 
 .contacts {
-  color: #e01830;
+  color: #6b18e0;
 }
 
 /* @end */

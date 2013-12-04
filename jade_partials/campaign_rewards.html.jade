@@ -7,7 +7,7 @@
     input(type='text', ng-model='search_query.$', placeholder='search names or secret codes')
     ul.object-list
       li.object-item(ng-repeat='reward in viewCampaign.rewards | filter:search_query')
-        button.push_right.btn(ng-click='claimReward(reward)', ng-class='{claimed: reward.date_claimed != false}') redeem
+        button.btn(ng-click='claimReward(reward)', ng-class='{claimed: reward.date_claimed != false}') redeem
         a(href='#/campaign/{{campaignId}}/rewards/{{reward.id}}')
           h1(ng-bind='reward.title')
           dl

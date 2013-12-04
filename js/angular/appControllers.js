@@ -302,7 +302,8 @@ function multiAccountsCtr($scope, $stateParams, $location, accountData) {
     $scope.handle = "All Handles";
     $scope.campaignTitleList = accountData.getMultiAccountCampaignTitles();
     $scope.archivedCampaignList = {};
-    $scope.array_of_account_ids = ["account01", "account02"];  
+    $scope.array_of_account_ids = ["account01", "account02"]; 
+    $scope.multipleViewCampaigns = true;
   };
 };
 
@@ -960,7 +961,6 @@ function conversationsCtr($scope, $state, $stateParams, $location) {
     });
     
     $scope.comment_text = "";
-    $scope.comment_form.$setPristine();
   };
 
   $scope.focused = false;
